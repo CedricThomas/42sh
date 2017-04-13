@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon Jan  2 15:56:09 2017 Thibaut Cornolti
-** Last update Sat Apr  8 22:02:58 2017 Thibaut Cornolti
+** Last update Thu Apr 13 12:18:19 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -70,8 +70,8 @@ static char	**my_strdup2D(char **ae)
 
 int		main(int ac, char **av, char **ae)
 {
-  char	*gnl;
-  int	ret_value;
+  char		*gnl;
+  int		ret_value;
 
   (void) av;
   (void) ac;

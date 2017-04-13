@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Wed Jan 11 23:26:57 2017 Thibaut Cornolti
-** Last update Sun Apr  9 16:21:27 2017 Thibaut Cornolti
+** Last update Thu Apr 13 12:23:27 2017 Thibaut Cornolti
 */
 
 #include <fcntl.h>
@@ -27,6 +27,16 @@ static void	check_exit(t_ll *ll, char ***ae)
     set_lr(0, ae);
 }
 
+static int	check_cond_token(t_ll *ll, char **ae)
+{
+  int		ret_value;
+
+  ret_value = my_getnbr(my_getenv(ae, "LAST_RETURN"));
+  return ((ll->prev->token != TOK_DPIP && ll->prev->token != TOK_DESP) ||
+	  (ll->prev->token == TOK_DPIP && ret_value) ||
+	  (ll->prev->token == TOK_DESP && !ret_value));
+}
+
 static void	my_sh_run(t_ll *ll, char ***ae)
 {
   char		**argv;
@@ -36,7 +46,7 @@ static void	my_sh_run(t_ll *ll, char ***ae)
     {
       if (redirect_open(ll) < 0)
 	set_lr(my_msg(ll->next->cmd, NULL, -3) + 4, ae);
-      else
+      else if (check_cond_token(ll, *ae))
 	{
 	  if (is_builtin(argv[0]))
 	    builtin(ll->cmd, ae);
@@ -57,7 +67,10 @@ static void	my_sh_pre_run(t_ll *ll, char ***ae)
       {
 	ll->cmd = my_epure_str(ll->cmd);
 	if (ll->prev->token == TOK_PIPE ||
-	    ll->prev->token == TOK_SEPA || !ll->prev->token)
+	    ll->prev->token == TOK_SEPA ||
+	    ll->prev->token == TOK_DPIP ||
+	    ll->prev->token == TOK_DESP ||
+	    !ll->prev->token)
 	  my_sh_run(ll, ae);
 	wait_fork(ll, ae);
 	check_exit(ll, ae);

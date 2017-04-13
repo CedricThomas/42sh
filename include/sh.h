@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Tue Nov 22 10:10:36 2016 Thibaut Cornolti
-** Last update Sat Apr  8 16:07:27 2017 Thibaut Cornolti
+** Last update Thu Apr 13 12:11:18 2017 Thibaut Cornolti
 */
 
 #ifndef SH_H_
@@ -19,7 +19,7 @@ typedef struct	s_ll
 {
   struct s_ll	*prev;
   struct s_ll	*next;
-  char		token;
+  int		token;
   char		*cmd;
   int		pipefd[2];
   int		std_tmp[2];

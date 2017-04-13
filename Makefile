@@ -5,28 +5,29 @@
 ## Login   <thibaut.cornolti@epitech.eu>
 ## 
 ## Started on  Sat Oct 15 22:12:03 2016 Thibaut Cornolti
-## Last update Wed Apr 12 09:14:39 2017 Thibaut Cornolti
+## Last update Thu Apr 13 12:09:56 2017 Thibaut Cornolti
 ##
-SRC	=	main.c		\
-		run.c		\
-		msg.c		\
-		get_env.c	\
-		get_argv.c	\
-		chained.c	\
-		commander.c	\
-		builtin.c	\
-		fct.c		\
-		utils.c		\
-		cat_path.c	\
-		search_path.c	\
-		check.c		\
-		cd.c		\
-		exit.c		\
-		parse.c		\
-		pipe.c		\
-		redirection.c	\
-		tools.c		\
-		redirect_utils.c
+SRC	=	main.c				\
+		core/run.c			\
+		utils/msg.c			\
+		utils/get_env.c			\
+		utils/get_argv.c		\
+		parse/chained.c			\
+		core/commander.c		\
+		builtin/builtin.c		\
+		builtin/fct.c			\
+		utils/utils.c			\
+		path/cat_path.c			\
+		path/search_path.c		\
+		parse/check.c			\
+		builtin/cd.c			\
+		builtin/exit.c			\
+		parse/parse.c			\
+		redirection/pipe.c		\
+		redirection/redirection.c	\
+		utils/tools.c			\
+		parse/get_token.c		\
+		redirection/redirect_utils.c
 
 OBJS	=	$(SRCS:.c=.o)
 
