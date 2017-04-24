@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Tue Mar 14 17:44:12 2017 Thibaut Cornolti
-** Last update Sun Apr  9 13:14:09 2017 Thibaut Cornolti
+** Last update Thu Apr 13 12:14:44 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -14,32 +14,9 @@
 #include "sh.h"
 #include "pars.h"
 
-static char	get_token(char *s)
-{
-  if (*s == ';' || *s == 0)
-    return (TOK_SEPA);
-  else if (*s == '|')
-    return (TOK_PIPE);
-  else if (*s == '>')
-    {
-      if (*(s + 1) == '>')
-	return (TOK_DRDD);
-      else
-	return (TOK_SRDD);
-    }
-  else if (*s == '<')
-    {
-      if (*(s + 1) == '<')
-	return (TOK_DRDG);
-      else
-	return (TOK_SRDG);
-    }
-  return (0);
-}
-
 static void	detect_sepa(t_ll **ll, char **s, int *i)
 {
-  char		tok;
+  int		tok;
 
   if (get_token(*s + *i))
     {
@@ -55,7 +32,8 @@ static void	detect_sepa(t_ll **ll, char **s, int *i)
 	  (*ll)->fork_pid = -1;
 	}
       *s += *i + 1;
-      if (tok == TOK_DRDD || tok == TOK_DRDG)
+      if (tok == TOK_DRDD || tok == TOK_DRDG ||
+	  tok == TOK_DPIP || tok == TOK_DESP)
 	*s += 1;
       *i = -1;
     }
