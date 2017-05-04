@@ -5,12 +5,13 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May  4 21:14:08 2017 Thibaut Cornolti
+** Last update Thu May  4 21:34:54 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
 #include "my.h"
 #include "my_alloc.h"
+#include "my_printf.h"
 
 void		free_syntax(t_syntax **my_syntax)
 {

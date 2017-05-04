@@ -5,11 +5,13 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Fri Mar 24 15:26:37 2017 
-** Last update Thu May  4 21:10:42 2017 Thibaut Cornolti
+** Last update Thu May  4 21:36:11 2017 Thibaut Cornolti
 */
+
 #include <math.h>
 #include <stdlib.h>
 #include "syntax.h"
+#include "my_printf.h"
 
 static t_token	*search_biggest(t_token *start, t_token *end)
 {
@@ -29,7 +31,7 @@ static t_token	*search_biggest(t_token *start, t_token *end)
 
 static void	fill_fct(void *(*fct_create_node[FULL_MAX_TYPES])(t_field *field,
 								  t_token *mid),
-			 void *(*fct_check_error[FULL_MAX_TYPES])(t_field *field,
+			 int (*fct_check_error[FULL_MAX_TYPES])(t_field *field,
 								  t_token *mid))
 {
   fct_create_node[0] = &create_standard_node;
@@ -45,20 +47,20 @@ static void	fill_fct(void *(*fct_create_node[FULL_MAX_TYPES])(t_field *field,
   fct_check_error[2] = NULL;
   fct_check_error[3] = NULL;
   fct_check_error[4] = NULL;
-  fct_check_error[5] = NULL;
+  fct_check_error[5] = &error_pipe_node;
   fct_check_error[6] = NULL;
   fct_check_error[7] = NULL;
 }
 
 static void	show_debug_node(t_token *start, t_token *end)
 {
-  printf("NODE::\n");
+  my_printf("NODE::\n");
   while (start != end)
     {
-      printf("\t%s %d\n", start->token, start->type);
+      my_printf("\t%s %d\n", start->token, start->type);
       start = start->next;
     }
-  printf("------\n");
+  my_printf("------\n");
 }
 
 void		*auto_create_node(void *root, t_token *start, t_token *end)
@@ -67,7 +69,7 @@ void		*auto_create_node(void *root, t_token *start, t_token *end)
   t_field	field;
   t_token	*bigger;
   void		*(*fct_create_node[FULL_MAX_TYPES])(t_field *field, t_token *mid);
-  void		*(*fct_check_error[FULL_MAX_TYPES])(t_field *field, t_token *mid);
+  int		(*fct_check_error[FULL_MAX_TYPES])(t_field *field, t_token *mid);
 
   if (start == end)
     return (NULL);

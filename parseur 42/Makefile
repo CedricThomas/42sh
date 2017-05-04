@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May  4 20:28:35 2017 Thibaut Cornolti
+## Last update Thu May  4 21:32:36 2017 Thibaut Cornolti
 ##
 
 PARSE		=	parsing.c			\
@@ -21,6 +21,7 @@ PARSE		=	parsing.c			\
 			tree/tree.c			\
 			tree/tree_list.c		\
 			error/input_lexer.c		\
+			error/error_pipe_node.c		\
 
 MATCH		=	match.c				\
 			fct/amp.c			\
