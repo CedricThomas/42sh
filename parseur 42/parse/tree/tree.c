@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Fri Mar 24 15:26:37 2017 
-** Last update Thu May  4 17:09:04 2017 
+** Last update Thu May  4 18:11:46 2017 
 */
 #include <math.h>
 #include <stdlib.h>
@@ -31,30 +31,22 @@ static void	fct_fill(void *(*fct[FULL_MAX_TYPES])(void *root,
 						      t_token *start,
 						      t_token *end))
 {
-  /* fct[0] = ; */
-  /* fct[1] = ; */
-  /* fct[2] = ; */
-  /* fct[3] = ; */
-  /* fct[4] = ; */
-  /* fct[5] = ; */
-  /* fct[6] = ; */
-  /* fct[7] = ; */
+  fct[0] = ;
+  fct[1] = ;
+  fct[2] = ;
+  fct[3] = ;
+  fct[4] = ;
+  fct[5] = ;
+  fct[6] = ;
+  fct[7] = ;
 }
 
 static void	*auto_create_node(void *root, t_token *start, t_token *end)
 {
-  /* void		*ret; */
-  /* void		*(*fct[FULL_MAX_TYPES])(void *root, t_token *start, t_token *end); */
+  void		*ret;
+  void		*(*fct[FULL_MAX_TYPES])(void *root, t_token *start, t_token *end);
 
-  /* fill_fct(fct); */
-  /* ret = fct[log2()](root, start, end); */
-  /* return (ret); */
-}
-
-void		*create_tree(void *root, t_token *start, t_token *end)
-{
-  /* void		*new_node; */
-
-  /* new_node = auto_create_node(root, start, end); */
-  /* return (new_node); */
+  fill_fct(fct);
+  ret = fct[log2()](root, start, end);
+  return (ret);
 }

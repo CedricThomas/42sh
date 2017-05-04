@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Thu May  4 16:25:08 2017 
+** Last update Thu May  4 19:16:48 2017 
 */
 
 #ifndef SYNTAX_H_
@@ -50,7 +50,7 @@ typedef struct		s_command
   void			*root;
   void			*left;
   void			*right;
-  struct s_redir	*redir;	
+  struct s_redir	*redir;
   int			fd[3];
   char			**argv;
 }			t_command;
