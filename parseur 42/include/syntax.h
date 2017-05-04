@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Thu May  4 19:16:48 2017 
+** Last update Thu May  4 22:28:05 2017 
 */
 
 #ifndef SYNTAX_H_
@@ -26,15 +26,15 @@
 # define T_LOGIC		(1 << 6)
 # define T_SEPAR		(1 << 7)
 
-# define T_COMMON	(T_ARGS | T_COMMAND | T_FILE)
+# define T_COMMON		(T_ARGS | T_COMMAND | T_FILE)
 
-# define MAX_TYPES	6
-# define FULL_MAX_TYPES	8
+# define MAX_TYPES		6
+# define FULL_MAX_TYPES		8
 
-# define DOUBLE		(1 << 0)
-# define STDOUT		(1 << 1)
-# define STDERROR	(1 << 2)
-# define STDIN		(1 << 3)
+# define DOUBLE			(1 << 0)
+# define STDOUT			(1 << 1)
+# define STDERROR		(1 << 2)
+# define STDIN			(1 << 3)
 
 typedef struct		s_redir
 {

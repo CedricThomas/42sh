@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  2 18:22:24 2017 
-** Last update Wed May  3 13:27:34 2017 
+** Last update Thu May  4 22:30:05 2017 
 */
 #include "syntax.h"
 
@@ -16,14 +16,14 @@ static void	define_args(t_token *token)
   is_arg = 0;
   while (token)
     {
-      if (token->type > T_FLUX)
+      if (token->type >= T_FLUX)
 	is_arg = 0;
-      if (!is_arg && token->type == T_COMMON)
+      if (!is_arg && (token->type & T_COMMON) == token->type)
 	{
 	  token->type = T_COMMAND;
 	  is_arg = 1;
 	}
-      else if (is_arg && token->type == T_COMMON)
+      else if (is_arg && (token->type & T_COMMON) == token->type)
 	token->type = T_ARGS;
       token = token->next;
     }
@@ -37,7 +37,7 @@ static void	define_file(t_token *token)
   while (token && token->next)
     {
       if ((mask & token->type) == token->type &&
-	  token->next->type == T_COMMON)
+	  (token->next->type & T_COMMON) == token->next->type)
 	token->next->type = T_FILE;
       token = token->next;
     }  

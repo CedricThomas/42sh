@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May  4 15:13:23 2017 
+## Last update Thu May  4 22:05:39 2017 
 ##
 
 PARSE		=	parsing.c			\
@@ -13,13 +13,15 @@ PARSE		=	parsing.c			\
 			misc/misc.c			\
 			misc/quote.c			\
 			misc/separators.c		\
+			misc/alloc.c			\
 			lexer/lexer.c			\
 			lexer/list_lexer.c		\
 			shape/shape_str.c		\
 			shape/shape_token.c		\
 			tree/tree.c			\
+			tree/redir_list.c		\
 			tree/tree_list.c		\
-			error/input_lexer.c
+			error/input_lexer.c		\
 
 MATCH		=	match.c				\
 			fct/amp.c			\
@@ -28,17 +30,20 @@ MATCH		=	match.c				\
 			fct/inter.c			\
 			fct/parent.c			\
 			fct/escape.c			\
-			fct/braquet.c
+			fct/braquet.c			\
+
+NODE		=	command_node.c			\
+			standard_node.c			\
 
 MAIN		=	main.c
 
-OBJ		=	$(MAIN:.c=.o) $(addprefix parse/, $(PARSE:.c=.o))  $(addprefix match/, $(MATCH:.c=.o))
+OBJ		=	$(MAIN:.c=.o) $(addprefix parse/, $(PARSE:.c=.o))  $(addprefix match/, $(MATCH:.c=.o)) $(addprefix node/, $(NODE:.c=.o))
 
 NAME		=	default
 
 LIB_F		=	./lib/
 
-LIB		=	-lmy -lmyprintf -lgnl
+LIB		=	-lmy -lmyprintf -lgnl -lalloc
 
 INCLUDE		=	-I./include/
 
@@ -67,6 +72,9 @@ $(NAME): .CMPLIB .SILENT
 .CMPLIB:
 	@echo "$(CYAN)Compiling libmy...$(RES)"
 	@make --no-print-directory -sC lib/my
+	@echo "\t$(GREEN)OK$(RES)$(CYAN)!$(RES)"
+	@echo "$(CYAN)Compiling liballoc...$(RES)"
+	@make --no-print-directory -sC lib/libmalloc
 	@echo "\t$(GREEN)OK$(RES)$(CYAN)!$(RES)"
 	@echo "$(CYAN)Compiling libmyprintf...$(RES)"
 	@make --no-print-directory -sC lib/my_printf

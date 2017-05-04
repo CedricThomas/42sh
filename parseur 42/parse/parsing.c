@@ -5,11 +5,12 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May  4 17:09:21 2017 
+** Last update Thu May  4 21:14:08 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
 #include "my.h"
+#include "my_alloc.h"
 
 void		free_syntax(t_syntax **my_syntax)
 {
@@ -45,12 +46,19 @@ t_syntax		*get_syntax()
 t_node			*parse_cmd(t_syntax *my_syntax, char *str)
 {
   t_token		*tokens;
-  t_node		*root;
+  void			*root;
 
   if ((tokens = get_token(str, my_syntax)) == NULL)
     return (NULL);
   my_show_token(tokens);
-  root = create_tree(NULL, tokens, NULL);
+  if ((root = auto_create_node(NULL, tokens, NULL)) == NULL)
+    {
+      my_free_tree(&root);
+      my_printf("error\n");
+      return (NULL);
+    }
+  show_nodes(root, 0, 0);
   my_free_token(&tokens);
-  return (root);
+  my_free_tree(&root);
+  return (NULL);
 }
