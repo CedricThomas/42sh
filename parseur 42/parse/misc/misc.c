@@ -5,11 +5,20 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar  1 15:05:53 2017 
-** Last update Tue May  2 20:37:33 2017 
+** Last update Thu May  4 19:33:29 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
 #include "my.h"
+
+int             my_log2(int log)
+{
+  int           i;
+
+  i = -1;
+  while (1 << ++i < log);
+  return (i);
+}
 
 void	*my_free_null(void *ptr)
 {

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar  1 15:08:23 2017 
-** Last update Thu May  4 14:01:50 2017 
+** Last update Thu May  4 20:32:33 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -35,8 +35,6 @@ static int	match_pattern(char *str, char **pattern, int *len)
 	  }
       free(current);
     }
-  if (ret)
-    printf("len : %d\n", *len);
   return (ret);
 }
 
@@ -99,12 +97,10 @@ char	*shape_separator(char *str, char **sep_list)
   if (str == NULL || sep_list == NULL)
     return (NULL);
   size = my_epur_size(str, sep_list);
-  printf("old : %d, new : %d\n", my_strlen(str), size);
   if ((epured = malloc(sizeof(char) * (size + 1))) == NULL)
     return (NULL);
   my_memset(epured, ' ', size);
   my_cpy(str, epured, sep_list);
   free(str);
-  printf("epured : %s\n",epured);
   return (epured);
 }

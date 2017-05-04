@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Thu May  4 16:25:08 2017 
+** Last update Thu May  4 20:45:50 2017 Thibaut Cornolti
 */
 
 #ifndef SYNTAX_H_
@@ -50,7 +50,7 @@ typedef struct		s_command
   void			*root;
   void			*left;
   void			*right;
-  struct s_redir	*redir;	
+  struct s_redir	*redir;
   int			fd[3];
   char			**argv;
 }			t_command;
@@ -79,6 +79,13 @@ typedef struct		s_token
   struct s_token	*next;
 }			t_token;
 
+typedef struct		s_field
+{
+  t_token		*root;
+  t_token		*start;
+  t_token		*end;
+}			t_field;
+
 /*
 **MAIN
 */
@@ -104,6 +111,13 @@ t_syntax	syntax_create(int weight, int size, ...);
 
 void		*my_free_null(void *ptr);
 int		my_putfd(int fd, char *str);
+int		my_log2(int log);
+
+/*
+**alloc.c
+*/
+
+char		*alloc_strdup(char *);
 
 /*
 **separators.c
@@ -144,8 +158,6 @@ int		my_show_token(t_token *ll);
 **tree_list.c
 */
 void		show_nodes(t_node *root, int depth, int side);
-void		*create_basic_node(t_node *root, t_token *token);
-void		my_free_node(t_node **root);
 void		my_free_tree(void **root);
 
 /*
@@ -154,6 +166,14 @@ void		my_free_tree(void **root);
 
 void		*create_tree(void *root,
 			     t_token *start, t_token *end);
+
+/*
+**node
+*/
+
+void		*auto_create_node(void *root, t_token *start, t_token *end);
+void		*create_standard_node(t_field *field, t_token *mid);
+void		*create_command_node(t_field *field, t_token *mid);
 
 /*
 **ERROR
