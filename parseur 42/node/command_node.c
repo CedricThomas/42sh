@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May  4 18:11:31 2017 Thibaut Cornolti
-** Last update Fri May  5 10:37:28 2017 
+** Last update Fri May  5 11:09:20 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -43,9 +43,10 @@ static char	**fill_argv(t_field *field)
   i = -1;
   while (tmp != field->end)
     {
-      if (field->start->type == T_COMMAND ||
-	  field->start->type == T_ARGS)
+      if (tmp->type == T_COMMAND ||
+	  tmp->type == T_ARGS)
 	{
+	  printf("ARGV:%s\n", tmp->token);
 	  if ((res[++i] = alloc_strdup(tmp->token)) == NULL)
 	    exit(84);
 	  my_tag_alloc(res[i], "tree", 0);
