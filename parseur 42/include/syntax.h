@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Fri May  5 11:18:50 2017 
+** Last update Fri May  5 11:20:32 2017 Thibaut Cornolti
 */
 
 #ifndef SYNTAX_H_
@@ -189,6 +189,7 @@ void		*create_command_node(t_field *field, t_token *mid);
 */
 
 int		error_pipe_node(t_field *field, t_token *mid);
+int		error_command_node(t_field *field, t_token *mid);
 
 /*
 **input_lexer.c
