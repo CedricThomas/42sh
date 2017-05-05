@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Fri May  5 11:18:50 2017 
+** Last update Fri May  5 11:37:14 2017 
 */
 
 #ifndef SYNTAX_H_
@@ -164,6 +164,7 @@ void		my_free_tree(void **root);
 **redir_list.c
 */
 int             add_redir_list(t_redir **my_redir, char *file, char *type);
+void		show_redir(t_redir *redir);
 
 /*
 **tree.c

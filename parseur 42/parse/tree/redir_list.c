@@ -1,14 +1,15 @@
 /*
 ** redir_list.c for parseur 42 in /home/cedric/delivery/PSU/PSU_2016_42sh/parseur 42
-** 
+**
 ** Made by Cédric THOMAS
 ** Login   <cedric.thomas@epitech.eu>
-** 
-** Started on  Thu May  4 21:28:56 2017 
-** Last update Thu May  4 22:07:21 2017 
+**
+** Started on  Thu May  4 21:28:56 2017
+** Last update Fri May  5 11:38:02 2017 
 */
 #include <stdlib.h>
 #include "my_alloc.h"
+#include "my_printf.h"
 #include "syntax.h"
 #include "match.h"
 
@@ -31,6 +32,26 @@ static int	get_tag(char *type)
       advanced_match(type, "&{>>, >}"))
     flag += STDOUT;
   return (flag);
+}
+
+void		show_redir(t_redir *redir)
+{
+  int		tag;
+
+  while (redir)
+    {
+      tag = redir->tag;
+      if (tag & DOUBLE)
+	my_printf("DOUBLE\n");
+      if (tag & STDOUT)
+	my_printf("OUT\n");
+      if (tag & STDERROR)
+	my_printf("ERROR\n");
+      if (tag & STDIN)
+	my_printf("INPUT\n");
+      redir = redir->next;
+      my_printf("|\n->%s\n", redir->file);
+    }
 }
 
 int		add_redir_list(t_redir **my_redir, char *file, char *type)
