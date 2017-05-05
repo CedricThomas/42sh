@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Fri Mar 24 15:04:43 2017 
-** Last update Thu May  4 20:59:21 2017 Thibaut Cornolti
+** Last update Fri May  5 10:41:34 2017 
 */
 
 #include <stdlib.h>
@@ -23,18 +23,29 @@ static void	pad_me(int depth)
     my_putchar('\t');
 }
 
+static void	line_wordtab(char **tab)
+{
+  int		i;
+
+  if (!tab)
+    return ;
+  my_printf(", argv :");
+  i = -1;
+  while (tab[++i])
+    my_printf(" %s", tab[i]);
+}
+
 void	show_nodes(t_node *root, int depth, int side)
 {
+  if (!root)
+    return ;
   if (root->right != NULL)
     show_nodes((t_node *)root->right, depth + 1, 2);
   pad_me(depth);
-  my_printf("%d: [%d] %s\n", side, root->type, root->data);
-  /* if (root->type == T_COMMAND) */
-  /*   { */
-  /*     my_printf(); */
-      
-
-  /*   } */
+  my_printf("%d: [%d] %s", side, root->type, root->data);
+  if (root->type == T_COMMAND)
+    line_wordtab(((t_command *)root)->argv);
+  my_printf("\n");
   if (root->left != NULL)
     show_nodes((t_node *)root->left, depth + 1, 1);
 }

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  2 18:22:24 2017 
-** Last update Thu May  4 22:30:05 2017 
+** Last update Fri May  5 10:09:01 2017 
 */
 #include "syntax.h"
 
@@ -18,12 +18,12 @@ static void	define_args(t_token *token)
     {
       if (token->type >= T_FLUX)
 	is_arg = 0;
-      if (!is_arg && (token->type & T_COMMON) == token->type)
+      if (!is_arg && token->type == T_COMMON)
 	{
 	  token->type = T_COMMAND;
 	  is_arg = 1;
 	}
-      else if (is_arg && (token->type & T_COMMON) == token->type)
+      else if (is_arg && token->type == T_COMMON)
 	token->type = T_ARGS;
       token = token->next;
     }

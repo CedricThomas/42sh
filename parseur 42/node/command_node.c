@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May  4 18:11:31 2017 Thibaut Cornolti
-** Last update Thu May  4 22:11:48 2017 
+** Last update Fri May  5 10:37:28 2017 
 */
 
 #include <stdlib.h>
@@ -56,12 +56,17 @@ static char	**fill_argv(t_field *field)
   return (res);
 }
 
-static t_redir	*get_redir(t_token *start, t_token *end, )
+static t_redir	*get_redir(t_token *start, t_token *end)
 {
-  
-  
-  
-  
+  t_redir	*redir;
+
+  redir = NULL;
+  /* while (start != end) */
+  /*   { */
+      
+      
+  /*   } */
+  return (redir);
 }
 
 void		*create_command_node(t_field *field, t_token *mid)
@@ -81,6 +86,6 @@ void		*create_command_node(t_field *field, t_token *mid)
   if ((new_node->path = alloc_strdup(mid->token)) == NULL)
     exit(84);
   my_tag_alloc(new_node->path, "tree", 0);
-  
+  get_redir(field->start, field->end);
   return (new_node);
 }

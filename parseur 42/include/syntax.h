@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Thu May  4 22:34:43 2017 
+** Last update Fri May  5 09:46:21 2017 
 */
 
 #ifndef SYNTAX_H_
@@ -19,22 +19,22 @@
 
 # define T_ARGS			(1 << 0)
 # define T_FILE			(1 << 1)
-# define T_FLUX_REDIR_OUT	(1 << 2)
-# define T_FLUX_REDIR_IN	(1 << 3)
-# define T_COMMAND		(1 << 4)
+# define T_COMMAND		(1 << 2)
+# define T_FLUX_REDIR_OUT	(1 << 3)
+# define T_FLUX_REDIR_IN	(1 << 4)
 # define T_FLUX			(1 << 5)
 # define T_LOGIC		(1 << 6)
 # define T_SEPAR		(1 << 7)
 
-# define T_COMMON		(T_ARGS | T_COMMAND | T_FILE)
+# define T_COMMON	(T_ARGS | T_COMMAND | T_FILE)
 
-# define MAX_TYPES		6
-# define FULL_MAX_TYPES		8
+# define MAX_TYPES	6
+# define FULL_MAX_TYPES	8
 
-# define DOUBLE			(1 << 0)
-# define STDOUT			(1 << 1)
-# define STDERROR		(1 << 2)
-# define STDIN			(1 << 3)
+# define DOUBLE		(1 << 0)
+# define STDOUT		(1 << 1)
+# define STDERROR	(1 << 2)
+# define STDIN		(1 << 3)
 
 typedef struct		s_redir
 {
@@ -79,6 +79,13 @@ typedef struct		s_token
   struct s_token	*next;
 }			t_token;
 
+typedef struct		s_field
+{
+  t_token		*root;
+  t_token		*start;
+  t_token		*end;
+}			t_field;
+
 /*
 **MAIN
 */
@@ -104,6 +111,13 @@ t_syntax	syntax_create(int weight, int size, ...);
 
 void		*my_free_null(void *ptr);
 int		my_putfd(int fd, char *str);
+int		my_log2(int log);
+
+/*
+**alloc.c
+*/
+
+char		*alloc_strdup(char *);
 
 /*
 **separators.c
@@ -144,8 +158,6 @@ int		my_show_token(t_token *ll);
 **tree_list.c
 */
 void		show_nodes(t_node *root, int depth, int side);
-void		*create_basic_node(t_node *root, t_token *token);
-void		my_free_node(t_node **root);
 void		my_free_tree(void **root);
 
 /*
@@ -154,6 +166,14 @@ void		my_free_tree(void **root);
 
 void		*create_tree(void *root,
 			     t_token *start, t_token *end);
+
+/*
+**node
+*/
+
+void		*auto_create_node(void *root, t_token *start, t_token *end);
+void		*create_standard_node(t_field *field, t_token *mid);
+void		*create_command_node(t_field *field, t_token *mid);
 
 /*
 **ERROR
