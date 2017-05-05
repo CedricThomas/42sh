@@ -4,7 +4,7 @@
 ** Made by 
 ** Login   <cedric.thomas@epitech.eu>
 ** 
-** Last update Fri May  5 10:42:49 2017 
+** Last update Fri May  5 11:15:43 2017 Thibaut Cornolti
 ** Last update Thu May  4 21:36:11 2017 Thibaut Cornolti
 */
 
@@ -72,10 +72,10 @@ static void	fill_fct(void *(*fct_create_node[FULL_MAX_TYPES])
   
   fct_check_error[0] = NULL;
   fct_check_error[1] = NULL;
-  fct_check_error[2] = NULL;
+  fct_check_error[2] = &error_command_node;
   fct_check_error[3] = NULL;
   fct_check_error[4] = NULL;
-  fct_check_error[5] = NULL;//&error_pipe_node;
+  fct_check_error[5] = &error_pipe_node;
   fct_check_error[6] = NULL;
   fct_check_error[7] = NULL;
 }
