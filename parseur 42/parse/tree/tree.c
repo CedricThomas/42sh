@@ -4,7 +4,7 @@
 ** Made by 
 ** Login   <cedric.thomas@epitech.eu>
 ** 
-** Last update Fri May  5 11:12:17 2017 
+** Last update Fri May  5 11:42:24 2017 
 ** Last update Thu May  4 21:36:11 2017 Thibaut Cornolti
 */
 
@@ -72,7 +72,7 @@ static void	fill_fct(void *(*fct_create_node[FULL_MAX_TYPES])
   
   fct_check_error[0] = NULL;
   fct_check_error[1] = NULL;
-  fct_check_error[2] = NULL;
+  fct_check_error[2] = &error_command_node;
   fct_check_error[3] = NULL;
   fct_check_error[4] = NULL;
   fct_check_error[5] = &error_pipe_node;
@@ -109,11 +109,7 @@ void		*auto_create_node(void *root, t_token *start, t_token *end)
   field.start = start;
   field.end = end;
   if (!fct_check_error[my_log2(bigger->type)] ||
-      !fct_check_error[my_log2(bigger->type)](&field, bigger))
-    {
-      printf("bigger : %s, index : %d\n", bigger->token, my_log2(bigger->type));
-      
-      ret = fct_create_node[my_log2(bigger->type)](&field, bigger);
-    }
+      !fct_check_error[my_log2(bigger->type)](&field, bigger))      
+    ret = fct_create_node[my_log2(bigger->type)](&field, bigger);
   return (ret);
 }
