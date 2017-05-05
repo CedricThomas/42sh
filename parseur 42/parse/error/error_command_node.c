@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May  4 21:26:36 2017 Thibaut Cornolti
-** Last update Fri May  5 13:37:56 2017 Thibaut Cornolti
+** Last update Fri May  5 13:41:52 2017 Thibaut Cornolti
 */
 
 #include "syntax.h"
@@ -24,14 +24,22 @@ static int	check_command(t_token *start, t_token *end,
 
 static int	check_file(t_token *start, t_token *end)
 {
+  int		already_check;
+
+  already_check = 0;
   while (start != end)
     {
+      if ((start->type == T_FLUX_REDIR_OUT ||
+	   start->type == T_FLUX_REDIR_IN) &&
+	  already_check & start->type)
+	return (1);
       if ((start->type == T_FLUX_REDIR_OUT ||
 	   start->type == T_FLUX_REDIR_IN) &&
 	  (!start->next ||
 	   start->next == end ||
 	   start->next->type != T_FILE))
 	return (1);
+      already_check |= start->type;
       start = start->next;
     }
   return (0);
