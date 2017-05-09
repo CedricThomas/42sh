@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Tue May  9 14:40:23 2017 Thibaut Cornolti
-** Last update Tue May  9 15:23:19 2017 Thibaut Cornolti
+** Last update Tue May  9 15:24:44 2017 Thibaut Cornolti
 */
 
 #include <sys/types.h>
@@ -49,7 +49,11 @@ int		double_redir_input(char *end)
   int		pipefd[2];
   char		*gnl;
 
-  if (pipe(pipefd));
+  if (pipe(pipefd) < 0)
+    {
+      perror("Pipe error");
+      return (-1);
+    }
   my_putstr("? ");
   while ((gnl = get_next_line(0)))
     {
