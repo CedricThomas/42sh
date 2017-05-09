@@ -5,13 +5,17 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Tue May  9 14:40:23 2017 Thibaut Cornolti
-** Last update Tue May  9 15:17:26 2017 Thibaut Cornolti
+** Last update Tue May  9 15:23:19 2017 Thibaut Cornolti
 */
 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdio.h>
+#include "my.h"
+#include "get_next_line.h"
+#include "syntax.h"
 
 int		redir_output(char *file)
 {
@@ -43,6 +47,7 @@ int		redir_input(char *file)
 int		double_redir_input(char *end)
 {
   int		pipefd[2];
+  char		*gnl;
 
   if (pipe(pipefd));
   my_putstr("? ");
