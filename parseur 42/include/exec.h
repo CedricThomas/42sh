@@ -5,12 +5,13 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Tue May  9 12:53:04 2017 
+** Last update Tue May  9 15:40:55 2017 
 */
 #ifndef EXEC_H_
 # define EXEC_H_
 
 # define BUILTINS_NB	5
+# define REDIR_NB	4
 
 typedef struct		s_status
 {
@@ -69,5 +70,13 @@ char	*getkey(char **ae, char *key, int dup);
 int	auto_select(t_node *root, t_status *status, t_info *info);
 
 int	exec_cmd(t_node *root, t_status *status, t_info *info);
+
+/*
+**REDIR
+*/
+int	redir_output(char *file);
+int	double_redir_output(char *file);
+int	redir_input(char *file);
+int	double_redir_input(char *file);
 
 #endif /* !EXEC_H_ */

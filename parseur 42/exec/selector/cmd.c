@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Tue May  9 13:17:26 2017 
+** Last update Tue May  9 15:39:45 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -24,5 +24,6 @@ int		exec_cmd(t_node *root, t_status *status, t_info *info)
   
   
   
-  close_redir(root);
+  /* close_redir(root); */
+  return (0);
 }

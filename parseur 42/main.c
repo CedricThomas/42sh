@@ -5,8 +5,9 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May  9 12:54:50 2017 
+** Last update Tue May  9 14:25:59 2017 
 */
+#include <stdlib.h>
 #include "my.h"
 #include "get_next_line.h"
 #include "syntax.h"

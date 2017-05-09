@@ -5,11 +5,12 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Wed Jan  4 16:06:24 2017 Cédric Thomas
-** Last update Tue May  9 11:17:52 2017 
+** Last update Tue May  9 14:28:40 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
 #include "my.h"
+#include "syntax.h"
 #include "exec.h"
 
 static int	getkeyindex(char **ae, char *key)
