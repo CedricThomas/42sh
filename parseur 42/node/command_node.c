@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May  4 18:11:31 2017 Thibaut Cornolti
-** Last update Fri May  5 11:20:50 2017 
+** Last update Fri May  5 12:55:08 2017 
 */
 
 #include <stdlib.h>
@@ -46,7 +46,6 @@ static char	**fill_argv(t_field *field)
       if (tmp->type == T_COMMAND ||
 	  tmp->type == T_ARGS)
 	{
-	  printf("ARGV:%s\n", tmp->token);
 	  if ((res[++i] = alloc_strdup(tmp->token)) == NULL)
 	    exit(84);
 	  my_tag_alloc(res[i], "tree", 0);
@@ -64,7 +63,8 @@ static t_redir	*get_redir(t_token *start, t_token *end)
   redir = NULL;
   while (start != end)
     {
-      if (start->next != end)
+      if (start->next != end &&
+	  (start->type & (T_FLUX_REDIR_OUT | T_FLUX_REDIR_IN)) == start->type)
 	add_redir_list(&redir, start->next->token, start->token);
       start = start->next;
     }
@@ -88,6 +88,6 @@ void		*create_command_node(t_field *field, t_token *mid)
   if ((new_node->path = alloc_strdup(mid->token)) == NULL)
     exit(84);
   my_tag_alloc(new_node->path, "tree", 0);
-  get_redir(field->start, field->end);
+  new_node->redir = get_redir(field->start, field->end);
   return (new_node);
 }

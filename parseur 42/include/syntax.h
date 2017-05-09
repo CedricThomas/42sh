@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Fri May  5 11:42:44 2017 
+** Last update Sun May  7 16:27:31 2017 
 */
 
 #ifndef SYNTAX_H_
@@ -28,8 +28,9 @@
 
 # define T_COMMON	(T_ARGS | T_COMMAND | T_FILE)
 
-# define MAX_TYPES	6
 # define FULL_MAX_TYPES	8
+# define MAX_TYPES	FULL_MAX_TYPES - 2
+# define TREE_TYPES	MAX_TYPES - 2
 
 # define DOUBLE		(1 << 0)
 # define STDOUT		(1 << 1)
@@ -50,10 +51,20 @@ typedef struct		s_command
   void			*root;
   void			*left;
   void			*right;
-  struct s_redir	*redir;
   int			fd[3];
+  struct s_redir	*redir;
   char			**argv;
 }			t_command;
+
+typedef struct		s_pipe
+{
+  char			*data;
+  int			type;
+  void			*root;
+  void			*left;
+  void			*right;
+  int			fd[3];
+}			t_pipe;
 
 typedef struct		s_node
 {
@@ -180,6 +191,7 @@ void		*create_tree(void *root,
 void		*auto_create_node(void *root, t_token *start, t_token *end);
 void		*create_standard_node(t_field *field, t_token *mid);
 void		*create_command_node(t_field *field, t_token *mid);
+void		*create_pipe_node(t_field *field, t_token *mid);
 
 /*
 **ERROR

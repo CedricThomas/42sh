@@ -5,8 +5,14 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Fri May  5 11:36:04 2017 Thibaut Cornolti
+## Last update Tue May  9 11:27:23 2017 
 ##
+
+EXEC		=	auto_selector.c			\
+			setup/info.c			\
+			env/env.c			\
+			env/key.c			\
+			misc/tab.c
 
 PARSE		=	parsing.c			\
 			misc/tab.c			\
@@ -36,10 +42,15 @@ MATCH		=	match.c				\
 
 NODE		=	command_node.c			\
 			standard_node.c			\
+			pipe_node.c			\
 
 MAIN		=	main.c
 
-OBJ		=	$(MAIN:.c=.o) $(addprefix parse/, $(PARSE:.c=.o))  $(addprefix match/, $(MATCH:.c=.o)) $(addprefix node/, $(NODE:.c=.o))
+OBJ		=	$(MAIN:.c=.o)
+OBJ		+=	$(addprefix parse/, $(PARSE:.c=.o))
+OBJ		+=	$(addprefix match/, $(MATCH:.c=.o))
+OBJ		+=	$(addprefix node/, $(NODE:.c=.o))
+OBJ		+=	$(addprefix exec/, $(EXEC:.c=.o))
 
 NAME		=	default
 
