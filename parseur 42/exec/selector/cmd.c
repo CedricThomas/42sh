@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Tue May  9 15:39:45 2017 
+** Last update Tue May  9 16:48:57 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -19,11 +19,7 @@ int		exec_cmd(t_node *root, t_status *status, t_info *info)
 
   cmd = (t_command *)root;
   load_redir(cmd);
-  
-  
-  
-  
-  
-  /* close_redir(root); */
+  my_dup(cmd, save);
+  my_undup(save);
   return (0);
 }

@@ -5,14 +5,14 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Tue May  9 15:40:55 2017 
+** Last update Tue May  9 16:50:54 2017 
 */
 #ifndef EXEC_H_
 # define EXEC_H_
 
 # define BUILTINS_NB	5
 # define REDIR_NB	4
-
+ 
 typedef struct		s_status
 {
   unsigned int		last;
@@ -31,7 +31,7 @@ typedef struct		s_info
 typedef struct		s_exec_fct
 {
   int                   type;
-  int                  (*fct)(void *root, t_status *status, t_info *info);
+  int                  (*fct)(t_node *root, t_status *status, t_info *info);
 }			t_exec_fct;
 
 /*
@@ -64,7 +64,7 @@ char	**deletekey(char **ae, char *key, int freeit);
 char	*getkey(char **ae, char *key, int dup);
 
 /*
-**EXEC SELECTOR
+**EXEC/SELECTOR
 */
 
 int	auto_select(t_node *root, t_status *status, t_info *info);
@@ -72,11 +72,16 @@ int	auto_select(t_node *root, t_status *status, t_info *info);
 int	exec_cmd(t_node *root, t_status *status, t_info *info);
 
 /*
-**REDIR
+**SELECTOR/CMD
 */
+int	load_redir(t_command *cmd);
+
 int	redir_output(char *file);
 int	double_redir_output(char *file);
 int	redir_input(char *file);
 int	double_redir_input(char *file);
+
+void	my_undup(int save[3]);
+void	my_dup(t_command *cmd, int save[3]);
 
 #endif /* !EXEC_H_ */
