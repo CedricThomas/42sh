@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Tue May  9 14:40:23 2017 Thibaut Cornolti
-** Last update Tue May  9 15:24:44 2017 Thibaut Cornolti
+** Last update Tue May  9 17:54:04 2017 
 */
 
 #include <sys/types.h>
@@ -51,17 +51,19 @@ int		double_redir_input(char *end)
 
   if (pipe(pipefd) < 0)
     {
-      perror("Pipe error");
+      my_puterror("Can't make pipe.\n");
       return (-1);
     }
-  my_putstr("? ");
+  if (isatty(0))
+    my_putstr("? ");
   while ((gnl = get_next_line(0)))
     {
       if (my_strcmp(gnl, end))
 	{
 	  my_putfd(pipefd[1], gnl);
 	  my_putfd(pipefd[1], "\n");
-	  my_putstr("? ");
+	  if (isatty(0))
+	    my_putstr("? ");
 	}
     }
   close(pipefd[1]);

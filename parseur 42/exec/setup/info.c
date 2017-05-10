@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Tue May  9 11:20:42 2017 
+** Last update Tue May  9 20:54:22 2017 
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -30,7 +30,7 @@ t_info		*get_info(char **env)
     return (NULL);
   if ((my_info->env = tab_dup(env)) == NULL)
     return (NULL);
-  my_info->last = 0;
+  my_info->exit_value = 0;
   if ((temp = getkey_pwd()) == NULL)
     return (NULL);
   if (changekey(my_info->env, "PWD", temp, 0))
@@ -42,6 +42,7 @@ t_info		*get_info(char **env)
     return (NULL);
   if (changekey(my_info->env, "HOST", temp, 0))
     my_info->env = addkey(my_info->env, "HOST", temp, 0);
+  free(temp);
   get_builtins(my_info);
   return (my_info);
 }

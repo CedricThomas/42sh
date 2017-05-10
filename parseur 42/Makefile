@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Tue May  9 16:32:18 2017 
+## Last update Tue May  9 21:08:34 2017 
 ##
 
 EXEC		=	auto_selector.c			\
@@ -13,6 +13,8 @@ EXEC		=	auto_selector.c			\
 			selector/cmd/redirections.c	\
 			selector/cmd/auto_redir.c	\
 			selector/cmd/dup.c		\
+			status/list_status.c		\
+			status/wait.c			\
 			setup/info.c			\
 			env/env.c			\
 			env/key.c			\

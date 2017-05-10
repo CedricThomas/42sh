@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 16:12:11 2017 
-** Last update Tue May  9 16:35:53 2017 
+** Last update Tue May  9 17:15:39 2017 
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -25,6 +25,7 @@ void	my_undup(int save[3])
 	    exit(84);
 	  close(save[i]);
 	}
+      i += 1;
     }
 }
 

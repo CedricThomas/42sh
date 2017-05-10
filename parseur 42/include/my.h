@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Thu Oct 13 11:14:10 2016 Cédric Thomas
-** Last update Wed Apr 19 12:03:36 2017 
+** Last update Tue May  9 18:01:39 2017 
 */
 
 #ifndef MY_H_
@@ -49,7 +49,7 @@ char		**my_split(char *str, char sep);
 char		*my_strdup(char *src);
 char		*my_strcatdup(char *s1, char *s2, int freeit);
 char		*convert_base(char *nbr, char *base_from, char *base_to);
-void		my_memset(char *, int, int);
+void		my_memset(void *, int, int);
 int		is_in(char c, char *str);
 int		is_nb(char c);
 void		free_tab(char **mtab);

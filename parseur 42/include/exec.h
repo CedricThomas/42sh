@@ -5,28 +5,40 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Tue May  9 16:50:54 2017 
+** Last update Tue May  9 21:03:44 2017 
 */
 #ifndef EXEC_H_
 # define EXEC_H_
 
+# define PIPELINE		(1 << 0)
+# define FORK			(1 << 1)
+
 # define BUILTINS_NB	5
 # define REDIR_NB	4
- 
-typedef struct		s_status
-{
-  unsigned int		last;
-  int			exit;
-}			t_status;
 
 typedef struct		s_info
 {
   char			*builtins[BUILTINS_NB];
   char			**env;
-  unsigned int		last;
+  unsigned int		exit_value;
   char			*old_pwd;
   char			*pwd;
 }			t_info;
+
+typedef struct          s_exit
+{
+  int                   exit;
+  int                   pid;
+  struct s_exit         *next;
+}                       t_exit;
+
+typedef struct		s_status
+{
+  unsigned int		exit_value;
+  int			exit;
+  int			status;
+  struct s_exit         *exit_list;
+}			t_status;
 
 typedef struct		s_exec_fct
 {
@@ -37,6 +49,7 @@ typedef struct		s_exec_fct
 /*
 **MISC
 */
+int		exist_in_tab(char *str, char **tab);
 char		**tab_dup(char **tab);
 
 /*
@@ -64,7 +77,7 @@ char	**deletekey(char **ae, char *key, int freeit);
 char	*getkey(char **ae, char *key, int dup);
 
 /*
-**EXEC/SELECTOR
+**SELECTOR
 */
 
 int	auto_select(t_node *root, t_status *status, t_info *info);
@@ -83,5 +96,28 @@ int	double_redir_input(char *file);
 
 void	my_undup(int save[3]);
 void	my_dup(t_command *cmd, int save[3]);
+
+/*
+**BUILTINS
+*/
+
+int	my_put_list_exit(t_exit **ll, int pid, int last);
+void	set_exit_value(t_exit *ll, int pid, int exitval);
+void	show_exit_status(t_exit *ll);
+int	my_del_exit(t_exit **ll);
+
+/*
+**STATUS
+*/
+
+void	auto_wait(t_status *status, t_info *info);
+
+/*
+**list
+*/
+int	my_put_list_exit(t_exit **ll, int pid, int last);
+void	set_exit_value(t_exit *ll, int pid, int exitval);
+void	show_exit_status(t_exit *ll);
+int	my_del_exit(t_exit **ll);
 
 #endif /* !EXEC_H_ */

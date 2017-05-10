@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:37:36 2017 
-** Last update Tue May  9 15:54:16 2017 Thibaut Cornolti
+** Last update Tue May  9 18:28:31 2017 
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -19,8 +19,8 @@ int		exist_in_tab(char *str, char **tab)
   i = -1;
   while (tab[++i])
     if (!my_strcmp(str, tab[i]))
-      return (1);
-  return (0);
+      return (i);
+  return (-1);
 }
 
 char		**tab_dup(char **tab)
