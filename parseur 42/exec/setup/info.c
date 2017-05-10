@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Tue May  9 20:54:22 2017 
+** Last update Wed May 10 13:26:11 2017 
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -19,6 +19,7 @@ static void	get_builtins(t_info *my_info)
   my_info->builtins[2] = my_strdup("setenv");
   my_info->builtins[3] = my_strdup("unsetenv");
   my_info->builtins[4] = my_strdup("env");
+  my_info->builtins[5] = NULL;
 }
 
 t_info		*get_info(char **env)

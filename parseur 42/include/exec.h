@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Tue May  9 21:03:44 2017 
+** Last update Wed May 10 13:26:22 2017 
 */
 #ifndef EXEC_H_
 # define EXEC_H_
@@ -18,7 +18,7 @@
 
 typedef struct		s_info
 {
-  char			*builtins[BUILTINS_NB];
+  char			*builtins[BUILTINS_NB + 1];
   char			**env;
   unsigned int		exit_value;
   char			*old_pwd;
