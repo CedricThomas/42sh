@@ -5,13 +5,14 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Wed May 10 13:26:22 2017 
+** Last update Wed May 10 22:48:00 2017 
 */
 #ifndef EXEC_H_
 # define EXEC_H_
 
-# define PIPELINE		(1 << 0)
-# define FORK			(1 << 1)
+# define PIPELINE	(1 << 0)
+# define LEFT_PIPE	(1 << 1)
+# define RIFHT_PIPE	(1 << 2)
 
 # define BUILTINS_NB	5
 # define REDIR_NB	4
@@ -37,7 +38,7 @@ typedef struct		s_status
   unsigned int		exit_value;
   int			exit;
   int			status;
-  struct s_exit         *exit_list;
+  struct s_exit		*exit_list;
 }			t_status;
 
 typedef struct		s_exec_fct
@@ -98,6 +99,11 @@ void	my_undup(int save[3]);
 void	my_dup(t_command *cmd, int save[3]);
 
 /*
+**EXEC TYPES
+*/
+void	simple_exec(t_command *cmd, t_status *status, t_info *info);
+
+/*
 **BUILTINS
 */
 
@@ -111,7 +117,8 @@ int	my_del_exit(t_exit **ll);
 */
 
 void	auto_wait(t_status *status, t_info *info);
-
+int	my_fork(t_command *cmd, t_status *status, t_info *info,
+		void (*fct)(t_command *cmd, t_status *status, t_info *info));
 /*
 **list
 */

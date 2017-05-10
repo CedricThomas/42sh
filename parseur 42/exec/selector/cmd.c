@@ -5,44 +5,51 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Wed May 10 13:22:15 2017 
+** Last update Wed May 10 22:42:09 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
 #include "syntax.h"
 #include "exec.h"
 
-static void	fill_builtins(int (*fct[BUILTINS_NB])(t_command *cmd,
-						      t_status *status,
-						      t_info *info))
+static void	(*builtins[BUILTINS_NB])(t_command *cmd,
+					    t_status *status,
+					    t_info *info) = 
 {
-  fct[0] = NULL;
-  fct[1] = NULL;  
-  fct[2] = NULL;
-  fct[3] = NULL;
-  fct[4] = NULL;
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  NULL
+};
+
+static int	exec_builtins(t_command *cmd, t_status *status,
+			      t_info *info, int index)
+{
+  if ((status->status & LEFT_PIPE) == LEFT_PIPE)
+    my_fork(cmd, status, info, builtins[index]);
+  else
+    builtins[index](cmd, status, info);
+  return (0);
 }
 
-static int	auto_exec(t_command *cmd, t_status *status, t_info *info)
+static int	exec_std(t_command *cmd, t_status *status, t_info *info)
 {
-  int		(*fct[BUILTINS_NB])(t_command *cmd,
-				    t_status *status,
-				    t_info *info);
+  my_fork(cmd, status, info, &simple_exec);
+  if ((status->status & PIPELINE) != PIPELINE)
+    auto_wait(status, info);
+  return (0);
+}
+
+static void	auto_exec(t_command *cmd, t_status *status, t_info *info)
+{
   int		idx;
 
-  fill_builtins(fct);
+  idx = 0;
   if ((idx = exist_in_tab(cmd->path, info->builtins)) > 0)
-    {
-      
-      printf("exec builtins\n");
-      
-    }
+    exec_builtins(cmd, status, info, idx);    
   else
-    {
-      
-      printf("exec path\n");      
-      
-    }
+    exec_std(cmd, status, info);
 }
 
 int		exec_cmd(t_node *root, t_status *status, t_info *info)

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 15:59:59 2017 Cédric Thomas
-** Last update Tue May  9 20:57:30 2017 
+** Last update Wed May 10 22:42:31 2017 
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -44,6 +44,7 @@ int		my_del_exit(t_exit **ll)
       *ll = (*ll)->next;
       free(tmp);
     }
+  return (0);
 }
 
 void	show_exit_status(t_exit *ll)

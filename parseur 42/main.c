@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May  9 18:03:53 2017 
+** Last update Wed May 10 22:50:36 2017 
 */
 #include <stdlib.h>
 #include "my.h"
@@ -28,8 +28,8 @@ int		main(int ac, char **av, char **env)
     {
       if ((root = parse_cmd(syntax, str)))
 	{
-	  show_nodes(root, 0, 0);
-	  auto_select(root, NULL, info);
+	  //	  show_nodes(root, 0, 0);
+	  auto_select(root, &status, info);
 	  my_free_tree(&root);
 	}
     }
