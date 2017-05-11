@@ -5,27 +5,32 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Wed May 10 22:42:09 2017 
+** Last update Thu May 11 17:06:35 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
 #include "syntax.h"
 #include "exec.h"
 
-static void	(*builtins[BUILTINS_NB])(t_command *cmd,
-					    t_status *status,
-					    t_info *info) = 
+static void	fill_builtins(void (*fct[BUILTINS_NB])(t_command *cmd,
+						       t_status *status,
+						       t_info *info))
 {
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL
-};
+  fct[0] = &builtin_exit;
+  fct[1] = &builtin_cd;
+  fct[2] = &builtin_setenv;
+  fct[3] = &builtin_unsetenv;
+  fct[4] = &builtin_echo;
+}
 
 static int	exec_builtins(t_command *cmd, t_status *status,
 			      t_info *info, int index)
 {
+  void	(*builtins[BUILTINS_NB])(t_command *cmd,
+				 t_status *status,
+				 t_info *info);
+
+  fill_builtins(builtins);
   if ((status->status & LEFT_PIPE) == LEFT_PIPE)
     my_fork(cmd, status, info, builtins[index]);
   else

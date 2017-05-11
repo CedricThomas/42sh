@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Wed May 10 22:48:00 2017 
+** Last update Thu May 11 17:07:29 2017 Thibaut Cornolti
 */
 #ifndef EXEC_H_
 # define EXEC_H_
@@ -126,5 +126,14 @@ int	my_put_list_exit(t_exit **ll, int pid, int last);
 void	set_exit_value(t_exit *ll, int pid, int exitval);
 void	show_exit_status(t_exit *ll);
 int	my_del_exit(t_exit **ll);
+
+/*
+**builtin
+*/
+void	builtin_echo(t_command *cmd, t_status *status, t_info *info);
+void	builtin_cd(t_command *cmd, t_status *status, t_info *info);
+void	builtin_setenv(t_command *cmd, t_status *status, t_info *info);
+void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
+void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
 
 #endif /* !EXEC_H_ */
