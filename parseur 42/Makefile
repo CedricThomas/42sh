@@ -5,8 +5,8 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 11 16:39:30 2017 
-##			execve/pathfinder.c		\
+## Last update Thu May 11 17:05:45 2017 
+##
 
 
 EXEC		=	auto_selector.c			\
@@ -22,6 +22,7 @@ EXEC		=	auto_selector.c			\
 			env/env.c			\
 			env/key.c			\
 			execve/std_exec.c		\
+			execve/pathfinder.c		\
 			misc/tab.c
 
 PARSE		=	parsing.c			\

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 11 15:47:15 2017 Thibaut Cornolti
+** Last update Thu May 11 17:19:31 2017 
 */
 #ifndef EXEC_H_
 # define EXEC_H_
@@ -99,8 +99,9 @@ void	my_undup(int save[3]);
 void	my_dup(t_command *cmd, int save[3]);
 
 /*
-**EXEC TYPES
+**EXECVE
 */
+char	*my_pathfinder(t_command *cmd, t_info *info);
 void	simple_exec(t_command *cmd, t_status *status, t_info *info);
 
 /*
