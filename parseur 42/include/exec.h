@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 11 16:02:17 2017 Cédric Thomas
+** Last update Thu May 11 21:14:25 2017 
 */
 
 #ifndef EXEC_H_
@@ -36,7 +36,6 @@ typedef struct          s_exit
 
 typedef struct		s_status
 {
-  unsigned int		exit_value;
   int			exit;
   int			status;
   struct s_exit		*exit_list;
@@ -47,6 +46,11 @@ typedef struct		s_exec_fct
   int                   type;
   int                  (*fct)(t_node *root, t_status *status, t_info *info);
 }			t_exec_fct;
+
+/*
+**PROMPT
+*/
+void    print_prompt(t_info *info);
 
 /*
 **MISC
@@ -86,6 +90,8 @@ char	*getkey(char **ae, char *key, int dup);
 int	auto_select(t_node *root, t_status *status, t_info *info);
 
 int	exec_cmd(t_node *root, t_status *status, t_info *info);
+int	exec_separ(t_node *root, t_status *status, t_info *info);
+int	exec_logic(t_node *root, t_status *status, t_info *info);
 
 /*
 **SELECTOR/CMD

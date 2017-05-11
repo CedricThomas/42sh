@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 11 13:22:48 2017 Thibaut Cornolti
-** Last update Thu May 11 17:04:30 2017 Thibaut Cornolti
+** Last update Thu May 11 22:15:08 2017 
 */
 
 #include "syntax.h"
@@ -14,7 +14,21 @@
 
 void		builtin_unsetenv(t_command *cmd, t_status *status, t_info *info)
 {
+  int	argc;
+  int	i;
+
+  argc = 0;
+  while (cmd->argv[argc])
+    argc += 1;
+  i = 0;
+  info->exit_value = 0;
+  if (argc <= 1)
+    {
+      info->exit_value = 1;
+      my_puterror("unsetenv: Too few arguments.\n");
+    }
+  else
+    while (cmd->argv[++i])
+      info->env = deletekey(info->env, cmd->argv[i], 0);
   UNUSED(status);
-  UNUSED(info);
-  UNUSED(cmd);
 }

@@ -5,13 +5,15 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 11 16:26:09 2017 Cédric Thomas
+## Last update Thu May 11 21:14:45 2017 
 ##
 ## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##
 
 EXEC		=	auto_selector.c			\
 			selector/cmd.c			\
+			selector/separ.c		\
+			selector/logic.c		\
 			selector/cmd/redirections.c	\
 			selector/cmd/auto_redir.c	\
 			selector/cmd/dup.c		\
@@ -61,7 +63,8 @@ NODE		=	command_node.c			\
 			standard_node.c			\
 			pipe_node.c			\
 
-MAIN		=	main.c
+MAIN		=	main.c				\
+			prompt.c
 
 OBJ		=	$(MAIN:.c=.o)
 OBJ		+=	$(addprefix parse/, $(PARSE:.c=.o))

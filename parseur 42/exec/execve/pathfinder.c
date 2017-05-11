@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 16:30:38 2017 
-** Last update Thu May 11 17:18:32 2017 
+** Last update Thu May 11 16:36:25 2017 Cédric Thomas
 */
 #include <signal.h>
 #include <sys/types.h>
@@ -17,7 +17,7 @@
 #include "my_alloc.h"
 #include "my.h"
 
-static int	check_error(char *path, char *exec_name)
+static int	check_error(char *path, char *exec_name, t_info *info)
 {
   int		isadir;
   struct stat	mstat;
@@ -29,12 +29,14 @@ static int	check_error(char *path, char *exec_name)
     {
       my_puterror(exec_name);
       my_puterror(": Command not found.\n");
+      info->exit_value = 1;
       return (1);
     }
   else if ((path && access(path, X_OK)) || isadir)
     {
       my_puterror(exec_name);
       my_puterror(": Permission denied.\n");
+      info->exit_value = 1;
       return (1);
     }
   return (0);
@@ -82,13 +84,13 @@ char		*my_pathfinder(t_command *cmd, t_info *info)
 
   if (is_in('/', cmd->path))
     {
-      if (!check_error(cmd->path, cmd->path))
+      if (!check_error(cmd->path, cmd->path, info))
 	return (my_strdup(cmd->path));
       else
 	return (NULL);
     }
   path = identify_path(cmd->path, info);
-  if (check_error(path, cmd->path))
+  if (check_error(path, cmd->path, info))
     {
       free(path);
       path = NULL;

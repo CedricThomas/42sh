@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May 11 18:57:28 2017 Thibaut Cornolti
+** Last update Thu May 11 21:55:24 2017 
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -15,33 +15,25 @@
 #include "exec.h"
 #include "my_printf.h"
 
-static void	extract(t_info *info)
+static int	setup_sh(t_syntax **syntax, t_info **info,
+			 t_status *status, char **env)
 {
-  char	*home;
-  int	i;
-
-  i = my_strlen(info->pwd);
-  home = getkey(info->env, "HOME", 0);
-  if (home && !my_strcmp(info->pwd, home))
-    my_printf("\033[36;01m~\033[00m");
-  else
-    {
-      while (i > 0 && info->pwd[i] != '/')
-	i -= 1;
-      if (i != 0)
-	i += 1;
-      my_printf("\033[36;01m%s\033[00m", info->pwd + i);
-    }
+  if ((*syntax = get_syntax()) == NULL)
+    return (1);
+  if ((*info = get_info(env)) == NULL)
+    return (1);
+  my_memset(status, 0, sizeof(t_status));
+  return (0);
 }
 
-static void     print_prompt(t_info *info)
+static int	free_sh(t_syntax *syntax, t_info *info)
 {
-  if ((info->exit_value) != 0)
-    my_printf("\033[31;01m➜  \033[00m");
-  else
-    my_printf("\033[32;01m➜  \033[00m");
-  extract(info);
-  my_printf(" \033[31;01m\033[00m");
+  int		exit;
+
+  exit = info->exit_value;
+  free_syntax(&syntax);
+  free_info(info);
+  return (exit);
 }
 
 int		main(int ac, char **av, char **env)
@@ -50,29 +42,23 @@ int		main(int ac, char **av, char **env)
   t_syntax	*syntax;
   t_status	status;
   t_info	*info;
-  char		*str;
+  char		*cmd;
 
-  syntax = get_syntax();
-  info = get_info(env);
-  my_memset(&status, 0, sizeof(status));
+  if(setup_sh(&syntax, &info, &status, env))
+    return (84);
   if (isatty(0))
     print_prompt(info);
-  while ((str = get_next_line(0)))
+  while (!status.exit && (cmd = get_next_line(0)))
     {
-      if ((root = parse_cmd(syntax, str)))
+      if ((root = parse_cmd(syntax, cmd)))
 	{
-	  //	  show_nodes(root, 0, 0);
 	  auto_select(root, &status, info);
 	  my_free_tree(&root);
 	}
-      if (isatty(0))
+      if (!status.exit && isatty(0))
 	print_prompt(info);
     }
   if (isatty(0))
     my_putstr("exit\n");
-  free_syntax(&syntax);
-  free_info(info);
-  UNUSED(av);
-  UNUSED(ac);
-  return (0);
+  return (free_sh(syntax, info));
 }
