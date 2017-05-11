@@ -5,13 +5,14 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 16:30:38 2017 
-** Last update Thu May 11 16:33:52 2017 
+** Last update Thu May 11 16:37:54 2017 
 */
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "syntax.h"
 #include "exec.h"
 #include "my_alloc.h"
 #include "my.h"
@@ -19,7 +20,7 @@
 static int	check_error(char *path, t_info *info, char *exec_name)
 {
   int		isadir;
-  t_stat	mstat;
+  struct stat	mstat;
 
   isadir = 0;
   if (!stat(path, &mstat))
