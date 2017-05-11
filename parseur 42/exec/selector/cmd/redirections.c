@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Tue May  9 14:40:23 2017 Thibaut Cornolti
-** Last update Tue May  9 17:54:04 2017 
+** Last update Thu May 11 12:53:05 2017 Thibaut Cornolti
 */
 
 #include <sys/types.h>
@@ -56,15 +56,13 @@ int		double_redir_input(char *end)
     }
   if (isatty(0))
     my_putstr("? ");
-  while ((gnl = get_next_line(0)))
+  while ((gnl = get_next_line(0)) && my_strcmp(gnl, end))
     {
-      if (my_strcmp(gnl, end))
-	{
-	  my_putfd(pipefd[1], gnl);
-	  my_putfd(pipefd[1], "\n");
-	  if (isatty(0))
-	    my_putstr("? ");
-	}
+      
+      my_putfd(pipefd[1], gnl);
+      my_putfd(pipefd[1], "\n");
+      if (isatty(0))
+	my_putstr("? ");
     }
   close(pipefd[1]);
   return (pipefd[0]);
