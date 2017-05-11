@@ -1,3 +1,4 @@
+
 /*
 ** dup.c for 42sh in /home/cedric/delivery/PSU/PSU_2016_42sh/parseur 42
 ** 
@@ -5,14 +6,14 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 16:12:11 2017 
-** Last update Tue May  9 17:15:39 2017 
+** Last update Thu May 11 22:25:40 2017 
 */
 #include <stdlib.h>
 #include <unistd.h>
 #include "syntax.h"
 #include "exec.h"
 
-void	my_undup(int save[3])
+void	my_undup(t_command *cmd, int save[3])
 {
   int		i;
 
@@ -24,6 +25,7 @@ void	my_undup(int save[3])
 	  if (dup2(save[i], i) < 0)
 	    exit(84);
 	  close(save[i]);
+	  close(cmd->fd[i]);
 	}
       i += 1;
     }

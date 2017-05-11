@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Thu May 11 21:30:46 2017 
+** Last update Thu May 11 23:23:44 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -42,11 +42,11 @@ static int	exec_std(t_command *cmd, t_status *status, t_info *info)
 {
   my_fork(cmd, status, info, &simple_exec);
   if ((status->status & PIPELINE) != PIPELINE)
-    auto_wait(status, info);
+    return (1);
   return (0);
 }
 
-static void	auto_exec(t_command *cmd, t_status *status, t_info *info)
+static int	auto_exec(t_command *cmd, t_status *status, t_info *info)
 {
   int		idx;
 
@@ -54,18 +54,23 @@ static void	auto_exec(t_command *cmd, t_status *status, t_info *info)
   if ((idx = exist_in_tab(cmd->path, info->builtins)) >= 0)
     exec_builtins(cmd, status, info, idx);    
   else
-    exec_std(cmd, status, info);
+    if (exec_std(cmd, status, info))
+      return (1);
+  return (0);
 }
 
 int		exec_cmd(t_node *root, t_status *status, t_info *info)
 {
+  int		wait;
   int		save[3];
   t_command	*cmd;
 
   cmd = (t_command *)root;
   load_redir(cmd);
   my_dup(cmd, save);
-  auto_exec(cmd, status, info);
-  my_undup(save);
+  wait = auto_exec(cmd, status, info);
+  my_undup(cmd, save);
+  if (wait)
+    auto_wait(status, info);
   return (0);
 }
