@@ -5,13 +5,12 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Wed May 10 22:36:14 2017 
+## Last update Thu May 11 13:42:38 2017 
 ##
 
 EXEC		=	auto_selector.c			\
 			selector/cmd.c			\
 			selector/cmd/redirections.c	\
-			selector/cmd/std_exec.c		\
 			selector/cmd/auto_redir.c	\
 			selector/cmd/dup.c		\
 			status/list_status.c		\
@@ -20,6 +19,8 @@ EXEC		=	auto_selector.c			\
 			setup/info.c			\
 			env/env.c			\
 			env/key.c			\
+			execve/std_exec.c		\
+			execve/pathfinder.c		\
 			misc/tab.c
 
 PARSE		=	parsing.c			\
