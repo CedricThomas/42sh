@@ -5,11 +5,12 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 11 13:22:48 2017 Thibaut Cornolti
-** Last update Thu May 11 18:53:55 2017 Thibaut Cornolti
+** Last update Thu May 11 19:26:36 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <limits.h>
 #include "syntax.h"
 #include "exec.h"
 #include "my.h"
@@ -50,13 +51,16 @@ static int	builtin_cd_param(t_info *info, char *path)
     return (builtin_cd_dash(info, path));
   if (chdir(path) == -1)
     return (error_msg(1, path));
+  free(path);
+  if ((path = getcwd(NULL, PATH_MAX)) == NULL)
+    exit(84);
   free(info->old_pwd);
   info->old_pwd = info->pwd;
   info->pwd = path;
   if (changekey(info->env, "OLDPWD", info->old_pwd, 0))
     addkey(info->env, "OLDPWD", info->old_pwd, 0);
   if (changekey(info->env, "PWD", info->pwd, 0))
-    addkey(info->env, "PWD", info->pwd, 0);  
+    addkey(info->env, "PWD", info->pwd, 0);
   return (0);
 }
 
@@ -80,14 +84,11 @@ static int	builtin_cd_no_param(t_info *info)
 
 void		builtin_cd(t_command *cmd, t_status *status, t_info *info)
 {
-  if (cmd->argv[2])
+  if (cmd->argv[1] && cmd->argv[2])
     error_msg(2, "cd");
   else if (!cmd->argv[1])
     builtin_cd_no_param(info);
   else
     builtin_cd_param(info, my_strdup(cmd->argv[1]));
   UNUSED(status);
-  UNUSED(info);
-  UNUSED(cmd);
-  
 }
