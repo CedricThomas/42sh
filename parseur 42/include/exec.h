@@ -5,8 +5,9 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 11 17:19:31 2017 
+** Last update Thu May 11 16:02:17 2017 Cédric Thomas
 */
+
 #ifndef EXEC_H_
 # define EXEC_H_
 
@@ -14,7 +15,7 @@
 # define LEFT_PIPE	(1 << 1)
 # define RIFHT_PIPE	(1 << 2)
 
-# define BUILTINS_NB	6
+# define BUILTINS_NB	5
 # define REDIR_NB	4
 
 typedef struct		s_info
@@ -50,8 +51,9 @@ typedef struct		s_exec_fct
 /*
 **MISC
 */
-int		exist_in_tab(char *str, char **tab);
-char		**tab_dup(char **tab);
+int	exist_in_tab(char *str, char **tab);
+char	**tab_dup(char **tab);
+int	my_perror(char *cmd, char *error);
 
 /*
 **SETUP
@@ -105,21 +107,18 @@ char	*my_pathfinder(t_command *cmd, t_info *info);
 void	simple_exec(t_command *cmd, t_status *status, t_info *info);
 
 /*
-**BUILTINS
-*/
-
-int	my_put_list_exit(t_exit **ll, int pid, int last);
-void	set_exit_value(t_exit *ll, int pid, int exitval);
-void	show_exit_status(t_exit *ll);
-int	my_del_exit(t_exit **ll);
-
-/*
 **STATUS
 */
 
 void	auto_wait(t_status *status, t_info *info);
 int	my_fork(t_command *cmd, t_status *status, t_info *info,
 		void (*fct)(t_command *cmd, t_status *status, t_info *info));
+
+int	my_put_list_exit(t_exit **ll, int pid, int last);
+void	set_exit_value(t_exit *ll, int pid, int exitval);
+void	show_exit_status(t_exit *ll);
+int	my_del_exit(t_exit **ll);
+
 /*
 **list
 */
@@ -129,8 +128,12 @@ void	show_exit_status(t_exit *ll);
 int	my_del_exit(t_exit **ll);
 
 /*
-**builtin
+**BUILTINS
 */
 void	builtin_echo(t_command *cmd, t_status *status, t_info *info);
+void	builtin_cd(t_command *cmd, t_status *status, t_info *info);
+void	builtin_setenv(t_command *cmd, t_status *status, t_info *info);
+void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
+void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
 
 #endif /* !EXEC_H_ */

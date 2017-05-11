@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Thu May 11 17:03:51 2017 
+** Last update Thu May 11 17:06:35 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -16,11 +16,11 @@ static void	fill_builtins(void (*fct[BUILTINS_NB])(t_command *cmd,
 						       t_status *status,
 						       t_info *info))
 {
-  fct[0] = NULL;//&builtin_exit;
-  fct[1] = NULL;//&builtin_cd;
-  fct[2] = NULL;//&builtin_setenv;
-  fct[3] = NULL;//&builtin_unsetenv;
-  fct[4] = NULL;//&builtin_echo;
+  fct[0] = &builtin_exit;
+  fct[1] = &builtin_cd;
+  fct[2] = &builtin_setenv;
+  fct[3] = &builtin_unsetenv;
+  fct[4] = &builtin_echo;
 }
 
 static int	exec_builtins(t_command *cmd, t_status *status,

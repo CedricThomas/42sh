@@ -5,9 +5,8 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 11 17:05:45 2017 
+## Last update Thu May 11 16:08:48 2017 Cédric Thomas
 ##
-
 
 EXEC		=	auto_selector.c			\
 			selector/cmd.c			\
@@ -15,6 +14,10 @@ EXEC		=	auto_selector.c			\
 			selector/cmd/auto_redir.c	\
 			selector/cmd/dup.c		\
 			builtin/echo.c			\
+			builtin/setenv.c		\
+			builtin/unsetenv.c		\
+			builtin/cd.c			\
+			builtin/exit.c			\
 			status/list_status.c		\
 			status/wait.c			\
 			status/fork.c			\
@@ -23,6 +26,7 @@ EXEC		=	auto_selector.c			\
 			env/key.c			\
 			execve/std_exec.c		\
 			execve/pathfinder.c		\
+			misc/str.c			\
 			misc/tab.c
 
 PARSE		=	parsing.c			\
