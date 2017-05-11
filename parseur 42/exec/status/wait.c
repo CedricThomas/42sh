@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Tue May  9 21:00:44 2017 
+** Last update Thu May 11 21:15:38 2017 
 */
 #include <signal.h>
 #include <unistd.h>
@@ -66,6 +66,7 @@ void		auto_wait(t_status *status, t_info *info)
   int		last;
 
   tmp = status->exit_list;
+  info->exit_value = 0;
   while (tmp)
     {
       pid = wait(&last);
@@ -73,5 +74,6 @@ void		auto_wait(t_status *status, t_info *info)
       tmp = tmp->next;
     }
   get_exit_value(status, info);
+  //show_exit_status(status->exit_list);
   my_del_exit(&(status->exit_list));
 }

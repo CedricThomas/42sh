@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 11 13:22:48 2017 Thibaut Cornolti
-** Last update Thu May 11 19:26:36 2017 Thibaut Cornolti
+** Last update Thu May 11 23:04:26 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -17,11 +17,11 @@
 
 static int	error_msg(int code, char *prefix)
 {
-  static char	*msg[3] =
-    {": No home directory.\n",
-     ": No such file or directory.\n",
-     ": Too many arguments.\n"};
+  static char	*msg[3];
 
+  msg[0] = ": No home directory.\n";
+  msg[1] = ": No such file or directory.\n";
+  msg[1] = ": Too many arguments.\n";
   if (prefix)
     my_puterror(prefix);
   my_puterror(msg[code]);
@@ -88,7 +88,9 @@ void		builtin_cd(t_command *cmd, t_status *status, t_info *info)
     error_msg(2, "cd");
   else if (!cmd->argv[1])
     builtin_cd_no_param(info);
-  else
+  else if (!cmd->argv[2])
     builtin_cd_param(info, my_strdup(cmd->argv[1]));
+  else
+    error_msg(2, "cd");
   UNUSED(status);
 }

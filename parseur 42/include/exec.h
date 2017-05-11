@@ -5,8 +5,9 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 11 17:07:29 2017 Thibaut Cornolti
+** Last update Thu May 11 21:14:25 2017 
 */
+
 #ifndef EXEC_H_
 # define EXEC_H_
 
@@ -35,7 +36,6 @@ typedef struct          s_exit
 
 typedef struct		s_status
 {
-  unsigned int		exit_value;
   int			exit;
   int			status;
   struct s_exit		*exit_list;
@@ -48,10 +48,16 @@ typedef struct		s_exec_fct
 }			t_exec_fct;
 
 /*
+**PROMPT
+*/
+void    print_prompt(t_info *info);
+
+/*
 **MISC
 */
-int		exist_in_tab(char *str, char **tab);
-char		**tab_dup(char **tab);
+int	exist_in_tab(char *str, char **tab);
+char	**tab_dup(char **tab);
+int	my_perror(char *cmd, char *error);
 
 /*
 **SETUP
@@ -84,6 +90,8 @@ char	*getkey(char **ae, char *key, int dup);
 int	auto_select(t_node *root, t_status *status, t_info *info);
 
 int	exec_cmd(t_node *root, t_status *status, t_info *info);
+int	exec_separ(t_node *root, t_status *status, t_info *info);
+int	exec_logic(t_node *root, t_status *status, t_info *info);
 
 /*
 **SELECTOR/CMD
@@ -99,18 +107,10 @@ void	my_undup(int save[3]);
 void	my_dup(t_command *cmd, int save[3]);
 
 /*
-**EXEC TYPES
+**EXECVE
 */
+char	*my_pathfinder(t_command *cmd, t_info *info);
 void	simple_exec(t_command *cmd, t_status *status, t_info *info);
-
-/*
-**BUILTINS
-*/
-
-int	my_put_list_exit(t_exit **ll, int pid, int last);
-void	set_exit_value(t_exit *ll, int pid, int exitval);
-void	show_exit_status(t_exit *ll);
-int	my_del_exit(t_exit **ll);
 
 /*
 **STATUS
@@ -119,6 +119,12 @@ int	my_del_exit(t_exit **ll);
 void	auto_wait(t_status *status, t_info *info);
 int	my_fork(t_command *cmd, t_status *status, t_info *info,
 		void (*fct)(t_command *cmd, t_status *status, t_info *info));
+
+int	my_put_list_exit(t_exit **ll, int pid, int last);
+void	set_exit_value(t_exit *ll, int pid, int exitval);
+void	show_exit_status(t_exit *ll);
+int	my_del_exit(t_exit **ll);
+
 /*
 **list
 */
@@ -128,7 +134,7 @@ void	show_exit_status(t_exit *ll);
 int	my_del_exit(t_exit **ll);
 
 /*
-**builtin
+**BUILTINS
 */
 void	builtin_echo(t_command *cmd, t_status *status, t_info *info);
 void	builtin_cd(t_command *cmd, t_status *status, t_info *info);
