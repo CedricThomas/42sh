@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 11 13:22:48 2017 Thibaut Cornolti
-** Last update Thu May 11 23:04:26 2017 Thibaut Cornolti
+** Last update Thu May 11 23:31:18 2017 
 */
 
 #include <stdlib.h>
@@ -21,7 +21,7 @@ static int	error_msg(int code, char *prefix)
 
   msg[0] = ": No home directory.\n";
   msg[1] = ": No such file or directory.\n";
-  msg[1] = ": Too many arguments.\n";
+  msg[2] = ": Too many arguments.\n";
   if (prefix)
     my_puterror(prefix);
   my_puterror(msg[code]);
