@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May 11 18:10:01 2017 maje
+** Last update Thu May 11 18:24:00 2017 maje
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -17,46 +17,31 @@
 
 static void	extract(t_info *info)
 {
+  char	*home;
   int	i;
-  int	j;
-  int	count;
 
-  i = -1;
-  count = 0;
-  while (info->pwd[++i] != '\0')
-    if (info->pwd[i] == '/')
-      count++;
-  i = 0;
-  j = 0;
-  while (info->pwd[i] != '\0')
+  i = my_strlen(info->pwd);
+  home = getkey(info->env, "HOME", 0);
+  if (home && !my_strcmp(info->pwd, home))
+    my_printf("\033[36;01m~\033[00m");
+  else
     {
-      if (info->pwd[i] == '/')
-	j++;
-      if (j == count)
-	if (info->pwd[i] != '/')
-	  my_printf("\033[36;01m%c\033[00m", info->pwd[i]);
-      i++;
+      while (i > 0 && info->pwd[i] != '/')
+	i -= 1;
+      if (i != 0)
+	i += 1;
+      my_printf("\033[36;01m%s\033[00m", info->pwd + i);
     }
 }
 
 static void     print_prompt(t_info *info)
 {
-  int   i;
-  char  *buf;
-
-
   if ((info->exit_value) != 0)
-    {
-      my_printf("\033[31;01m➜  \033[00m");
-      extract(info);
-      my_printf(" \033[31;01m \033[00m");
-    }
+    my_printf("\033[31;01m➜  \033[00m");
   else
-    {
-      my_printf("\033[32;01m➜  \033[00m");
-      extract(info);
-      my_printf(" \033[31;01m \033[00m");
-    }
+    my_printf("\033[32;01m➜  \033[00m");
+  extract(info);
+  my_printf(" \033[31;01m \033[00m");
 }
 
 int		main(int ac, char **av, char **env)
