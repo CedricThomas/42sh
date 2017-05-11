@@ -5,7 +5,7 @@
 ** Login   <thibrex@epitech.net>
 ** 
 ** Started on  Mon Oct 10 11:40:45 2016 Cornolti Thibaut
-** Last update Sat Jan  7 20:34:04 2017 Thibaut Cornolti
+** Last update Thu May 11 14:00:59 2017 maje
 */
 
 int	my_strncmp(char *s1, char *s2, int l)
