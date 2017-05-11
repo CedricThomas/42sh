@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 11 17:08:18 2017 Thibaut Cornolti
+## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##			execve/pathfinder.c		\
 
 EXEC		=	auto_selector.c			\
@@ -65,7 +65,7 @@ OBJ		+=	$(addprefix match/, $(MATCH:.c=.o))
 OBJ		+=	$(addprefix node/, $(NODE:.c=.o))
 OBJ		+=	$(addprefix exec/, $(EXEC:.c=.o))
 
-NAME		=	default
+NAME		=	42sh
 
 LIB_F		=	./lib/
 
