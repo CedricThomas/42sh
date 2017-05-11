@@ -5,23 +5,26 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 11 16:58:45 2017 Thibaut Cornolti
-##
+## Last update Thu May 11 17:08:18 2017 Thibaut Cornolti
+##			execve/pathfinder.c		\
 
 EXEC		=	auto_selector.c			\
 			selector/cmd.c			\
 			selector/cmd/redirections.c	\
-			selector/cmd/std_exec.c		\
 			selector/cmd/auto_redir.c	\
 			selector/cmd/dup.c		\
 			builtin/echo.c			\
-			builtin/env.c			\
+			builtin/setenv.c		\
+			builtin/unsetenv.c		\
+			builtin/cd.c			\
+			builtin/exit.c			\
 			status/list_status.c		\
 			status/wait.c			\
 			status/fork.c			\
 			setup/info.c			\
 			env/env.c			\
 			env/key.c			\
+			execve/std_exec.c		\
 			misc/tab.c
 
 PARSE		=	parsing.c			\
