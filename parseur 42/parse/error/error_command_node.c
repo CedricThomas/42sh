@@ -5,10 +5,11 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May  4 21:26:36 2017 Thibaut Cornolti
-** Last update Fri May  5 13:41:52 2017 Thibaut Cornolti
+** Last update Thu May 11 23:47:26 2017 Thibaut Cornolti
 */
 
 #include "syntax.h"
+#include "my.h"
 
 static int	check_command(t_token *start, t_token *end,
 			      int mask_available)
@@ -29,21 +30,32 @@ static int	check_file(t_token *start, t_token *end)
   already_check = 0;
   while (start != end)
     {
-      if ((start->type == T_FLUX_REDIR_OUT ||
-	   start->type == T_FLUX_REDIR_IN) &&
+      if (start->type == T_FLUX_REDIR_IN &&
 	  already_check & start->type)
-	return (1);
-      if ((start->type == T_FLUX_REDIR_OUT ||
-	   start->type == T_FLUX_REDIR_IN) &&
-	  (!start->next ||
-	   start->next == end ||
-	   start->next->type != T_FILE))
-	return (1);
+	{
+	  my_puterror("Ambigous input redirect.\n");
+	  return (1);
+	}
+      else if (start->type == T_FLUX_REDIR_OUT &&
+	       already_check & start->type)
+	{
+	  my_puterror("Ambigous output redirect.\n");
+	  return (1);
+	}
+      else if ((start->type == T_FLUX_REDIR_OUT ||
+	start->type == T_FLUX_REDIR_IN) &&
+	(!start->next ||
+	start->next == end ||
+	start->next->type != T_FILE))
+	{
+      my_puterror("Missing name for redirect.\n");
+      return (1);
+    }
       already_check |= start->type;
       start = start->next;
     }
-  return (0);
-}
+    return (0);
+    }
 
 int		error_command_node(t_field *field, t_token *mid)
 {
