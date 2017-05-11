@@ -5,75 +5,22 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 11 16:26:09 2017 Cédric Thomas
-##
-## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
+## Last update Sat Apr 22 12:19:30 2017 
 ##
 
-EXEC		=	auto_selector.c			\
-			selector/cmd.c			\
-			selector/cmd/redirections.c	\
-			selector/cmd/auto_redir.c	\
-			selector/cmd/dup.c		\
-			builtin/echo.c			\
-			builtin/setenv.c		\
-			builtin/unsetenv.c		\
-			builtin/cd.c			\
-			builtin/exit.c			\
-			status/list_status.c		\
-			status/wait.c			\
-			status/fork.c			\
-			setup/info.c			\
-			env/env.c			\
-			env/key.c			\
-			execve/std_exec.c		\
-			execve/pathfinder.c		\
-			misc/str.c			\
-			misc/tab.c
+SRC		=	main.c				\
+			misc.c				\
+			line_edit/get_next_cmd.c	\
+			line_edit/setup.c		\
+			line_edit/bind.c		\
 
-PARSE		=	parsing.c			\
-			misc/tab.c			\
-			misc/misc.c			\
-			misc/quote.c			\
-			misc/separators.c		\
-			misc/alloc.c			\
-			lexer/lexer.c			\
-			lexer/list_lexer.c		\
-			shape/shape_str.c		\
-			shape/shape_token.c		\
-			tree/tree.c			\
-			tree/redir_list.c		\
-			tree/tree_list.c		\
-			error/input_lexer.c		\
-			error/error_pipe_node.c		\
-			error/error_command_node.c	\
+OBJ		=	$(SRC:.c=.o)
 
-MATCH		=	match.c				\
-			fct/amp.c			\
-			fct/star.c			\
-			fct/hook.c			\
-			fct/inter.c			\
-			fct/parent.c			\
-			fct/escape.c			\
-			fct/braquet.c			\
-
-NODE		=	command_node.c			\
-			standard_node.c			\
-			pipe_node.c			\
-
-MAIN		=	main.c
-
-OBJ		=	$(MAIN:.c=.o)
-OBJ		+=	$(addprefix parse/, $(PARSE:.c=.o))
-OBJ		+=	$(addprefix match/, $(MATCH:.c=.o))
-OBJ		+=	$(addprefix node/, $(NODE:.c=.o))
-OBJ		+=	$(addprefix exec/, $(EXEC:.c=.o))
-
-NAME		=	42sh
+NAME		=	GNC
 
 LIB_F		=	./lib/
 
-LIB		=	-lmy -lmyprintf -lgnl -lalloc
+LIB		=	-lmy -lmyprintf -lgnl -lalloc -lncurses
 
 INCLUDE		=	-I./include/
 
