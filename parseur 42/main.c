@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May 11 18:05:26 2017 maje
+** Last update Thu May 11 18:10:01 2017 maje
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -49,13 +49,13 @@ static void     print_prompt(t_info *info)
     {
       my_printf("\033[31;01m➜  \033[00m");
       extract(info);
-      my_printf(" \033[31;01m$> \033[00m");
+      my_printf(" \033[31;01m \033[00m");
     }
   else
     {
-      my_printf("\033[32;01m➜ \033[00m");
+      my_printf("\033[32;01m➜  \033[00m");
       extract(info);
-      my_printf(" \033[31;01m$> \033[00m");
+      my_printf(" \033[31;01m \033[00m");
     }
 }
 
