@@ -5,8 +5,22 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Fri May  5 11:36:04 2017 Thibaut Cornolti
+## Last update Wed May 10 22:36:14 2017 
 ##
+
+EXEC		=	auto_selector.c			\
+			selector/cmd.c			\
+			selector/cmd/redirections.c	\
+			selector/cmd/std_exec.c		\
+			selector/cmd/auto_redir.c	\
+			selector/cmd/dup.c		\
+			status/list_status.c		\
+			status/wait.c			\
+			status/fork.c			\
+			setup/info.c			\
+			env/env.c			\
+			env/key.c			\
+			misc/tab.c
 
 PARSE		=	parsing.c			\
 			misc/tab.c			\
@@ -36,10 +50,15 @@ MATCH		=	match.c				\
 
 NODE		=	command_node.c			\
 			standard_node.c			\
+			pipe_node.c			\
 
 MAIN		=	main.c
 
-OBJ		=	$(MAIN:.c=.o) $(addprefix parse/, $(PARSE:.c=.o))  $(addprefix match/, $(MATCH:.c=.o)) $(addprefix node/, $(NODE:.c=.o))
+OBJ		=	$(MAIN:.c=.o)
+OBJ		+=	$(addprefix parse/, $(PARSE:.c=.o))
+OBJ		+=	$(addprefix match/, $(MATCH:.c=.o))
+OBJ		+=	$(addprefix node/, $(NODE:.c=.o))
+OBJ		+=	$(addprefix exec/, $(EXEC:.c=.o))
 
 NAME		=	default
 

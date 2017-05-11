@@ -5,23 +5,36 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Mon May  1 19:23:38 2017 
+** Last update Wed May 10 22:50:36 2017 
 */
+#include <stdlib.h>
 #include "my.h"
 #include "get_next_line.h"
 #include "syntax.h"
+#include "exec.h"
 
-int		main(int ac, char **av)
+int		main(int ac, char **av, char **env)
 {
+  void		*root;
   t_syntax	*syntax;
+  t_status	status;
+  t_info	*info;
   char		*str;
 
   syntax = get_syntax();
+  info = get_info(env);
+  my_memset(&status, 0, sizeof(status));
   while ((str = get_next_line(0)))
     {
-      parse_cmd(syntax, str);
+      if ((root = parse_cmd(syntax, str)))
+	{
+	  //	  show_nodes(root, 0, 0);
+	  auto_select(root, &status, info);
+	  my_free_tree(&root);
+	}
     }
   free_syntax(&syntax);
+  free_info(info);
   UNUSED(av);
   UNUSED(ac);
   return (0);

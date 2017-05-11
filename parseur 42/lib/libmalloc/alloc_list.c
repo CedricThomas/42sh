@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Mon Nov 21 12:15:25 2016 Cédric Thomas
-** Last update Thu Mar 16 20:22:35 2017 
+** Last update Fri May  5 14:05:59 2017 
 */
 #include <stdlib.h>
 #include "my_alloc.h"
@@ -102,10 +102,6 @@ void		my_show_alloc(void *addr, char *tag, char type)
     }
 }
 
-/*
-**beta not tested
-*/
-
 void		my_free_tag(char *tag, char type)
 {
   int		i;
@@ -125,7 +121,9 @@ void		my_free_tag(char *tag, char type)
 	    return ;
 	}
       else
-	temp = temp->next;
-      i = 1;
+	{
+	  temp = temp->next;
+	  i = 1;
+	}
     }
 }

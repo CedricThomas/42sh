@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Thu May  4 21:28:56 2017
-** Last update Fri May  5 11:38:02 2017 
+** Last update Fri May  5 13:17:26 2017 
 */
 #include <stdlib.h>
 #include "my_alloc.h"
@@ -19,18 +19,16 @@ static int	get_tag(char *type)
 
   flag = 0;
   if (advanced_match(type, "*<<*") || advanced_match(type, "*>>*"))
-    flag += DOUBLE;
-  if (advanced_match(type, "*<*"))
+    flag |= DOUBLE;
+  if (advanced_match(type, "{\\<\\<,\\<}"))
     {
-      flag += STDIN;
+      flag |= STDIN;
       return (flag);
     }
-  if (advanced_match(type, "2{>>, >}") ||
-      advanced_match(type, "&{>>, >}"))
-    flag += STDERROR;
-  if (advanced_match(type, "1{>>, >}") ||
-      advanced_match(type, "&{>>, >}"))
-    flag += STDOUT;
+  if (advanced_match(type, "{2,&}{>>,>}"))
+    flag |= STDERROR;
+  if (advanced_match(type, "{1,&,}{>>,>}"))
+    flag |= STDOUT;
   return (flag);
 }
 
@@ -49,8 +47,9 @@ void		show_redir(t_redir *redir)
 	my_printf("ERROR\n");
       if (tag & STDIN)
 	my_printf("INPUT\n");
+      my_printf("full %d\n", tag);
+      my_printf("|\n`->%s\n", redir->file);
       redir = redir->next;
-      my_printf("|\n->%s\n", redir->file);
     }
 }
 

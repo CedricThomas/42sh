@@ -1,11 +1,11 @@
 /*
 ** star.c for match in /home/cedric/delivery/extract_match
-** 
-** Made by 
+**
+** Made by
 ** Login   <cedric.thomas@epitech.eu>
-** 
-** Started on  Mon Apr 24 09:50:10 2017 
-** Last update Mon May  1 19:27:13 2017 
+**
+** Started on  Mon Apr 24 09:50:10 2017
+** Last update Sun May  7 16:22:49 2017 
 */
 #include <stdlib.h>
 #include "match.h"
@@ -22,7 +22,7 @@ static int	is_in_delim(char c)
 {
   if (g_delim == NULL)
     return (0);
-  return (is_in(c, g_delim));    
+  return (is_in(c, g_delim));
 }
 
 int		star(char **s1, char **s2)
