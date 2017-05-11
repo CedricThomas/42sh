@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May  5 23:00:54 2017 
+** Last update Thu May 11 23:34:25 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -52,10 +52,7 @@ t_node			*parse_cmd(t_syntax *my_syntax, char *str)
   if ((tokens = get_token(str, my_syntax)) == NULL)
     return (NULL);
   if ((root = auto_create_node(NULL, tokens, NULL)) == NULL)
-    {
-      my_free_tree(&root);
-      my_printf("error\n");
-    }
+    my_free_tree(&root);
   my_free_token(&tokens);
   return (root);
 }

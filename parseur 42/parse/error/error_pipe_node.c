@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May  4 21:26:36 2017 Thibaut Cornolti
-** Last update Fri May  5 10:12:03 2017 
+** Last update Thu May 11 23:33:53 2017 Thibaut Cornolti
 */
 
 #include "syntax.h"
@@ -23,7 +23,12 @@ static int	check_pipe(t_token *start, t_token *end,
 	return (1);
       start = start->next;
     }
-  return (!(mask_need_one & already_check));
+  if (!(mask_need_one & already_check))
+    {
+      my_puterror("Invalid null command.\n");
+      return (1);
+    }
+  return (0);
 }
 
 int		error_pipe_node(t_field *field, t_token *mid)
