@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Wed May 10 22:48:00 2017 
+** Last update Thu May 11 13:49:01 2017 Thibaut Cornolti
 */
 #ifndef EXEC_H_
 # define EXEC_H_
@@ -14,7 +14,7 @@
 # define LEFT_PIPE	(1 << 1)
 # define RIFHT_PIPE	(1 << 2)
 
-# define BUILTINS_NB	5
+# define BUILTINS_NB	6
 # define REDIR_NB	4
 
 typedef struct		s_info

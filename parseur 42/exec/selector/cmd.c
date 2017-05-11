@@ -5,22 +5,22 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Wed May 10 22:42:09 2017 
+** Last update Thu May 11 13:47:19 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
 #include "syntax.h"
 #include "exec.h"
 
-static void	(*builtins[BUILTINS_NB])(t_command *cmd,
+const void	(*builtins[BUILTINS_NB])(t_command *cmd,
 					    t_status *status,
 					    t_info *info) = 
 {
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL
+  &builtin_exit,
+  NULL, /* cd */
+  NULL, /* setenv */
+  NULL, /* unsetenv */
+  NULL /* env */
 };
 
 static int	exec_builtins(t_command *cmd, t_status *status,

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Wed May 10 13:26:11 2017 
+** Last update Thu May 11 13:49:25 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -14,12 +14,13 @@
 
 static void	get_builtins(t_info *my_info)
 {
-  my_info->builtins[0] = my_strdup("exit");
-  my_info->builtins[1] = my_strdup("cd");
-  my_info->builtins[2] = my_strdup("setenv");
-  my_info->builtins[3] = my_strdup("unsetenv");
-  my_info->builtins[4] = my_strdup("env");
-  my_info->builtins[5] = NULL;
+  my_info->builtins[0] = "exit";
+  my_info->builtins[1] = "cd";
+  my_info->builtins[2] = "setenv";
+  my_info->builtins[3] = "unsetenv";
+  my_info->builtins[4] = "env";
+  my_info->builtins[5] = "echo";
+  my_info->builtins[6] = NULL;
 }
 
 t_info		*get_info(char **env)
@@ -50,11 +51,6 @@ t_info		*get_info(char **env)
 
 void		*free_info(t_info *info)
 {
-  int		i;
-
-  i = -1;
-  while (++i < BUILTINS_NB)
-    free(info->builtins[i]);
   free(info->pwd);
   free(info->old_pwd);
   free_tab(info->env);
