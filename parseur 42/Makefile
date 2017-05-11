@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Wed May 10 22:36:14 2017 
+## Last update Thu May 11 13:56:47 2017 Thibaut Cornolti
 ##
 
 EXEC		=	auto_selector.c			\
@@ -14,6 +14,7 @@ EXEC		=	auto_selector.c			\
 			selector/cmd/std_exec.c		\
 			selector/cmd/auto_redir.c	\
 			selector/cmd/dup.c		\
+			builtin/echo.c			\
 			status/list_status.c		\
 			status/wait.c			\
 			status/fork.c			\

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Thu May 11 13:47:19 2017 Thibaut Cornolti
+** Last update Thu May 11 15:43:18 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -16,11 +16,12 @@ const void	(*builtins[BUILTINS_NB])(t_command *cmd,
 					    t_status *status,
 					    t_info *info) = 
 {
-  &builtin_exit,
+  NULL,/* &builtin_exit */
   NULL, /* cd */
   NULL, /* setenv */
   NULL, /* unsetenv */
-  NULL /* env */
+  NULL, /* env */
+  &builtin_echo
 };
 
 static int	exec_builtins(t_command *cmd, t_status *status,
