@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  2 10:08:07 2017 
-** Last update Tue May  2 14:22:27 2017 
+** Last update Fri May 12 16:10:14 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "match.h"
@@ -46,15 +46,14 @@ static int	auto_match(char *s1, char **values, char *current, char *already)
 	{
 	  if (already[idx] == 0)
 	    already[idx] = 1;
-	  ret += match_parent(s1, values);
+	  ret += match_parent(s1, values, already);
 	}
     }
   return (ret);
 }
 
-int	match_parent(char *s1, char **values)
+int		match_parent(char *s1, char **values, char *already)
 {
-  char		*already;
   char		*current;
   int		i;
   int		ret;
@@ -63,16 +62,13 @@ int	match_parent(char *s1, char **values)
   i = -1;
   if (*s1 == 0)
     return (1);
-  if ((already = get_already(values)) == NULL)
-    return (0);
   while (s1[++i] && !ret)
     {
-      if ((current =  my_strndup(s1, i + 1)) == NULL)
+      if ((current = my_strndup(s1, i + 1)) == NULL)
 	return (0);
       ret = auto_match(s1 + i + 1, values, current, already);
       free(current);
     }
-  free(already);
   return (ret);
 }
 
@@ -80,6 +76,7 @@ int		parent(char **s1, char **s2)
 {
   int		ret;
   int		len;
+  char		*already;
   char		*format;
   char		**values;
 
@@ -92,8 +89,11 @@ int		parent(char **s1, char **s2)
       return (0);
     }
   free(format);
-  ret = match_parent(*s1, values);
+  if ((already = get_already(values)) == NULL)
+    return (0);
+  ret = match_parent(*s1, values, already);
   free_tab(values);
+  free(already);
   return (ret);
 }
 

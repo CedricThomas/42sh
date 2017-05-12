@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar  1 15:05:53 2017 
-** Last update Mon Apr  3 22:09:14 2017 
+** Last update Fri May 12 16:00:23 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "my.h"
@@ -40,11 +40,9 @@ char	*my_strndup(char *str, int len)
   i = -1;
   if (str == NULL)
     return (NULL);
-  if (my_strlen(str) < len)
-    len = my_strlen(str);
   if ((dup = malloc(sizeof(char) * len + 1)) == NULL)
     return (NULL);
-  while (++i < len)
+  while (str[++i] && i < len)
     dup[i] = str[i];
   dup[i] = 0;
   return (dup);

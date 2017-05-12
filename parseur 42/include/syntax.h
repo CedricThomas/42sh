@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Fri May 12 13:58:32 2017 Thibaut Cornolti
+** Last update Sun May  7 16:27:31 2017 
 */
 
 #ifndef SYNTAX_H_
@@ -13,6 +13,9 @@
 
 # define SKIP	" \t"
 # define INIB	"\"'"
+
+# define ULIMT_MATCH	-1
+# define LIMT_MATCH	0
 
 # define T_ARGS			(1 << 0)
 # define T_FILE			(1 << 1)
@@ -74,6 +77,7 @@ typedef struct		s_node
 
 typedef struct		s_syntax
 {
+  int			*already;
   int			weight;
   char			**values;
 }			t_syntax;

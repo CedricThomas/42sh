@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Thu Oct 13 23:20:58 2016 Cédric Thomas
-** Last update Tue May  2 11:51:39 2017 
+** Last update Fri May 12 16:40:41 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "my.h"
@@ -13,13 +13,14 @@
 
 static const t_pattern	my_pat[NB_PATTERN] =
   {
-    {'\\', &escape},
+    {'#', &inib},
+    {'(', &parent},
     {'*', &star},
+    {'<', &amp},
     {'?', &inter},
     {'{', &braquet},
     {'[', &hook},
-    {'<', &amp},
-    {'(', &parent}
+    {'\\', &escape}
   };
 
 static int	pattern_matcher(char **s1, char **s2)
