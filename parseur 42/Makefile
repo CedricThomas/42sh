@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Fri May 12 16:25:04 2017 Thibaut Cornolti
+## Last update Fri May 12 17:13:58 2017 Thibaut Cornolti
 ##
 ## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##
@@ -82,7 +82,7 @@ LIB		=	-lmy -lmyprintf -lgnl -lalloc
 
 INCLUDE		=	-I./include/
 
-CFLAGS		+=	 $(INCLUDE) -W -Wall -Wextra -o2
+CFLAGS		+=	 $(INCLUDE) -W -Wall -Wextra -g
 
 REDDARK         =       \033[31;2m
 

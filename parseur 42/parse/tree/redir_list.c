@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Thu May  4 21:28:56 2017
-** Last update Fri May 12 15:43:53 2017 Thibaut Cornolti
+** Last update Fri May 12 17:28:12 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "my_alloc.h"
@@ -18,7 +18,6 @@ static int	get_tag(char *type)
   int		flag;
 
   flag = 0;
-  my_printf("redir\n");
   if (advanced_match(type, "*<<*") || advanced_match(type, "*>>*"))
     flag |= DOUBLE;
   if (advanced_match(type, "{\\<\\<,\\<}"))

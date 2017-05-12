@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar  1 15:08:23 2017 
-** Last update Fri May 12 14:37:05 2017 Bastien
+** Last update Fri May 12 17:22:02 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -25,8 +25,8 @@ static int	match_pattern(char *str, char **pattern, int *len)
   i = -1;
   while (str[++i])
     {
-      save = str[i];
-      str[i] = 0;
+      save = str[i + 1];
+      str[i + 1] = 0;
       idx = -1;
       while (pattern[++idx])
 	if (advanced_match(str, pattern[idx]))
@@ -34,8 +34,7 @@ static int	match_pattern(char *str, char **pattern, int *len)
 	    *len = i + 1;
 	    ret = 1;
 	  }
-      str[i] = save;
-      save = 0;
+      str[i + 1] = save;
     }
   return (ret);
 }

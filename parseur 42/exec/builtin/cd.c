@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 11 13:22:48 2017 Thibaut Cornolti
-** Last update Thu May 11 23:31:18 2017 
+** Last update Fri May 12 17:26:37 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -39,9 +39,9 @@ static int	builtin_cd_dash(t_info *info, char *path)
   info->pwd = info->old_pwd;
   info->old_pwd = pwd;
   if (changekey(info->env, "OLDPWD", info->old_pwd, 0))
-    addkey(info->env, "OLDPWD", info->old_pwd, 0);
+    info->env = addkey(info->env, "OLDPWD", info->old_pwd, 0);
   if (changekey(info->env, "PWD", info->pwd, 0))
-    addkey(info->env, "PWD", info->pwd, 0);
+    info->env = addkey(info->env, "PWD", info->pwd, 0);
   return (0);
 }
 
@@ -58,9 +58,9 @@ static int	builtin_cd_param(t_info *info, char *path)
   info->old_pwd = info->pwd;
   info->pwd = path;
   if (changekey(info->env, "OLDPWD", info->old_pwd, 0))
-    addkey(info->env, "OLDPWD", info->old_pwd, 0);
+    info->env = addkey(info->env, "OLDPWD", info->old_pwd, 0);
   if (changekey(info->env, "PWD", info->pwd, 0))
-    addkey(info->env, "PWD", info->pwd, 0);
+    info->env = addkey(info->env, "PWD", info->pwd, 0);
   return (0);
 }
 
@@ -76,9 +76,9 @@ static int	builtin_cd_no_param(t_info *info)
   info->old_pwd = info->pwd;
   info->pwd = home;
   if (changekey(info->env, "OLDPWD", info->old_pwd, 0))
-    addkey(info->env, "OLDPWD", info->old_pwd, 0);
+    info->env = addkey(info->env, "OLDPWD", info->old_pwd, 0);
   if (changekey(info->env, "PWD", info->pwd, 0))
-    addkey(info->env, "PWD", info->pwd, 0);
+    info->env = addkey(info->env, "PWD", info->pwd, 0);
   return (0);
 }
 
