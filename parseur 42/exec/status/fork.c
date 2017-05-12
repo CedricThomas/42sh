@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 21:06:35 2017 
-** Last update Wed May 10 22:49:15 2017 
+** Last update Thu May 11 20:53:53 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -21,7 +21,7 @@ int	my_fork(t_command *cmd, t_status *status, t_info *info,
   if (pid == 0)
     {
       fct(cmd, status, info);
-      exit(status->exit_value);
+      exit(info->exit_value);
     }
   else if (pid > 0)
     my_put_list_exit(&(status->exit_list), pid, 0);

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Mar 28 22:36:31 2017 
-** Last update Thu May 11 15:48:33 2017 Thibaut Cornolti
+** Last update Thu May 11 17:01:12 2017 Cédric Thomas
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -18,9 +18,9 @@ static void	get_fct(t_exec_fct parse[TREE_TYPES])
   parse[1].type = T_FLUX;
   parse[1].fct = NULL;//&my_pipe;
   parse[2].type = T_SEPAR;
-  parse[2].fct = NULL;//&my_separ;
+  parse[2].fct = &exec_separ;
   parse[3].type = T_LOGIC;
-  parse[3].fct = NULL;//&my_separ;
+  parse[3].fct = &exec_logic;
 }
 
 int		auto_select(t_node *root, t_status *status, t_info *info)

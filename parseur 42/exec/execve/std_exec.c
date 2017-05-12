@@ -5,20 +5,33 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 22:32:29 2017 
-** Last update Thu May 11 13:27:31 2017 
+** Last update Thu May 11 16:33:04 2017 Cédric Thomas
 */
 #include <errno.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 #include "syntax.h"
 #include "exec.h"
+#include "my.h"
+
+static void	check_errno(char *str)
+{
+  my_puterror(str);
+  my_puterror(": ");
+  if (ENOEXEC == errno)
+    my_perror(str, "cannot execute binary file\n");
+  else
+    perror(str);
+  exit(1);
+}
 
 void	simple_exec(t_command *cmd, t_status *status, t_info *info)
 {
+  char	*path;
+
   (void)(status);
-  if (execvpe(cmd->path, cmd->argv, info->env))
-    {
-      my_printf("%d\n", errno);
-      perror(cmd->path);
-    }
+  path = my_pathfinder(cmd, info);
+  if (path && execve(path, cmd->argv, info->env))
+    check_errno(cmd->path);
 }
