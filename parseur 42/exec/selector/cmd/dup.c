@@ -1,4 +1,3 @@
-
 /*
 ** dup.c for 42sh in /home/cedric/delivery/PSU/PSU_2016_42sh/parseur 42
 ** 
@@ -6,8 +5,9 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 16:12:11 2017 
-** Last update Thu May 11 22:25:40 2017 
+** Last update Fri May 12 17:02:10 2017 Thibaut Cornolti
 */
+
 #include <stdlib.h>
 #include <unistd.h>
 #include "syntax.h"
@@ -15,7 +15,7 @@
 
 void	my_undup(t_command *cmd, int save[3])
 {
-  int		i;
+  int	i;
 
   i = 0;
   while (i <= 2)
@@ -33,7 +33,7 @@ void	my_undup(t_command *cmd, int save[3])
 
 void	my_dup(t_command *cmd, int save[3])
 {
-  int		i;
+  int	i;
 
   i = 0;
   while (i <= 2)

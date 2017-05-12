@@ -5,8 +5,9 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Thu May 11 21:15:38 2017 
+** Last update Fri May 12 16:50:43 2017 Thibaut Cornolti
 */
+
 #include <signal.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -16,7 +17,7 @@
 #include "exec.h"
 #include "my.h"
 
-static void    check_sig(int status)
+static void	check_sig(int status)
 {
   int   dump;
 
@@ -74,6 +75,5 @@ void		auto_wait(t_status *status, t_info *info)
       tmp = tmp->next;
     }
   get_exit_value(status, info);
-  //show_exit_status(status->exit_list);
   my_del_exit(&(status->exit_list));
 }

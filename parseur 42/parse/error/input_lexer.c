@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sun Apr 30 20:11:56 2017 
-** Last update Mon May  1 17:16:47 2017 
+** Last update Fri May 12 16:59:13 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -36,6 +36,6 @@ int		check_input_lexer(char *str)
   if (str == NULL)
     return (1);
   if (checkdouble(str))
-    return (1);    
+    return (1);
   return (0);
 }

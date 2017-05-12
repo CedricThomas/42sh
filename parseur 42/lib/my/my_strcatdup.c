@@ -5,13 +5,13 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Tue Oct 18 15:24:12 2016 Cédric Thomas
-** Last update Mon Feb 20 21:46:43 2017 
+** Last update Fri May 12 16:53:50 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
 #include "my.h"
 
-char    *my_strcatdup(char *s1, char *s2, int freeval)
+char	*my_strcatdup(char *s1, char *s2, int freeval)
 {
   int   i;
   char	*dest;

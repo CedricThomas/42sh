@@ -4,7 +4,7 @@
 ** Made by 
 ** Login   <cedric.thomas@epitech.eu>
 ** 
-** Last update Sun May  7 16:14:29 2017 
+** Last update Fri May 12 17:01:22 2017 Thibaut Cornolti
 ** Last update Thu May  4 21:36:11 2017 Thibaut Cornolti
 */
 
@@ -68,7 +68,7 @@ static void	fill_fct(void *(*fct_create_node[FULL_MAX_TYPES])
   fct_create_node[4] = &create_standard_node;
   fct_create_node[5] = &create_pipe_node;
   fct_create_node[6] = &create_standard_node;
-  fct_create_node[7] = &create_standard_node;  
+  fct_create_node[7] = &create_standard_node;
   fct_check_error[0] = NULL;
   fct_check_error[1] = NULL;
   fct_check_error[2] = &error_command_node;
@@ -78,17 +78,6 @@ static void	fill_fct(void *(*fct_create_node[FULL_MAX_TYPES])
   fct_check_error[6] = NULL;
   fct_check_error[7] = NULL;
 }
-
-/* static void	show_debug_node(t_token *start, t_token *end) */
-/* { */
-/*   my_printf("NODE::\n"); */
-/*   while (start != end) */
-/*     { */
-/*       my_printf("\t%s %d\n", start->token, start->type); */
-/*       start = start->next; */
-/*     } */
-/*   my_printf("------\n"); */
-/* } */
 
 void		*auto_create_node(void *root, t_token *start, t_token *end)
 {
@@ -100,7 +89,6 @@ void		*auto_create_node(void *root, t_token *start, t_token *end)
 
   if (start == end)
     return (NULL);
-  /* show_debug_node(start, end); */
   fill_fct(fct_create_node, fct_check_error);
   bigger = search_biggest(start, end);
   ret = NULL;
@@ -108,7 +96,7 @@ void		*auto_create_node(void *root, t_token *start, t_token *end)
   field.start = start;
   field.end = end;
   if (!fct_check_error[my_log2(bigger->type)] ||
-      !fct_check_error[my_log2(bigger->type)](&field, bigger))      
+      !fct_check_error[my_log2(bigger->type)](&field, bigger))
     ret = fct_create_node[my_log2(bigger->type)](&field, bigger);
   return (ret);
 }

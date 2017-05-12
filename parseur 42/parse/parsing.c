@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 12 16:35:12 2017 Thibaut Cornolti
+** Last update Fri May 12 16:45:29 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -31,7 +31,8 @@ t_syntax		*get_syntax()
 {
   t_syntax		*my_syntax;
 
-  if ((my_syntax = malloc(sizeof(t_syntax) * (MAX_TYPES + 1))) == NULL)
+  if ((my_syntax = malloc(sizeof(t_syntax) *
+			  (MAX_TYPES + 1))) == NULL)
     return (NULL);
   my_syntax[0] = syntax_create(T_SEPAR, 1, ";");
   my_syntax[1] = syntax_create(T_LOGIC, 2, "&&", "||");

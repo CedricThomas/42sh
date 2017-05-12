@@ -5,15 +5,15 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar  1 15:05:53 2017 
-** Last update Thu May  4 19:33:29 2017 Thibaut Cornolti
+** Last update Fri May 12 17:00:56 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
 #include "my.h"
 
-int             my_log2(int log)
+int	my_log2(int log)
 {
-  int           i;
+  int	i;
 
   i = -1;
   while (1 << ++i < log);
@@ -32,7 +32,7 @@ int	my_putfd(int fd, char *str)
 
   i = 0;
   if  (str == NULL)
-    return (1);    
+    return (1);
   while (str[i])
     i += 1;
   write(fd, str, i);
