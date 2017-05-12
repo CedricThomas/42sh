@@ -5,12 +5,16 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 21:29:03 2017 
-** Last update Fri May 12 12:20:35 2017 
+** Last update Fri May 12 14:52:01 2017 Bastien
 */
+
+#define _GNU_SOURCE
+
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <fcntl.h>
 #include "syntax.h"
 #include "exec.h"
 #include "my.h"
@@ -26,7 +30,7 @@ static void	pipe_and_send(t_pipe *root, t_status *status, t_info *info)
 {
   int		fd[2];
 
-  if (pipe(fd) < 0)
+  if (pipe2(fd, O_CLOEXEC) < 0)
     return (pipe_error(root));
   status->status += LEFT_PIPE;
   ((t_pipe *) root->left)->fd[1] = fd[1];
