@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 12 13:45:50 2017 
+** Last update Fri May 12 15:28:59 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -19,10 +19,7 @@ void		free_syntax(t_syntax **my_syntax)
 
   i = -1;
   while ((*my_syntax)[++i].values)
-    {
-      free_tab((*my_syntax)[i].values);
-      free((*my_syntax)[i].already);
-    }
+    free_tab((*my_syntax)[i].values);
   free(*my_syntax);
   *my_syntax = NULL;
 }
@@ -41,7 +38,6 @@ t_syntax		*get_syntax()
 			       "1>>", "1>", "&>>", "&>");
   my_syntax[4] = syntax_create(T_FLUX_REDIR_IN, 2, "\\<\\<", "\\<");
   my_syntax[5] = syntax_create(T_COMMON, 1, "('*',\"*\",&< \t\"'>*)");
-  my_syntax[5].already[0] = ULIMT_MATCH;
   my_syntax[6].values = NULL;
   return (my_syntax);
 }

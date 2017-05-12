@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 22:10:45 2017
-** Last update Fri May 12 13:49:55 2017 
+** Last update Fri May 12 15:30:41 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -13,26 +13,9 @@
 #include "match.h"
 #include "my.h"
 
-static void	reset_syntax(t_syntax *my_syntax)
-{
-  int		i;
-  int		j;
-
-  i = -1;
-  while (my_syntax[++i].values)
-    {
-      j = -1;
-      while (my_syntax[i].values[++j])
-	if (my_syntax[i].already[j] > 0)
-	  my_syntax[i].already[j] = LIMT_MATCH;
-    }
-}
-
-static int	change_len(int *last, int len, int index, t_syntax *syntax)
+static int	change_len(int *last, int len, t_syntax *syntax)
 {
   *last = len;
-  if (syntax->already[index] == 0)
-    syntax->already[index] = 1;
   return (syntax->weight);
 }
 
@@ -55,8 +38,8 @@ static int	len_token(int *type, char *str, t_syntax *my_syntax)
 	  j = -1;
 	  while (my_syntax[i].values[++j])
 	    if (advanced_match(current, my_syntax[i].values[j]) &&
-		*type <= my_syntax[i].weight && my_syntax[i].already[j] <= 0)
-	      *type = change_len(&last, len, j, &my_syntax[i]);
+		*type <= my_syntax[i].weight)
+	      *type = change_len(&last, len, &my_syntax[i]);
 	}
       free(current);
     }
@@ -78,7 +61,6 @@ static char	*next_token(int *type, char *str, t_syntax *my_syntax)
     idx += 1;
   if (str[idx] == 0)
     return (NULL);
-  reset_syntax(my_syntax);
   *type = 0;
   len = len_token(type, str + idx, my_syntax);
   token = my_strndup(str + idx, len);
