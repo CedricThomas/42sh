@@ -5,9 +5,9 @@
 ** Login   <cedric@epitech.net>
 **
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 12 14:45:36 2017 
-** Last update Fri May 12 14:40:07 2017 maje
+** Last update Fri May 12 16:47:20 2017 Thibaut Cornolti
 */
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
@@ -16,33 +16,17 @@
 #include "syntax.h"
 #include "exec.h"
 #include "my_printf.h"
-
-/* static void	search_git(char *info) */
-/* { */
-/*   int		i; */
-
-/*   i = -1; */
-/*   (void)info; */
-/* } */
-
 static void	git(char *info)
 {
   DIR		*dir;
-  //  int		i;
   struct dirent *dirent;
-  //  char		*new;
 
-  //  i = my_strlen(info);
   if ((dir = opendir(info)) == NULL)
     return ;
   while ((dirent = readdir(dir)) != NULL)
     {
       if (my_strcmp(".git", dirent->d_name) == 0)
 	my_printf("\033[34;01m git:(master)\033[00m");
-      /* else */
-      /*   { */
-      /*   git(new); */
-      /*   } */
     }
   closedir(dir);
 }

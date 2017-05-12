@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Fri May 12 12:45:41 2017 
+## Last update Fri May 12 16:25:04 2017 Thibaut Cornolti
 ##
 ## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##
@@ -59,6 +59,7 @@ MATCH		=	match.c				\
 			fct/parent.c			\
 			fct/escape.c			\
 			fct/braquet.c			\
+			fct/inib.c			\
 
 NODE		=	command_node.c			\
 			standard_node.c			\

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu Mar 30 13:27:56 2017 
-** Last update Tue May  9 15:35:35 2017 
+** Last update Fri May 12 17:02:31 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -39,7 +39,7 @@ static void	assign_fd(t_command *cmd, int fd, int tag)
   if ((tag & STDIN) == STDIN)
     cmd->fd[0] = fd;
   if ((tag & STDOUT) == STDOUT)
-    cmd->fd[1] = fd;    
+    cmd->fd[1] = fd;
   if ((tag & STDERROR) == STDERROR)
     cmd->fd[2] = fd;
 }

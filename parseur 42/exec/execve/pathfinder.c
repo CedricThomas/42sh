@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 16:30:38 2017 
-** Last update Thu May 11 16:36:25 2017 Cédric Thomas
+** Last update Fri May 12 16:48:30 2017 Thibaut Cornolti
 */
 #include <signal.h>
 #include <sys/types.h>
@@ -94,6 +94,6 @@ char		*my_pathfinder(t_command *cmd, t_info *info)
     {
       free(path);
       path = NULL;
-    }    
+    }
   return (path);
 }

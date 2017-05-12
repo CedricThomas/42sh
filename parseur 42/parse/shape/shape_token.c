@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  2 18:22:24 2017 
-** Last update Fri May  5 10:09:01 2017 
+** Last update Fri May 12 17:01:06 2017 Thibaut Cornolti
 */
 #include "syntax.h"
 
@@ -40,7 +40,7 @@ static void	define_file(t_token *token)
 	  (token->next->type & T_COMMON) == token->next->type)
 	token->next->type = T_FILE;
       token = token->next;
-    }  
+    }
 }
 
 void	shape_token(t_token *token)

@@ -1,14 +1,14 @@
 /*
 ** pipe.c for mysh in /home/cedric/delivery/PSU/PSU_2016_minishell2
-** 
-** Made by 
+**
+** Made by
 ** Login   <cedric.thomas@epitech.eu>
-** 
-** Started on  Wed Mar 29 21:29:03 2017 
-** Last update Fri May 12 14:52:01 2017 Bastien
+**
+** Started on  Wed Mar 29 21:29:03 2017
+** Last update Fri May 12 16:49:52 2017 Thibaut Cornolti
 */
 
-#define _GNU_SOURCE
+# define _GNU_SOURCE
 
 #include <sys/types.h>
 #include <sys/wait.h>

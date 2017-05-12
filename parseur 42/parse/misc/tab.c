@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu Mar 23 10:00:54 2017 
-** Last update Fri May 12 13:57:38 2017 Thibaut Cornolti
+** Last update Tue May  2 17:21:39 2017 
 */
 #include <stdlib.h>
 #include <stdarg.h>
@@ -21,8 +21,11 @@ t_syntax	syntax_create(int weight, int size, ...)
 
   my_memset((char *)&syntax, 0, sizeof(t_syntax));
   syntax.weight = weight;
+  if ((syntax.already = malloc(sizeof(int) * (size))) == NULL)
+    return (syntax);
   if ((syntax.values = malloc(sizeof(char *) * (size + 1))) == NULL)
     return (syntax);
+  my_memset((char *)syntax.already, 0, sizeof(int) * size);
   i = -1;
   va_start(str_list, size);
   while (++i < size)

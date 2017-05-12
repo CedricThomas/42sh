@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 22:10:45 2017
-** Last update Fri May 12 15:30:41 2017 Thibaut Cornolti
+** Last update Fri May 12 15:47:12 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -13,15 +13,32 @@
 #include "match.h"
 #include "my.h"
 
-static int	change_len(int *last, int len, t_syntax *syntax)
+static void	reset_syntax(t_syntax *my_syntax)
+{
+  int		i;
+  int		j;
+
+  i = -1;
+  while (my_syntax[++i].values)
+    {
+      j = -1;
+      while (my_syntax[i].values[++j])
+	if (my_syntax[i].already[j] > 0)
+	  my_syntax[i].already[j] = LIMT_MATCH;
+    }
+}
+
+static int	change_len(int *last, int len, int index, t_syntax *syntax)
 {
   *last = len;
+  if (syntax->already[index] == 0)
+    syntax->already[index] = 1;
   return (syntax->weight);
 }
 
 static int	len_token(int *type, char *str, t_syntax *my_syntax)
 {
-  char		*current;
+  char		temp;
   int		i;
   int		j;
   int		len;
@@ -31,17 +48,18 @@ static int	len_token(int *type, char *str, t_syntax *my_syntax)
   last = 0;
   while (str[++len - 1])
     {
-      current = my_strndup(str, len);
+      temp = str[len];
+      str[len] = 0;
       i = -1;
       while (my_syntax[++i].values)
 	{
 	  j = -1;
 	  while (my_syntax[i].values[++j])
-	    if (advanced_match(current, my_syntax[i].values[j]) &&
-		*type <= my_syntax[i].weight)
-	      *type = change_len(&last, len, &my_syntax[i]);
+	    if (*type <= my_syntax[i].weight && my_syntax[i].already[j] <= 0 &&
+		advanced_match(str, my_syntax[i].values[j]))
+	      *type = change_len(&last, len, j, &my_syntax[i]);
 	}
-      free(current);
+      str[len] = temp;
     }
   return (last);
 }
@@ -61,6 +79,7 @@ static char	*next_token(int *type, char *str, t_syntax *my_syntax)
     idx += 1;
   if (str[idx] == 0)
     return (NULL);
+  reset_syntax(my_syntax);
   *type = 0;
   len = len_token(type, str + idx, my_syntax);
   token = my_strndup(str + idx, len);

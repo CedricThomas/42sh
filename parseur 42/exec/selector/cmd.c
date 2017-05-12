@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Fri May 12 12:00:17 2017 
+** Last update Fri May 12 16:48:50 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -52,7 +52,7 @@ static int	auto_exec(t_command *cmd, t_status *status, t_info *info)
 
   idx = 0;
   if ((idx = exist_in_tab(cmd->path, info->builtins)) >= 0)
-    exec_builtins(cmd, status, info, idx);    
+    exec_builtins(cmd, status, info, idx);
   else
     if (exec_std(cmd, status, info))
       return (1);

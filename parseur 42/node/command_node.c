@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May  4 18:11:31 2017 Thibaut Cornolti
-** Last update Thu May 11 17:30:02 2017 Cédric Thomas
+** Last update Fri May 12 16:45:08 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -64,7 +64,8 @@ static t_redir	*get_redir(t_token *start, t_token *end)
   while (start != end)
     {
       if (start->next != end &&
-	  (start->type & (T_FLUX_REDIR_OUT | T_FLUX_REDIR_IN)) == start->type)
+	  (start->type &
+	   (T_FLUX_REDIR_OUT | T_FLUX_REDIR_IN)) == start->type)
 	add_redir_list(&redir, start->next->token, start->token);
       start = start->next;
     }
