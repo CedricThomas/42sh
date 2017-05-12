@@ -5,10 +5,12 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 12 12:22:59 2017 
+** Last update Fri May 12 14:45:22 2017 
 */
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <dirent.h>
 #include "my.h"
 #include "get_next_line.h"
 #include "syntax.h"
