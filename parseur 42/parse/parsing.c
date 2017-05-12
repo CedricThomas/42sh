@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May 11 23:34:25 2017 Thibaut Cornolti
+** Last update Fri May 12 13:45:50 2017 
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -36,7 +36,9 @@ t_syntax		*get_syntax()
   my_syntax[0] = syntax_create(T_SEPAR, 1, ";");
   my_syntax[1] = syntax_create(T_LOGIC, 2, "&&", "||");
   my_syntax[2] = syntax_create(T_FLUX, 1, "|");
-  my_syntax[3] = syntax_create(T_FLUX_REDIR_OUT, 2, "{1,2,&,}>>", "{1,2,&,}>");
+  my_syntax[3] = syntax_create(T_FLUX_REDIR_OUT, 8,
+			       ">>", ">", "2>>", "2>",
+			       "1>>", "1>", "&>>", "&>");
   my_syntax[4] = syntax_create(T_FLUX_REDIR_IN, 2, "\\<\\<", "\\<");
   my_syntax[5] = syntax_create(T_COMMON, 1, "('*',\"*\",&< \t\"'>*)");
   my_syntax[5].already[0] = ULIMT_MATCH;

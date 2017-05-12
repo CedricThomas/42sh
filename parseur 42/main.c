@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May 11 21:55:24 2017 
+** Last update Fri May 12 12:22:59 2017 
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -52,7 +52,8 @@ int		main(int ac, char **av, char **env)
     {
       if ((root = parse_cmd(syntax, cmd)))
 	{
-	  auto_select(root, &status, info);
+	  show_nodes(root, 0, 0);
+	  //	  auto_select(root, &status, info);
 	  my_free_tree(&root);
 	}
       if (!status.exit && isatty(0))

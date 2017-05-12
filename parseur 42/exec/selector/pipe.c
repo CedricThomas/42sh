@@ -5,123 +5,57 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 21:29:03 2017 
-** Last update Fri Apr  7 11:41:19 2017 
+** Last update Fri May 12 12:20:35 2017 
 */
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "mysh.h"
+#include "syntax.h"
+#include "exec.h"
 #include "my.h"
 
-void		setexitvalue(t_status *status, t_info *info)
+static void	pipe_error(t_pipe *root)
 {
-  int		last;
-  t_exit	*tmp;
-
-  tmp = status->pipeline;
-  while (tmp)
-    {
-      if (WIFSIGNALED(tmp->exit))
-  	check_sig(tmp->exit);
-      if (tmp->exit)
-	{
-	  last = tmp->exit;
-	  if (tmp->pid < 0)
-	    info->last = last;
-	  else if (WIFEXITED(last))
-	    info->last = WEXITSTATUS(last);
-	  else if (WIFSIGNALED(last))
-	    info->last = last % 128 + 128;
-	}
-      tmp = tmp->next;
-    }
+  if ( ((t_pipe *) root)->fd[0] != 0)
+    close( ((t_pipe *) root)->fd[0]);
+  my_puterror("Cant't make pipe.\n");
 }
 
-void		wait_cmd(t_status *status, t_info *info)
+static void	pipe_and_send(t_pipe *root, t_status *status, t_info *info)
 {
-  int		pid;
-  int		i;
-  int		last;
+  int		fd[2];
 
-  my_close_fd(&(status->fd), &(status->piped), &(status->pipe_max));
-  i = -1;
-  while (++i < status->cmd)
-    {
-      pid = wait(&last);
-      setlast(status->pipeline, pid, last);
-    }
-  setexitvalue(status, info);
-  my_del_exit(&(status->pipeline));
+  if (pipe(fd) < 0)
+    return (pipe_error(root));
+  status->status += LEFT_PIPE;
+  ((t_pipe *) root->left)->fd[1] = fd[1];
+  ((t_pipe *) root->left)->fd[0] = root->fd[0];
+  auto_select(root->left, status, info);
+  status->status -= LEFT_PIPE;
+  status->status += RIGHT_PIPE;
+  ((t_pipe *) root->right)->fd[0] = fd[0];
+  auto_select(root->right, status, info);
+  status->status -= RIGHT_PIPE;
 }
 
-void		pipe_and_send(t_node *root, t_status *status, t_info *info)
+int		exec_pipe(t_node *root, t_status *status, t_info *info)
 {
-  int		pid;
-
-  if (!search_double_input(root->left, status, info))
-    {
-      status->forced.out = status->piped[status->cmd * 2 + 1];
-      pid = fork();
-      if (pid == 0)
-	{
-	  status->status += ON_FORK;
-	  search_actions(root->left, status, info);
-	  exit(info->last);
-	}
-      else if (pid < 0)
-	return (my_puterror("fork: Invalid fork stop of the pipeline.\n"));
-      my_put_list_exit(&(status->pipeline), pid, 0);
-    }
-  else
-    my_put_list_exit(&(status->pipeline), -1, 1);
-  status->forced.in = status->piped[status->cmd * 2];
-  status->forced.out = 1;
-  status->cmd += 1;
-  search_actions(root->right, status, info);
-}
-
-int		open_pipes(t_status *status, t_node *root)
-{
-  t_node	*temp;
-  int           i;
-  int		size;
-
-  size = 0;
-  temp = root;
-  while (temp->type == T_FLUX)
-    {
-      size += 1;
-      temp = temp->right;
-    }
-  if ((status->piped = malloc(sizeof(int) * (size * 2))) == NULL)
-    exit(84);
-  i = -1;
-  while (++i < size)
-    if (pipe(status->piped + i * 2) < 0)
-      return (1);
-  status->pipe_max = size;
-  return (0);
-}
-
-t_fd		my_pipe(t_node *root, t_status *status, t_info *info)
-{
+  t_pipe	*my_pipe;
   int		first;
 
   first = 0;
-  if ((status->status & ON_PIPELINE) != ON_PIPELINE)
+  my_pipe = (t_pipe *) root;
+  if ((status->status & PIPELINE) != PIPELINE)
     {
       first = 1;
-      status->status += ON_PIPELINE;
-      if (open_pipes(status, root))
-	{
-	  my_puterror("Can't make pipe\n");
-	  info->last = 1;
-	  return (myfds(0, 1));
-	}
+      status->status += PIPELINE;
     }
-  pipe_and_send(root, status, info);
+  pipe_and_send(my_pipe, status, info);
   if (first)
-    wait_cmd(status, info);
-  return (status->forced);
+    {
+      auto_wait(status, info);
+      status->status -= PIPELINE;
+    }
+  return (0);
 }

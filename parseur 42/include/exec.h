@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 11 22:26:46 2017 
+** Last update Thu May 11 23:47:39 2017 
 */
 
 #ifndef EXEC_H_
@@ -13,7 +13,7 @@
 
 # define PIPELINE	(1 << 0)
 # define LEFT_PIPE	(1 << 1)
-# define RIFHT_PIPE	(1 << 2)
+# define RIGHT_PIPE	(1 << 2)
 
 # define BUILTINS_NB	5
 # define REDIR_NB	4
@@ -92,6 +92,7 @@ int	auto_select(t_node *root, t_status *status, t_info *info);
 int	exec_cmd(t_node *root, t_status *status, t_info *info);
 int	exec_separ(t_node *root, t_status *status, t_info *info);
 int	exec_logic(t_node *root, t_status *status, t_info *info);
+int	exec_pipe(t_node *root, t_status *status, t_info *info);
 
 /*
 **SELECTOR/CMD
