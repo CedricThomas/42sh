@@ -5,11 +5,13 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 11 23:47:39 2017 
+** Last update Fri May 12 17:44:29 2017 
 */
 
 #ifndef EXEC_H_
 # define EXEC_H_
+
+# define _GNU_SOURCE
 
 # define PIPELINE	(1 << 0)
 # define LEFT_PIPE	(1 << 1)

@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 12 16:46:26 2017 Thibaut Cornolti
+** Last update Fri May 12 18:44:53 2017 
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -54,6 +54,7 @@ int		main(int ac, char **av, char **env)
     {
       if ((root = parse_cmd(syntax, cmd)))
 	{
+	  //	  show_nodes(root, 0, 0);
 	  auto_select(root, &status, info);
 	  my_free_tree(&root);
 	}

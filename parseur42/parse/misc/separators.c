@@ -5,44 +5,30 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar  1 15:08:23 2017 
-** Last update Fri May 12 17:22:02 2017 Thibaut Cornolti
+** Last update Sat May 13 13:10:12 2017 
 */
 
 #include <stdlib.h>
 #include "my.h"
-#include "match.h"
 #include "syntax.h"
 
-static int	match_pattern(char *str, char **pattern, int *len)
+int	is_in_tab(char *str, char **tab, int *index)
 {
-  int		i;
-  int		ret;
-  char		save;
-  int		idx;
-
-  ret = 0;
-  save = 0;
-  i = -1;
-  while (str[++i])
+  *index = 0;
+  while (tab[*index])
     {
-      save = str[i + 1];
-      str[i + 1] = 0;
-      idx = -1;
-      while (pattern[++idx])
-	if (advanced_match(str, pattern[idx]))
-	  {
-	    *len = i + 1;
-	    ret = 1;
-	  }
-      str[i + 1] = save;
+      if (!my_strncmp(tab[*index], str, my_strlen(tab[*index])))
+	return (1);
+      (*index) += 1;
     }
-  return (ret);
+  *index = -1;
+  return (0);
 }
 
 static int	my_epur_size(char *str, char **sep_list)
 {
+  int	tab_size;
   int	size;
-  int	len;
   int	i;
   char	quote;
 
@@ -53,11 +39,8 @@ static int	my_epur_size(char *str, char **sep_list)
     {
       if ((quote == 0 && is_in(str[i], INIB)) || str[i] == quote)
 	quote = (!quote ? str[i] : 0);
-      if (!quote && match_pattern(str + i, sep_list, &len))
-	{
-	  size += len + 1;
-	  i += len - 1;
-	}
+      if (is_in_tab(str + i, sep_list, &tab_size) && !quote)
+	size += my_strlen(sep_list[tab_size]) + 1;
       size += 1;
     }
   return (size);
@@ -65,7 +48,7 @@ static int	my_epur_size(char *str, char **sep_list)
 
 static void	my_cpy(char *str, char *epured, char **sep_list)
 {
-  int		len;
+  int		tab_size;
   int		i;
   char		quote;
   int		j;
@@ -77,11 +60,12 @@ static void	my_cpy(char *str, char *epured, char **sep_list)
     {
       if ((quote == 0 && is_in(str[i], INIB)) || str[i] == quote)
 	quote = (!quote ? str[i] : 0);
-      if (match_pattern(str + i, sep_list, &len) && !quote)
+      if (is_in_tab(str + i, sep_list, &tab_size) && !quote)
 	{
-	  my_strncpy(epured + j + 1, str + i, len);
-	  j += len + 1;
-	  i += len - 1;
+	  my_strncpy(epured + j + 1, sep_list[tab_size],
+		     my_strlen(sep_list[tab_size]));
+	  j += my_strlen(sep_list[tab_size]) + 1;
+	  i += my_strlen(sep_list[tab_size]) - 1;
 	}
       else
 	epured[j] = str[i];
@@ -95,7 +79,7 @@ char	*shape_separator(char *str, char **sep_list)
   char	*epured;
   int	size;
 
-  if (str == NULL || sep_list == NULL)
+  if (str == NULL)
     return (NULL);
   size = my_epur_size(str, sep_list);
   if ((epured = malloc(sizeof(char) * (size + 1))) == NULL)

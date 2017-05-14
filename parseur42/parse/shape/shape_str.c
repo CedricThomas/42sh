@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu Mar 23 17:12:35 2017 
-** Last update Fri May 12 17:00:08 2017 Thibaut Cornolti
+** Last update Sat May 13 13:16:20 2017 
 */
 
 #include <stdlib.h>
@@ -16,9 +16,9 @@ char	*shape_str(char *str)
 {
   char	**delim;
 
-  delim = tab_create(8, ";", "||", "&&", "|", "&>>", "1>>",
+  delim = tab_create(14, ";", "||", "&&", "|", "&>>", "1>>",
 		     "2>>", ">>", "&>", "1>", "2>", ">",
-		     "\\<\\<", "\\<");
+		     "<<", "<");
   str = shape_separator(str, delim);
   free_tab(delim);
   return (str);

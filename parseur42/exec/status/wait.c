@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Fri May 12 16:50:43 2017 Thibaut Cornolti
+** Last update Fri May 12 18:47:30 2017 
 */
 
 #include <signal.h>
@@ -70,8 +70,11 @@ void		auto_wait(t_status *status, t_info *info)
   info->exit_value = 0;
   while (tmp)
     {
-      pid = wait(&last);
-      set_exit_value(status->exit_list, pid, last);
+      if (tmp->pid > 0)
+	{
+	  pid = wait(&last);
+	  set_exit_value(status->exit_list, pid, last);
+	}
       tmp = tmp->next;
     }
   get_exit_value(status, info);

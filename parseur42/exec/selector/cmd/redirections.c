@@ -1,13 +1,14 @@
 /*
 ** new_output.c for output in /home/thibrex/Dropbox/delivery/PSU/PSU_2016_42sh/parseur 42/exec/selector
-** 
+**
 ** Made by Thibaut Cornolti
 ** Login   <thibaut.cornolti@epitech.eu>
-** 
+**
 ** Started on  Tue May  9 14:40:23 2017 Thibaut Cornolti
-** Last update Fri May 12 17:01:39 2017 Thibaut Cornolti
+** Last update Fri May 12 21:58:00 2017 
 */
 
+#include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -17,12 +18,23 @@
 #include "get_next_line.h"
 #include "syntax.h"
 
+static void	my_redir_error(char *file)
+{
+  my_puterror(file);
+  if (errno == ENOENT)
+    my_puterror(": No such file or directory.\n");
+  if (errno == EACCES)
+    my_puterror(": Permission denied.\n");
+  if (errno == EISDIR)
+    my_puterror(": Is a directory.\n");
+}
+
 int		redir_output(char *file)
 {
   int		fd;
 
   if ((fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644)) < 0)
-    perror(file);
+    my_redir_error(file);
   return (fd);
 }
 
@@ -31,7 +43,7 @@ int		double_redir_output(char *file)
   int		fd;
 
   if ((fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644)) < 0)
-    perror(file);
+    my_redir_error(file);
   return (fd);
 }
 
@@ -40,7 +52,7 @@ int		redir_input(char *file)
   int		fd;
 
   if ((fd = open(file, O_RDONLY)) < 0)
-    perror(file);
+    my_redir_error(file);
   return (fd);
 }
 

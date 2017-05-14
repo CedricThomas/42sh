@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 11 13:22:48 2017 Thibaut Cornolti
-** Last update Thu May 11 16:37:44 2017 Thibaut Cornolti
+** Last update Fri May 12 17:36:39 2017 
 */
 
 #include "syntax.h"
@@ -18,7 +18,7 @@ void		builtin_echo(t_command *cmd, t_status *status, t_info *info)
 
   i = 0;
   UNUSED(status);
-  UNUSED(info);
+  info->exit_value = 0;
   while (cmd->argv[++i])
     {
       my_putstr(cmd->argv[i]);

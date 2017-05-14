@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May  4 21:26:36 2017 Thibaut Cornolti
-** Last update Thu May 11 23:50:09 2017 Thibaut Cornolti
+** Last update Fri May 12 14:54:15 2017 
 */
 
 #include "syntax.h"
@@ -22,8 +22,10 @@ static int	check_pipe(t_token *start, t_token *end,
       already_check |= start->type;
       if (!(mask_available & start->type))
 	{
-	  my_puterror((start->type & T_FLUX_REDIR_OUT) ?
-		      "Ambigous output redirect.\n" : "Ambigous input redirect.\n");
+	  if ((start->type & T_FLUX_REDIR_OUT))
+	    my_puterror("Ambigous output redirect.\n");
+	  else
+	    my_puterror("Ambigous input redirect.\n");
 	  return (1);
 	}
       start = start->next;
