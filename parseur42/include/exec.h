@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Fri May 12 17:44:29 2017 
+** Last update Mon May 15 13:24:51 2017 Bastien
 */
 
 #ifndef EXEC_H_
@@ -20,6 +20,12 @@
 # define BUILTINS_NB	5
 # define REDIR_NB	4
 
+typedef struct		s_alias
+{
+  char			*link;
+  char			*real_cmd;
+}			t_alias
+
 typedef struct		s_info
 {
   char			*builtins[BUILTINS_NB + 1];
@@ -27,6 +33,7 @@ typedef struct		s_info
   unsigned int		exit_value;
   char			*old_pwd;
   char			*pwd;
+  t_alias		*alias;
 }			t_info;
 
 typedef struct          s_exit
