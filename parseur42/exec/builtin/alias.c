@@ -5,9 +5,10 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Mon May 15 15:48:20 2017 Bastien
-** Last update Mon May 15 17:07:48 2017 Bastien
+** Last update Mon May 15 18:46:21 2017 Bastien
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <fnmatch.h>
@@ -24,34 +25,40 @@ static int	my_strtablen(char **tab)
   return (i < 0 ? 0 : i);
 }
 
-static int	alias_size(t_alias *tab)
+void		show_cmd(t_info *info, char *str)
 {
-  int	       i;
+  int	i;
 
   i = -1;
-  while (tab && tab[++i].link);
-  return (i < 0 ? 0 : i);
+  while (info->alias[++i].link)
+    if (!strcmp(info->alias[i].link, str))
+      {
+	printf("%s=%s\n", info->alias[i].link, info->alias[i].value);
+	return ;
+      }
 }
 
 void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
 {
   int		i;
-  int		size;
+  static int	size = 0;
 
   (void)status;
   if (my_strtablen(cmd->argv) != 2)
     return ;
-  if (fnmatch("*=\"*\"", cmd->argv[1], 0))
-    return ;
   i = my_cstrlen(cmd->argv[1], '=');
-  if (cmd->argv[1][i] != '=')
+  if (fnmatch("*=\"*\"", cmd->argv[1], 0) || cmd->argv[1][i] != '=')
+    {
+      if (size)
+	show_cmd(info, cmd->argv[1]);
+      return ;
+    }
+  if (!(info->alias = realloc(info->alias, sizeof(t_alias) * (size + 2))))
     return ;
-  size = (!info->alias) ? 2 : 1;
-  if (!(info->alias = realloc(info->alias, alias_size(info->alias) + size)))
-    return ;
+  memset(&info->alias[size], 0, sizeof(t_alias) * 2);
   cmd->argv[1][i] = 0;
-  size = alias_size(info->alias);
   info->alias[size].link = strdup(cmd->argv[1]);
   cmd->argv[1][i] = '=';
-  info->alias[size].value = strdup(cmd->argv[1] + i + 1);  
+  info->alias[size].value = strdup(cmd->argv[1] + i + 1);
+  size += 1;
 }
