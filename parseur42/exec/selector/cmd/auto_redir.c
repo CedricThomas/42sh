@@ -5,9 +5,10 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu Mar 30 13:27:56 2017 
-** Last update Fri May 12 17:02:31 2017 Thibaut Cornolti
+** Last update Mon May 15 14:15:04 2017 
 */
 #include <stdlib.h>
+#include <unistd.h>
 #include "syntax.h"
 #include "exec.h"
 #include "my.h"
@@ -34,6 +35,25 @@ static int	get_fd(int tag, char *file)
   return (fd_fct[index](file));
 }
 
+static void	dup_fd(int fd, int tag)
+{
+  if ((tag & STDIN) == STDIN)
+    {
+      if (dup2(fd, 0) < 0)
+	exit(84);
+    }
+  if ((tag & STDOUT) == STDOUT)
+    {
+      if (dup2(fd, 1) < 0)
+	exit(84);
+    }
+  if ((tag & STDERROR) == STDERROR)
+    {
+      if (dup2(fd, 2) < 0)
+	exit(84);
+    }
+}
+
 static void	assign_fd(t_command *cmd, int fd, int tag)
 {
   if ((tag & STDIN) == STDIN)
@@ -44,7 +64,7 @@ static void	assign_fd(t_command *cmd, int fd, int tag)
     cmd->fd[2] = fd;
 }
 
-int		load_redir(t_command *cmd)
+int		load_redir(t_command *cmd, t_status *status)
 {
   int		fd;
   t_redir	*tmp;
@@ -54,7 +74,10 @@ int		load_redir(t_command *cmd)
     {
       if ((fd = get_fd(tmp->tag, tmp->file)) < 0)
 	return (1);
-      assign_fd(cmd, fd, tmp->tag);
+      if ((status->status & FORK) == FORK)
+	dup_fd(fd, tmp->tag);
+      else
+	assign_fd(cmd, fd, tmp->tag);
       tmp = tmp->next;
     }
   return (0);

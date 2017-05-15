@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Mon May 15 13:50:51 2017 Thibaut Cornolti
+** Last update Mon May 15 14:47:04 2017 
 */
 
 #ifndef EXEC_H_
@@ -25,7 +25,7 @@ typedef struct		s_alias
 {
   char			*link;
   char			*real_cmd;
-}			t_alias
+}			t_alias;
 
 typedef struct		s_info
 {
@@ -115,7 +115,7 @@ int	redir_input(char *file);
 int	double_redir_input(char *file);
 
 void	my_undup(t_command *cmd, int save[3]);
-void	my_dup(t_command *cmd, int save[3]);
+void	my_dup(t_command *cmd, int *save);
 
 /*
 **EXECVE
