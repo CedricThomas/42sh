@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Mon May 15 13:24:51 2017 Bastien
+** Last update Mon May 15 13:50:51 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -16,6 +16,7 @@
 # define PIPELINE	(1 << 0)
 # define LEFT_PIPE	(1 << 1)
 # define RIGHT_PIPE	(1 << 2)
+# define FORK		(1 << 3)
 
 # define BUILTINS_NB	5
 # define REDIR_NB	4
@@ -106,7 +107,7 @@ int	exec_pipe(t_node *root, t_status *status, t_info *info);
 /*
 **SELECTOR/CMD
 */
-int	load_redir(t_command *cmd);
+int	load_redir(t_command *cmd, t_status *status);
 
 int	redir_output(char *file);
 int	double_redir_output(char *file);
