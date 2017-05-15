@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Mon May 15 13:24:51 2017 Bastien
+** Last update Mon May 15 15:11:48 2017 
 */
 
 #ifndef EXEC_H_
@@ -16,15 +16,18 @@
 # define PIPELINE	(1 << 0)
 # define LEFT_PIPE	(1 << 1)
 # define RIGHT_PIPE	(1 << 2)
+# define FORK		(1 << 3)
 
 # define BUILTINS_NB	5
 # define REDIR_NB	4
+
+# define FILE_RC	".42shrc"
 
 typedef struct		s_alias
 {
   char			*link;
   char			*real_cmd;
-}			t_alias
+}			t_alias;
 
 typedef struct		s_info
 {
@@ -106,7 +109,7 @@ int	exec_pipe(t_node *root, t_status *status, t_info *info);
 /*
 **SELECTOR/CMD
 */
-int	load_redir(t_command *cmd);
+int	load_redir(t_command *cmd, t_status *status);
 
 int	redir_output(char *file);
 int	double_redir_output(char *file);
@@ -114,7 +117,7 @@ int	redir_input(char *file);
 int	double_redir_input(char *file);
 
 void	my_undup(t_command *cmd, int save[3]);
-void	my_dup(t_command *cmd, int save[3]);
+void	my_dup(t_command *cmd, int *save);
 
 /*
 **EXECVE
@@ -151,5 +154,11 @@ void	builtin_cd(t_command *cmd, t_status *status, t_info *info);
 void	builtin_setenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
+
+/*
+**LOAD
+*/
+
+void	load_rc(t_status *status, t_info *info, t_syntax *syntax);
 
 #endif /* !EXEC_H_ */

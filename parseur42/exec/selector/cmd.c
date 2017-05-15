@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Fri May 12 18:52:17 2017 
+** Last update Mon May 15 14:26:10 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -26,15 +26,25 @@ static void	fill_builtins(void (*fct[BUILTINS_NB])(t_command *cmd,
 static int	exec_builtins(t_command *cmd, t_status *status,
 			      t_info *info, int index)
 {
-  void	(*builtins[BUILTINS_NB])(t_command *cmd,
-				 t_status *status,
-				 t_info *info);
+  void		(*builtins[BUILTINS_NB])(t_command *cmd,
+					 t_status *status,
+					 t_info *info);
+  int		save[3];
 
   fill_builtins(builtins);
   if ((status->status & LEFT_PIPE) == LEFT_PIPE)
     my_fork(cmd, status, info, builtins[index]);
   else
-    builtins[index](cmd, status, info);
+    {
+      if (load_redir(cmd, status))
+	{
+	  my_put_list_exit(&status->exit_list, -1, 1);
+	  return (1);
+	}
+      my_dup(cmd, save);
+      builtins[index](cmd, status, info);
+      my_undup(cmd, save);
+    }
   return (0);
 }
 
@@ -62,20 +72,10 @@ static int	auto_exec(t_command *cmd, t_status *status, t_info *info)
 int		exec_cmd(t_node *root, t_status *status, t_info *info)
 {
   int		wait;
-  int		save[3];
   t_command	*cmd;
 
   cmd = (t_command *)root;
-  if (load_redir(cmd))
-    {
-      my_put_list_exit(&status->exit_list, -1, 1);
-      if ((status->status & PIPELINE) != PIPELINE)
-	auto_wait(status, info);
-      return (1);
-    }
-  my_dup(cmd, save);
   wait = auto_exec(cmd, status, info);
-  my_undup(cmd, save);
   if (wait)
     auto_wait(status, info);
   return (0);

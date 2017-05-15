@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 12 16:45:29 2017 Thibaut Cornolti
+** Last update Mon May 15 15:23:57 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -47,11 +47,25 @@ t_syntax		*get_syntax()
   return (my_syntax);
 }
 
+static void		cut_comment(char *str)
+{
+  int			i;
+
+  i = -1;
+  if (!str || !str[0])
+    return ;
+  while (str[++i] &&
+	 !(str[i] == '#' &&
+	   (i == 0 || str[i - 1] == ' ' || str[i - 1] == '\t')));
+  str[i] = 0;
+}
+
 t_node			*parse_cmd(t_syntax *my_syntax, char *str)
 {
   t_token		*tokens;
   void			*root;
 
+  cut_comment(str);
   if ((tokens = get_token(str, my_syntax)) == NULL)
     return (NULL);
   if ((root = auto_create_node(NULL, tokens, NULL)) == NULL)

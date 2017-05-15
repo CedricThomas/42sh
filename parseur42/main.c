@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 12 18:44:53 2017 
+** Last update Mon May 15 14:24:28 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -46,15 +46,17 @@ int		main(int ac, char **av, char **env)
   t_info	*info;
   char		*cmd;
 
+  UNUSED(ac);
+  UNUSED(av);
   if (setup_sh(&syntax, &info, &status, env))
     return (84);
   if (isatty(0))
     print_prompt(info);
+  load_rc(&status, info, syntax);
   while (!status.exit && (cmd = get_next_line(0)))
     {
       if ((root = parse_cmd(syntax, cmd)))
 	{
-	  //	  show_nodes(root, 0, 0);
 	  auto_select(root, &status, info);
 	  my_free_tree(&root);
 	}

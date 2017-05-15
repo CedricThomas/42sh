@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 21:06:35 2017 
-** Last update Thu May 11 20:53:53 2017 
+** Last update Mon May 15 14:47:35 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -20,6 +20,10 @@ int	my_fork(t_command *cmd, t_status *status, t_info *info,
   pid = fork();
   if (pid == 0)
     {
+      status->status |= FORK;
+      my_dup(cmd, NULL);
+      if (load_redir(cmd, status))
+	exit(1);
       fct(cmd, status, info);
       exit(info->exit_value);
     }
