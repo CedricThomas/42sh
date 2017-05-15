@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Fri May 12 17:13:58 2017 Thibaut Cornolti
+## Last update Mon May 15 14:18:47 2017 Thibaut Cornolti
 ##
 ## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##
@@ -65,6 +65,8 @@ NODE		=	command_node.c			\
 			standard_node.c			\
 			pipe_node.c			\
 
+LOAD		=	rc.c				\
+
 MAIN		=	main.c				\
 			prompt.c
 
@@ -73,6 +75,7 @@ OBJ		+=	$(addprefix parse/, $(PARSE:.c=.o))
 OBJ		+=	$(addprefix match/, $(MATCH:.c=.o))
 OBJ		+=	$(addprefix node/, $(NODE:.c=.o))
 OBJ		+=	$(addprefix exec/, $(EXEC:.c=.o))
+OBJ		+=	$(addprefix load/, $(LOAD:.c=.o))
 
 NAME		=	42sh
 

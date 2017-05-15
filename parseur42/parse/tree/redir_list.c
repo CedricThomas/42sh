@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Thu May  4 21:28:56 2017
-** Last update Fri May 12 17:28:12 2017 Thibaut Cornolti
+** Last update Mon May 15 14:23:21 2017 
 */
 #include <stdlib.h>
 #include "my_alloc.h"
@@ -59,9 +59,11 @@ int		add_redir_list(t_redir **my_redir, char *file, char *type)
 
   if ((elem = my_alloc(sizeof(t_redir))) == NULL)
     exit(84);
+  my_tag_alloc(elem, "tree", 0);
   elem->tag = get_tag(type);
   if ((elem->file = alloc_strdup(file)) == NULL)
     exit(84);
+  my_tag_alloc(elem->file, "tree", 0);
   elem->next = *my_redir;
   *my_redir = elem;
   return (0);

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 16:12:11 2017 
-** Last update Fri May 12 17:02:10 2017 Thibaut Cornolti
+** Last update Mon May 15 14:46:42 2017 
 */
 
 #include <stdlib.h>
@@ -31,7 +31,7 @@ void	my_undup(t_command *cmd, int save[3])
     }
 }
 
-void	my_dup(t_command *cmd, int save[3])
+void	my_dup(t_command *cmd, int *save)
 {
   int	i;
 
@@ -40,11 +40,12 @@ void	my_dup(t_command *cmd, int save[3])
     {
       if (cmd->fd[i] != i)
 	{
-	  save[i] = dup(i);
+	  if (save)
+	    save[i] = dup(i);
 	  if (dup2(cmd->fd[i], i) < 0)
 	    exit(84);
 	}
-      else
+      else if (save)
 	save[i] = -1;
       i += 1;
     }

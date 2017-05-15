@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Mon May 15 13:55:20 2017 Thibaut Cornolti
+** Last update Mon May 15 14:26:10 2017 
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -39,8 +39,6 @@ static int	exec_builtins(t_command *cmd, t_status *status,
       if (load_redir(cmd, status))
 	{
 	  my_put_list_exit(&status->exit_list, -1, 1);
-	  if ((status->status & PIPELINE) != PIPELINE)
-	    auto_wait(status, info);
 	  return (1);
 	}
       my_dup(cmd, save);

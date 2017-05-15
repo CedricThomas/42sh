@@ -5,8 +5,9 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 22 21:39:39 2017 
-** Last update Sun Mar 26 10:20:10 2017 Cédric Thomas
+** Last update Mon May 15 15:12:31 2017 
 */
+#include <string.h>
 #include <stdlib.h>
 #include "syntax.h"
 #include "my_printf.h"
@@ -31,6 +32,7 @@ int		my_put_list_token(t_token **ll, char *token, int type)
 
   if ((elem = malloc(sizeof(*elem))) == NULL)
     exit(84);
+  memset(elem, 0, sizeof(*elem));
   elem->token = token;
   elem->type = type;
   if (*ll == NULL)
