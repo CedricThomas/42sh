@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Mon May 15 17:00:02 2017 Bastien
+## Last update Mon May 15 17:41:51 2017 Thibaut Cornolti
 ##
 ## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##
@@ -52,6 +52,7 @@ PARSE		=	parsing.c			\
 			error/input_lexer.c		\
 			error/error_pipe_node.c		\
 			error/error_command_node.c	\
+			error/error_logic_node.c	\
 
 MATCH		=	match.c				\
 			fct/amp.c			\

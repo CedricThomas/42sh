@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 13:59:16 2017 Thibaut Cornolti
-** Last update Mon May 15 14:37:37 2017 Thibaut Cornolti
+** Last update Mon May 15 17:22:01 2017 
 */
 
 #include <fcntl.h>
@@ -21,7 +21,7 @@ static char	*get_filename(t_info *info)
   char		*home;
   char		*path;
 
-  if ((home = getkey(info->env, "HOME", 1)) == NULL)
+  if ((home = getkey(info->env, "HOME", 0)) == NULL)
     return (NULL);
   if ((path = malloc(sizeof(char) *
 		     (strlen(home) + strlen(FILE_RC) + 2))) == NULL)
@@ -29,7 +29,6 @@ static char	*get_filename(t_info *info)
   strcpy(path, home);
   strcat(path, "/");
   strcat(path, FILE_RC);
-  free(home);
   return (path);
 }
 
@@ -43,7 +42,10 @@ void		load_rc(t_status *status, t_info *info, t_syntax *syntax)
   if ((filename = get_filename(info)) == NULL)
     return ;
   if ((fd = open(filename, O_RDONLY)) < 0)
-    return ;
+    {
+      free(filename);
+      return ;
+    }
   free(filename);
   while (!status->exit && (cmd = get_next_line(fd)))
     {
