@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Mon May 15 17:14:44 2017 Bastien
+** Last update Mon May 15 17:17:51 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -26,7 +26,7 @@
 typedef struct		s_alias
 {
   char			*link;
-  char			*real_cmd;
+  char			*value;
 }			t_alias;
 
 typedef struct		s_info
