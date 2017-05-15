@@ -5,7 +5,7 @@
 ** Login   <marin.brunel@epitech.eu>
 ** 
 ** Started on  Tue May  9 14:18:09 2017 maje
-** Last update Mon May 15 15:28:42 2017 maje
+** Last update Mon May 15 15:48:09 2017 maje
 */
 
 //#include "my.h"
@@ -26,10 +26,13 @@ int	create_file()
 char	**read_hystory()
 {
   char	**tab;
+  char	*buf;
+
+  
   return (tab);
 }
 
-int	check_fill()
+int	check_file()
 {
   FILE	*file;
 
