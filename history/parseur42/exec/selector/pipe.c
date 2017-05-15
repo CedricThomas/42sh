@@ -5,8 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 29 21:29:03 2017
-** Last update Mon May 15 16:20:22 2017 
-** Last update Mon May 15 16:09:44 2017 Thibaut Cornolti
+** Last update Fri May 12 22:36:47 2017 
 */
 
 #include <sys/types.h>
@@ -34,18 +33,16 @@ static void	pipe_and_send(t_pipe *root, t_status *status, t_info *info)
   status->status += LEFT_PIPE;
   ((t_pipe *) root->left)->fd[1] = fd[1];
   ((t_pipe *) root->left)->fd[0] = root->fd[0];
-  status->fd_to_close = fd[0];
   auto_select(root->left, status, info);
   close(fd[1]);
   if (((t_pipe *) root->left)->fd[0] != 0)
     close(((t_pipe *) root->left)->fd[0]);
-  status->fd_to_close = 0;
   status->status -= LEFT_PIPE;
   status->status += RIGHT_PIPE;
   ((t_pipe *) root->right)->fd[0] = fd[0];
   auto_select(root->right, status, info);
-  close(fd[0]);
   status->status -= RIGHT_PIPE;
+  close(fd[0]);
 }
 
 int		exec_pipe(t_node *root, t_status *status, t_info *info)

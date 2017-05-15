@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Mon May 15 16:08:02 2017 
+** Last update Mon May 15 13:37:24 2017 maje
 */
 
 #ifndef EXEC_H_
@@ -16,23 +16,21 @@
 # define PIPELINE	(1 << 0)
 # define LEFT_PIPE	(1 << 1)
 # define RIGHT_PIPE	(1 << 2)
-# define FORK		(1 << 3)
 
 # define BUILTINS_NB	5
 # define REDIR_NB	4
-
-# define FILE_RC	".42shrc"
 
 typedef struct		s_alias
 {
   char			*link;
   char			*real_cmd;
-}			t_alias;
+}			t_alias
 
 typedef struct		s_info
 {
   char			*builtins[BUILTINS_NB + 1];
   char			**env;
+  char			**history;
   unsigned int		exit_value;
   char			*old_pwd;
   char			*pwd;
@@ -50,7 +48,6 @@ typedef struct		s_status
 {
   int			exit;
   int			status;
-  int			fd_to_close;
   struct s_exit		*exit_list;
 }			t_status;
 
@@ -110,7 +107,7 @@ int	exec_pipe(t_node *root, t_status *status, t_info *info);
 /*
 **SELECTOR/CMD
 */
-int	load_redir(t_command *cmd, t_status *status);
+int	load_redir(t_command *cmd);
 
 int	redir_output(char *file);
 int	double_redir_output(char *file);
@@ -118,7 +115,7 @@ int	redir_input(char *file);
 int	double_redir_input(char *file);
 
 void	my_undup(t_command *cmd, int save[3]);
-void	my_dup(t_command *cmd, int *save);
+void	my_dup(t_command *cmd, int save[3]);
 
 /*
 **EXECVE
@@ -155,11 +152,5 @@ void	builtin_cd(t_command *cmd, t_status *status, t_info *info);
 void	builtin_setenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
-
-/*
-**LOAD
-*/
-
-void	load_rc(t_status *status, t_info *info, t_syntax *syntax);
 
 #endif /* !EXEC_H_ */
