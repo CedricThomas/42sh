@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Mon May 15 15:11:48 2017 
+** Last update Mon May 15 16:08:02 2017 
 */
 
 #ifndef EXEC_H_
@@ -50,6 +50,7 @@ typedef struct		s_status
 {
   int			exit;
   int			status;
+  int			fd_to_close;
   struct s_exit		*exit_list;
 }			t_status;
 
