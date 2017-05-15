@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 13:59:16 2017 Thibaut Cornolti
-** Last update Mon May 15 14:30:03 2017 Thibaut Cornolti
+** Last update Mon May 15 14:35:06 2017 Thibaut Cornolti
 */
 
 #include <fcntl.h>
@@ -52,4 +52,5 @@ void		load_rc(t_status *status, t_info *info, t_syntax *syntax)
 	  my_free_tree(&root);
 	}
     }
+  close(fd);
 }
