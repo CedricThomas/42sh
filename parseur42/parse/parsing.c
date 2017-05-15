@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Mon May 15 14:42:54 2017 Thibaut Cornolti
+** Last update Mon May 15 15:23:57 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -52,13 +52,12 @@ static void		cut_comment(char *str)
   int			i;
 
   i = -1;
-  if (!str[0])
+  if (!str || !str[0])
     return ;
-  while (str[++i] && str[i] != '#');
-  if (i == 0 || (i != 0 && (str[i - 1] == ' ' || str[i - 1] == '\t')))
-    str[i] = 0;
-  else
-    cut_comment(str + i + 1);
+  while (str[++i] &&
+	 !(str[i] == '#' &&
+	   (i == 0 || str[i - 1] == ' ' || str[i - 1] == '\t')));
+  str[i] = 0;
 }
 
 t_node			*parse_cmd(t_syntax *my_syntax, char *str)
