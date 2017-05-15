@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 21:06:35 2017 
-** Last update Mon May 15 14:47:35 2017 
+** Last update Mon May 15 16:10:57 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -22,6 +22,8 @@ int	my_fork(t_command *cmd, t_status *status, t_info *info,
     {
       status->status |= FORK;
       my_dup(cmd, NULL);
+      if (status->fd_to_close)
+	close(status->fd_to_close);
       if (load_redir(cmd, status))
 	exit(1);
       fct(cmd, status, info);
