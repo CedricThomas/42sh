@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu Mar 30 13:27:56 2017 
-** Last update Fri May 12 17:02:31 2017 Thibaut Cornolti
+** Last update Mon May 15 14:27:15 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -44,7 +44,7 @@ static void	assign_fd(t_command *cmd, int fd, int tag)
     cmd->fd[2] = fd;
 }
 
-int		load_redir(t_command *cmd)
+int		load_redir(t_command *cmd, t_status *status)
 {
   int		fd;
   t_redir	*tmp;

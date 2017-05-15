@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Mon May 15 13:50:51 2017 Thibaut Cornolti
+** Last update Mon May 15 14:23:59 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -21,11 +21,13 @@
 # define BUILTINS_NB	5
 # define REDIR_NB	4
 
+# define FILE_RC	".42shrc"
+
 typedef struct		s_alias
 {
   char			*link;
   char			*real_cmd;
-}			t_alias
+}			t_alias;
 
 typedef struct		s_info
 {
@@ -152,5 +154,11 @@ void	builtin_cd(t_command *cmd, t_status *status, t_info *info);
 void	builtin_setenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
+
+/*
+**LOAD
+*/
+
+void	load_rc(t_status *status, t_info *info, t_syntax *syntax);
 
 #endif /* !EXEC_H_ */
