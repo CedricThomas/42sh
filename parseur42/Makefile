@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Mon May 15 14:18:47 2017 Thibaut Cornolti
+## Last update Mon May 15 17:00:02 2017 Bastien
 ##
 ## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##
@@ -23,10 +23,12 @@ EXEC		=	auto_selector.c			\
 			builtin/unsetenv.c		\
 			builtin/cd.c			\
 			builtin/exit.c			\
+			builtin/alias.c			\
 			status/list_status.c		\
 			status/wait.c			\
 			status/fork.c			\
 			setup/info.c			\
+			setup/get_alias.c		\
 			env/env.c			\
 			env/key.c			\
 			execve/std_exec.c		\

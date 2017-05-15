@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Mon May 15 16:08:02 2017 
+** Last update Mon May 15 17:14:44 2017 Bastien
 */
 
 #ifndef EXEC_H_
@@ -18,7 +18,7 @@
 # define RIGHT_PIPE	(1 << 2)
 # define FORK		(1 << 3)
 
-# define BUILTINS_NB	5
+# define BUILTINS_NB	6
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -155,6 +155,7 @@ void	builtin_cd(t_command *cmd, t_status *status, t_info *info);
 void	builtin_setenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
+void	builtin_alias(t_command *cmd, t_status *status, t_info *info);
 
 /*
 **LOAD
