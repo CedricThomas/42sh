@@ -5,12 +5,13 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 13:59:16 2017 Thibaut Cornolti
-** Last update Mon May 15 14:35:06 2017 Thibaut Cornolti
+** Last update Mon May 15 14:37:37 2017 Thibaut Cornolti
 */
 
 #include <fcntl.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "syntax.h"
 #include "exec.h"
 #include "get_next_line.h"
