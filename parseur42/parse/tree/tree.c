@@ -4,7 +4,7 @@
 ** Made by 
 ** Login   <cedric.thomas@epitech.eu>
 ** 
-** Last update Fri May 12 17:01:22 2017 Thibaut Cornolti
+** Last update Mon May 15 17:09:16 2017 
 ** Last update Thu May  4 21:36:11 2017 Thibaut Cornolti
 */
 
@@ -26,6 +26,7 @@ static int	get_weight(int type)
   size[5] = T_FLUX;
   size[6] = T_LOGIC;
   size[7] = T_SEPAR;
+  size[8] = T_JOB;
   i = 0;
   while (++i < FULL_MAX_TYPES)
     if (type == size[i])
@@ -69,6 +70,7 @@ static void	fill_fct(void *(*fct_create_node[FULL_MAX_TYPES])
   fct_create_node[5] = &create_pipe_node;
   fct_create_node[6] = &create_standard_node;
   fct_create_node[7] = &create_standard_node;
+  fct_create_node[8] = &create_standard_node;
   fct_check_error[0] = NULL;
   fct_check_error[1] = NULL;
   fct_check_error[2] = &error_command_node;
@@ -77,6 +79,7 @@ static void	fill_fct(void *(*fct_create_node[FULL_MAX_TYPES])
   fct_check_error[5] = &error_pipe_node;
   fct_check_error[6] = NULL;
   fct_check_error[7] = NULL;
+  fct_check_error[8] = NULL;
 }
 
 void		*auto_create_node(void *root, t_token *start, t_token *end)

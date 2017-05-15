@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Sun May  7 16:27:31 2017 
+** Last update Mon May 15 17:16:16 2017 
 */
 
 #ifndef SYNTAX_H_
@@ -23,12 +23,13 @@
 # define T_FLUX_REDIR_OUT	(1 << 3)
 # define T_FLUX_REDIR_IN	(1 << 4)
 # define T_FLUX			(1 << 5)
-# define T_LOGIC		(1 << 6)
-# define T_SEPAR		(1 << 7)
+# define T_JOB			(1 << 6)
+# define T_LOGIC		(1 << 7)
+# define T_SEPAR		(1 << 8)
 
 # define T_COMMON	(T_ARGS | T_COMMAND | T_FILE)
 
-# define FULL_MAX_TYPES	8
+# define FULL_MAX_TYPES	9
 # define MAX_TYPES	FULL_MAX_TYPES - 2
 # define TREE_TYPES	MAX_TYPES - 2
 
