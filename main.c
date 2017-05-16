@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May 16 13:58:00 2017 Bastien
+** Last update Tue May 16 15:25:38 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -38,34 +38,41 @@ static int	free_sh(t_syntax *syntax, t_info *info)
   return (exit);
 }
 
-int		main(int ac, char **av, char **env)
+int		my_system(char *command, t_system *system)
 {
   void		*root;
-  t_syntax	*syntax;
+
+  if ((root = parse_cmd(system->syntax, command, system->info)))
+    {
+      auto_select(root, system->status, system->info);
+      my_free_tree(&root);
+    }
+  else
+    auto_wait(system->status, system->info);
+  return (system->info->exit_value);
+}
+
+int		main(int ac, char **av, char **env)
+{
+  t_system	system;
   t_status	status;
-  t_info	*info;
   char		*cmd;
 
   UNUSED(ac);
   UNUSED(av);
-  if (setup_sh(&syntax, &info, &status, env))
+  system.status = &status;
+  if (setup_sh(&(system.syntax), &(system.info), system.status, env))
     return (84);
   if (isatty(0))
-    print_prompt(info);
-  load_rc(&status, info, syntax);
-  while (!status.exit && (cmd = get_next_line(0)))
+    print_prompt(system.info);
+  load_rc(system.status, system.info, system.syntax);
+  while (!system.status->exit && (cmd = get_next_line(0)))
     {
-      if ((root = parse_cmd(syntax, cmd, info)))
-	{
-	  auto_select(root, &status, info);
-	  my_free_tree(&root);
-	}
-      else
-	auto_wait(&status, info);
-      if (!status.exit && isatty(0))
-	print_prompt(info);
+      my_system(cmd, &system);
+      if (!system.status->exit && isatty(0))
+	print_prompt(system.info);
     }
   if (isatty(0))
     my_putstr("exit\n");
-  return (free_sh(syntax, info));
+  return (free_sh(system.syntax, system.info));
 }
