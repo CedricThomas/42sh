@@ -12,4 +12,5 @@ testf
 segv_wc
 42sh
 *~
+*.o
 *.a

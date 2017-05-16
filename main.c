@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May 16 13:58:00 2017 Bastien
+** Last update Tue May 16 15:17:15 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -36,6 +36,35 @@ static int	free_sh(t_syntax *syntax, t_info *info)
   free_syntax(&syntax);
   free_info(info);
   return (exit);
+}
+
+int		my_system(const char *command, t_system *system)
+{
+  void		*root;
+  t_syntax	*syntax;
+  t_status	status;
+  t_info	*info;
+
+  if (!system)
+    {
+      if (setup_sh(&syntax, &info, &status, env))
+	return (84);
+      load_rc(&status, info, syntax);
+    }
+  else
+    {
+      syntax = system->syntax;
+      status = *(system->status);
+      info = system->info;
+    }
+  if ((root = parse_cmd(syntax, command, info)))
+    {
+      auto_select(root, &status, info);
+      my_free_tree(&root);
+    }
+  else
+    auto_wait(&status, info);
+  return (info->exit_value);  
 }
 
 int		main(int ac, char **av, char **env)
