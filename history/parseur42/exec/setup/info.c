@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Mon May 15 13:57:57 2017 maje
+** Last update Tue May 16 13:03:46 2017 maje
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -22,18 +22,23 @@ static void	get_builtins(t_info *my_info)
   my_info->builtins[5] = NULL;
 }
 
-static int	check_hystory(t_info *info)
+static int	check_history(t_info *info)
 {
-  if (check_fill() == -1)
+  if (check_file(info) == -1)
     {
-      if ((create_file()) == -1)
+      if ((create_file(info)) == -1)
 	return (-1);
-      if ((my_info->hystory = read_hystory()) == NULL)
+      if ((info->history = malloc(sizeof(char *))) == NULL)
 	return (-1);
+      if ((info->history[0] = malloc(sizeof(char))) == NULL)
+	return (-1);
+      info->history[0] = '\0';
     }
   else
-    if ((my_info->hystory = read_hystory()) == NULL)
-      return (-1);
+    {
+      if ((info->history = read_history(info)) == NULL)
+	return (-1);
+    }
   return (0);
 }
 
@@ -43,8 +48,6 @@ t_info		*get_info(char **env)
   t_info	*my_info;
 
   if ((my_info = malloc(sizeof(t_info))) == NULL)
-    return (NULL);
-  if (check_hystory(my_info) == -1)
     return (NULL);
   if ((my_info->env = tab_dup(env)) == NULL)
     return (NULL);
@@ -62,6 +65,8 @@ t_info		*get_info(char **env)
     my_info->env = addkey(my_info->env, "HOST", temp, 0);
   free(temp);
   get_builtins(my_info);
+  if (check_history(my_info) == -1)
+    return (NULL);
   return (my_info);
 }
 
@@ -70,7 +75,7 @@ void		*free_info(t_info *info)
   free(info->pwd);
   free(info->old_pwd);
   free_tab(info->env);
-  free_tab(info->hystory);
+  free_tab(info->history);
   free(info);
   return (NULL);
 }
