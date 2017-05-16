@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Mon May 15 13:37:24 2017 maje
+** Last update Tue May 16 10:20:25 2017 maje
 */
 
 #ifndef EXEC_H_
@@ -20,11 +20,13 @@
 # define BUILTINS_NB	5
 # define REDIR_NB	4
 
+# define FILE_HISTORY	".42sh_history"
+
 typedef struct		s_alias
 {
   char			*link;
   char			*real_cmd;
-}			t_alias
+}			t_alias;
 
 typedef struct		s_info
 {
@@ -152,5 +154,13 @@ void	builtin_cd(t_command *cmd, t_status *status, t_info *info);
 void	builtin_setenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
+
+/*
+**history
+*/
+
+int	check_file(t_info*);
+char	**read_history(t_info*);
+int	create_file(t_info*);
 
 #endif /* !EXEC_H_ */

@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Fri May 12 17:13:58 2017 Thibaut Cornolti
+## Last update Mon May 15 15:52:37 2017 maje
 ##
 ## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##
@@ -66,6 +66,7 @@ NODE		=	command_node.c			\
 			pipe_node.c			\
 
 MAIN		=	main.c				\
+			history.c			\
 			prompt.c
 
 OBJ		=	$(MAIN:.c=.o)

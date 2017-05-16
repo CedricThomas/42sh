@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 21:06:35 2017 
-** Last update Tue May 16 13:42:03 2017 Thibaut Cornolti
+** Last update Tue May 16 14:40:10 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -16,8 +16,6 @@
 
 static int	select_wait(t_status *status, int pid)
 {
-  t_job		*job;
-
   if (status->status & JOB)
     my_put_list_job(status, pid, JOB_BACKGROUND);
   else
