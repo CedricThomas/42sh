@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Tue May 16 19:06:20 2017 Bastien
+** Last update Tue May 16 19:21:39 2017 Bastien
 */
 
 #ifndef EXEC_H_
@@ -79,6 +79,7 @@ typedef struct		s_exec_fct
 
 typedef struct		s_system
 {
+  struct s_keypad	*keypad;
   t_syntax		*syntax;
   t_status		*status;
   t_info		*info;
@@ -159,6 +160,7 @@ void	simple_exec(t_command *cmd, t_status *status, t_info *info);
 */
 
 void	auto_wait(t_status *status, t_info *info);
+void	auto_wait_job(t_status *status);
 int	my_fork(t_command *cmd, t_status *status, t_info *info,
 		void (*fct)(t_command *cmd, t_status *status, t_info *info));
 int	my_fork_job(void *root, t_status *status, t_info *info,

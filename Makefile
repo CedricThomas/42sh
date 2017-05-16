@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Tue May 16 19:02:27 2017 Bastien
+## Last update Tue May 16 19:21:56 2017 Bastien
 ##
 ## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##
@@ -75,10 +75,20 @@ NODE		=	command_node.c			\
 
 LOAD		=	rc.c				\
 
+LINE		=	line_edit/get_next_cmd.c	\
+			line_edit/str.c			\
+			line_edit/setup.c		\
+			binds/auto_complete.c		\
+			binds/std_binds.c		\
+			binds/pos_binds.c		\
+			binds/del_binds.c		\
+			binds/default_bind.c
+
 MAIN		=	main.c				\
 			prompt.c
 
 OBJ		=	$(MAIN:.c=.o)
+OBJ		+=	$(LINE:.c=.o)
 OBJ		+=	$(addprefix parse/, $(PARSE:.c=.o))
 OBJ		+=	$(addprefix match/, $(MATCH:.c=.o))
 OBJ		+=	$(addprefix node/, $(NODE:.c=.o))
@@ -89,7 +99,7 @@ NAME		=	42sh
 
 LIB_F		=	./lib/
 
-LIB		=	-lmy -lmyprintf -lgnl -lalloc
+LIB		=	-lmy -lmyprintf -lgnl -lalloc -lncurses
 
 INCLUDE		=	-I./include/
 

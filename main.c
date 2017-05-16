@@ -5,36 +5,37 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May 16 15:25:38 2017 Thibaut Cornolti
+** Last update Tue May 16 19:04:04 2017 Cédric THOMAS
 */
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <dirent.h>
+#include <termio.h>
 #include "my.h"
-#include "get_next_line.h"
+#include "get_next_command.h"
 #include "syntax.h"
 #include "exec.h"
 #include "my_printf.h"
 
-static int	setup_sh(t_syntax **syntax, t_info **info,
-			 t_status *status, char **env)
+static int	setup_sh(t_system *sys, char **env)
 {
-  if ((*syntax = get_syntax()) == NULL)
+  if ((sys->syntax = get_syntax()) == NULL)
     return (1);
-  if ((*info = get_info(env)) == NULL)
+  if ((sys->info = get_info(env)) == NULL)
     return (1);
-  my_memset(status, 0, sizeof(t_status));
+  if ((sys->keypad = init_keypad(sys)) == NULL)
+    return (1);
+  my_memset(sys->status, 0, sizeof(t_status));
   return (0);
 }
 
-static int	free_sh(t_syntax *syntax, t_info *info)
+static int	free_sh(t_system *sys)
 {
   int		exit;
 
-  exit = info->exit_value;
-  free_syntax(&syntax);
-  free_info(info);
+  exit = sys->info->exit_value;
+  free_syntax(&(sys->syntax));
+  free_info(sys->info);
+  end_keypad(sys->keypad);
   return (exit);
 }
 
@@ -61,18 +62,21 @@ int		main(int ac, char **av, char **env)
   UNUSED(ac);
   UNUSED(av);
   system.status = &status;
-  if (setup_sh(&(system.syntax), &(system.info), system.status, env))
+  if (setup_sh(&(system), env))
     return (84);
   if (isatty(0))
     print_prompt(system.info);
   load_rc(system.status, system.info, system.syntax);
-  while (!system.status->exit && (cmd = get_next_line(0)))
+  my_set_term(&(system.keypad->term));
+  while (!system.status->exit && (cmd = get_next_cmd(system.keypad)))
     {
+      my_reset_term(&(system.keypad->term));
       my_system(cmd, &system);
       if (!system.status->exit && isatty(0))
 	print_prompt(system.info);
+      my_set_term(&(system.keypad->term));
     }
   if (isatty(0))
     my_putstr("exit\n");
-  return (free_sh(system.syntax, system.info));
+  return (free_sh(&system));
 }
