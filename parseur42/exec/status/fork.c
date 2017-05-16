@@ -5,17 +5,30 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 21:06:35 2017 
-** Last update Mon May 15 16:10:57 2017 Thibaut Cornolti
+** Last update Tue May 16 13:42:03 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 #include "syntax.h"
 #include "exec.h"
+#include "my_printf.h"
 
-int	my_fork(t_command *cmd, t_status *status, t_info *info,
+static int	select_wait(t_status *status, int pid)
+{
+  t_job		*job;
+
+  if (status->status & JOB)
+    my_put_list_job(status, pid, JOB_BACKGROUND);
+  else
+    my_put_list_exit(&(status->exit_list), pid, 0);
+  return (0);
+}
+
+int		my_fork(t_command *cmd, t_status *status, t_info *info,
 		void (*fct)(t_command *cmd, t_status *status, t_info *info))
 {
-  pid_t	pid;
+  pid_t		pid;
 
   pid = fork();
   if (pid == 0)
@@ -30,7 +43,7 @@ int	my_fork(t_command *cmd, t_status *status, t_info *info,
       exit(info->exit_value);
     }
   else if (pid > 0)
-    my_put_list_exit(&(status->exit_list), pid, 0);
+    select_wait(status, pid);
   else
     return (-1);
   return (0);
