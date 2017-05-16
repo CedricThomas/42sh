@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 **
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May 16 14:53:20 2017 maje
+** Last update Tue May 16 16:09:24 2017 maje
 */
 
 #include <stdlib.h>
@@ -34,10 +34,12 @@ static char     *read_for_prompt(char *str)
 
   if (stat(str, &st) == -1)
     return (NULL);
-  my_printf("%d\n", st.st_size);
   if ((fd = open(str, O_RDONLY)) == -1)
     return (NULL);
-
+  if ((buf = malloc(sizeof(char) * st.st_size)) == NULL)
+    exit(84);
+  if (read(fd, buf, st.st_size) != -1);
+  buf[st.st_size] = '\0';
   close(fd);
   return (buf);
 }
@@ -46,6 +48,7 @@ static void     git(char *info)
 {
   DIR           *dir;
   char          *buf;
+  char		*str;
   int           i;
   struct dirent *dirent;
 
@@ -56,14 +59,16 @@ static void     git(char *info)
     {
       if (my_strcmp(".git", dirent->d_name) == 0)
 	{
-	  buf = read_for_prompt(my_strcat(info, ".git/HEAD"));
-	  my_printf("\033[34;01m git:(\033[31;01m%s\033[00m)\033[00m", buf);
+	  str = strdup(info);
+	  str = my_strcatdup(str, "/.git/HEAD", 1);
+	  str = read_for_prompt(str);
+	  my_printf("\033[34;01m git:(\033[31;01m%s\033[00m)\033[00m", str);
 	  i++;
 	}
     }
   if (i == 0)
     {
-      buf = strdup(info);
+      buf = my_strdup(info);
       git(my_strcatdup(buf, "/..", 1));
     }
   closedir(dir);
