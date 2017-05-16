@@ -5,103 +5,103 @@
 ** Login   <cedric@epitech.net>
 **
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May 16 18:44:56 2017 maje
+** Last update Tue May 16 21:52:27 2017 Cédric THOMAS
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
 #include "my.h"
-#include "get_next_line.h"
 #include "syntax.h"
 #include "exec.h"
 #include "my_printf.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <fcntl.h>
 
-static char  *extractor(char *str)
+static char     *get_real_path(char *path)
 {
-  int	i;
+  char          buf[PATH_MAX + 1];
+  char          *realdist;
 
-  i = -1;
-  my_printf("\033[34;01m git:(\033[00m", str);
-  if (my_strncmp(str, "ref", 3) == 0)
-    my_printf("\033[31;01mmaster\033[00m");
+  if ((realdist = realpath(path, buf)) == NULL)
+    return (NULL);
+  return (my_strdup(realdist));
+}
+
+static int	print_git_status(char *path)
+{
+  int		read;
+  size_t	len;
+  FILE		*stream;
+  char		*line;
+
+  len = 0;
+  line = NULL;
+  if (!path)
+    return (1);
+  path = my_strcatdup(path, "/.git/HEAD", 1);
+  if ((stream = fopen(path, "r")) == NULL)
+    return (1);
+  if ((read = getline(&line, &len, stream)) == -1)
+    return (1);
+  my_printf("\033[36;01m git:(\033[31;01m");
+  if (match(line, "ref: refs/heads/*"))
+    my_printf("%.*s", read - 17, line + 16);
   else
-    {
-      while (++i < 6 && str[i])
-	my_printf("\033[31;01m%c\033[00m", str[i]);
-    }
-  my_printf("\033[34;01m)\033[00m", str);
+    my_printf("%.7s", line);
+  my_printf("\033[36;01m)\033[00m");
+  fclose(stream);
+  free(path);
+  free(line);
+  return (0);
 }
 
-static char     *read_for_prompt(char *str)
+static void	find_git(char *path)
 {
-  int   fd;
-  char  *buf;
-  struct stat st;
+  int		find;
+  DIR		*dir;
+  char		*parent_path;
+  struct dirent	*dirent;
 
-  if (stat(str, &st) == -1)
-    return (NULL);
-  if ((fd = open(str, O_RDONLY)) == -1)
-    return (NULL);
-  if ((buf = malloc(sizeof(char) * (st.st_size + 1))) == NULL)
-    exit(84);
-  if (read(fd, buf, (st.st_size)) == -1)
-    return (NULL);
-  buf[st.st_size] = '\0';
-  close(fd);
-  return (buf);
-}
-
-static void     git(char *info)
-{
-  DIR           *dir;
-  char          *buf;
-  char		*str;
-  int           i;
-  struct dirent *dirent;
-
-  if ((dir = opendir(info)) == NULL)
+  if (!path || !my_strcmp(path, "/"))
     return ;
-  i = 0;
-  while ((dirent = readdir(dir)) != NULL)
-    {
-      if (my_strcmp(".git", dirent->d_name) == 0)
-	{
-	  str = read_for_prompt(my_strcatdup(strdup(info), "/.git/HEAD", 1));
-	  extractor(str);
-	  i++;
-	}
-    }
-  if (i == 0)
-    {
-      buf = my_strdup(info);
-      git(my_strcatdup(buf, "/..", 1));
-    }
-  free(str);
+  if ((dir = opendir(path)) == NULL)
+    return ;
+  find = 0;
+  while ((dirent = readdir(dir)) != NULL && !find)
+    if (my_strcmp(".git", dirent->d_name) == 0)
+      if (!print_git_status(my_strdup(path)))
+	find = 1;
   closedir(dir);
+  if (find == 0)
+    {
+      if (path[my_strlen(path)] != '/')
+	path = my_strcatdup(path, "/", 1);
+      path = my_strcatdup(path, "..", 1);
+      parent_path = get_real_path(path);
+      find_git(parent_path);
+    }
+  free(path);
 }
 
-static void	extract(t_info *info)
+static void	print_pwd(t_info *info)
 {
   char		*home;
   int		i;
 
   i = my_strlen(info->pwd);
   home = getkey(info->env, "HOME", 0);
+  my_putstr("\033[34;01m");
   if (home && !my_strcmp(info->pwd, home))
-    my_printf("\033[36;01m~\033[00m");
+    my_putstr("~");
   else
     {
       while (i > 0 && info->pwd[i] != '/')
 	i -= 1;
       if (i != 0)
 	i += 1;
-      my_printf("\033[36;01m%s\033[00m", info->pwd + i);
+      my_putstr(info->pwd + i);
     }
+  my_putstr("\033[00m");
 }
 
 void	print_prompt(t_info *info)
@@ -110,7 +110,7 @@ void	print_prompt(t_info *info)
     my_printf("\033[31;01m➜ %u \033[00m", info->exit_value);
   else
     my_printf("\033[32;01m➜ %u \033[00m", info->exit_value);
-  extract(info);
-  git(info->pwd);
+  print_pwd(info);
+  find_git(my_strdup(info->pwd));
   my_printf(" ");
 }
