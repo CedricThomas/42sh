@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Tue May 16 13:47:56 2017 Thibaut Cornolti
+** Last update Tue May 16 18:14:39 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -61,12 +61,35 @@ static void	get_exit_value(t_status *status, t_info *info)
     }
 }
 
-void		auto_wait_job(t_status *status)
+static void	print_wait_job(t_status *status)
 {
   t_job		*job;
   int		last;
 
+  job = status->job_list;
+  while (job && job->next)
+    job = job->next;
   last = 0;
+  while (job)
+    {
+      if (job->status && job->number && job->step == 2)
+	{
+	  if (last != job->number)
+	    {
+	      my_printf("[%d]    Done\n", job->number);
+	      last = job->number;
+	    }
+	  job->status = 0;
+	  job->number = 0;
+	}
+      job = job->prev;
+    }
+}
+
+void		auto_wait_job(t_status *status)
+{
+  t_job		*job;
+
   job = status->job_list;
   if (!(status->status & JOB))
     {
@@ -75,15 +98,7 @@ void		auto_wait_job(t_status *status)
       while (job)
 	{
 	  if (job->status && waitpid(job->pid, NULL, WNOHANG))
-	    {
-	      if (last != job->number)
-		{
-		  my_printf("[%d]    Done\n", job->number);
-		  last = job->number;
-		}
-	      job->status = 0;
-	      job->number = 0;
-	    }
+	    job->step = 2;
 	  job = job->prev;
 	}
     }
@@ -96,6 +111,7 @@ void		auto_wait(t_status *status, t_info *info)
 
   tmp = status->exit_list;
   info->exit_value = 0;
+  auto_wait_job(status);
   while (tmp)
     {
       if (tmp->pid > 0)
@@ -105,7 +121,7 @@ void		auto_wait(t_status *status, t_info *info)
 	}
       tmp = tmp->next;
     }
-  auto_wait_job(status);
+  print_wait_job(status);
   get_exit_value(status, info);
   my_del_exit(&(status->exit_list));
 }
