@@ -5,12 +5,13 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 21:10:07 2017 Thibaut Cornolti
-** Last update Tue May 16 13:35:42 2017 Thibaut Cornolti
+** Last update Tue May 16 14:40:21 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
 #include "syntax.h"
 #include "exec.h"
+#include "my_printf.h"
 
 t_job		*my_put_list_job(t_status *status, int pid, int stats)
 {

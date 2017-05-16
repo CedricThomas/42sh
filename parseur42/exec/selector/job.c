@@ -5,11 +5,12 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 20:54:17 2017 Thibaut Cornolti
-** Last update Tue May 16 13:45:05 2017 Thibaut Cornolti
+** Last update Tue May 16 14:40:52 2017 Thibaut Cornolti
 */
 
 #include "syntax.h"
 #include "exec.h"
+#include "my_printf.h"
 
 static void	show_process(t_status *status)
 {
