@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 **
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May 16 16:46:31 2017 maje
+** Last update Tue May 16 16:47:53 2017 maje
 */
 
 #include <stdlib.h>
@@ -24,7 +24,7 @@
 static char  *extractor(char *str)
 {
   if (my_strncmp(str, "ref", 3) == 0)
-    printf("\033[31;01mmaster\033[00m");
+    my_printf("\033[31;01mmaster\033[00m");
   my_printf("\033[34;01m)\033[00m", str);
 }
 
