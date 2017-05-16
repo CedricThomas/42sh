@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Tue May 16 18:14:39 2017 Thibaut Cornolti
+** Last update Tue May 16 19:59:18 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -61,7 +61,7 @@ static void	get_exit_value(t_status *status, t_info *info)
     }
 }
 
-static void	print_wait_job(t_status *status)
+void		print_wait_job(t_status *status)
 {
   t_job		*job;
   int		last;
@@ -111,7 +111,6 @@ void		auto_wait(t_status *status, t_info *info)
 
   tmp = status->exit_list;
   info->exit_value = 0;
-  auto_wait_job(status);
   while (tmp)
     {
       if (tmp->pid > 0)
@@ -121,7 +120,6 @@ void		auto_wait(t_status *status, t_info *info)
 	}
       tmp = tmp->next;
     }
-  print_wait_job(status);
   get_exit_value(status, info);
   my_del_exit(&(status->exit_list));
 }
