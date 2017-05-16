@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Tue May 16 15:11:33 2017 Thibaut Cornolti
+** Last update Tue May 16 15:27:58 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -83,6 +83,8 @@ typedef struct		s_system
   t_status		*status;
   t_info		*info;
 }			t_system;
+
+int	my_system(char *command, t_system *system);
 
 /*
 **PROMPT
