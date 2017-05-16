@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May 16 20:01:22 2017 Thibaut Cornolti
+** Last update Tue May 16 20:15:49 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -70,11 +70,14 @@ int		main(int ac, char **av, char **env)
   if (isatty(0))
     print_prompt(system.info);
   load_rc(system.status, system.info, system.syntax);
+  my_set_term(&(system.keypad->term));
   while (!system.status->exit && (cmd = get_next_cmd(system.keypad)))
     {
+      my_reset_term(&(system.keypad->term));
       my_system(cmd, &system);
       if (!system.status->exit && isatty(0))
 	print_prompt(system.info);
+      my_set_term(&(system.keypad->term));
     }
   if (isatty(0))
     my_putstr("exit\n");

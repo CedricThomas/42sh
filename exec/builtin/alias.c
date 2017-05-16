@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Mon May 15 15:48:20 2017 Bastien
-** Last update Tue May 16 16:43:25 2017 Bastien
+** Last update Tue May 16 19:15:14 2017 Bastien
 */
 
 #include <stdio.h>
@@ -38,7 +38,12 @@ void		show_cmd(t_info *info, char *str, int size)
 	  return ;
 	}
       else if (!str)
-	printf("%s\t%s\n", info->alias[i].link, info->alias[i].value);
+	{
+	  if (is_in(' ', info->alias[i].value))
+	    printf("%s\t(%s)\n", info->alias[i].link, info->alias[i].value);
+	  else
+	    printf("%s\t%s\n", info->alias[i].link, info->alias[i].value);
+	}
     }
 }
 
@@ -63,18 +68,14 @@ char	*get_whole_alias(t_command *cmd)
 
   i = 1;
   temp = NULL;
-  while (cmd->argv[++i])
+
+ while (cmd->argv[++i])
     {
       temp = my_strcatdup(temp, cmd->argv[i], 1);
       if (cmd->argv[i + 1])
 	temp = my_strcatdup(temp, " ", 1);
     }
   return (temp);
-}
-
-static void	check_loop(t_info *info)
-{
-  return ; 
 }
 
 void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
@@ -84,7 +85,6 @@ void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
   static int	size = 0;
 
   UNUSED(status);
-  info->exit_value = 0;
   nb_arg = my_strtablen(cmd->argv);
   if (nb_arg <= 2)
     {
@@ -101,5 +101,8 @@ void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
       info->alias[size].value = temp;
       size += 1;
     }
+  nb_arg = -1;
+  while (info->alias[++nb_arg].link)
+    info->alias[nb_arg].loop = 0;
   check_loop(info);
 }

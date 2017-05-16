@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Tue May 16 19:59:04 2017 Thibaut Cornolti
+** Last update Tue May 16 20:15:59 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -190,6 +190,7 @@ void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
 void	builtin_alias(t_command *cmd, t_status *status, t_info *info);
 void	builtin_fg(t_command *cmd, t_status *status, t_info *info);
+void	check_loop(t_info *info);
 
 /*
 **LOAD
