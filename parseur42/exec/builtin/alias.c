@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Mon May 15 15:48:20 2017 Bastien
-** Last update Mon May 15 22:02:39 2017 Bastien
+** Last update Tue May 16 13:26:00 2017 Bastien
 */
 
 #include <stdio.h>
@@ -79,6 +79,7 @@ void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
   static int	size = 0;
 
   UNUSED(status);
+  info->exit_value = 0;
   nb_arg = my_strtablen(cmd->argv);
   if (nb_arg <= 2)
     {

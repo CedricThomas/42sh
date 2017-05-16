@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Mon May 15 18:27:45 2017 
+** Last update Tue May 16 10:19:16 2017 Bastien
 */
 
 #ifndef SYNTAX_H_
@@ -37,6 +37,8 @@
 # define STDOUT		(1 << 1)
 # define STDERROR	(1 << 2)
 # define STDIN		(1 << 3)
+
+typedef struct	s_info	t_info;
 
 typedef struct		s_redir
 {
@@ -101,8 +103,7 @@ typedef struct		s_field
 /*
 **MAIN
 */
-
-t_node		*parse_cmd(t_syntax *my_syntax, char *str);
+t_node		*parse_cmd(t_syntax *my_syntax, char *str, t_info *info);
 void		free_syntax(t_syntax **my_syntax);
 t_syntax	*get_syntax();
 

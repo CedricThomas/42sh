@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Mon May 15 17:18:50 2017 
+** Last update Tue May 16 10:44:06 2017 Bastien
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -55,7 +55,7 @@ int		main(int ac, char **av, char **env)
   load_rc(&status, info, syntax);
   while (!status.exit && (cmd = get_next_line(0)))
     {
-      if ((root = parse_cmd(syntax, cmd)))
+      if ((root = parse_cmd(syntax, cmd, info)))
 	{
 	  //show_nodes(root, 0, 0);
 	  auto_select(root, &status, info);

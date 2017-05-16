@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Mon May 15 17:23:15 2017 Thibaut Cornolti
+** Last update Tue May 16 10:29:41 2017 Bastien
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -46,6 +46,7 @@ t_info		*get_info(char **env)
     my_info->env = addkey(my_info->env, "HOST", temp, 0);
   free(temp);
   get_builtins(my_info);
+  my_info->alias = 0;
   return (my_info);
 }
 

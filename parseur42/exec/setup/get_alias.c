@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Fri May 12 15:28:34 2017 Bastien
-** Last update Mon May 15 17:11:41 2017 Bastien
+** Last update Tue May 16 13:51:31 2017 Bastien
 */
 
 #include <string.h>
@@ -22,16 +22,18 @@ static int	verify_cmd(t_token **save, t_token *token, t_info *info, t_syntax *sy
   while (info->alias[++i].link)
     if (!strcmp(info->alias[i].link, token->token))
       {
-	new = get_token(info->alias[i].value, syntax);
+	new = get_token(strdup(info->alias[i].value), syntax);
 	new->prev = token->prev;
-	token->prev->next = new;
+	if (token->prev)
+	  token->prev->next = new;
 	while (new->next)
 	  new = new->next;
 	new->next = token->next;
-	token->next->prev = new;
+	if (token->next)
+	  token->next->prev = new;
 	if (!token->prev)
 	  *save = new;
-	my_free_token(&token);
+	/* my_free_token(&token); */
 	return (1);
       }
   return (0);
@@ -39,22 +41,16 @@ static int	verify_cmd(t_token **save, t_token *token, t_info *info, t_syntax *sy
 
 static t_token 	*check_alias(t_token *token, t_info *info, t_syntax *syntax)
 {
-  int		count;
   t_token	*temp;
 
   temp = token;
-  count = -1;
-  while (temp && ++count < 1000)
+  while (temp)
     {
-      if (temp->type & T_COMMAND)
-	{
-	  if (verify_cmd(&token, temp, info, syntax))
-	    temp = token;
-	  else
-	    temp = temp->next;
-	}
+      if (temp->type & T_COMMAND && verify_cmd(&token, temp, info, syntax))
+	temp = token;
+      else
+	temp = temp->next;
     }
-  my_free_token(&temp);
   return (token);
 }
 

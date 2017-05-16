@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 13:59:16 2017 Thibaut Cornolti
-** Last update Mon May 15 17:22:01 2017 
+** Last update Tue May 16 10:18:03 2017 Bastien
 */
 
 #include <fcntl.h>
@@ -49,7 +49,7 @@ void		load_rc(t_status *status, t_info *info, t_syntax *syntax)
   free(filename);
   while (!status->exit && (cmd = get_next_line(fd)))
     {
-      if ((root = parse_cmd(syntax, cmd)))
+      if ((root = parse_cmd(syntax, cmd, info)))
 	{
 	  auto_select(root, status, info);
 	  my_free_tree(&root);

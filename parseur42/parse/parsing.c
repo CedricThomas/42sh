@@ -5,10 +5,11 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Mon May 15 17:14:51 2017 
+** Last update Tue May 16 11:04:27 2017 Bastien
 */
 #include <stdlib.h>
 #include "syntax.h"
+#include "exec.h"
 #include "my.h"
 #include "my_alloc.h"
 #include "my_printf.h"
@@ -61,7 +62,8 @@ static void		cut_comment(char *str)
   str[i] = 0;
 }
 
-t_node			*parse_cmd(t_syntax *my_syntax, char *str)
+t_node			*parse_cmd(t_syntax *my_syntax, char *str, t_info *info)
+
 {
   t_token		*tokens;
   void			*root;
@@ -69,6 +71,7 @@ t_node			*parse_cmd(t_syntax *my_syntax, char *str)
   cut_comment(str);
   if ((tokens = get_token(str, my_syntax)) == NULL)
     return (NULL);
+  tokens = get_alias(tokens, info, my_syntax);
   if ((root = auto_create_node(NULL, tokens, NULL)) == NULL)
     my_free_tree(&root);
   my_free_token(&tokens);
