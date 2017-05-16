@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 **
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May 16 16:09:24 2017 maje
+** Last update Tue May 16 16:46:31 2017 maje
 */
 
 #include <stdlib.h>
@@ -21,10 +21,12 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-/* static char  *extract(char *str) */
-/* { */
-
-/* } */
+static char  *extractor(char *str)
+{
+  if (my_strncmp(str, "ref", 3) == 0)
+    printf("\033[31;01mmaster\033[00m");
+  my_printf("\033[34;01m)\033[00m", str);
+}
 
 static char     *read_for_prompt(char *str)
 {
@@ -38,7 +40,8 @@ static char     *read_for_prompt(char *str)
     return (NULL);
   if ((buf = malloc(sizeof(char) * st.st_size)) == NULL)
     exit(84);
-  if (read(fd, buf, st.st_size) != -1);
+  if (read(fd, buf, st.st_size) == -1)
+    exit(84);
   buf[st.st_size] = '\0';
   close(fd);
   return (buf);
@@ -59,10 +62,11 @@ static void     git(char *info)
     {
       if (my_strcmp(".git", dirent->d_name) == 0)
 	{
+	  my_printf("\033[34;01m git:(\033[00m", str);
 	  str = strdup(info);
 	  str = my_strcatdup(str, "/.git/HEAD", 1);
 	  str = read_for_prompt(str);
-	  my_printf("\033[34;01m git:(\033[31;01m%s\033[00m)\033[00m", str);
+	  extractor(str);
 	  i++;
 	}
     }
