@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May 16 17:18:29 2017 Cédric THOMAS
+** Last update Tue May 16 20:01:22 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -49,7 +49,10 @@ int		my_system(char *command, t_system *system)
       my_free_tree(&root);
     }
   else
-    auto_wait(system->status, system->info);
+    {
+      auto_wait_job(system->status);
+      print_wait_job(system->status);
+    }
   return (system->info->exit_value);
 }
 
