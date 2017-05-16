@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 17:37:03 2017 
-** Last update Tue May 16 17:56:15 2017 Cédric THOMAS
+** Last update Tue May 16 18:59:24 2017 Cédric THOMAS
 */
 #ifndef GNC_H_
 # define GNC_H_
@@ -64,5 +64,11 @@ void		*end_keypad(t_keypad *keypad);
 **get_next_cmd.c
 */
 char		*get_next_cmd(t_keypad *keypad);
+
+/*
+**term set
+*/
+int	my_set_term(struct termio *termios);
+int	my_reset_term(struct termio *termios);
 
 #endif /* !GNC_H_ */

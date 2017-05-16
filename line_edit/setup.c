@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 22:15:37 2017
-** Last update Tue May 16 18:38:45 2017 Cédric THOMAS
+** Last update Tue May 16 18:58:04 2017 Cédric THOMAS
 */
 #include <stdlib.h>
 #include <termio.h>
@@ -16,7 +16,7 @@
 #include "my_alloc.h"
 #include "get_next_command.h"
 
-static int	my_set_term(struct termio *termios)
+int	my_set_term(struct termio *termios)
 {
   if (ioctl(0, TCGETA, termios) == -1)
     return (1);
@@ -29,7 +29,7 @@ static int	my_set_term(struct termio *termios)
   return (0);
 }
 
-static int	my_reset_term(struct termio *termios)
+int	my_reset_term(struct termio *termios)
 {
   if (ioctl(0, TCGETA, termios) == -1)
     return (1);
@@ -74,8 +74,6 @@ t_keypad	*init_keypad(struct s_system *sys)
   my_memset(keypad, 0, sizeof(t_keypad));
   keypad->sys = sys;
   setupterm(NULL, 0, NULL);
-  if (my_set_term(&(keypad->term)))
-    return (keypad);
   if ((smkx = tigetstr("smkx")) == (char *)-1)
     return (keypad);
   my_putstr(smkx);
@@ -90,7 +88,6 @@ t_keypad	*init_keypad(struct s_system *sys)
 
 void		*end_keypad(t_keypad *keypad)
 {
-  my_reset_term(&(keypad->term));
   free(keypad->line);
   free(keypad);
   endwin();
