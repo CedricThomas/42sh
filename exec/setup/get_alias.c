@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Fri May 12 15:28:34 2017 Bastien
-** Last update Tue May 16 13:51:31 2017 Bastien
+** Last update Tue May 16 16:48:46 2017 Bastien
 */
 
 #include <string.h>
@@ -23,6 +23,8 @@ static int	verify_cmd(t_token **save, t_token *token, t_info *info, t_syntax *sy
     if (!strcmp(info->alias[i].link, token->token))
       {
 	new = get_token(strdup(info->alias[i].value), syntax);
+	if (!token->prev)
+	  *save = new;
 	new->prev = token->prev;
 	if (token->prev)
 	  token->prev->next = new;
@@ -31,8 +33,6 @@ static int	verify_cmd(t_token **save, t_token *token, t_info *info, t_syntax *sy
 	new->next = token->next;
 	if (token->next)
 	  token->next->prev = new;
-	if (!token->prev)
-	  *save = new;
 	/* my_free_token(&token); */
 	return (1);
       }

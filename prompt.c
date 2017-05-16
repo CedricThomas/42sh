@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 **
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May 16 14:53:20 2017 maje
+** Last update Tue May 16 18:44:56 2017 maje
 */
 
 #include <stdlib.h>
@@ -21,10 +21,21 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-/* static char  *extract(char *str) */
-/* { */
+static char  *extractor(char *str)
+{
+  int	i;
 
-/* } */
+  i = -1;
+  my_printf("\033[34;01m git:(\033[00m", str);
+  if (my_strncmp(str, "ref", 3) == 0)
+    my_printf("\033[31;01mmaster\033[00m");
+  else
+    {
+      while (++i < 6 && str[i])
+	my_printf("\033[31;01m%c\033[00m", str[i]);
+    }
+  my_printf("\033[34;01m)\033[00m", str);
+}
 
 static char     *read_for_prompt(char *str)
 {
@@ -34,10 +45,13 @@ static char     *read_for_prompt(char *str)
 
   if (stat(str, &st) == -1)
     return (NULL);
-  my_printf("%d\n", st.st_size);
   if ((fd = open(str, O_RDONLY)) == -1)
     return (NULL);
-
+  if ((buf = malloc(sizeof(char) * (st.st_size + 1))) == NULL)
+    exit(84);
+  if (read(fd, buf, (st.st_size)) == -1)
+    return (NULL);
+  buf[st.st_size] = '\0';
   close(fd);
   return (buf);
 }
@@ -46,6 +60,7 @@ static void     git(char *info)
 {
   DIR           *dir;
   char          *buf;
+  char		*str;
   int           i;
   struct dirent *dirent;
 
@@ -56,16 +71,17 @@ static void     git(char *info)
     {
       if (my_strcmp(".git", dirent->d_name) == 0)
 	{
-	  buf = read_for_prompt(my_strcat(info, ".git/HEAD"));
-	  my_printf("\033[34;01m git:(\033[31;01m%s\033[00m)\033[00m", buf);
+	  str = read_for_prompt(my_strcatdup(strdup(info), "/.git/HEAD", 1));
+	  extractor(str);
 	  i++;
 	}
     }
   if (i == 0)
     {
-      buf = strdup(info);
+      buf = my_strdup(info);
       git(my_strcatdup(buf, "/..", 1));
     }
+  free(str);
   closedir(dir);
 }
 
