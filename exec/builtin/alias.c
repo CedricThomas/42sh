@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Mon May 15 15:48:20 2017 Bastien
-** Last update Tue May 16 13:26:00 2017 Bastien
+** Last update Tue May 16 16:43:25 2017 Bastien
 */
 
 #include <stdio.h>
@@ -72,6 +72,11 @@ char	*get_whole_alias(t_command *cmd)
   return (temp);
 }
 
+static void	check_loop(t_info *info)
+{
+  return ; 
+}
+
 void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
 {
   int		nb_arg;
@@ -96,4 +101,5 @@ void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
       info->alias[size].value = temp;
       size += 1;
     }
+  check_loop(info);
 }
