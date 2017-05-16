@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Mon May 15 17:41:51 2017 Thibaut Cornolti
+## Last update Mon May 15 22:43:02 2017 Thibaut Cornolti
 ##
 ## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##
@@ -15,6 +15,7 @@ EXEC		=	auto_selector.c			\
 			selector/pipe.c			\
 			selector/separ.c		\
 			selector/logic.c		\
+			selector/job.c			\
 			selector/cmd/redirections.c	\
 			selector/cmd/auto_redir.c	\
 			selector/cmd/dup.c		\
@@ -23,8 +24,11 @@ EXEC		=	auto_selector.c			\
 			builtin/unsetenv.c		\
 			builtin/cd.c			\
 			builtin/exit.c			\
+			builtin/fg.c			\
 			builtin/alias.c			\
 			status/list_status.c		\
+			status/list_job.c		\
+			status/tools_job.c		\
 			status/wait.c			\
 			status/fork.c			\
 			setup/info.c			\

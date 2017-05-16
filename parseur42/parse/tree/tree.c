@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon May 15 18:30:26 2017 Cédric THOMAS
-** Last update Mon May 15 18:30:31 2017 Cédric THOMAS
+** Last update Mon May 15 20:39:06 2017 Thibaut Cornolti
 */
 
 #include <math.h>
@@ -77,8 +77,8 @@ static void	fill_fct(void *(*fct_create_node[FULL_MAX_TYPES])
   fct_check_error[3] = NULL;
   fct_check_error[4] = NULL;
   fct_check_error[5] = &error_pipe_node;
-  fct_check_error[6] = &error_logic_node;;
-  fct_check_error[7] = NULL;
+  fct_check_error[6] = NULL;
+  fct_check_error[7] = &error_logic_node;;
   fct_check_error[8] = NULL;
 }
 

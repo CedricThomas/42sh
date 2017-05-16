@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Fri May 12 18:47:30 2017 
+** Last update Tue May 16 13:47:56 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -16,6 +16,7 @@
 #include "syntax.h"
 #include "exec.h"
 #include "my.h"
+#include "my_printf.h"
 
 static void	check_sig(int status)
 {
@@ -60,10 +61,37 @@ static void	get_exit_value(t_status *status, t_info *info)
     }
 }
 
+void		auto_wait_job(t_status *status)
+{
+  t_job		*job;
+  int		last;
+
+  last = 0;
+  job = status->job_list;
+  if (!(status->status & JOB))
+    {
+      while (job && job->next)
+	job = job->next;
+      while (job)
+	{
+	  if (job->status && waitpid(job->pid, NULL, WNOHANG))
+	    {
+	      if (last != job->number)
+		{
+		  my_printf("[%d]    Done\n", job->number);
+		  last = job->number;
+		}
+	      job->status = 0;
+	      job->number = 0;
+	    }
+	  job = job->prev;
+	}
+    }
+}
+
 void		auto_wait(t_status *status, t_info *info)
 {
   t_exit	*tmp;
-  int		pid;
   int		last;
 
   tmp = status->exit_list;
@@ -72,11 +100,12 @@ void		auto_wait(t_status *status, t_info *info)
     {
       if (tmp->pid > 0)
 	{
-	  pid = wait(&last);
-	  set_exit_value(status->exit_list, pid, last);
+	  waitpid(tmp->pid, &last, 0);
+	  set_exit_value(status->exit_list, tmp->pid, last);
 	}
       tmp = tmp->next;
     }
+  auto_wait_job(status);
   get_exit_value(status, info);
   my_del_exit(&(status->exit_list));
 }

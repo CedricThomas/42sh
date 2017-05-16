@@ -5,20 +5,24 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Tue May 16 10:10:28 2017 Bastien
+** Last update Tue May 16 13:58:21 2017 Bastien
 */
 
 #ifndef EXEC_H_
 # define EXEC_H_
 
-# define _GNU_SOURCE
-
 # define PIPELINE	(1 << 0)
 # define LEFT_PIPE	(1 << 1)
 # define RIGHT_PIPE	(1 << 2)
 # define FORK		(1 << 3)
+# define JOB		(1 << 4)
+# define JOBLINE	(1 << 5)
 
-# define BUILTINS_NB	6
+# define JOB_SUSPENDED	(1 << 0)
+# define JOB_BACKGROUND	(1 << 1)
+# define JOB_CURRENT	(1 << 2)
+
+# define BUILTINS_NB	7
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -46,12 +50,24 @@ typedef struct          s_exit
   struct s_exit         *next;
 }                       t_exit;
 
+typedef struct		s_job
+{
+  int			pid;
+  int			status;
+  int			number;
+  int			step;
+  struct s_job		*next;
+  struct s_job		*prev;
+}			t_job;
+
 typedef struct		s_status
 {
   int			exit;
   int			status;
   int			fd_to_close;
   struct s_exit		*exit_list;
+  struct s_job		*job_list;
+  int			job_nbr;
 }			t_status;
 
 typedef struct		s_exec_fct
@@ -107,6 +123,7 @@ int	exec_cmd(t_node *root, t_status *status, t_info *info);
 int	exec_separ(t_node *root, t_status *status, t_info *info);
 int	exec_logic(t_node *root, t_status *status, t_info *info);
 int	exec_pipe(t_node *root, t_status *status, t_info *info);
+int	exec_job(t_node *root, t_status *status, t_info *info);
 
 /*
 **SELECTOR/CMD
@@ -134,6 +151,8 @@ void	simple_exec(t_command *cmd, t_status *status, t_info *info);
 void	auto_wait(t_status *status, t_info *info);
 int	my_fork(t_command *cmd, t_status *status, t_info *info,
 		void (*fct)(t_command *cmd, t_status *status, t_info *info));
+int	my_fork_job(void *root, t_status *status, t_info *info,
+		int (*fct)(t_node *root, t_status *status, t_info *info));
 
 int	my_put_list_exit(t_exit **ll, int pid, int last);
 void	set_exit_value(t_exit *ll, int pid, int exitval);
@@ -157,11 +176,24 @@ void	builtin_setenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
 void	builtin_alias(t_command *cmd, t_status *status, t_info *info);
+void	builtin_fg(t_command *cmd, t_status *status, t_info *info);
 
 /*
 **LOAD
 */
 
 void	load_rc(t_status *status, t_info *info, t_syntax *syntax);
+
+/*
+**JOB
+*/
+
+t_job	*my_put_list_job(t_status *status, int pid, int stats);
+void	set_job_value(t_job *ll, int pid, int status);
+void	show_job_status(t_job *ll);
+int	my_del_job(t_job **ll);
+int	get_free_job(t_job *ll);
+void	plane_job(t_job *ll);
+t_job	*get_job(t_job *ll, int pid);
 
 #endif /* !EXEC_H_ */
