@@ -5,13 +5,29 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Fri May 12 15:28:34 2017 Bastien
-** Last update Tue May 16 16:48:46 2017 Bastien
+** Last update Tue May 16 19:11:21 2017 Bastien
 */
 
+#include <stdio.h>
 #include <string.h>
 #include <fnmatch.h>
 #include "syntax.h"
 #include "exec.h"
+
+static	void	set_new_token(t_token *token, t_token **save, t_token *new)
+{
+  if (!token->prev)
+    *save = new;
+  new->prev = token->prev;
+  if (token->prev)
+    token->prev->next = new;
+  while (new->next)
+    new = new->next;
+  new->next = token->next;
+  if (token->next)
+    token->next->prev = new;
+  my_free_token(&token);
+}
 
 static int	verify_cmd(t_token **save, t_token *token, t_info *info, t_syntax *syntax)
 {
@@ -20,20 +36,18 @@ static int	verify_cmd(t_token **save, t_token *token, t_info *info, t_syntax *sy
 
   i = -1;
   while (info->alias[++i].link)
-    if (!strcmp(info->alias[i].link, token->token))
+    if (!strcmp(info->alias[i].link, token->token) && !info->alias[i].loop)
       {
 	new = get_token(strdup(info->alias[i].value), syntax);
-	if (!token->prev)
-	  *save = new;
-	new->prev = token->prev;
-	if (token->prev)
-	  token->prev->next = new;
-	while (new->next)
-	  new = new->next;
-	new->next = token->next;
-	if (token->next)
-	  token->next->prev = new;
-	/* my_free_token(&token); */
+	set_new_token(token, save, new);
+	return (1);
+      }
+    else if (!strcmp(info->alias[i].link, token->token) &&
+	     info->alias[i].loop &&
+	     strcmp(info->alias[i].link, info->alias[i].value))
+      {
+	*save = NULL;
+	printf("Alias loop.\n");
 	return (1);
       }
   return (0);
