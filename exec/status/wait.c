@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Tue May 16 13:47:56 2017 Thibaut Cornolti
+** Last update Tue May 16 15:43:15 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
