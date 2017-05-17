@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Fri May 12 15:28:34 2017 Bastien
-** Last update Wed May 17 14:45:45 2017 Bastien
+** Last update Wed May 17 21:39:29 2017 Bastien
 */
 
 #include <stdio.h>
@@ -26,7 +26,7 @@ static	void	set_new_token(t_token *token, t_token **save, t_token *new)
   new->next = token->next;
   if (token->next)
     token->next->prev = new;
-  my_del_list_token(&token, token);
+  //  my_del_list_token(&token, token);
 }
 
 static int	verify_cmd(t_token **save, t_token *token, t_info *info, t_syntax *syntax)
