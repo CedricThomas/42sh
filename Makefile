@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Tue May 16 19:21:56 2017 Bastien
+## Last update Wed May 17 20:25:55 2017 Cédric THOMAS
 ##
 ## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##
@@ -78,10 +78,10 @@ LOAD		=	rc.c				\
 LINE		=	line_edit/get_next_cmd.c	\
 			line_edit/str.c			\
 			line_edit/setup.c		\
-			binds/auto_complete.c		\
 			binds/std_binds.c		\
 			binds/pos_binds.c		\
 			binds/del_binds.c		\
+			binds/complete/auto_complete.c	\
 			binds/default_bind.c
 
 MAIN		=	main.c				\
