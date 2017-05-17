@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 10:35:38 2017 Bastien
-** Last update Wed May 17 14:03:07 2017 Bastien
+** Last update Wed May 17 14:22:57 2017 Bastien
 */
 
 #include <glob.h>
@@ -68,6 +68,5 @@ t_token		*globbing(t_token *token, t_syntax *syntax)
       token = token->next;
     }
   shape_token(save);
-  my_show_token(save);
   return (save);
 }
