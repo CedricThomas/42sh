@@ -5,26 +5,36 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 11 13:22:48 2017 Thibaut Cornolti
-** Last update Tue May 16 19:51:23 2017 Thibaut Cornolti
+** Last update Wed May 17 10:41:10 2017 Thibaut Cornolti
 */
 
 #include <stdio.h>
+#include <string.h>
 #include "syntax.h"
+#include "my_printf.h"
 #include "exec.h"
 #include "my.h"
 
 void		builtin_echo(t_command *cmd, t_status *status, t_info *info)
 {
   int		i;
+  int		new_line;
 
   i = 0;
   UNUSED(status);
   info->exit_value = 0;
+  new_line = 1;
+  if (cmd->argv[1] && !strcmp(cmd->argv[1], "-n"))
+    {
+      new_line = 0;
+      i += 1;
+    }
   while (cmd->argv[++i])
     {
-      printf("%s", cmd->argv[i]);
+      my_printf("%s", cmd->argv[i]);
       if (cmd->argv[i + 1])
-	printf("%s", " ");
+	my_printf("%s", " ");
     }
-  printf("%s", "\n");
+  if (new_line)
+    my_printf("%s", "\n");
 }
