@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Wed May 17 16:47:06 2017 Bastien
+** Last update Wed May 17 21:47:59 2017 Bastien
 */
 
 #ifndef EXEC_H_
@@ -78,6 +78,7 @@ typedef struct		s_status
   int			fd_to_close;
   struct s_exit		*exit_list;
   struct s_job		*job_list;
+  int			pgid;
   int			job_nbr;
 }			t_status;
 

@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Wed May 17 13:37:30 2017 Thibaut Cornolti
+** Last update Wed May 17 17:19:22 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -32,7 +32,8 @@ void		builtin_fg(t_command *cmd, t_status *status, t_info *info)
       my_puterror("fg: No current job.\n");
       return ;
     }
+  kill(-job->pid, SIGCONT);
   tcsetpgrp(0, job->pid);
-  kill(job->pid, SIGCONT);
   job->status = JOB_FOREGROUND;
+  my_printf("Continued\n");
 }

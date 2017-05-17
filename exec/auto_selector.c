@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Mar 28 22:36:31 2017 
-** Last update Wed May 17 14:20:48 2017 Thibaut Cornolti
+** Last update Wed May 17 20:16:47 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -36,6 +36,8 @@ int		auto_select(t_node *root, t_status *status, t_info *info)
   if (root == NULL)
     return (0);
   get_fct(fct_parse);
+  if (root->type & T_SEPAR)
+    status->pgid = 0;
   while (++i < TREE_TYPES)
     {
       if (root->type == fct_parse[i].type)
