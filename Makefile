@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Tue May 16 19:21:56 2017 Bastien
+## Last update Wed May 17 12:32:17 2017 Thibaut Cornolti
 ##
 ## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
 ##
@@ -26,6 +26,8 @@ EXEC		=	auto_selector.c			\
 			builtin/exit.c			\
 			builtin/fg.c			\
 			builtin/alias.c			\
+			builtin/jobs.c			\
+			builtin/bg.c			\
 			builtin/loop.c			\
 			status/list_status.c		\
 			status/list_job.c		\

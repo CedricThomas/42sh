@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Tue May 16 20:59:01 2017 Bastien
+** Last update Wed May 17 12:50:45 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -19,10 +19,10 @@
 # define JOBLINE	(1 << 5)
 
 # define JOB_SUSPENDED	(1 << 0)
-# define JOB_BACKGROUND	(1 << 1)
-# define JOB_CURRENT	(1 << 2)
+# define JOB_FOREGROUND	(1 << 1)
+# define JOB_BACKGROUND	(1 << 2)
 
-# define BUILTINS_NB	7
+# define BUILTINS_NB	9
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -190,6 +190,8 @@ void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
 void	builtin_alias(t_command *cmd, t_status *status, t_info *info);
 void	builtin_fg(t_command *cmd, t_status *status, t_info *info);
+void	builtin_bg(t_command *cmd, t_status *status, t_info *info);
+void	builtin_jobs(t_command *cmd, t_status *status, t_info *info);
 void	check_loop(t_info *info);
 
 /*

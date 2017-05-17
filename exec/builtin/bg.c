@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Wed May 17 12:51:53 2017 Thibaut Cornolti
+** Last update Wed May 17 12:51:19 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -16,7 +16,7 @@
 #include "exec.h"
 #include "my.h"
 
-void		builtin_fg(t_command *cmd, t_status *status, t_info *info)
+void		builtin_bg(t_command *cmd, t_status *status, t_info *info)
 {
   t_job		*job;
 
@@ -28,13 +28,10 @@ void		builtin_fg(t_command *cmd, t_status *status, t_info *info)
     job = job->next;
   if (!job)
     {
-      my_puterror("fg: No current job.\n");
+      my_puterror("bg: No current job.\n");
       return ;
     }
-  my_put_list_exit(&(status->exit_list), job->pid, 0);
-  tcsetpgrp(0, job->pid);
+  tcsetpgrp(0, getpid());
   kill(job->pid, SIGCONT);
-  job->status = JOB_FOREGROUND;
-  auto_wait(status, info);
-  job->status = 0;
+  job->status = JOB_BACKGROUND;
 }
