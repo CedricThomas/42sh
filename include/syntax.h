@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Tue May 16 20:54:16 2017 Bastien
+** Last update Wed May 17 09:21:24 2017 Cédric THOMAS
 */
 
 #ifndef SYNTAX_H_
@@ -20,10 +20,10 @@
 # define T_ARGS			(1 << 0)
 # define T_FILE			(1 << 1)
 # define T_COMMAND		(1 << 2)
-# define T_FLUX_REDIR_OUT	(1 << 3)
-# define T_FLUX_REDIR_IN	(1 << 4)
-# define T_FLUX			(1 << 5)
-# define T_JOB			(1 << 6)
+# define T_JOB			(1 << 3)
+# define T_FLUX_REDIR_OUT	(1 << 4)
+# define T_FLUX_REDIR_IN	(1 << 5)
+# define T_FLUX			(1 << 6)
 # define T_LOGIC		(1 << 7)
 # define T_SEPAR		(1 << 8)
 

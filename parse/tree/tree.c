@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon May 15 18:30:26 2017 Cédric THOMAS
-** Last update Mon May 15 20:39:06 2017 Thibaut Cornolti
+** Last update Wed May 17 10:10:36 2017 Cédric THOMAS
 */
 
 #include <math.h>
@@ -67,8 +67,8 @@ static void	fill_fct(void *(*fct_create_node[FULL_MAX_TYPES])
   fct_create_node[2] = &create_command_node;
   fct_create_node[3] = &create_standard_node;
   fct_create_node[4] = &create_standard_node;
-  fct_create_node[5] = &create_pipe_node;
-  fct_create_node[6] = &create_standard_node;
+  fct_create_node[5] = &create_standard_node;
+  fct_create_node[6] = &create_pipe_node;
   fct_create_node[7] = &create_standard_node;
   fct_create_node[8] = &create_standard_node;
   fct_check_error[0] = NULL;
@@ -76,9 +76,9 @@ static void	fill_fct(void *(*fct_create_node[FULL_MAX_TYPES])
   fct_check_error[2] = &error_command_node;
   fct_check_error[3] = NULL;
   fct_check_error[4] = NULL;
-  fct_check_error[5] = &error_pipe_node;
-  fct_check_error[6] = NULL;
-  fct_check_error[7] = &error_logic_node;;
+  fct_check_error[5] = NULL;
+  fct_check_error[6] = &error_pipe_node;
+  fct_check_error[7] = &error_logic_node;
   fct_check_error[8] = NULL;
 }
 
