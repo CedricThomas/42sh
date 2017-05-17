@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Wed May 17 13:03:44 2017 Thibaut Cornolti
+** Last update Wed May 17 17:58:35 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -34,6 +34,6 @@ void		builtin_bg(t_command *cmd, t_status *status, t_info *info)
       return ;
     }
   tcsetpgrp(0, getpid());
-  kill(job->pid, SIGCONT);
+  kill(-job->pid, SIGCONT);
   job->status = JOB_BACKGROUND;
 }
