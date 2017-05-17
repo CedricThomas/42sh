@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 17:37:03 2017 
-** Last update Wed May 17 10:13:00 2017 Cédric THOMAS
+** Last update Wed May 17 14:14:49 2017 Cédric THOMAS
 */
 #ifndef GNC_H_
 # define GNC_H_
@@ -37,6 +37,8 @@ typedef struct		s_keypad
 */
 char		*insert_str(char *s1, char *s2, int pos);
 char		*delete_a_char(char *str, int index);
+
+void		print_line(t_keypad *keypad);
 
 /*
 **binds

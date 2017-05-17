@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:03:45 2017 Cédric THOMAS
-** Last update Tue May 16 18:19:50 2017 Cédric THOMAS
+** Last update Wed May 17 13:52:17 2017 Cédric THOMAS
 */
 #include <sys/ioctl.h>
 #include <ncurses.h>
