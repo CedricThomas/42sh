@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May  4 18:11:31 2017 Thibaut Cornolti
-** Last update Mon May 15 17:18:31 2017 
+** Last update Wed May 17 11:21:37 2017 Thibaut Cornolti
 */
 
 #include <sys/types.h>
@@ -25,11 +25,17 @@ void		*create_standard_node(t_field *field, t_token *mid)
   if ((new_node->data = alloc_strdup(mid->token)) == NULL)
     exit(84);
   my_tag_alloc(new_node->data, "tree", 0);
-  new_node->left = auto_create_node(new_node, field->start, mid);
-  /* if (new_node->left == NULL) */
-  /*   return (NULL); */
-  new_node->right = auto_create_node(new_node, mid->next, field->end);
-  /* if (new_node->right == NULL) */
-  /*   return (NULL); */
+  if (field->start != mid)
+    {
+      new_node->left = auto_create_node(new_node, field->start, mid);
+      if (new_node->left == NULL)
+	return (NULL);
+    }
+  if (mid->next != field->end)
+    {
+      new_node->right = auto_create_node(new_node, mid->next, field->end);
+      if (new_node->right == NULL)
+	return (NULL);
+    }
   return (new_node);
 }
