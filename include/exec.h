@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Wed May 17 12:52:38 2017 Thibaut Cornolti
+** Last update Wed May 17 13:49:46 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -21,6 +21,7 @@
 # define JOB_SUSPENDED	(1 << 0)
 # define JOB_FOREGROUND	(1 << 1)
 # define JOB_BACKGROUND	(1 << 2)
+# define JOB_TERMINATED	(1 << 3)
 
 # define BUILTINS_NB	9
 # define REDIR_NB	4
@@ -87,7 +88,8 @@ typedef struct		s_system
   t_info		*info;
 }			t_system;
 
-int	my_system(char *command, t_system *system);
+int		my_system(char *command, t_system *system);
+t_status	*getter_status(t_status *setter);
 
 /*
 **PROMPT
@@ -213,5 +215,6 @@ int	my_del_job(t_job **ll);
 int	get_free_job(t_job *ll);
 void	plane_job(t_job *ll);
 t_job	*get_job(t_job *ll, int pid);
+void	signal_stp();
 
 #endif /* !EXEC_H_ */

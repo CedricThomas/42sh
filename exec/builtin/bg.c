@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Wed May 17 12:51:19 2017 Thibaut Cornolti
+** Last update Wed May 17 13:03:44 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -24,7 +24,9 @@ void		builtin_bg(t_command *cmd, t_status *status, t_info *info)
   UNUSED(info);
   job = status->job_list;
   auto_wait_job(status);
-  while (!(job == NULL || (job->status && waitpid(job->pid, NULL, WNOHANG) != -1)))
+  while (!(job == NULL ||
+	   (job->status && job->status != JOB_BACKGROUND
+	    && waitpid(job->pid, NULL, WNOHANG) != -1)))
     job = job->next;
   if (!job)
     {
