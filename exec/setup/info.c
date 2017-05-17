@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Tue May 16 20:56:53 2017 Bastien
+** Last update Wed May 17 12:35:44 2017 maje
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -23,6 +23,26 @@ static void	get_builtins(t_info *my_info)
   my_info->builtins[6] = "fg";
   my_info->builtins[7] = NULL;
 }
+
+/* static int      check_history(t_info *info) */
+/* { */
+/*   if (check_file(info) == -1) */
+/*     { */
+/*       if ((create_file(info)) == -1) */
+/* 	return (-1); */
+/*       if ((info->history = malloc(sizeof(char *))) == NULL) */
+/* 	return (-1); */
+/*       if ((info->history[0] = malloc(sizeof(char))) == NULL) */
+/* 	return (-1); */
+/*       info->history[0] = '\0'; */
+/*     } */
+/*   else */
+/*     { */
+/*       if ((info->history = read_history(info)) == NULL) */
+/* 	return (-1); */
+/*     } */
+/*   return (0); */
+/* } */
 
 t_info		*get_info(char **env)
 {
@@ -47,6 +67,8 @@ t_info		*get_info(char **env)
     my_info->env = addkey(my_info->env, "HOST", temp, 0);
   free(temp);
   get_builtins(my_info);
+  /* if (check_history(my_info) == -1) */
+  /*   return (NULL); */
   my_info->alias = 0;
   return (my_info);
 }
