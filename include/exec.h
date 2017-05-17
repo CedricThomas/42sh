@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Wed May 17 12:50:45 2017 Thibaut Cornolti
+** Last update Wed May 17 12:52:38 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -26,6 +26,7 @@
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
+# define FILE_HISTORY   ".42sh_history"
 
 typedef struct		s_alias
 {
@@ -38,6 +39,7 @@ typedef struct		s_info
 {
   char			*builtins[BUILTINS_NB + 1];
   char			**env;
+  char			**history;
   unsigned int		exit_value;
   char			*old_pwd;
   char			*pwd;
