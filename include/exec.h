@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Tue May 16 20:59:01 2017 Bastien
+** Last update Wed May 17 11:13:18 2017 Bastien
 */
 
 #ifndef EXEC_H_
@@ -105,6 +105,7 @@ int	my_perror(char *cmd, char *error);
 t_info		*get_info(char **env);
 void		*free_info(t_info *info);
 t_token		*get_alias(t_token *token, t_info *info, t_syntax *syntax);
+t_token		*globbing(t_token *token, t_syntax *syntax);
 
 /*
 **ENV
