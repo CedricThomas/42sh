@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 20:54:17 2017 Thibaut Cornolti
-** Last update Wed May 17 13:51:22 2017 Thibaut Cornolti
+** Last update Wed May 17 13:55:51 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -17,6 +17,7 @@ void		signal_stp()
 {
   t_job		*job;
 
+  printf("oui\n");
   job = getter_status(NULL)->job_list;
   while (job)
     {

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Wed May 17 13:41:17 2017 Thibaut Cornolti
+** Last update Wed May 17 13:57:15 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -91,8 +91,6 @@ void		auto_wait_job(t_status *status)
   t_job		*job;
 
   job = status->job_list;
-  while (job && job->next)
-    job = job->next;
   while (job)
     {
       if (job->status && waitpid(job->pid, NULL, WNOHANG))
