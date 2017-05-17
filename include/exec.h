@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Wed May 17 20:17:59 2017 Thibaut Cornolti
+** Last update Wed May 17 21:47:59 2017 Bastien
 */
 
 #ifndef EXEC_H_
@@ -36,6 +36,12 @@ typedef struct		s_alias
   int			loop;
 }			t_alias;
 
+typedef struct		s_var
+{
+  char			*name;
+  char			*value;
+}			t_var;
+
 typedef struct		s_info
 {
   char			*builtins[BUILTINS_NB + 1];
@@ -45,6 +51,7 @@ typedef struct		s_info
   char			*old_pwd;
   char			*pwd;
   t_alias		*alias;
+  t_var			*var;
 }			t_info;
 
 typedef struct          s_exit
