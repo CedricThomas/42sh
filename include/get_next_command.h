@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 17:37:03 2017 
-** Last update Wed May 17 10:12:33 2017 Cédric THOMAS
+** Last update Wed May 17 10:13:00 2017 Cédric THOMAS
 */
 #ifndef GNC_H_
 # define GNC_H_
@@ -68,12 +68,7 @@ char		*get_next_cmd(t_keypad *keypad);
 /*
 **term set
 */
-<<<<<<< HEAD
 int	my_set_term(t_keypad *keypad);
 int	my_reset_term(t_keypad *keypad);
-=======
-int	my_set_term(t_keypad *pad);
-int	my_reset_term(t_keypad *pad);
->>>>>>> 1385d54d9464ffba70881948d374e7aa47930536
 
 #endif /* !GNC_H_ */
