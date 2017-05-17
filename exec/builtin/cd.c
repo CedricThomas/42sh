@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 11 13:22:48 2017 Thibaut Cornolti
-** Last update Fri May 12 17:41:22 2017 
+** Last update Wed May 17 10:17:13 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -19,7 +19,11 @@ static int	error_msg(int code, char *prefix, t_info *info)
 {
   static char	*msg[3];
 
-  msg[0] = ": No home directory.\n";
+  if (code == 0)
+    {
+      perror(prefix);
+      return (0);
+    }
   msg[1] = ": No such file or directory.\n";
   msg[2] = ": Too many arguments.\n";
   info->exit_value = 1;
