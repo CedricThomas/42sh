@@ -5,9 +5,10 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 20:54:17 2017 Thibaut Cornolti
-** Last update Tue May 16 18:13:27 2017 Thibaut Cornolti
+** Last update Tue May 16 23:59:09 2017 Thibaut Cornolti
 */
 
+#include <unistd.h>
 #include "syntax.h"
 #include "exec.h"
 #include "my_printf.h"
