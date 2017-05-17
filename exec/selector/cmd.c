@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Tue May 16 19:58:20 2017 Thibaut Cornolti
+** Last update Tue May 16 23:52:04 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -82,6 +82,5 @@ int		exec_cmd(t_node *root, t_status *status, t_info *info)
   auto_wait_job(status);
   if (wait)
     auto_wait(status, info);
-  print_wait_job(status);
   return (0);
 }
