@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 21:06:35 2017 
-** Last update Wed May 17 21:19:12 2017 Thibaut Cornolti
+** Last update Wed May 17 21:48:28 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -38,20 +38,20 @@ int		my_fork(t_command *cmd, t_status *status, t_info *info,
   pid = fork(); 
   if (pid == 0)
     {
-      setpgid(getpid(), (status->pgid) ? status->pgid : getpid());
+      //setpgid(getpid(), (status->pgid) ? status->pgid : getpid());
       /*
       ** SIGNAUX & JOB CONTROL
       */
-      if (status->status & JOB)
-      	{
-      	  tcsetpgrp(0, getppid());
-      	  tcsetpgrp(1, getppid());
-      	}
-      signal(SIGINT, SIG_DFL);
-      signal(SIGQUIT, SIG_DFL);
-      signal(SIGTSTP, SIG_DFL);
-      signal(SIGTTIN, SIG_DFL);
-      signal(SIGTTOU, SIG_DFL);
+      /* if (status->status & JOB) */
+      /* 	{ */
+      /* 	  tcsetpgrp(0, getppid()); */
+      /* 	  tcsetpgrp(1, getppid()); */
+      /* 	} */
+      /* signal(SIGINT, SIG_DFL); */
+      /* signal(SIGQUIT, SIG_DFL); */
+      /* signal(SIGTSTP, SIG_DFL); */
+      /* signal(SIGTTIN, SIG_DFL); */
+      /* signal(SIGTTOU, SIG_DFL); */
       /* !SIGNAUX & JOB CONTROL */
       status->status |= FORK;
       my_dup(cmd, NULL);
@@ -66,7 +66,7 @@ int		my_fork(t_command *cmd, t_status *status, t_info *info,
     {
       if (status->pgid == 0)
 	status->pgid = pid;
-      setpgid(pid, status->pgid);
+      //setpgid(pid, status->pgid);
       select_wait(status, pid);
     }
   else
