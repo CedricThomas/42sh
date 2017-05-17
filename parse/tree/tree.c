@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon May 15 18:30:26 2017 Cédric THOMAS
-** Last update Wed May 17 10:10:36 2017 Cédric THOMAS
+** Last update Wed May 17 11:16:53 2017 Thibaut Cornolti
 */
 
 #include <math.h>
