@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon May 15 18:30:26 2017 Cédric THOMAS
-** Last update Wed May 17 11:16:53 2017 Thibaut Cornolti
+** Last update Wed May 17 14:20:03 2017 Thibaut Cornolti
 */
 
 #include <math.h>
@@ -24,9 +24,10 @@ static int	get_weight(int type)
   size[3] = T_FLUX_REDIR_IN;
   size[4] = T_COMMAND;
   size[5] = T_FLUX;
-  size[6] = T_LOGIC;
-  size[7] = T_SEPAR;
-  size[8] = T_JOB;
+  size[6] = T_LOGIC_AND;
+  size[7] = T_LOGIC_OR;
+  size[8] = T_SEPAR;
+  size[9] = T_JOB;
   i = 0;
   while (++i < FULL_MAX_TYPES)
     if (type == size[i])
