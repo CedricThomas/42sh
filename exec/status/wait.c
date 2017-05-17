@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Wed May 17 13:57:15 2017 Thibaut Cornolti
+** Last update Wed May 17 17:03:33 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -91,6 +91,7 @@ void		auto_wait_job(t_status *status)
   t_job		*job;
 
   job = status->job_list;
+  signal(SIGTSTP, &signal_stp);
   while (job)
     {
       if (job->status && waitpid(job->pid, NULL, WNOHANG))
@@ -98,8 +99,11 @@ void		auto_wait_job(t_status *status)
 	  job->step = 2;
 	  job->status = JOB_TERMINATED;
 	}
+      signal(SIGTSTP, &signal_stp);
       if (!(job->status & JOB_FOREGROUND))
 	job = job->prev;
+      else
+	usleep(1000);
     }
 }
 
