@@ -5,8 +5,9 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 22:15:37 2017
-** Last update Tue May 16 18:58:04 2017 Cédric THOMAS
+** Last update Wed May 17 09:44:10 2017 Cédric THOMAS
 */
+#include <unistd.h>
 #include <stdlib.h>
 #include <termio.h>
 #include <curses.h>
@@ -16,25 +17,24 @@
 #include "my_alloc.h"
 #include "get_next_command.h"
 
-int	my_set_term(struct termio *termios)
+int		my_set_term(t_keypad *keypad)
 {
-  if (ioctl(0, TCGETA, termios) == -1)
+  if (ioctl(0, TCGETA, &keypad->term) == -1)
     return (1);
-  termios->c_lflag &= ~(ICANON | ECHO);
-  termios->c_cc[VTIME] = 0;
-  termios->c_cc[VMIN] = 0;
-  ioctl(0, TCSETA, termios);
-  if (ioctl(0, TCSETA, termios) == -1)
+  keypad->term.c_lflag &= ~(ICANON | ECHO);
+  keypad->term.c_cc[VTIME] = 0;
+  keypad->term.c_cc[VMIN] = 0;
+  if (ioctl(0, TCSETA, &keypad->term) == -1)
     return (1);
   return (0);
 }
 
-int	my_reset_term(struct termio *termios)
+int		my_reset_term(t_keypad *keypad)
 {
-  if (ioctl(0, TCGETA, termios) == -1)
+  if (ioctl(0, TCGETA, &keypad->term) == -1)
     return (1);
-  termios->c_lflag |= (ICANON | ECHO);
-  if (ioctl(0, TCSETA, termios) == -1)
+  keypad->term.c_lflag |= (ICANON | ECHO);
+  if (ioctl(0, TCSETA, &keypad->term) == -1)
     return (1);
   return (0);
 }
@@ -73,6 +73,8 @@ t_keypad	*init_keypad(struct s_system *sys)
     return (NULL);  
   my_memset(keypad, 0, sizeof(t_keypad));
   keypad->sys = sys;
+  if (!isatty(0))
+    return (keypad);
   setupterm(NULL, 0, NULL);
   if ((smkx = tigetstr("smkx")) == (char *)-1)
     return (keypad);

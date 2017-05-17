@@ -1,98 +1,98 @@
 /*
-** cd.c for builtin in /home/thibrex/Dropbox/delivery/PSU/PSU_2016_42sh/parseur 42/exec/builtin
+** cd.c for cd in /home/cedric/delivery/PSU/PSU_2016_minishell1
 ** 
-** Made by Thibaut Cornolti
-** Login   <thibaut.cornolti@epitech.eu>
+** Made by 
+** Login   <cedric.thomas@epitech.eu>
 ** 
-** Started on  Thu May 11 13:22:48 2017 Thibaut Cornolti
-** Last update Fri May 12 17:41:22 2017 
+** Started on  Sun Jan  8 18:51:02 2017 
+** Last update Wed May 17 10:52:44 2017 Thibaut Cornolti
 */
-
-#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
-#include <limits.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
 #include "syntax.h"
 #include "exec.h"
 #include "my.h"
 
-static int	error_msg(int code, char *prefix, t_info *info)
+static void	print_cderror(char *path)
 {
-  static char	*msg[3];
+  struct stat	my_stat;
 
-  msg[0] = ": No home directory.\n";
-  msg[1] = ": No such file or directory.\n";
-  msg[2] = ": Too many arguments.\n";
-  info->exit_value = 1;
-  if (prefix)
-    my_puterror(prefix);
-  my_puterror(msg[code]);
-  return (0);
+  my_puterror(path);
+  if (stat(path, &my_stat) < 0)
+    return (my_puterror(": No such file or directory.\n"));
+  if (!S_ISDIR(my_stat.st_mode))
+    return (my_puterror(": Not a directory.\n"));
+  if (access(path, R_OK))
+    return (my_puterror(": Permission denied.\n"));
 }
 
-static int	builtin_cd_dash(t_info *info, char *path)
+static void	changepwd(t_info *info)
 {
-  char		*pwd;
+  char	*pwd;
 
-  free(path);
-  if (chdir(info->old_pwd) == -1)
-    return (error_msg(1, info->old_pwd, info));
-  pwd = info->pwd;
-  info->pwd = info->old_pwd;
-  info->old_pwd = pwd;
-  if (changekey(info->env, "OLDPWD", info->old_pwd, 0))
-    info->env = addkey(info->env, "OLDPWD", info->old_pwd, 0);
-  if (changekey(info->env, "PWD", info->pwd, 0))
-    info->env = addkey(info->env, "PWD", info->pwd, 0);
-  return (0);
-}
-
-static int	builtin_cd_param(t_info *info, char *path)
-{
-  if (!my_strcmp(path, "-"))
-    return (builtin_cd_dash(info, path));
-  if (chdir(path) == -1)
-    return (error_msg(1, path, info));
-  free(path);
-  if ((path = getcwd(NULL, PATH_MAX)) == NULL)
-    exit(84);
   free(info->old_pwd);
   info->old_pwd = info->pwd;
-  info->pwd = path;
-  if (changekey(info->env, "OLDPWD", info->old_pwd, 0))
-    info->env = addkey(info->env, "OLDPWD", info->old_pwd, 0);
-  if (changekey(info->env, "PWD", info->pwd, 0))
-    info->env = addkey(info->env, "PWD", info->pwd, 0);
-  return (0);
+  pwd = getkey_pwd();
+  if (getkey(info->env, "PWD", 0) == NULL)
+    info->env = addkey(info->env, "PWD", pwd, 0);
+  else
+    changekey(info->env, "PWD", pwd, 0);
+  info->pwd = pwd;
 }
 
-static int	builtin_cd_no_param(t_info *info)
+static void	noparams(t_info *info)
 {
   char		*home;
 
-  if ((home = getkey(info->env, "HOME", 1)) == NULL)
-    return (error_msg(0, "cd", info));
-  if (chdir(home) == -1)
-    return (error_msg(1, home, info));
-  free(info->old_pwd);
-  info->old_pwd = info->pwd;
-  info->pwd = home;
-  if (changekey(info->env, "OLDPWD", info->old_pwd, 0))
-    info->env = addkey(info->env, "OLDPWD", info->old_pwd, 0);
-  if (changekey(info->env, "PWD", info->pwd, 0))
-    info->env = addkey(info->env, "PWD", info->pwd, 0);
-  return (0);
+  if ((home = getkey(info->env, "HOME", 0)) == NULL)
+    {
+      my_puterror("cd: No home directory.\n");
+      return ;
+    }
+  if (chdir(home) < 0)
+    {
+      my_puterror("cd: Can't change to home directory.\n");
+      return ;
+    }
+  changepwd(info);
+  info->exit_value = 0;
 }
 
-void		builtin_cd(t_command *cmd, t_status *status, t_info *info)
+static void	oneparams(t_info *info, t_command *cmd)
 {
-  info->exit_value = 0;
-  if (cmd->argv[1] && cmd->argv[2])
-    error_msg(2, "cd", info);
-  else if (!cmd->argv[1])
-    builtin_cd_no_param(info);
-  else if (!cmd->argv[2])
-    builtin_cd_param(info, my_strdup(cmd->argv[1]));
+  char		*path;
+
+  if (!my_strcmp(cmd->argv[1], "-"))
+    path = strdup(info->old_pwd);
   else
-    error_msg(2, "cd", info);
-  UNUSED(status);
+    path = strdup(cmd->argv[1]);
+  if (chdir(path) < 0)
+    {
+      print_cderror(path);
+      return (free(path));
+    }
+  free(path);
+  changepwd(info);
+  info->exit_value = 0;
 }
+
+void	builtin_cd(t_command *cmd, t_status *status, t_info *info)
+{
+  int	argc;
+
+  UNUSED(status);
+  info->exit_value = 1;
+  argc = -1;
+  while (cmd->argv[++argc]);
+  if (argc == 1)
+    noparams(info);
+  else if (argc == 2)
+    oneparams(info, cmd);
+  else
+    my_puterror("cd: Too many arguments.\n");
+}
+
