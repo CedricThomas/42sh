@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Wed May 17 12:35:44 2017 maje
+** Last update Wed May 17 12:41:43 2017 maje
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -78,6 +78,7 @@ void		*free_info(t_info *info)
   free(info->pwd);
   free(info->old_pwd);
   free_tab(info->env);
+  //free_tab(info->history);
   free(info);
   return (NULL);
 }
