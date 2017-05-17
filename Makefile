@@ -5,9 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Wed May 17 11:12:32 2017 Bastien
-##
-## Last update Thu May 11 17:40:01 2017 Thibaut Cornolti
+## Last update Wed May 17 14:05:51 2017 Bastien
 ##
 
 EXEC		=	auto_selector.c			\
@@ -26,6 +24,8 @@ EXEC		=	auto_selector.c			\
 			builtin/exit.c			\
 			builtin/fg.c			\
 			builtin/alias.c			\
+			builtin/jobs.c			\
+			builtin/bg.c			\
 			builtin/loop.c			\
 			status/list_status.c		\
 			status/list_job.c		\
@@ -86,7 +86,8 @@ LINE		=	line_edit/get_next_cmd.c	\
 			binds/default_bind.c
 
 MAIN		=	main.c				\
-			prompt.c
+			prompt.c			\
+			getter.c			\
 
 OBJ		=	$(MAIN:.c=.o)
 OBJ		+=	$(LINE:.c=.o)
