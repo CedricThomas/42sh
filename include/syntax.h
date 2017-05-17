@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Tue May 16 10:19:16 2017 Bastien
+** Last update Tue May 16 20:54:16 2017 Bastien
 */
 
 #ifndef SYNTAX_H_
@@ -89,6 +89,7 @@ typedef struct		s_token
 {
   int			type;
   char			*token;
+  int			used;
   struct s_token	*prev;
   struct s_token	*next;
 }			t_token;

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Tue May 16 18:50:52 2017 Cédric THOMAS
+** Last update Tue May 16 20:59:01 2017 Bastien
 */
 
 #ifndef EXEC_H_
@@ -161,6 +161,7 @@ void	simple_exec(t_command *cmd, t_status *status, t_info *info);
 
 void	auto_wait(t_status *status, t_info *info);
 void	auto_wait_job(t_status *status);
+void	print_wait_job(t_status *status);
 int	my_fork(t_command *cmd, t_status *status, t_info *info,
 		void (*fct)(t_command *cmd, t_status *status, t_info *info));
 int	my_fork_job(void *root, t_status *status, t_info *info,
@@ -189,6 +190,7 @@ void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
 void	builtin_alias(t_command *cmd, t_status *status, t_info *info);
 void	builtin_fg(t_command *cmd, t_status *status, t_info *info);
+void	check_loop(t_info *info);
 
 /*
 **LOAD
