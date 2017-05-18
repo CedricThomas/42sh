@@ -5,14 +5,17 @@
 ** Login   <marin.brunel@epitech.eu>
 ** 
 ** Started on  Thu May 18 09:56:38 2017 maje
-** Last update Thu May 18 18:45:23 2017 Cédric THOMAS
+** Last update Thu May 18 19:17:26 2017 Cédric THOMAS
 */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "syntax.h"
 #include "exec.h"
+#include "my.h"
 
 static char		*get_path_history(t_info *info)
 {
@@ -46,36 +49,37 @@ int			write_history(t_info *info)
   free(path);
   while (tmp)
     {
-      dprintf("%ld#%s", tmp->time, tmp->cmd);
+      dprintf(fd, "%ld#%s\n", tmp->time, tmp->cmd);
       tmp = tmp->next;
     }
   close(fd);
   return (0);
 }
 
-static void	put_history(t_info *info, long time, char *cmd)
+static void	put_history(t_info *info, long time,
+			    char *cmd, int idx)
 {
   if (info->histo->start == NULL)
     {
-      my_put_list_history(&info->histo->start, cmd, time);
+      my_put_list_history(&info->histo->start, cmd, time, idx);
       info->histo->current = info->histo->start;
     }
   else
     {
-      my_put_list_history(info->histo->current, cmd, time);
+      my_put_list_history(&info->histo->current, cmd, time, idx);
       info->histo->current = info->histo->current->next;
     }
 }
 
 int	load_history(t_info *info)
 {
+  int		i;
   char		*path;
   long		time;
   char		*cmd;
   FILE		*stream;
   char		*line;
   size_t	len;
-  ssize_t	read;
 
   if ((path = get_path_history(info)) == NULL)
     return (1);
@@ -84,13 +88,16 @@ int	load_history(t_info *info)
   free(path);
   len = 0;
   line = NULL;
+  i = 0;
   while ((getline(&line, &len, stream)) != -1)
     {
-      sscanf(line, "%ld#%s", &time, &cmd);
-      put_history(info, time, cmd);
+      sscanf(line, "%ld#%ms", &time, &cmd);
+      put_history(info, time, cmd, i);
       free(line);
+      i += 1;
     }
   info->histo->end = info->histo->current;
+  info->histo->len = i;
   fclose(stream);
   return (0);
 }

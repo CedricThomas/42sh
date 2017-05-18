@@ -5,14 +5,15 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 22 21:39:39 2017 
-** Last update Thu May 18 18:16:47 2017 Cédric THOMAS
+** Last update Thu May 18 19:03:19 2017 Cédric THOMAS
 */
 #include <string.h>
 #include <stdlib.h>
 #include "syntax.h"
 #include "exec.h"
 
-int		my_put_list_history(t_history **ll, char *history, long time)
+int		my_put_list_history(t_history **ll, char *history,
+				    long time, int index)
 {
   t_history	*elem;
   t_history	*tmp;
@@ -22,6 +23,7 @@ int		my_put_list_history(t_history **ll, char *history, long time)
   memset(elem, 0, sizeof(*elem));
   elem->cmd = history;
   elem->time = time;
+  elem->index = index;
   if (*ll == NULL)
     {
       elem->next = NULL;
