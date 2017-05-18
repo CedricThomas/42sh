@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Wed May 17 12:53:02 2017 Thibaut Cornolti
+** Last update Thu May 18 10:33:04 2017 Bastien
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -20,10 +20,11 @@ static void	get_builtins(t_info *my_info)
   my_info->builtins[3] = "unsetenv";
   my_info->builtins[4] = "echo";
   my_info->builtins[5] = "alias";
-  my_info->builtins[6] = "fg";
-  my_info->builtins[7] = "bg";
-  my_info->builtins[8] = "jobs";
-  my_info->builtins[9] = NULL;
+  my_info->builtins[6] = "unalias";
+  my_info->builtins[7] = "fg";
+  my_info->builtins[8] = "bg";
+  my_info->builtins[9] = "jobs";
+  my_info->builtins[10] = NULL;
 }
 
 /* static int      check_history(t_info *info) */

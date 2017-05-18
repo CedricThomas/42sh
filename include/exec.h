@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Wed May 17 21:47:59 2017 Bastien
+** Last update Thu May 18 13:47:29 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -23,7 +23,7 @@
 # define JOB_BACKGROUND	(1 << 2)
 # define JOB_TERMINATED	(1 << 3)
 
-# define BUILTINS_NB	9
+# define BUILTINS_NB	10
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -58,12 +58,14 @@ typedef struct          s_exit
 {
   int                   exit;
   int                   pid;
+  int			pgid;
   struct s_exit         *next;
 }                       t_exit;
 
 typedef struct		s_job
 {
   int			pid;
+  int			pgid;
   int			status;
   int			number;
   int			step;
@@ -180,7 +182,7 @@ int	my_fork(t_command *cmd, t_status *status, t_info *info,
 int	my_fork_job(void *root, t_status *status, t_info *info,
 		int (*fct)(t_node *root, t_status *status, t_info *info));
 
-int	my_put_list_exit(t_exit **ll, int pid, int last);
+int	my_put_list_exit(t_exit **ll, int pid, int gpid, int last);
 void	set_exit_value(t_exit *ll, int pid, int exitval);
 void	show_exit_status(t_exit *ll);
 int	my_del_exit(t_exit **ll);
@@ -188,7 +190,6 @@ int	my_del_exit(t_exit **ll);
 /*
 **list
 */
-int	my_put_list_exit(t_exit **ll, int pid, int last);
 void	set_exit_value(t_exit *ll, int pid, int exitval);
 void	show_exit_status(t_exit *ll);
 int	my_del_exit(t_exit **ll);
@@ -202,10 +203,13 @@ void	builtin_setenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
 void	builtin_alias(t_command *cmd, t_status *status, t_info *info);
+void	builtin_unalias(t_command *cmd, t_status *status, t_info *info);
 void	builtin_fg(t_command *cmd, t_status *status, t_info *info);
 void	builtin_bg(t_command *cmd, t_status *status, t_info *info);
 void	builtin_jobs(t_command *cmd, t_status *status, t_info *info);
 void	check_loop(t_info *info);
+int	my_strtablen(char **tab);
+int	my_aliastablen(t_alias *alias);
 
 /*
 **LOAD
@@ -217,7 +221,7 @@ void	load_rc(t_status *status, t_info *info, t_syntax *syntax);
 **JOB
 */
 
-t_job	*my_put_list_job(t_status *status, int pid, int stats);
+t_job	*my_put_list_job(t_status *status, int pid, int pgid, int stats);
 void	set_job_value(t_job *ll, int pid, int status);
 void	show_job_status(t_job *ll);
 int	my_del_job(t_job **ll);
@@ -225,5 +229,7 @@ int	get_free_job(t_job *ll);
 void	plane_job(t_job *ll);
 t_job	*get_job(t_job *ll, int pid);
 void	signal_stp();
+void	signal_ttou();
+void	signal_ttin();
 
 #endif /* !EXEC_H_ */
