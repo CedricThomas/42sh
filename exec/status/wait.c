@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Thu May 18 13:32:30 2017 Thibaut Cornolti
+** Last update Thu May 18 19:40:39 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -63,51 +63,74 @@ static void	get_exit_value(t_status *status, t_info *info)
 
 void		print_wait_job(t_status *status)
 {
+  t_exit	*exit;
   t_job		*job;
   int		last;
 
-  job = status->job_list;
-  while (job && job->next)
-    job = job->next;
+  exit = status->exit_list;
+  while (exit && exit->next)
+    exit = exit->next;
   last = 0;
-  while (job)
+  while (exit)
     {
-      if (job->status && job->number && job->step == 2)
+      job = exit->job;
+      if (job->status & JOB_TERMPRINT && job->number)
 	{
 	  if (last != job->number)
 	    {
 	      my_printf("[%d]    Done\n", job->number);
 	      last = job->number;
 	    }
-	  job->status = 0;
+	  job->status = JOB_TERMINATED;
 	  job->number = 0;
 	}
-      job = job->prev;
+      exit = exit->prev;
     }
 }
 
-void		auto_wait_job(t_status *status)
-{
-  t_job		*job;
+/* void		auto_wait_job(t_status *status) */
+/* { */
+/*   t_job		*job; */
+/*   int		ret; */
+/*   int		w; */
 
-  job = status->job_list;
-  while (job && job->next)
-    job = job->next;
-  while (job)
+/*   job = status->job_list; */
+/*   while (job && job->next) */
+/*     job = job->next; */
+/*   while (job) */
+/*     { */
+/*       w = waitpid(job->pid, &ret, WNOHANG); */
+/*       printf("w:%d\n", w); */
+/*       printf("IFSTOPPED=%d\n", WIFSTOPPED(w)); */
+/*       if (job->status && w > 0) */
+/* 	{ */
+/* 	  job->step = 2; */
+/* 	  job->status = JOB_TERMINATED; */
+/* 	  tcsetpgrp(0, getpgrp()); */
+/* 	} */
+/*       if (!(job->status & JOB_FOREGROUND)) */
+/* 	job = job->prev; */
+/*       else */
+/* 	{ */
+/* 	  usleep(100000); */
+/* 	  printf("waiting for a job... \n"); */
+/* 	} */
+/*     } */
+/* } */
+
+void		show_exit(t_exit *exit)
+{
+  while (exit)
     {
-      if (job->status && waitpid(job->pid, NULL, WNOHANG | WUNTRACED))
-	{
-	  job->step = 2;
-	  job->status = JOB_TERMINATED;
-	  tcsetpgrp(0, getpgrp());
-	}
-      if (!(job->status & JOB_FOREGROUND))
-	job = job->prev;
-      else
-	{
-	  usleep(100000);
-	  printf("waiting for a job... \n");
-	}
+      printf("---\tPID:%d\n", exit->pid);
+      printf("\tPGID:%d\n", exit->pgid);
+      printf("\tExit:%d\n", exit->exit);
+      printf("\tJOB_PGID:%d\n", exit->job->pid);
+      printf("\tJOB_PGID:%d\n", exit->job->pgid);
+      printf("\tJOB_STATUS:%d\n", exit->job->status);
+      printf("\tJOB_NUMBER:%d\n", exit->job->number);
+      printf("\n");
+      exit = exit->next;
     }
 }
 
@@ -118,17 +141,31 @@ void		auto_wait(t_status *status, t_info *info)
 
   tmp = status->exit_list;
   info->exit_value = 0;
+  //show_exit(status->exit_list);
   while (tmp)
     {
-      if (tmp->pid > 0)
+      if (tmp->pid > 0 && tmp->job->status & JOB_BACKGROUND &&
+	  waitpid(tmp->pid, &last, WNOHANG) > 0)
+	tmp->job->status = JOB_TERMPRINT;
+      else if (tmp->pid > 0 && tmp->job->status & JOB_FOREGROUND)
 	{
 	  tcsetpgrp(0, tmp->pgid);
-	  waitpid(tmp->pid, &last, 0);
-	  tcsetpgrp(0, getpgrp());
-	  set_exit_value(status->exit_list, tmp->pid, last);
+	  while (waitpid(tmp->pid, &last, WNOHANG | WUNTRACED) <= 0);
+	  if (WIFSTOPPED(last))
+	    {
+	      tmp->job->status = JOB_SUSPENDED;
+	      my_printf("Suspended\n");
+	    }
+	  else
+	    {
+	      tmp->job->status = JOB_TERMINATED;
+	      set_exit_value(status->exit_list, tmp->pid, last);
+	    }
 	}
       tmp = tmp->next;
     }
   get_exit_value(status, info);
-  my_del_exit(&(status->exit_list));
+  //my_del_exit(&(status->exit_list));
+  //show_exit(status->exit_list);
+  tcsetpgrp(0, getpgrp());
 }

@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May 18 14:12:05 2017 Cédric THOMAS
+** Last update Thu May 18 18:28:09 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -33,7 +33,7 @@ static int	setup_sh(t_system *sys, char **env)
   my_memset(sys->status, 0, sizeof(t_status));
   //signal(SIGINT, SIG_IGN);
   signal(SIGQUIT, SIG_IGN);
-  signal(SIGTSTP, &signal_stp);
+  signal(SIGTSTP, SIG_IGN);
   signal(SIGTTIN, SIG_IGN);
   signal(SIGTTOU, SIG_IGN);
   signal(SIGCHLD, &signal_chld);
@@ -65,7 +65,7 @@ int		my_system(char *command, t_system *system)
     }
   else
     {
-      auto_wait_job(system->status);
+      auto_wait(system->status, system->info);
       if (!isatty(0))
 	system->status->exit = 1;
     }

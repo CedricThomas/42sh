@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Wed May 17 14:47:10 2017 Thibaut Cornolti
+** Last update Thu May 18 19:32:16 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -16,9 +16,27 @@
 #include "my.h"
 #include "my_printf.h"
 
+static void	print_jobs(t_job *job)
+{
+  static char	*status[6] = {"Running", "Suspended",
+			      "Running", "Running",
+			      "Terminated", "Terminated"};
+  static int	code[6] = {JOB_CREATPRINT, JOB_SUSPENDED,
+			   JOB_FOREGROUND, JOB_BACKGROUND,
+			   JOB_TERMPRINT, JOB_TERMINATED};
+  int		i;
+
+  i = -1;
+  my_printf("[%d]    ", job->number);
+  while (++i < 6)
+    if (code[i] == job->status)
+      my_printf("%s\n", status[i]);
+}
+
 void		builtin_jobs(t_command *cmd, t_status *status, t_info *info)
 {
   t_job		*job;
+  t_exit	*exit;
   int		last_nbr;
   int		argc;
 
@@ -26,17 +44,18 @@ void		builtin_jobs(t_command *cmd, t_status *status, t_info *info)
   argc = -1;
   while (cmd->argv[++argc]);
   if (argc != 1 && !(argc == 2 && !strcmp(cmd->argv[1], "-l")))
-    {
-      my_puterror("Usage: jobs [ -l ].\n");
-    }
-  job = status->job_list;
-  auto_wait_job(status);
+    my_puterror("Usage: jobs [ -l ].\n");
+  exit = status->exit_list;
+  auto_wait(status, info);
   last_nbr = 0;
-  while (job)
+  show_job_status(exit);
+  while (exit)
     {
-      if (job->number != last_nbr)
-	my_printf("[%d]    Running\n", job->number);
+      job = exit->job;
+      if (job->number != last_nbr &&
+	  job->status != 0 && job->status < JOB_TERMPRINT)
+	print_jobs(job);
       last_nbr = job->number;
-      job = job->next;
+      exit = exit->next;
     }
 }

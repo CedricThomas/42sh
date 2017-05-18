@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 20:54:17 2017 Thibaut Cornolti
-** Last update Thu May 18 10:27:57 2017 Thibaut Cornolti
+** Last update Thu May 18 19:37:10 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -14,43 +14,28 @@
 #include "exec.h"
 #include "my_printf.h"
 
-void		signal_stp()
-{
-  t_job		*job;
-
-  job = getter_status(NULL)->job_list;
-  while (job)
-    {
-      if (job->status & JOB_FOREGROUND)
-	{
-	  job->status = JOB_SUSPENDED;
-	  tcsetpgrp(0, getpgrp());
-	  my_printf("Suspended\n");
-	}
-      job = job->next;
-    }
-}
-
 static void	show_process(t_status *status)
 {
+  t_exit	*exit;
   t_job		*job;
   int		last;
 
-  job = status->job_list;
+  exit = status->exit_list;
   last = 0;
-  while (job)
+  while (exit)
     {
-      if (job->step == 0)
+      job = exit->job;
+      if (job->status & JOB_CREATPRINT)
 	{
 	  if (last != job->number)
 	    {
 	      my_printf((last) ? "\n[%d]" : "[%d]", job->number);
 	      last = job->number;
+	      job->status = JOB_BACKGROUND;
 	    }
 	  my_printf(" %d", job->pid);
-	  job->step = 1;
 	}
-      job = job->next;
+      exit = exit->next;
     }
   my_printf("\n");
 }
@@ -67,7 +52,7 @@ int		exec_job(t_node *root, t_status *status, t_info *info)
       auto_wait(status, info);
     }
   status->status |= JOB;
-  status->job_nbr = get_free_job(status->job_list);
+  status->job_nbr = get_free_job(status->exit_list);
   auto_select(root->left, status, info);
   show_process(status);
   status->status -= JOB;

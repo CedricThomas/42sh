@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 18 13:05:41 2017 Cédric THOMAS
+## Last update Thu May 18 18:47:31 2017 Thibaut Cornolti
 ##
 
 EXEC		=	auto_selector.c			\
@@ -31,7 +31,6 @@ EXEC		=	auto_selector.c			\
 			builtin/loop.c			\
 			status/list_status.c		\
 			status/list_job.c		\
-			status/tools_job.c		\
 			status/wait.c			\
 			status/fork.c			\
 			setup/info.c			\

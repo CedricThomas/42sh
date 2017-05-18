@@ -5,14 +5,14 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 15:59:59 2017 Cédric Thomas
-** Last update Thu May 18 13:21:11 2017 Thibaut Cornolti
+** Last update Thu May 18 18:56:29 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
 #include "exec.h"
 #include "my_printf.h"
 
-int		my_put_list_exit(t_exit **ll, int pid, int pgid, int last)
+t_exit		*my_put_list_exit(t_exit **ll, int pid, int pgid, int last)
 {
   t_exit	*tmp;
   t_exit	*elem;
@@ -24,15 +24,20 @@ int		my_put_list_exit(t_exit **ll, int pid, int pgid, int last)
   elem->pgid = pgid;
   elem->exit = last;
   elem->next = NULL;
+  elem->prev = *ll;
   if (tmp == NULL)
-    *ll = elem;
+    {
+      elem->prev = NULL;
+      *ll = elem;
+    }
   else
     {
       while (tmp->next)
 	tmp = tmp->next;
+      elem->prev = tmp;
       tmp->next = elem;
     }
-  return (0);
+  return (elem);
 }
 
 int		my_del_exit(t_exit **ll)
