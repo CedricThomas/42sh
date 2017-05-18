@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 18 18:08:54 2017 Cédric THOMAS
+** Last update Thu May 18 18:36:28 2017 Cédric THOMAS
 */
 
 #ifndef EXEC_H_
@@ -42,7 +42,6 @@ typedef struct		s_var
   char			*value;
 }			t_var;
 
-<<<<<<< HEAD
 typedef struct		s_history
 {
   char			*cmd;
@@ -56,25 +55,15 @@ typedef struct		s_history_info
   int			len;
   t_history		*start;
   t_history		*current;
+  t_history		*end;
 }			t_history_info;
-=======
-typedef struct		s_hist
-{
-  unsigned long		time;
-  char			*cmd;
-}			t_hist;
->>>>>>> 2c269087cbcb12df3c59dc1969c0a94bde48b906
 
 typedef struct		s_info
 {
   char			*builtins[BUILTINS_NB + 1];
   char			**env;
-<<<<<<< HEAD
   t_history_info	*histo;
-=======
   t_hist		**hist;
-  int			index;
->>>>>>> 2c269087cbcb12df3c59dc1969c0a94bde48b906
   unsigned int		exit_value;
   char			*old_pwd;
   char			*pwd;

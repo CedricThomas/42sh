@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 18 17:30:39 2017 maje
+## Last update Thu May 18 18:36:14 2017 Cédric THOMAS
 ##
 
 EXEC		=	auto_selector.c			\
@@ -76,8 +76,9 @@ NODE		=	command_node.c			\
 			standard_node.c			\
 			pipe_node.c			\
 
-HISTORY		=	history.c		\
-			fill_history.c		\
+HISTORY		=	fill_history.c		\
+			list_history.c		\
+			history.c
 
 LOAD		=	rc.c				\
 
