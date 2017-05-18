@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 18 13:47:29 2017 Thibaut Cornolti
+** Last update Thu May 18 16:23:26 2017 maje
 */
 
 #ifndef EXEC_H_
@@ -42,11 +42,18 @@ typedef struct		s_var
   char			*value;
 }			t_var;
 
+typedef struct		s_hist
+{
+  unsigned long		time;
+  char			*cmd;
+}			t_hist;
+
 typedef struct		s_info
 {
   char			*builtins[BUILTINS_NB + 1];
   char			**env;
-  char			**history;
+  t_hist		**hist;
+  int			index;
   unsigned int		exit_value;
   char			*old_pwd;
   char			*pwd;
