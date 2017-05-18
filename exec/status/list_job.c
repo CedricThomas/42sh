@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 21:10:07 2017 Thibaut Cornolti
-** Last update Tue May 16 14:40:21 2017 Thibaut Cornolti
+** Last update Thu May 18 13:23:53 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -13,7 +13,8 @@
 #include "exec.h"
 #include "my_printf.h"
 
-t_job		*my_put_list_job(t_status *status, int pid, int stats)
+t_job		*my_put_list_job(t_status *status, int pid,
+				 int pgid, int stats)
 {
   t_job		*tmp;
   t_job		*elem;
@@ -22,6 +23,7 @@ t_job		*my_put_list_job(t_status *status, int pid, int stats)
   if ((elem = malloc(sizeof(*elem))) == NULL)
     exit(84);
   elem->pid = pid;
+  elem->pgid = pgid;
   elem->status = stats;
   elem->number = status->job_nbr;
   elem->step = 0;

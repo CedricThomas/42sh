@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Mon May 15 15:48:20 2017 Bastien
-** Last update Tue May 16 19:15:14 2017 Bastien
+** Last update Wed May 17 22:38:32 2017 Bastien
 */
 
 #include <stdio.h>
@@ -15,15 +15,6 @@
 #include "syntax.h"
 #include "exec.h"
 #include "my.h"
-
-static int	my_strtablen(char **tab)
-{
-  int	i;
-
-  i = -1;
-  while (tab && tab[++i]);
-  return (i < 0 ? 0 : i);
-}
 
 void		show_cmd(t_info *info, char *str, int size)
 {
@@ -82,9 +73,10 @@ void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
 {
   int		nb_arg;
   char		*temp;
-  static int	size = 0;
+  int		size;
 
   UNUSED(status);
+  size = my_aliastablen(info->alias);
   nb_arg = my_strtablen(cmd->argv);
   if (nb_arg <= 2)
     {
@@ -99,7 +91,6 @@ void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
       memset(&info->alias[size], 0, sizeof(t_alias) * 2);
       info->alias[size].link = strdup(cmd->argv[1]);
       info->alias[size].value = temp;
-      size += 1;
     }
   nb_arg = -1;
   while (info->alias[++nb_arg].link)

@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 **
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Tue May 16 21:52:27 2017 Cédric THOMAS
+** Last update Thu May 18 15:42:30 2017 Cédric THOMAS
 */
 
 #include <stdio.h>
@@ -43,12 +43,12 @@ static int	print_git_status(char *path)
     return (1);
   if ((read = getline(&line, &len, stream)) == -1)
     return (1);
-  my_printf("\033[36;01m git:(\033[31;01m");
+  printf("\033[36;01m git:(\033[31;01m");
   if (match(line, "ref: refs/heads/*"))
-    my_printf("%.*s", read - 17, line + 16);
+    printf("%.*s", read - 17, line + 16);
   else
-    my_printf("%.7s", line);
-  my_printf("\033[36;01m)\033[00m");
+    printf("%.7s", line);
+  printf("\033[36;01m)\033[00m");
   fclose(stream);
   free(path);
   free(line);
@@ -90,27 +90,28 @@ static void	print_pwd(t_info *info)
 
   i = my_strlen(info->pwd);
   home = getkey(info->env, "HOME", 0);
-  my_putstr("\033[34;01m");
+  printf("\033[34;01m");
   if (home && !my_strcmp(info->pwd, home))
-    my_putstr("~");
+    printf("~");
   else
     {
       while (i > 0 && info->pwd[i] != '/')
 	i -= 1;
       if (i != 0)
 	i += 1;
-      my_putstr(info->pwd + i);
+      printf(info->pwd + i);
     }
-  my_putstr("\033[00m");
+  printf("\033[00m");
 }
 
 void	print_prompt(t_info *info)
 {
   if ((info->exit_value) != 0)
-    my_printf("\033[31;01m➜ %u \033[00m", info->exit_value);
+    printf("\033[31;01m➜ %u \033[00m", info->exit_value);
   else
-    my_printf("\033[32;01m➜ %u \033[00m", info->exit_value);
+    printf("\033[32;01m➜ %u \033[00m", info->exit_value);
   print_pwd(info);
   find_git(my_strdup(info->pwd));
-  my_printf(" ");
+  printf(" ");
+  fflush(stdout);
 }

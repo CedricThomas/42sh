@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Wed May 17 17:03:33 2017 Thibaut Cornolti
+** Last update Thu May 18 13:32:30 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -91,19 +91,23 @@ void		auto_wait_job(t_status *status)
   t_job		*job;
 
   job = status->job_list;
-  signal(SIGTSTP, &signal_stp);
+  while (job && job->next)
+    job = job->next;
   while (job)
     {
-      if (job->status && waitpid(job->pid, NULL, WNOHANG))
+      if (job->status && waitpid(job->pid, NULL, WNOHANG | WUNTRACED))
 	{
 	  job->step = 2;
 	  job->status = JOB_TERMINATED;
+	  tcsetpgrp(0, getpgrp());
 	}
-      signal(SIGTSTP, &signal_stp);
       if (!(job->status & JOB_FOREGROUND))
 	job = job->prev;
       else
-	usleep(1000);
+	{
+	  usleep(100000);
+	  printf("waiting for a job... \n");
+	}
     }
 }
 
@@ -118,7 +122,9 @@ void		auto_wait(t_status *status, t_info *info)
     {
       if (tmp->pid > 0)
 	{
+	  tcsetpgrp(0, tmp->pgid);
 	  waitpid(tmp->pid, &last, 0);
+	  tcsetpgrp(0, getpgrp());
 	  set_exit_value(status->exit_list, tmp->pid, last);
 	}
       tmp = tmp->next;

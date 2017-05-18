@@ -5,14 +5,14 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 15:59:59 2017 Cédric Thomas
-** Last update Wed May 10 22:42:31 2017 
+** Last update Thu May 18 13:21:11 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
 #include "exec.h"
 #include "my_printf.h"
 
-int		my_put_list_exit(t_exit **ll, int pid, int last)
+int		my_put_list_exit(t_exit **ll, int pid, int pgid, int last)
 {
   t_exit	*tmp;
   t_exit	*elem;
@@ -21,6 +21,7 @@ int		my_put_list_exit(t_exit **ll, int pid, int last)
   if ((elem = malloc(sizeof(*elem))) == NULL)
     exit(84);
   elem->pid = pid;
+  elem->pgid = pgid;
   elem->exit = last;
   elem->next = NULL;
   if (tmp == NULL)

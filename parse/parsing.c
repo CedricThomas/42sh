@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Wed May 17 14:15:47 2017 Thibaut Cornolti
+** Last update Thu May 18 12:44:04 2017 Cédric THOMAS
 */
 #include <stdlib.h>
 #include "syntax.h"

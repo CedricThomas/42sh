@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 18 10:30:11 2017 maje
+## Last update Thu May 18 17:30:39 2017 maje
 ##
 
 EXEC		=	auto_selector.c			\
@@ -24,6 +24,8 @@ EXEC		=	auto_selector.c			\
 			builtin/exit.c			\
 			builtin/fg.c			\
 			builtin/alias.c			\
+			builtin/alias_len.c		\
+			builtin/unalias.c		\
 			builtin/jobs.c			\
 			builtin/bg.c			\
 			builtin/loop.c			\
@@ -34,7 +36,7 @@ EXEC		=	auto_selector.c			\
 			status/fork.c			\
 			setup/info.c			\
 			setup/get_alias.c		\
-			setup/glob.c		\
+			setup/glob.c			\
 			env/env.c			\
 			env/key.c			\
 			execve/std_exec.c		\
@@ -82,10 +84,12 @@ LOAD		=	rc.c				\
 LINE		=	line_edit/get_next_cmd.c	\
 			line_edit/str.c			\
 			line_edit/setup.c		\
-			binds/auto_complete.c		\
 			binds/std_binds.c		\
 			binds/pos_binds.c		\
 			binds/del_binds.c		\
+			binds/complete/auto_complete.c	\
+			binds/complete/search_exec.c	\
+			binds/complete/complete_line.c	\
 			binds/default_bind.c
 
 MAIN		=	main.c				\
