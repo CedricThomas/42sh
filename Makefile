@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 18 10:30:13 2017 Bastien
+## Last update Thu May 18 18:24:19 2017 Bastien
 ##
 
 EXEC		=	auto_selector.c			\
@@ -29,6 +29,8 @@ EXEC		=	auto_selector.c			\
 			builtin/jobs.c			\
 			builtin/bg.c			\
 			builtin/loop.c			\
+			builtin/set.c			\
+			builtin/set_tools.c		\
 			status/list_status.c		\
 			status/list_job.c		\
 			status/tools_job.c		\
@@ -36,7 +38,8 @@ EXEC		=	auto_selector.c			\
 			status/fork.c			\
 			setup/info.c			\
 			setup/get_alias.c		\
-			setup/glob.c		\
+			setup/get_var.c			\
+			setup/glob.c			\
 			env/env.c			\
 			env/key.c			\
 			execve/std_exec.c		\
