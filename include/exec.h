@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 18 19:04:13 2017 Cédric THOMAS
+** Last update Thu May 18 19:41:22 2017 Bastien
 */
 
 #ifndef EXEC_H_
@@ -23,7 +23,7 @@
 # define JOB_BACKGROUND	(1 << 2)
 # define JOB_TERMINATED	(1 << 3)
 
-# define BUILTINS_NB	11
+# define BUILTINS_NB	12
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -226,6 +226,8 @@ void	builtin_fg(t_command *cmd, t_status *status, t_info *info);
 void	builtin_bg(t_command *cmd, t_status *status, t_info *info);
 void	builtin_jobs(t_command *cmd, t_status *status, t_info *info);
 void	builtin_set(t_command *cmd, t_status *stauts, t_info *info);
+void	builtin_unset(t_command *cmd, t_status *status, t_info *info);
+void	sort_var(t_info *info);
 void	check_loop(t_info *info);
 int	my_strtablen(char **tab);
 int	my_aliastablen(t_alias *alias);

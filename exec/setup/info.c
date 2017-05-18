@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Thu May 18 19:09:59 2017 Cédric THOMAS
+** Last update Thu May 18 19:41:58 2017 Bastien
 */
 
 #include <stdlib.h>
@@ -26,7 +26,8 @@ static void	get_builtins(t_info *my_info)
   my_info->builtins[8] = "bg";
   my_info->builtins[9] = "jobs";
   my_info->builtins[10] = "set";
-  my_info->builtins[11] = NULL;
+  my_info->builtins[11] = "unset";
+  my_info->builtins[12] = NULL;
 }
 
 static int      setup_history(t_info *info)
