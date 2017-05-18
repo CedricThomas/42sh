@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 20:54:17 2017 Thibaut Cornolti
-** Last update Wed May 17 17:53:19 2017 Thibaut Cornolti
+** Last update Thu May 18 10:27:57 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -24,10 +24,7 @@ void		signal_stp()
       if (job->status & JOB_FOREGROUND)
 	{
 	  job->status = JOB_SUSPENDED;
-	  kill(-job->pid, SIGTTOU);
-	  signal(SIGTTOU, SIG_IGN);
-	  tcsetpgrp(0, getpid());
-	  signal(SIGTTOU, SIG_DFL);
+	  tcsetpgrp(0, getpgrp());
 	  my_printf("Suspended\n");
 	}
       job = job->next;

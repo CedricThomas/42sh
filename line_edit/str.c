@@ -5,14 +5,19 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat Apr 22 11:50:50 2017 
-** Last update Tue May 16 15:32:40 2017 Cédric THOMAS
+** Last update Wed May 17 14:20:05 2017 Cédric THOMAS
 */
+#include <curses.h>
+#include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 #include <termio.h>
 #include "get_next_command.h"
 #include "my.h"
+#include "my_printf.h"
+#include "syntax.h"
+#include "exec.h"
 #include "my_alloc.h"
 
 char	*delete_a_char(char *str, int index)
@@ -58,4 +63,22 @@ char		*insert_str(char *s1, char *s2, int pos)
     my_strcat(dest, s1 + pos);
   free(s1);
   return (dest);
+}
+
+void		print_line(t_keypad *pad)
+{
+  int		len;
+  char		*seq;
+
+  if (isatty(0))
+    print_prompt(pad->sys->info);
+  if (pad->line)
+    {
+      my_printf(pad->line);
+      if ((seq = tigetstr("cub1")) == (char *) -1)
+  	return ;
+      len = my_strlen(pad->line) + 1;
+      while (--len > pad->index)
+    	my_printf(seq);
+    }
 }

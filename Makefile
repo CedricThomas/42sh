@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 18 18:24:19 2017 Bastien
+## Last update Thu May 18 18:37:14 2017 Bastien
 ##
 
 EXEC		=	auto_selector.c			\
@@ -79,15 +79,20 @@ NODE		=	command_node.c			\
 			standard_node.c			\
 			pipe_node.c			\
 
+HISTORY		=	history.c		\
+			fill_history.c		\
+
 LOAD		=	rc.c				\
 
 LINE		=	line_edit/get_next_cmd.c	\
 			line_edit/str.c			\
 			line_edit/setup.c		\
-			binds/auto_complete.c		\
 			binds/std_binds.c		\
 			binds/pos_binds.c		\
 			binds/del_binds.c		\
+			binds/complete/auto_complete.c	\
+			binds/complete/search_exec.c	\
+			binds/complete/complete_line.c	\
 			binds/default_bind.c
 
 MAIN		=	main.c				\
@@ -96,6 +101,7 @@ MAIN		=	main.c				\
 
 OBJ		=	$(MAIN:.c=.o)
 OBJ		+=	$(LINE:.c=.o)
+OBJ		+=	$(addprefix history/, $(HISTORY:.c=.o))
 OBJ		+=	$(addprefix parse/, $(PARSE:.c=.o))
 OBJ		+=	$(addprefix match/, $(MATCH:.c=.o))
 OBJ		+=	$(addprefix node/, $(NODE:.c=.o))

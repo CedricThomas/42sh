@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 22:32:29 2017 
-** Last update Thu May 18 09:31:05 2017 maje
+** Last update Thu May 18 14:15:24 2017 Thibaut Cornolti
 */
 #include <errno.h>
 #include <stdlib.h>

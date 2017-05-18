@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 21:06:35 2017 
-** Last update Wed May 17 21:48:28 2017 Thibaut Cornolti
+** Last update Thu May 18 13:29:40 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -18,16 +18,20 @@
 static int	select_wait(t_status *status, int pid)
 {
   if (status->status & JOB)
-    {
-      my_put_list_job(status, pid, JOB_BACKGROUND);
-      tcsetpgrp(0, pid);
-      signal(SIGTTOU, SIG_IGN);
-      tcsetpgrp(0, getpid());
-      signal(SIGTTOU, SIG_DFL);
-    }
+    my_put_list_job(status, pid, status->pgid, JOB_BACKGROUND);
   else
-    my_put_list_exit(&(status->exit_list), pid, 0);
+    my_put_list_exit(&(status->exit_list), pid, status->pgid, 0);
   return (0);
+}
+
+static void	reset_sig()
+{
+  const int	sig[5] = {SIGINT, SIGQUIT, SIGTSTP, SIGTTIN, SIGTTOU};
+  int		i;
+
+  i = -1;
+  while (++i < 5)
+    signal(sig[i], SIG_DFL);
 }
 
 int		my_fork(t_command *cmd, t_status *status, t_info *info,
@@ -35,24 +39,13 @@ int		my_fork(t_command *cmd, t_status *status, t_info *info,
 {
   pid_t		pid;
 
-  pid = fork(); 
+  pid = fork();
   if (pid == 0)
     {
-      //setpgid(getpid(), (status->pgid) ? status->pgid : getpid());
-      /*
-      ** SIGNAUX & JOB CONTROL
-      */
-      /* if (status->status & JOB) */
-      /* 	{ */
-      /* 	  tcsetpgrp(0, getppid()); */
-      /* 	  tcsetpgrp(1, getppid()); */
-      /* 	} */
-      /* signal(SIGINT, SIG_DFL); */
-      /* signal(SIGQUIT, SIG_DFL); */
-      /* signal(SIGTSTP, SIG_DFL); */
-      /* signal(SIGTTIN, SIG_DFL); */
-      /* signal(SIGTTOU, SIG_DFL); */
-      /* !SIGNAUX & JOB CONTROL */
+      setpgid(getpid(), (status->pgid) ? status->pgid : getpid());
+      reset_sig();
+      if (!(status->status & JOB))
+	tcsetpgrp(0, getpgrp());
       status->status |= FORK;
       my_dup(cmd, NULL);
       if (status->fd_to_close)
@@ -66,7 +59,9 @@ int		my_fork(t_command *cmd, t_status *status, t_info *info,
     {
       if (status->pgid == 0)
 	status->pgid = pid;
-      //setpgid(pid, status->pgid);
+      setpgid(pid, status->pgid);
+      if (!(status->status & JOB))
+	tcsetpgrp(0, status->pgid);
       select_wait(status, pid);
     }
   else
