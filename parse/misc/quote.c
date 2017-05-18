@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 15 10:26:45 2017 
-** Last update Tue May  2 16:06:48 2017 
+** Last update Thu May 18 17:06:02 2017 Cédric THOMAS
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -43,6 +43,33 @@ char	*add_substr(char *str, char *substr, int index)
     return (NULL);
   free(str);
   return (new);
+}
+
+char	*replace_quoted_str(char *str, char *find,
+			    char *replace, char *quote_list)
+{
+  int	i;
+  char	quote;
+
+  quote = 0;
+  i = -1;
+  if (str == NULL || find == NULL || replace == NULL)
+    return (NULL);
+  while (str[++i])
+    {
+      if ((quote == 0 && is_in(str[i], INIB)) || str[i] == quote)
+	quote = (!quote ? str[i] : 0);
+      if (!my_strncmp(str + i, find, my_strlen(find)) &&
+	  is_in(quote, quote_list))
+	{
+	  if ((str = delete_nbchar(str, my_strlen(find), i)) == NULL)
+	    return (NULL);
+	  if ((str = add_substr(str, replace, i)) == NULL)
+	    return (NULL);
+	  i = 0;
+	}
+    }
+  return (str);
 }
 
 char	*replace_unquoted_str(char *str, char *find,

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 18 14:44:16 2017 Cédric THOMAS
+** Last update Thu May 18 17:57:03 2017 Cédric THOMAS
 */
 
 #ifndef EXEC_H_
@@ -42,11 +42,26 @@ typedef struct		s_var
   char			*value;
 }			t_var;
 
+typedef struct		s_history
+{
+  char			*cmd;
+  long			time;
+  struct s_history	*prev;
+  struct s_history	*next;
+}			t_history;
+
+typedef struct		s_history_info
+{
+  int			len;
+  t_history		*start;
+  t_history		*current;
+}			t_history_info;
+
 typedef struct		s_info
 {
   char			*builtins[BUILTINS_NB + 1];
   char			**env;
-  char			**history;
+  t_history_info	*histo;
   unsigned int		exit_value;
   char			*old_pwd;
   char			*pwd;
@@ -230,5 +245,7 @@ t_job	*get_job(t_job *ll, int pid);
 void	signal_stp();
 void	signal_ttou();
 void	signal_ttin();
+
+int	fill_history(char *, t_info*);
 
 #endif /* !EXEC_H_ */

@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May 18 17:02:13 2017 Cédric THOMAS
+** Last update Thu May 18 18:08:26 2017 Cédric THOMAS
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -91,6 +91,7 @@ int		main(int ac, char **av, char **env)
   my_set_term(system.keypad);
   while (!system.status->exit && (cmd = get_next_cmd(system.keypad)))
     {
+      fill_history(cmd, system.info);
       my_reset_term(system.keypad);
       my_system(cmd, &system);
       if (!system.status->exit && isatty(0))
@@ -101,4 +102,3 @@ int		main(int ac, char **av, char **env)
     my_putstr("exit\n");
   return (free_sh(&system));
 }
-
