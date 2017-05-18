@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Thu May 18 23:27:56 2017 Thibaut Cornolti
+** Last update Thu May 18 23:49:51 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -120,6 +120,7 @@ void		auto_wait(t_status *status, t_info *info)
 	  else
 	    {
 	      tmp->job->status = JOB_TERMINATED;
+	      tmp->job->number = 0;
 	      set_exit_value(status->exit_list, tmp->pid, last);
 	      info->exit_value = 0;
 	    }

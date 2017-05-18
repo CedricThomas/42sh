@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 18 19:52:46 2017 Thibaut Cornolti
+** Last update Thu May 18 23:36:53 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -245,6 +245,7 @@ void	load_rc(t_status *status, t_info *info, t_syntax *syntax);
 t_job	*my_create_job(t_status *status, int pid, int pgid, int stats);
 void	show_job_status(t_exit *ll);
 int	get_free_job(t_exit *ll);
+t_job	*get_job_by_number(t_exit *ll, int number);
 
 int	fill_history(char *, t_info*);
 
