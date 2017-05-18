@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Wed May 17 14:05:51 2017 Bastien
+## Last update Thu May 18 10:30:13 2017 Bastien
 ##
 
 EXEC		=	auto_selector.c			\
@@ -24,6 +24,8 @@ EXEC		=	auto_selector.c			\
 			builtin/exit.c			\
 			builtin/fg.c			\
 			builtin/alias.c			\
+			builtin/alias_len.c		\
+			builtin/unalias.c		\
 			builtin/jobs.c			\
 			builtin/bg.c			\
 			builtin/loop.c			\
