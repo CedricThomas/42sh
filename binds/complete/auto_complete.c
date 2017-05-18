@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Tue May 16 14:34:55 2017 Cédric THOMAS
-** Last update Thu May 18 13:28:35 2017 Cédric THOMAS
+** Last update Thu May 18 15:08:37 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <curses.h>
@@ -22,6 +22,7 @@
 
 static void	exec_complete(char **tab, t_keypad *key)
 {
+  unsigned int	exit_val;
   int		i;
   char		*cmd;
 
@@ -37,7 +38,9 @@ static void	exec_complete(char **tab, t_keypad *key)
     }
   if ((cmd = my_strcatdup(cmd, " | column", 1)) == NULL)
     exit(84);
+  exit_val = key->sys->info->exit_value;
   my_system(cmd, key->sys);
+  key->sys->info->exit_value = exit_val;
 }
 
 int		add_matched(char ***tab, char *str, char *pattern, int *size)

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 18 16:23:26 2017 maje
+** Last update Thu May 18 18:07:26 2017 maje
 */
 
 #ifndef EXEC_H_
@@ -233,10 +233,11 @@ void	set_job_value(t_job *ll, int pid, int status);
 void	show_job_status(t_job *ll);
 int	my_del_job(t_job **ll);
 int	get_free_job(t_job *ll);
-void	plane_job(t_job *ll);
 t_job	*get_job(t_job *ll, int pid);
 void	signal_stp();
 void	signal_ttou();
 void	signal_ttin();
+
+int	fill_history(char *, t_info*);
 
 #endif /* !EXEC_H_ */
