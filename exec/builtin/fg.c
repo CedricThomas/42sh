@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Thu May 18 18:41:20 2017 Thibaut Cornolti
+** Last update Thu May 18 21:33:53 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -25,7 +25,9 @@ void		builtin_fg(t_command *cmd, t_status *status, t_info *info)
   UNUSED(info);
   auto_wait(status, info);
   exit = status->exit_list;
-  while (!(exit == NULL || exit->job->status & JOB_BACKGROUND))
+  while (!(exit == NULL ||
+	   exit->job->status & JOB_BACKGROUND ||
+	   exit->job->status & JOB_SUSPENDED))
     exit = exit->next;
   if (!exit)
     {

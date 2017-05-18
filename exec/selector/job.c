@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 20:54:17 2017 Thibaut Cornolti
-** Last update Thu May 18 19:37:10 2017 Thibaut Cornolti
+** Last update Thu May 18 21:46:48 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -31,9 +31,9 @@ static void	show_process(t_status *status)
 	    {
 	      my_printf((last) ? "\n[%d]" : "[%d]", job->number);
 	      last = job->number;
-	      job->status = JOB_BACKGROUND;
 	    }
 	  my_printf(" %d", job->pid);
+	  job->status = JOB_BACKGROUND;
 	}
       exit = exit->next;
     }
