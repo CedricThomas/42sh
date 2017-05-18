@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Wed May 17 10:11:00 2017 Thibaut Cornolti
+** Last update Wed May 17 21:45:38 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include <unistd.h>
@@ -26,13 +26,14 @@ static int	setup_sh(t_system *sys, char **env)
   if ((sys->keypad = init_keypad(sys)) == NULL)
     return (1);
   my_memset(sys->status, 0, sizeof(t_status));
-  signal(SIGINT, SIG_IGN);
+  //signal(SIGINT, SIG_IGN);
   signal(SIGQUIT, SIG_IGN);
-  signal(SIGTSTP, SIG_IGN);
+  signal(SIGTSTP, &signal_stp);
   signal(SIGTTIN, SIG_IGN);
   signal(SIGTTOU, SIG_IGN);
   setpgid(getpid(), getpid());
   tcsetpgrp(0, getpid());
+  getter_status(sys->status);
   return (0);
 }
 
@@ -59,6 +60,7 @@ int		my_system(char *command, t_system *system)
   else
     auto_wait_job(system->status);
   print_wait_job(system->status);
+  system->status->pgid = 0;
   return (system->info->exit_value);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Fri May 12 15:28:34 2017 Bastien
-** Last update Tue May 16 20:57:10 2017 Bastien
+** Last update Wed May 17 21:44:19 2017 Bastien
 */
 
 #include <stdio.h>
@@ -26,7 +26,9 @@ static	void	set_new_token(t_token *token, t_token **save, t_token *new)
   new->next = token->next;
   if (token->next)
     token->next->prev = new;
-  my_free_token(&token);
+  token->next = 0;
+  token->prev = 0;
+  my_del_list_token(&token, token);
 }
 
 static int	verify_cmd(t_token **save, t_token *token, t_info *info, t_syntax *syntax)
@@ -36,8 +38,9 @@ static int	verify_cmd(t_token **save, t_token *token, t_info *info, t_syntax *sy
 
   i = -1;
   while (info->alias[++i].link)
-    if (!strcmp(info->alias[i].link, token->token) && !info->alias[i].loop && !token->used)
-      {
+    if (!strcmp(info->alias[i].link, token->token)
+	&& !info->alias[i].loop && !token->used)
+      {	
 	new = get_token(strdup(info->alias[i].value), syntax);
 	set_new_token(token, save, new);
 	if (!strcmp(info->alias[i].link, new->token))

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Wed May 17 12:34:23 2017 maje
+** Last update Wed May 17 21:47:59 2017 Bastien
 */
 
 #ifndef EXEC_H_
@@ -19,10 +19,11 @@
 # define JOBLINE	(1 << 5)
 
 # define JOB_SUSPENDED	(1 << 0)
-# define JOB_BACKGROUND	(1 << 1)
-# define JOB_CURRENT	(1 << 2)
+# define JOB_FOREGROUND	(1 << 1)
+# define JOB_BACKGROUND	(1 << 2)
+# define JOB_TERMINATED	(1 << 3)
 
-# define BUILTINS_NB	7
+# define BUILTINS_NB	9
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -35,6 +36,12 @@ typedef struct		s_alias
   int			loop;
 }			t_alias;
 
+typedef struct		s_var
+{
+  char			*name;
+  char			*value;
+}			t_var;
+
 typedef struct		s_info
 {
   char			*builtins[BUILTINS_NB + 1];
@@ -44,6 +51,7 @@ typedef struct		s_info
   char			*old_pwd;
   char			*pwd;
   t_alias		*alias;
+  t_var			*var;
 }			t_info;
 
 typedef struct          s_exit
@@ -70,6 +78,7 @@ typedef struct		s_status
   int			fd_to_close;
   struct s_exit		*exit_list;
   struct s_job		*job_list;
+  int			pgid;
   int			job_nbr;
 }			t_status;
 
@@ -87,7 +96,8 @@ typedef struct		s_system
   t_info		*info;
 }			t_system;
 
-int	my_system(char *command, t_system *system);
+int		my_system(char *command, t_system *system);
+t_status	*getter_status(t_status *setter);
 
 /*
 **PROMPT
@@ -107,6 +117,7 @@ int	my_perror(char *cmd, char *error);
 t_info		*get_info(char **env);
 void		*free_info(t_info *info);
 t_token		*get_alias(t_token *token, t_info *info, t_syntax *syntax);
+t_token		*globbing(t_token *token, t_syntax *syntax);
 
 /*
 **ENV
@@ -192,6 +203,8 @@ void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
 void	builtin_alias(t_command *cmd, t_status *status, t_info *info);
 void	builtin_fg(t_command *cmd, t_status *status, t_info *info);
+void	builtin_bg(t_command *cmd, t_status *status, t_info *info);
+void	builtin_jobs(t_command *cmd, t_status *status, t_info *info);
 void	check_loop(t_info *info);
 
 /*
@@ -211,5 +224,6 @@ int	my_del_job(t_job **ll);
 int	get_free_job(t_job *ll);
 void	plane_job(t_job *ll);
 t_job	*get_job(t_job *ll, int pid);
+void	signal_stp();
 
 #endif /* !EXEC_H_ */

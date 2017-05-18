@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Wed May 17 12:41:43 2017 maje
+** Last update Wed May 17 12:53:02 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -21,7 +21,9 @@ static void	get_builtins(t_info *my_info)
   my_info->builtins[4] = "echo";
   my_info->builtins[5] = "alias";
   my_info->builtins[6] = "fg";
-  my_info->builtins[7] = NULL;
+  my_info->builtins[7] = "bg";
+  my_info->builtins[8] = "jobs";
+  my_info->builtins[9] = NULL;
 }
 
 /* static int      check_history(t_info *info) */

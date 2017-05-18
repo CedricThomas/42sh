@@ -5,13 +5,34 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 20:54:17 2017 Thibaut Cornolti
-** Last update Tue May 16 23:59:09 2017 Thibaut Cornolti
+** Last update Wed May 17 17:53:19 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
+#include <signal.h>
 #include "syntax.h"
 #include "exec.h"
 #include "my_printf.h"
+
+void		signal_stp()
+{
+  t_job		*job;
+
+  job = getter_status(NULL)->job_list;
+  while (job)
+    {
+      if (job->status & JOB_FOREGROUND)
+	{
+	  job->status = JOB_SUSPENDED;
+	  kill(-job->pid, SIGTTOU);
+	  signal(SIGTTOU, SIG_IGN);
+	  tcsetpgrp(0, getpid());
+	  signal(SIGTTOU, SIG_DFL);
+	  my_printf("Suspended\n");
+	}
+      job = job->next;
+    }
+}
 
 static void	show_process(t_status *status)
 {
