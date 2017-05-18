@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Wed May 17 12:25:05 2017 Thibaut Cornolti
+** Last update Thu May 18 13:24:48 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -43,7 +43,7 @@ static int	exec_builtins(t_command *cmd, t_status *status,
     {
       if (load_redir(cmd, status))
 	{
-	  my_put_list_exit(&status->exit_list, -1, 1);
+	  my_put_list_exit(&status->exit_list, -1, -1, 1);
 	  return (1);
 	}
       my_dup(cmd, save);

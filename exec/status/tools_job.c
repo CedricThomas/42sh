@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 21:10:07 2017 Thibaut Cornolti
-** Last update Wed May 17 16:10:03 2017 Thibaut Cornolti
+** Last update Thu May 18 10:02:10 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -31,15 +31,4 @@ t_job		*get_job(t_job *ll, int pid)
       ll = ll->next;
     }
   return (NULL);
-}
-
-int		get_job_gpid(t_status *status, int pid)
-{
-  t_job		*job;
-
-  return (pid);
-  job = status->job_list;
-  while (job && job->next)
-    job = job->next;
-  if (job && job->number != 0);
 }
