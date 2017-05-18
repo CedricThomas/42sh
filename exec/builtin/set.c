@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 16:07:30 2017 Bastien
-** Last update Thu May 18 19:39:59 2017 Bastien
+** Last update Thu May 18 20:03:23 2017 Bastien
 */
 
 #include <string.h>
@@ -98,7 +98,10 @@ void		builtin_set(t_command *cmd, t_status *status, t_info *info)
       while (info->var && info->var[++j].name)
 	if ((len = my_cstrlen(cmd->argv[i], '=')) == strlen(info->var[j].name)
 	    && !strncmp(cmd->argv[i], info->var[j].name, len))
-	  replace_var(cmd->argv[i], &info->var[j]);
+	  {
+	    replace_var(cmd->argv[i], &info->var[j]);
+	    break ;
+	  }
       if (!info->var || !info->var[j].name)
 	add_var(cmd->argv[i], info);
     }
