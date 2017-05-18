@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 18 23:36:53 2017 Thibaut Cornolti
+** Last update Fri May 19 00:01:52 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -25,7 +25,7 @@
 # define JOB_TERMPRINT	(1 << 4)
 # define JOB_TERMINATED	(1 << 5)
 
-# define BUILTINS_NB	12
+# define BUILTINS_NB	13
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -116,7 +116,7 @@ typedef struct		s_system
 }			t_system;
 
 int		my_system(char *command, t_system *system);
-t_status	*getter_status(t_status *setter);
+t_system	*getter_system(t_system *setter);
 
 /*
 **PROMPT
@@ -226,6 +226,7 @@ void	builtin_bg(t_command *cmd, t_status *status, t_info *info);
 void	builtin_jobs(t_command *cmd, t_status *status, t_info *info);
 void	builtin_set(t_command *cmd, t_status *stauts, t_info *info);
 void	builtin_unset(t_command *cmd, t_status *status, t_info *info);
+void	builtin_builtins(t_command *cmd, t_status *status, t_info *info);
 void	sort_var(t_info *info);
 void	check_loop(t_info *info);
 int	my_strtablen(char **tab);
