@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Thu May 18 17:31:00 2017 maje
+** Last update Thu May 18 18:36:22 2017 Bastien
 */
 
 #include <stdlib.h>
@@ -25,7 +25,8 @@ static void	get_builtins(t_info *my_info)
   my_info->builtins[7] = "fg";
   my_info->builtins[8] = "bg";
   my_info->builtins[9] = "jobs";
-  my_info->builtins[10] = NULL;
+  my_info->builtins[10] = "set";
+  my_info->builtins[11] = NULL;
 }
 
 static int      check_history(t_info *info)
@@ -74,6 +75,7 @@ t_info		*get_info(char **env)
   if (check_history(my_info) == -1)
     return (NULL);
   my_info->alias = 0;
+  my_info->var = 0;
   return (my_info);
 }
 

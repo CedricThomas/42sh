@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 22 21:39:39 2017 
-** Last update Thu May 18 17:51:55 2017 Cédric THOMAS
+** Last update Thu May 18 18:16:47 2017 Cédric THOMAS
 */
 #include <string.h>
 #include <stdlib.h>
@@ -18,7 +18,7 @@ int		my_put_list_history(t_history **ll, char *history, long time)
   t_history	*tmp;
 
   if ((elem = malloc(sizeof(*elem))) == NULL)
-    xexit(84);
+    exit(84);
   memset(elem, 0, sizeof(*elem));
   elem->cmd = history;
   elem->time = time;

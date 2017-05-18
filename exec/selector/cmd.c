@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Thu May 18 13:47:19 2017 Thibaut Cornolti
+** Last update Thu May 18 18:36:42 2017 Bastien
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -26,6 +26,7 @@ static void	fill_builtins(void (*fct[BUILTINS_NB])(t_command *cmd,
   fct[7] = &builtin_fg;
   fct[8] = &builtin_bg;
   fct[9] = &builtin_jobs;
+  fct[10] = &builtin_set;
 }
 
 static int	exec_builtins(t_command *cmd, t_status *status,
