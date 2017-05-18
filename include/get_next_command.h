@@ -5,13 +5,13 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 17:37:03 2017
-** Last update Thu May 18 13:41:33 2017 Cédric THOMAS
+** Last update Thu May 18 19:14:01 2017 Cédric THOMAS
 */
 #ifndef GNC_H_
 # define GNC_H_
 
 # define READ_SIZE	20
-# define KEY_LINKED	10
+# define KEY_LINKED	12
 
 typedef struct s_keypad t_keypad;
 
@@ -63,6 +63,8 @@ int		one_find(t_keypad *key, char **files, int size);
 
 void		default_append(char *buff, t_keypad *keypad, int size_buff);
 
+int		down_arrow(t_keypad *keypad);
+int		up_arrow(t_keypad *keypad);
 
 /*
 **setup.c

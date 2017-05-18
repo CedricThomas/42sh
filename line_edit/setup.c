@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 22:15:37 2017
-** Last update Wed May 17 22:44:00 2017 Cédric THOMAS
+** Last update Thu May 18 19:15:37 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -71,6 +71,10 @@ static void	fct_filler(t_keypad_fct *keys)
   keys[8].fct = &bind_clear;
   keys[9].sequence = "\t";
   keys[9].fct = &auto_complete;
+  keys[10].sequence = tigetstr("kcuu1");
+  keys[10].fct = &up_arrow;
+  keys[11].sequence = tigetstr("kcud1");
+  keys[11].fct = &down_arrow;
 }
 
 t_keypad	*init_keypad(struct s_system *sys)

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 18 18:41:11 2017 Cédric THOMAS
+** Last update Thu May 18 19:04:13 2017 Cédric THOMAS
 */
 
 #ifndef EXEC_H_
@@ -44,6 +44,7 @@ typedef struct		s_var
 
 typedef struct		s_history
 {
+  int			index;
   char			*cmd;
   long			time;
   struct s_history	*prev;
@@ -251,5 +252,16 @@ void	signal_ttou();
 void	signal_ttin();
 
 int	fill_history(char *, t_info*);
+
+/*
+**HISTORY
+*/
+int	write_history(struct s_info *info);
+int	load_history(struct s_info *info);
+
+int	my_put_list_history(t_history **ll, char *history,
+			    long time, int index);
+int	my_del_list_history(t_history **ll, t_history *elem);
+int	my_free_history(t_history **ll);
 
 #endif /* !EXEC_H_ */

@@ -5,11 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-<<<<<<< HEAD
-** Last update Thu May 18 18:45:03 2017 Cédric THOMAS
-=======
-** Last update Thu May 18 18:36:22 2017 Bastien
->>>>>>> cecc4be9c2fb26103c549840204268e08848ef54
+** Last update Thu May 18 19:09:59 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
