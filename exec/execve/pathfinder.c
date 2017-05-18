@@ -5,9 +5,11 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 16:30:38 2017 
-** Last update Thu May 18 14:39:46 2017 Thibaut Cornolti
+** Last update Thu May 18 19:53:06 2017 Thibaut Cornolti
 */
+
 #include <signal.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>

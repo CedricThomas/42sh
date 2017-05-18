@@ -5,13 +5,14 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Thu May 18 19:40:39 2017 Thibaut Cornolti
+** Last update Thu May 18 19:54:32 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/types.h>
+#include <stdio.h>
 #include <sys/wait.h>
 #include "syntax.h"
 #include "exec.h"

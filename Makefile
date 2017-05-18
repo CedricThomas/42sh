@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 18 18:47:31 2017 Thibaut Cornolti
+## Last update Thu May 18 19:53:19 2017 Thibaut Cornolti
 ##
 
 EXEC		=	auto_selector.c			\
@@ -29,12 +29,16 @@ EXEC		=	auto_selector.c			\
 			builtin/jobs.c			\
 			builtin/bg.c			\
 			builtin/loop.c			\
+			builtin/set.c			\
+			builtin/set_tools.c		\
+			builtin/unset.c			\
 			status/list_status.c		\
 			status/list_job.c		\
 			status/wait.c			\
 			status/fork.c			\
 			setup/info.c			\
 			setup/get_alias.c		\
+			setup/get_var.c			\
 			setup/glob.c			\
 			env/env.c			\
 			env/key.c			\
@@ -75,6 +79,9 @@ NODE		=	command_node.c			\
 			standard_node.c			\
 			pipe_node.c			\
 
+HISTORY		=	fill_history.c		\
+			list_history.c
+
 LOAD		=	rc.c				\
 
 LINE		=	line_edit/get_next_cmd.c	\
@@ -94,6 +101,7 @@ MAIN		=	main.c				\
 
 OBJ		=	$(MAIN:.c=.o)
 OBJ		+=	$(LINE:.c=.o)
+OBJ		+=	$(addprefix history/, $(HISTORY:.c=.o))
 OBJ		+=	$(addprefix parse/, $(PARSE:.c=.o))
 OBJ		+=	$(addprefix match/, $(MATCH:.c=.o))
 OBJ		+=	$(addprefix node/, $(NODE:.c=.o))

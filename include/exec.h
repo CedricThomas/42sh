@@ -1,11 +1,11 @@
 /*
-1;2802;0c** exec.h for 42sh in /home/cedric/Desktop/parseur 42
+** exec.h for 42sh in /home/cedric/Desktop/parseur 42
 ** 
 ** Made by Cédric THOMAS
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 18 19:29:53 2017 Thibaut Cornolti
+** Last update Thu May 18 19:52:46 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -25,7 +25,7 @@
 # define JOB_TERMPRINT	(1 << 4)
 # define JOB_TERMINATED	(1 << 5)
 
-# define BUILTINS_NB	10
+# define BUILTINS_NB	12
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -44,11 +44,28 @@ typedef struct		s_var
   char			*value;
 }			t_var;
 
+typedef struct		s_history
+{
+  int			index;
+  char			*cmd;
+  long			time;
+  struct s_history	*prev;
+  struct s_history	*next;
+}			t_history;
+
+typedef struct		s_history_info
+{
+  int			len;
+  t_history		*start;
+  t_history		*current;
+  t_history		*end;
+}			t_history_info;
+
 typedef struct		s_info
 {
   char			*builtins[BUILTINS_NB + 1];
   char			**env;
-  char			**history;
+  t_history_info	*histo;
   unsigned int		exit_value;
   char			*old_pwd;
   char			*pwd;
@@ -118,8 +135,9 @@ int	my_perror(char *cmd, char *error);
 */
 t_info		*get_info(char **env);
 void		*free_info(t_info *info);
-t_token		*get_alias(t_token *token, t_info *info, t_syntax *syntax);
+t_token		*get_alias(t_token *, t_info *info, t_syntax *syntax);
 t_token		*globbing(t_token *token, t_syntax *syntax);
+t_command	*get_var(t_command *cmd, t_info *info);
 
 /*
 **ENV
@@ -206,9 +224,13 @@ void	builtin_unalias(t_command *cmd, t_status *status, t_info *info);
 void	builtin_fg(t_command *cmd, t_status *status, t_info *info);
 void	builtin_bg(t_command *cmd, t_status *status, t_info *info);
 void	builtin_jobs(t_command *cmd, t_status *status, t_info *info);
+void	builtin_set(t_command *cmd, t_status *stauts, t_info *info);
+void	builtin_unset(t_command *cmd, t_status *status, t_info *info);
+void	sort_var(t_info *info);
 void	check_loop(t_info *info);
 int	my_strtablen(char **tab);
 int	my_aliastablen(t_alias *alias);
+int	my_vartablen(t_var *var);
 
 /*
 **LOAD
@@ -223,5 +245,18 @@ void	load_rc(t_status *status, t_info *info, t_syntax *syntax);
 t_job	*my_create_job(t_status *status, int pid, int pgid, int stats);
 void	show_job_status(t_exit *ll);
 int	get_free_job(t_exit *ll);
+
+int	fill_history(char *, t_info*);
+
+/*
+**HISTORY
+*/
+int	write_history(struct s_info *info);
+int	load_history(struct s_info *info);
+
+int	my_put_list_history(t_history **ll, char *history,
+			    long time, int index);
+int	my_del_list_history(t_history **ll, t_history *elem);
+int	my_free_history(t_history **ll);
 
 #endif /* !EXEC_H_ */

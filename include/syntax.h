@@ -5,13 +5,14 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Wed May 17 14:22:18 2017 Thibaut Cornolti
+** Last update Thu May 18 17:12:17 2017 Cédric THOMAS
 */
 
 #ifndef SYNTAX_H_
 # define SYNTAX_H_
 
 # define SKIP	" \t"
+# define INIB_C	'\\'
 # define INIB	"\"'"
 
 # define ULIMT_MATCH	-1
@@ -148,6 +149,8 @@ char	*delete_nbchar(char *str, int nb, int index);
 char	*add_substr(char *str, char *substr, int index);
 char	*replace_unquoted_str(char *str, char *find,
 			      char *replace, char *quote_list);
+char	*replace_quoted_str(char *str, char *find,
+			      char *replace, char *quote_list);
 char	*dequotificator(char *str);
 
 /*
@@ -234,6 +237,7 @@ char	*shape_str(char *str);
 **shape_token.c
 */
 void	shape_token(t_token *token);
+void	inib_token(t_token *token);
 
 /*
 **SYNTAX_CHECKER

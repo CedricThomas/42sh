@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Fri May 12 16:18:54 2017 Thibaut Cornolti
-** Last update Fri May 12 16:36:50 2017 Thibaut Cornolti
+** Last update Thu May 18 15:58:24 2017 Cédric THOMAS
 */
 
 #include "match.h"
@@ -22,12 +22,11 @@ int		inib(char **s1, char **s2)
   UNUSED(s2);
   i = -1;
   quote = 0;
-  while (ss1[++i] && (quote || !is_in(ss1[i], SKIP)))
+  while (ss1[++i] &&
+	 (quote || !is_in(ss1[i], SKIP) || (i && ss1[i - 1] == INIB_C)))
     {
       if (ss1[i] == quote || is_in(ss1[i], INIB))
-	{
-	  quote = (quote == 0) ? ss1[i] : 0;
-	}
+	quote = (quote == 0) ? ss1[i] : 0;
     }
   if (ss1[i] == 0)
     return (1);
