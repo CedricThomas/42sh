@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Wed May 17 20:17:59 2017 Thibaut Cornolti
+** Last update Thu May 18 10:26:51 2017 Bastien
 */
 
 #ifndef EXEC_H_
@@ -23,7 +23,7 @@
 # define JOB_BACKGROUND	(1 << 2)
 # define JOB_TERMINATED	(1 << 3)
 
-# define BUILTINS_NB	9
+# define BUILTINS_NB	10
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -36,6 +36,12 @@ typedef struct		s_alias
   int			loop;
 }			t_alias;
 
+typedef struct		s_var
+{
+  char			*name;
+  char			*value;
+}			t_var;
+
 typedef struct		s_info
 {
   char			*builtins[BUILTINS_NB + 1];
@@ -45,6 +51,7 @@ typedef struct		s_info
   char			*old_pwd;
   char			*pwd;
   t_alias		*alias;
+  t_var			*var;
 }			t_info;
 
 typedef struct          s_exit
@@ -195,10 +202,13 @@ void	builtin_setenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_unsetenv(t_command *cmd, t_status *status, t_info *info);
 void	builtin_exit(t_command *cmd, t_status *status, t_info *info);
 void	builtin_alias(t_command *cmd, t_status *status, t_info *info);
+void	builtin_unalias(t_command *cmd, t_status *status, t_info *info);
 void	builtin_fg(t_command *cmd, t_status *status, t_info *info);
 void	builtin_bg(t_command *cmd, t_status *status, t_info *info);
 void	builtin_jobs(t_command *cmd, t_status *status, t_info *info);
 void	check_loop(t_info *info);
+int	my_strtablen(char **tab);
+int	my_aliastablen(t_alias *alias);
 
 /*
 **LOAD

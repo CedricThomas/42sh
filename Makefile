@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Wed May 17 23:32:18 2017 Cédric THOMAS
+## Last update Thu May 18 13:05:41 2017 Cédric THOMAS
 ##
 
 EXEC		=	auto_selector.c			\
@@ -24,6 +24,8 @@ EXEC		=	auto_selector.c			\
 			builtin/exit.c			\
 			builtin/fg.c			\
 			builtin/alias.c			\
+			builtin/alias_len.c		\
+			builtin/unalias.c		\
 			builtin/jobs.c			\
 			builtin/bg.c			\
 			builtin/loop.c			\
@@ -84,6 +86,7 @@ LINE		=	line_edit/get_next_cmd.c	\
 			binds/del_binds.c		\
 			binds/complete/auto_complete.c	\
 			binds/complete/search_exec.c	\
+			binds/complete/complete_line.c	\
 			binds/default_bind.c
 
 MAIN		=	main.c				\

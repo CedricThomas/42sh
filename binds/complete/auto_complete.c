@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Tue May 16 14:34:55 2017 Cédric THOMAS
-** Last update Wed May 17 21:42:12 2017 Cédric THOMAS
+** Last update Thu May 18 13:28:35 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <curses.h>
@@ -26,12 +26,10 @@ static void	exec_complete(char **tab, t_keypad *key)
   char		*cmd;
 
   i = -1;
-  if ((cmd = my_strdup("echo")) == NULL)
+  if ((cmd = my_strdup("echo ")) == NULL)
     exit(84);
   while (tab && tab[++i])
     {
-      if ((cmd = my_strcatdup(cmd, " ", 1)) == NULL)
-	exit(84);
       if ((cmd = my_strcatdup(cmd, tab[i], 1)) == NULL)
 	exit(84);
       if ((cmd = my_strcatdup(cmd, "\n", 1)) == NULL)
@@ -42,29 +40,47 @@ static void	exec_complete(char **tab, t_keypad *key)
   my_system(cmd, key->sys);
 }
 
-static int		add_matching_files(char *folder, char *pattern,
-					 int *size, char ***tab)
+int		add_matched(char ***tab, char *str, char *pattern, int *size)
+{
+  if (str[0] == '.' && pattern[0] != '.')
+    return (0);
+  if (advanced_match(str, pattern) &&
+      exist_in_tab(str, *tab) < 0)
+    {
+      if ((*tab = realloc(*tab, (sizeof(char *) * (*size + 2)))) == NULL)
+	exit(84);
+      if (((*tab)[*size] = my_strdup(str)) == NULL)
+	exit(84);
+      (*tab)[*size + 1] = NULL;
+      *size += 1;
+      return (1);
+    }
+  return (0);
+}
+
+int		add_matching_files(char *folder, char *pattern,
+				   int *size, char ***tab)
 {
   DIR		*dir;
   struct dirent	*dirent;
 
+  pattern = my_strcatdup(pattern, "*", 0);
   if ((dir = opendir(folder)) == NULL)
-    return (1);
+    {
+      free(pattern);
+      return (1);
+    }
   while ((dirent = readdir(dir)) != NULL)
-    if (advanced_match(dirent->d_name, pattern))
-      {	
-	if ((*tab = realloc(*tab, (sizeof(char *) * (*size + 2)))) == NULL)
-	  exit(84);
-	if (((*tab)[*size] = my_strdup(dirent->d_name)) == NULL)
-	  exit(84);
-	(*tab)[*size + 1] = NULL;
-	*size += 1;
-      }
+    if (add_matched(tab, dirent->d_name, pattern, size)
+	&& (dirent->d_type & DT_DIR))
+      if (((*tab)[*size - 1] = my_strcatdup((*tab)[*size - 1], "/", 1) ) == NULL)
+	exit(84);
   closedir(dir);
+  free(pattern);
   return (0);
 }
 
-static void	get_folder_and_path(char *full_path,
+void		get_folder_and_path(char *full_path,
 				    char **path, char **file)
 {
   int		i;
@@ -79,59 +95,28 @@ static void	get_folder_and_path(char *full_path,
   else
     *path = my_strndup(full_path, i);
   if (full_path[i] == 0)
-    *file = my_strdup("<.>");
+    *file = my_strdup("");
   else
     *file = my_strdup(full_path + i);
 }
-
-static void	search_cmd(t_keypad *key, char ***files, int *size, char *cmd)
-{
-  char		**path;
-
-}
-
-static void	search_folder(t_keypad *key, char ***files, int *size)
-{
-  t_token	*temp;
-  t_token	*token;
-  char		*file;
-  char		*path;
-
-  token = get_token(my_strndup(key->line, key->index), key->sys->syntax);
-  temp = token;
-  while (temp && temp->next)
-    temp = temp->next;
-  if (temp == NULL ||
-      (key->index > 0 && is_in(key->line[key->index - 1], SKIP)))
-    get_folder_and_path("", &path, &file);
-  else
-    {
-      if (!is_in('/', temp->token))
-	search_cmd(key, files, size, temp->token);
-      get_folder_and_path(temp->token, &path, &file);
-    }
-  add_matching_files(path, my_strcatdup(file, "*", 1), size, files);
-  my_free_token(&token);
-}
-
-//
-//rien/espace avant/arg  = dossier courant avec match
-//cmd en cours -> path + dossier courant + builtin + alias
-//
 
 int		auto_complete(t_keypad *key)
 {
   int		size;
   char		**files;
 
-  my_printf("\n");
   if (key->line == NULL)
     key->line = my_strdup("");
   size = 0;
   files = NULL;
-  search_folder(key, &files, &size);
-  search_path(key, &files, &size);
-  exec_complete(files, key);
+  search_all(key, &files, &size);
+  if (one_find(key, files, size) && files)
+    {
+      my_printf("\n");
+      exec_complete(files, key);
+    }
   free_tab(files);
+  if (files)
+    print_line(key);
   return (0);
 }
