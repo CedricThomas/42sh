@@ -5,7 +5,7 @@
 ** Login   <marin.brunel@epitech.eu>
 ** 
 ** Started on  Tue May  9 14:18:09 2017 maje
-** Last update Tue May 16 13:15:57 2017 maje
+** Last update Thu May 18 17:29:05 2017 maje
 */
 
 #include "my.h"
@@ -56,62 +56,54 @@ int	create_file(t_info *info)
   return (0);
 }
 
-static int	size_read(char	*str)
+static int	*size_read(char	*str)
 {
-  int	i;
+  int	i[2];
   char	c;
   int	fd;
 
   if ((fd = open(str, O_RDONLY)) == -1)
     return (-1);
-  i = 0;
+  i[0] = 0;
+  i[1] = 0;
   while (read(fd, &c, 1) > 0)
-    i++;
+    {
+      if (c == '\n')
+	i[1] += 1;
+      i[0]++;
+    }
   close(fd);
   return (i);
 }
 
-char	**read_history(t_info *info)
+char		**read_history(t_info *info)
 {
-  char	**tab;
-  char	*buf;
-  char	*path;
-  int	size;
-  int	fd;
+  char		**tab;
+  char		*buf;
+  char		*path;
+  int		size[2];
+  int		fd;
+  int		i;
 
-  if ((path = get_filename(info)) == NULL)
+    if ((path = get_filename(info)) == NULL)
+    return (-1);
+  if (access(path, R_OK))
     return (NULL);
   if ((fd = open(path, O_RDONLY)) == -1)
     return (NULL);
   if ((size = size_read(path)) == -1)
     return (NULL);
-  if ((buf = malloc(sizeof(char) * (size + 1))) == NULL)
+  if ((buf = malloc(sizeof(char) * (size[0] + 1))) == NULL)
     return (NULL);
-  if (read(fd, buf, size) == -1)
+  if (read(fd, buf, size[0]) == -1)
     return (NULL);
-  buf[size] = '\0';
-  tab = my_split(buf, '\n');
+  buf[size[0]] = '\0';
+  if ((info->hist = malloc(sizeof(t_info) * (size[1] + 1))) == NULL)
+    exit(84);
+  i = size[1];
+  /* while (i > = */
   free(buf);
   close(fd);
   free(path);
   return (tab);
-}
-
-int	check_file(t_info *info)
-{
-  FILE	*file;
-  char	*path;
-
-  if ((path = get_filename(info)) == NULL)
-    return (-1);
-  if ((file = fopen(path, "r")) == NULL)
-    {
-      free(path);
-      return (-1);
-    }
-  else
-    {
-      free(path);
-      return (0);
-    }
 }
