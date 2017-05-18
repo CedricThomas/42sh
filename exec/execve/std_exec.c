@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 22:32:29 2017 
-** Last update Fri May 12 12:12:26 2017 
+** Last update Thu May 18 09:31:05 2017 maje
 */
 #include <errno.h>
 #include <stdlib.h>
@@ -20,7 +20,7 @@ static void	check_errno(char *str)
   my_puterror(str);
   my_puterror(": ");
   if (ENOEXEC == errno)
-    my_perror(str, "cannot execute binary file\n");
+    my_perror(str, "Exec format error. Binary file not executable.\n");
   else
     perror(str);
   exit(1);
