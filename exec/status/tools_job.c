@@ -5,22 +5,12 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 21:10:07 2017 Thibaut Cornolti
-** Last update Thu May 18 10:02:10 2017 Thibaut Cornolti
+** Last update Thu May 18 14:44:00 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
 #include "syntax.h"
 #include "exec.h"
-
-void		plane_job(t_job *ll)
-{
-  while (ll)
-    {
-      if (ll->status == 0)
-	ll->number = -1;
-      ll = ll->next;
-    }
-}
 
 t_job		*get_job(t_job *ll, int pid)
 {
