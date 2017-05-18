@@ -5,7 +5,7 @@
 ** Login   <marin.brunel@epitech.eu>
 ** 
 ** Started on  Thu May 18 09:56:38 2017 maje
-** Last update Thu May 18 18:43:08 2017 Cédric THOMAS
+** Last update Thu May 18 18:45:23 2017 Cédric THOMAS
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -39,7 +39,7 @@ int			write_history(t_info *info)
   t_history	*tmp;
 
   tmp = info->histo->start;
-  if ((path = get_path(info)) == NULL)
+  if ((path = get_path_history(info)) == NULL)
     return (1);
   if ((fd = open(path, O_RDONLY)) == -1)
     return (1);
@@ -77,7 +77,7 @@ int	load_history(t_info *info)
   size_t	len;
   ssize_t	read;
 
-  if ((path = get_path(info)) == NULL)
+  if ((path = get_path_history(info)) == NULL)
     return (1);
   if ((stream = fopen(path, "r")) == NULL)
     return (1);
