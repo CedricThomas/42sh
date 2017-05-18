@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Thu May 18 18:20:16 2017 Bastien
+** Last update Thu May 18 23:13:07 2017 Bastien
 */
 
 #include <stdio.h>
@@ -24,32 +24,38 @@ static int	error_var(char *str)
   return (1);
 }
 
+static int	swap_var(t_info *info, t_command *cmd, int pos, int i)
+{
+  char		*temp;
+  int		len;
+
+  len = my_cstrlen(cmd->argv[pos], '$');
+  if (!(temp = my_alloc(sizeof(char) *
+			(my_strlen(cmd->argv[pos]) -
+			 my_strlen(info->var[i].name) +
+			 my_strlen(info->var[i].value)))))
+    return (1);
+  my_tag_alloc(temp, "tree", 0);
+  temp = (len > 0) ? strncat(temp, cmd->argv[pos], len) : temp;
+  temp = strncat(temp, info->var[i].value, my_strlen(info->var[i].value));
+  temp = strncat(temp, cmd->argv[pos] + len + my_strlen(info->var[i].name) + 1,
+		 my_strlen(cmd->argv[pos]) - len -
+		 my_strlen(info->var[i].name));
+  my_vfree((void **)(&cmd->argv[pos]), NULL);
+  cmd->argv[pos] = temp;
+  return (0);
+}
+
 static int	verify_var(t_info *info, t_command *cmd, int pos)
 {
-  int	i;
-  int	len;
-  char	*temp;
+  int		i;
+  int		len;
 
   len = my_cstrlen(cmd->argv[pos], '$');
   i = my_vartablen(info->var);
   while (--i >= 0)
-    if (!strncmp(cmd->argv[pos] + len + 1,
-		 info->var[i].name, strlen(info->var[i].name)))
-      {
-	if (!(temp = my_alloc(sizeof(char) *
-			      (strlen(cmd->argv[pos]) -
-			       strlen(info->var[i].name) +
-			       strlen(info->var[i].value) + 1))))
-	  return (1);
-	my_tag_alloc(temp, "tree", 0);
-	strncat(temp, cmd->argv[pos], len - 1);
-	strncat(temp, info->var[i].value, strlen(info->var[i].value));
-	strncat(temp, cmd->argv[pos] + len + strlen(info->var[i].value),
-		strlen(info->var[i].value) - len - strlen(info->var[i].name));
-	my_vfree((void **)(&cmd->argv[pos]), NULL);
-	cmd->argv[pos] = temp;
-	return (0);
-      }
+    if (!strcmp(cmd->argv[pos] + len + 1, info->var[i].name))
+      return (swap_var(info, cmd, pos, i));
   return (error_var(cmd->argv[pos]));
 }
 
