@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 20:54:17 2017 Thibaut Cornolti
-** Last update Thu May 18 21:46:48 2017 Thibaut Cornolti
+** Last update Fri May 19 09:23:08 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -45,12 +45,12 @@ int		exec_job(t_node *root, t_status *status, t_info *info)
   int		first;
 
   first = 0;
-  if ((status->status & JOBLINE) != JOBLINE)
-    {
-      first = 1;
-      status->status |= JOBLINE;
-      auto_wait(status, info);
-    }
+  /* if ((status->status & JOBLINE) != JOBLINE) */
+  /*   { */
+  /*     first = 1; */
+  /*     status->status |= JOBLINE; */
+  /*     auto_wait(status, info); */
+  /*   } */
   status->status |= JOB;
   status->job_nbr = get_free_job(status->exit_list);
   auto_select(root->left, status, info);
