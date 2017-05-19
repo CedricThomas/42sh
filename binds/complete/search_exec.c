@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 17 23:28:15 2017 Cédric THOMAS
-** Last update Fri May 19 11:19:34 2017 Thibaut Cornolti
+** Last update Fri May 19 13:48:29 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -32,7 +32,7 @@ static void	search_alias_builtins(t_keypad *key, char ***files,
       free(current);
     }
   i = -1;
-  while (key->sys->info->alias[++i].link)
+  while (key->sys->info->alias && key->sys->info->alias[++i].link)
     {
       if ((current = my_strcatdup(cmd, "*", 0)) == NULL)
 	exit(84);

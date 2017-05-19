@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 19 00:02:37 2017 Thibaut Cornolti
+** Last update Fri May 19 14:44:40 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -86,9 +86,9 @@ int		main(int ac, char **av, char **env)
   system.status = &status;
   if (setup_sh(&(system), env))
     return (84);
+  load_rc(system.status, system.info, system.syntax);
   if (isatty(0))
     print_prompt(system.info);
-  load_rc(system.status, system.info, system.syntax);
   my_set_term(system.keypad);
   while (!system.status->exit && (cmd = get_next_cmd(system.keypad)))
     {

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu May 18 19:13:06 2017 Cédric THOMAS
-** Last update Fri May 19 13:11:29 2017 Cédric THOMAS
+** Last update Fri May 19 14:25:04 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <termio.h>
@@ -17,6 +17,21 @@
 #include "get_next_command.h"
 #include "my.h"
 #include "my_printf.h"
+
+static void	change_born(t_keypad *key, time_t my_time, t_info *info, int idx)
+{
+  if (info->histo->start == NULL)
+    {
+      my_put_list_history(&info->histo->start, key->line, (long) my_time, idx);
+      info->histo->end = info->histo->start;
+    }
+  else
+    {
+      idx = info->histo->end->index + 1;
+      my_put_list_history(&info->histo->end, key->line, (long) my_time, idx);
+      info->histo->end = info->histo->end->next;
+    }
+}
 
 void		new_line_history(t_keypad *key)
 {
@@ -30,17 +45,12 @@ void		new_line_history(t_keypad *key)
   info = key->sys->info;
   if ((time(&my_time)) < 0)
     my_time = 0;
-  if (info->histo->start == NULL)
+  if (info->histo->end && info->histo->end->status)
     {
-      my_put_list_history(&info->histo->start, key->line, (long) my_time, idx);
-      info->histo->end = info->histo->start;
+      info->histo->end = info->histo->end->prev;
+      my_del_list_history(&info->histo->start, info->histo->end->next);
     }
-  else
-    {
-      idx = info->histo->end->index + 1;
-      my_put_list_history(&info->histo->end, key->line, (long) my_time, idx);
-      info->histo->end = info->histo->end->next;
-    }
+  change_born(key, my_time, info, idx);
 }
 
 static void	switch_line(t_history_info *hist, t_keypad *key)
@@ -68,7 +78,7 @@ int		down_arrow(t_keypad *key)
   hist = info->histo;
   if (hist->current == NULL)
     return (0);
-  if (hist->current)
+  if (hist->current && !hist->current->status)
     hist->current = hist->current->next;
   switch_line(hist, key);
   return (0);

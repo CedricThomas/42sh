@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Tue May 16 14:34:55 2017 Cédric THOMAS
-** Last update Thu May 18 21:32:32 2017 Cédric THOMAS
+** Last update Fri May 19 13:44:21 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <curses.h>

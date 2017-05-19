@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 22:15:37 2017
-** Last update Thu May 18 20:27:56 2017 Cédric THOMAS
+** Last update Fri May 19 14:44:12 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -13,6 +13,8 @@
 #include <curses.h>
 #include <sys/ioctl.h>
 #include <term.h>
+#include "syntax.h"
+#include "exec.h"
 #include "my.h"
 #include "my_alloc.h"
 #include "get_next_command.h"
@@ -21,6 +23,8 @@ int		my_set_term(t_keypad *keypad)
 {
   char		*smkx;
 
+  if (!keypad->valid)
+    return (0);
   if (ioctl(0, TCGETA, &keypad->term) == -1)
     return (1);
   keypad->term.c_lflag &= ~(ICANON | ECHO);
@@ -38,6 +42,8 @@ int		my_reset_term(t_keypad *keypad)
 {
   char		*rmkx;
 
+  if (!keypad->valid)
+    return (0);
   if ((rmkx = tigetstr("rmkx")) == (char *)-1)
     return (1);
   my_putstr(rmkx);
@@ -86,7 +92,7 @@ t_keypad	*init_keypad(struct s_system *sys)
     return (NULL);  
   my_memset(keypad, 0, sizeof(t_keypad));
   keypad->sys = sys;
-  if (!isatty(0))
+  if (!isatty(0) || !getkey(sys->info->env, "TERM", 0))
     return (keypad);
   setupterm(NULL, 0, NULL);
   fct_filler(keypad->keys);

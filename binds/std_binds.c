@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 22:13:11 2017 
-** Last update Fri May 19 13:00:11 2017 Cédric THOMAS
+** Last update Fri May 19 14:27:27 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <termio.h>
@@ -19,7 +19,6 @@
 
 int		enter(t_keypad *key)
 {
-  my_show_hist(key->sys->info->histo->start);
   if (key->line == NULL)
     if ((key->line = my_strdup("")) == NULL)
       exit(84);

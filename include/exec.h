@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Fri May 19 13:16:04 2017 Cédric THOMAS
+** Last update Fri May 19 14:38:55 2017 Cédric THOMAS
 */
 
 #ifndef EXEC_H_
@@ -127,8 +127,8 @@ void    print_prompt(t_info *info);
 /*
 **MISC
 */
-int	exist_in_tab(char *str, char **tab);
-char	**tab_dup(char **tab);
+int	exist_in_tab(char *str, char **);
+char	**tab_dup(char **);
 int	my_perror(char *cmd, char *error);
 
 /*
@@ -230,7 +230,7 @@ void	builtin_unset(t_command *cmd, t_status *status, t_info *info);
 void	builtin_builtins(t_command *cmd, t_status *status, t_info *info);
 void	sort_var(t_info *info);
 void	check_loop(t_info *info);
-int	my_strtablen(char **tab);
+int	my_strtablen(char **);
 int	my_aliastablen(t_alias *alias);
 int	my_vartablen(t_var *var);
 
@@ -262,4 +262,5 @@ int	my_put_list_history(t_history **ll, char *history,
 int	my_del_list_history(t_history **ll, t_history *elem);
 int	my_free_history(t_history **ll);
 void	my_show_hist(t_history *ll);
+
 #endif /* !EXEC_H_ */
