@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Thu May 18 23:13:07 2017 Bastien
+** Last update Fri May 19 10:26:12 2017 Bastien
 */
 
 #include <stdio.h>
@@ -73,8 +73,20 @@ static int	check_var(t_command *cmd, t_info *info)
 
 t_command	*get_var(t_command *cmd, t_info *info)
 {
+  int	len;
+
   if (!info->var)
     return (cmd);
+  if (is_in('$', cmd->path))
+    {
+      len = my_strtablen(cmd->argv);
+      cmd->argv[len] = cmd->path;
+      if (verify_var(info, cmd, len))
+	return (NULL);
+      my_vfree((void **)(&cmd->path), NULL);
+      cmd->path = cmd->argv[len];
+      cmd->argv[len] = 0;
+    }
   if (check_var(cmd, info))
     return (NULL);
   return (cmd);
