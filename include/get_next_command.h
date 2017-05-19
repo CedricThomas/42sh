@@ -5,13 +5,13 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 17:37:03 2017
-** Last update Sat May 20 01:03:08 2017 Cédric THOMAS
+** Last update Sat May 20 01:32:14 2017 Cédric THOMAS
 */
 #ifndef GNC_H_
 # define GNC_H_
 
 # define READ_SIZE	20
-# define KEY_LINKED	13
+# define KEY_LINKED	18
 
 typedef struct s_keypad t_keypad;
 
@@ -29,6 +29,7 @@ typedef struct		s_keypad
   int			end;
   int			index;
   char			*line;
+  char			*copy;
   struct s_keypad_fct	keys[KEY_LINKED];
   struct termio		term;
   struct s_system	*sys;
@@ -51,11 +52,16 @@ int		enter(t_keypad *keypad);
 int		end_of_file(t_keypad *keypad);
 int		left_arrow(t_keypad *keypad);
 int		right_arrow(t_keypad *keypad);
+int		ctrl_left_arrow(t_keypad *keypad);
+int		ctrl_right_arrow(t_keypad *keypad);
 int		delete_char(t_keypad *keypad);
 int		suppr_char(t_keypad *keypad);
 int		go_end(t_keypad *keypad);
 int		go_start(t_keypad *keypad);
 int		bind_clear(t_keypad *keypad);
+int		bind_copy(t_keypad *keypad);
+int		bind_paste(t_keypad *keypad);
+int		bind_copy_all(t_keypad *keypad);
 
 int		auto_complete(t_keypad *keypad);
 void		search_all(t_keypad *key, char ***files, int *size);
