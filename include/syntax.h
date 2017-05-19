@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Thu May 18 17:12:17 2017 Cédric THOMAS
+** Last update Fri May 19 11:18:37 2017 Thibaut Cornolti
 */
 
 #ifndef SYNTAX_H_
@@ -157,7 +157,7 @@ char	*dequotificator(char *str);
 **LEXER
 */
 
-t_token		*get_token(char *str, t_syntax *my_syntax);
+t_token		*get_token(char *str, t_syntax *my_syntax, t_info *info);
 
 /*
 **list.c

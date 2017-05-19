@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 17 23:28:15 2017 Cédric THOMAS
-** Last update Thu May 18 13:37:34 2017 Cédric THOMAS
+** Last update Fri May 19 11:19:34 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -72,7 +72,7 @@ void		search_all(t_keypad *key, char ***files, int *size)
   char		*file;
   char		*path;
 
-  token = get_token(my_strndup(key->line, key->index), key->sys->syntax);
+  token = get_token(my_strndup(key->line, key->index), key->sys->syntax, NULL);
   temp = token;
   while (temp && temp->next)
     temp = temp->next;
