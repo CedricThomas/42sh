@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Fri May 19 10:26:12 2017 Bastien
+** Last update Fri May 19 10:31:54 2017 Bastien
 */
 
 #include <stdio.h>
@@ -51,11 +51,14 @@ static int	verify_var(t_info *info, t_command *cmd, int pos)
   int		i;
   int		len;
 
-  len = my_cstrlen(cmd->argv[pos], '$');
-  i = my_vartablen(info->var);
-  while (--i >= 0)
-    if (!strcmp(cmd->argv[pos] + len + 1, info->var[i].name))
-      return (swap_var(info, cmd, pos, i));
+  if (info->var)
+    {
+      len = my_cstrlen(cmd->argv[pos], '$');
+      i = my_vartablen(info->var);
+      while (--i >= 0)
+	if (!strcmp(cmd->argv[pos] + len + 1, info->var[i].name))
+	  return (swap_var(info, cmd, pos, i));
+    }
   return (error_var(cmd->argv[pos]));
 }
 
@@ -75,8 +78,6 @@ t_command	*get_var(t_command *cmd, t_info *info)
 {
   int	len;
 
-  if (!info->var)
-    return (cmd);
   if (is_in('$', cmd->path))
     {
       len = my_strtablen(cmd->argv);
