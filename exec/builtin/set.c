@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 16:07:30 2017 Bastien
-** Last update Thu May 18 18:23:38 2017 Bastien
+** Last update Thu May 18 20:03:23 2017 Bastien
 */
 
 #include <string.h>
@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include "syntax.h"
 #include "exec.h"
+#include "my.h"
 
 static int	verify_set(t_command *cmd)
 {
@@ -61,6 +62,24 @@ static void	add_var(char *str, t_info *info)
   info->var[size].value = strdup(str + len + 1);  
 }
 
+static int	display_cmd(t_command *cmd, t_info *info)
+{
+  int	i;
+
+  i = -1;
+  if (cmd->argv[1])
+    return (0);
+  printf("\tFaut la dernière commande ici, mais c'est le zoo\n_\n");
+  while (info->var && info->var[++i].name)
+    {
+      printf("%s\t", info->var[i].name);
+      if (info->var[i].value)
+	printf("%s", info->var[i].value);
+      printf("\n");
+    }
+  return (1);
+}
+
 void		builtin_set(t_command *cmd, t_status *status, t_info *info)
 {
   int		i;
@@ -71,21 +90,20 @@ void		builtin_set(t_command *cmd, t_status *status, t_info *info)
   i = 0;
   if (!verify_set(cmd))
     return ;
-  if (!cmd->argv[1])
-    {
-      i = -1;
-      while (info->var && info->var[++i].name)
-	printf("%s\t%s\n", info->var[i].name, info->var[i].value);
-      return ;
-    }
+  if (display_cmd(cmd, info))
+    return ;
   while (cmd->argv[++i])
     {
       j = -1;
       while (info->var && info->var[++j].name)
 	if ((len = my_cstrlen(cmd->argv[i], '=')) == strlen(info->var[j].name)
 	    && !strncmp(cmd->argv[i], info->var[j].name, len))
-	  replace_var(cmd->argv[i], &info->var[j]);
+	  {
+	    replace_var(cmd->argv[i], &info->var[j]);
+	    break ;
+	  }
       if (!info->var || !info->var[j].name)
 	add_var(cmd->argv[i], info);
     }
+  sort_var(info);
 }

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 17:37:03 2017
-** Last update Thu May 18 19:14:01 2017 Cédric THOMAS
+** Last update Fri May 19 10:29:57 2017 Cédric THOMAS
 */
 #ifndef GNC_H_
 # define GNC_H_
@@ -35,10 +35,12 @@ typedef struct		s_keypad
 /*
 **str.c
 */
-char		*insert_str(char *s1, char *s2, int pos);
+char		*insert_str(char *s1, char *s2, int pos, int mod);
 char		*delete_a_char(char *str, int index);
 
 void		print_line(t_keypad *keypad);
+void		print_raw_line(t_keypad *keypad);
+void		del_raw_line(t_keypad *keypad);
 
 /*
 **binds
@@ -65,6 +67,8 @@ void		default_append(char *buff, t_keypad *keypad, int size_buff);
 
 int		down_arrow(t_keypad *keypad);
 int		up_arrow(t_keypad *keypad);
+
+void		new_line_history(t_keypad *key);
 
 /*
 **setup.c

@@ -5,10 +5,11 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu May 18 19:13:06 2017 Cédric THOMAS
-** Last update Thu May 18 20:09:48 2017 Cédric THOMAS
+** Last update Fri May 19 13:11:29 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <termio.h>
+#include <time.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "syntax.h"
@@ -17,16 +18,78 @@
 #include "my.h"
 #include "my_printf.h"
 
-int		down_arrow(t_keypad *keypad)
+void		new_line_history(t_keypad *key)
 {
+  time_t	my_time;
+  t_info	*info;
+  int		idx;
 
-
-
+  if (!key->line || !key->line[0])
+    return ;
+  idx = 1;
+  info = key->sys->info;
+  if ((time(&my_time)) < 0)
+    my_time = 0;
+  if (info->histo->start == NULL)
+    {
+      my_put_list_history(&info->histo->start, key->line, (long) my_time, idx);
+      info->histo->end = info->histo->start;
+    }
+  else
+    {
+      idx = info->histo->end->index + 1;
+      my_put_list_history(&info->histo->end, key->line, (long) my_time, idx);
+      info->histo->end = info->histo->end->next;
+    }
 }
 
-int		up_arrow(t_keypad *keypad)
+static void	switch_line(t_history_info *hist, t_keypad *key)
 {
-  
+  del_raw_line(key);
+  free(key->line);
+  key->line = NULL;
+  key->index = 0;
+  if (hist->current)
+    {
+      if ((key->line = my_strdup(hist->current->cmd)) == NULL)
+	exit(84);
+      if (key->line)
+	key->index = my_strlen(key->line);
+      print_raw_line(key);
+    }
+}
 
+int		down_arrow(t_keypad *key)
+{
+  t_history_info	*hist;
+  t_info		*info;
 
+  info = key->sys->info;
+  hist = info->histo;
+  if (hist->current == NULL)
+    return (0);
+  if (hist->current)
+    hist->current = hist->current->next;
+  switch_line(hist, key);
+  return (0);
+}
+
+int			up_arrow(t_keypad *key)
+{
+  t_history_info	*hist;
+  t_info		*info;
+
+  info = key->sys->info;
+  hist = info->histo;  
+  if (hist->current == NULL)
+    {
+      hist->current = hist->end;
+      new_line_history(key);
+      if (info->histo->end)
+	info->histo->end->status += 1;
+    }
+  else if (hist->current->prev)
+    hist->current = hist->current->prev;
+  switch_line(hist, key);
+  return (0);
 }

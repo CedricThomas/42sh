@@ -5,12 +5,13 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 22 21:39:39 2017 
-** Last update Thu May 18 19:03:19 2017 Cédric THOMAS
+** Last update Fri May 19 13:00:28 2017 Cédric THOMAS
 */
 #include <string.h>
 #include <stdlib.h>
 #include "syntax.h"
 #include "exec.h"
+#include "my.h"
 
 int		my_put_list_history(t_history **ll, char *history,
 				    long time, int index)
@@ -18,15 +19,16 @@ int		my_put_list_history(t_history **ll, char *history,
   t_history	*elem;
   t_history	*tmp;
 
-  if ((elem = malloc(sizeof(*elem))) == NULL)
+  if ((elem = malloc(sizeof(t_history))) == NULL)
     exit(84);
-  memset(elem, 0, sizeof(*elem));
-  elem->cmd = history;
+  if ((elem->cmd = my_strdup(history)) == NULL)
+    exit(84);
+  elem->status = 0;
   elem->time = time;
   elem->index = index;
+  elem->next = NULL;
   if (*ll == NULL)
     {
-      elem->next = NULL;
       elem->prev = NULL;
       *ll = elem;
     }
@@ -36,7 +38,6 @@ int		my_put_list_history(t_history **ll, char *history,
       while (tmp->next != NULL)
 	tmp = tmp->next;
       elem->prev = tmp;
-      elem->next = NULL;
       tmp->next = elem;
     }
   return (0);
@@ -60,6 +61,16 @@ int		my_del_list_history(t_history **ll, t_history *elem)
   free(elem->cmd);
   free(elem);
   return (0);
+}
+
+void		my_show_hist(t_history *ll)
+{
+  my_printf("\n hist :\n");
+  while (ll)
+    {
+      my_printf("%d, %s, %ld\n", ll->index, ll->cmd, ll->time);
+      ll = ll->next;
+    }
 }
 
 int		my_free_history(t_history **ll)

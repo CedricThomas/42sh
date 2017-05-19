@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 **
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May 18 15:42:30 2017 Cédric THOMAS
+** Last update Thu May 18 19:57:23 2017 Thibaut Cornolti
 */
 
 #include <stdio.h>
@@ -99,7 +99,7 @@ static void	print_pwd(t_info *info)
 	i -= 1;
       if (i != 0)
 	i += 1;
-      printf(info->pwd + i);
+      printf("%s", info->pwd + i);
     }
   printf("\033[00m");
 }

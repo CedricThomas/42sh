@@ -5,7 +5,7 @@
 ** Login   <marin.brunel@epitech.eu>
 ** 
 ** Started on  Thu May 18 09:56:38 2017 maje
-** Last update Thu May 18 19:17:26 2017 Cédric THOMAS
+** Last update Thu May 18 21:12:11 2017 Cédric THOMAS
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -56,8 +56,8 @@ int			write_history(t_info *info)
   return (0);
 }
 
-static void	put_history(t_info *info, long time,
-			    char *cmd, int idx)
+void	put_history(t_info *info, long time,
+		    char *cmd, int idx)
 {
   if (info->histo->start == NULL)
     {
@@ -69,6 +69,13 @@ static void	put_history(t_info *info, long time,
       my_put_list_history(&info->histo->current, cmd, time, idx);
       info->histo->current = info->histo->current->next;
     }
+}
+
+static void	end_loading(t_info *info, int idx)
+{
+  info->histo->end = info->histo->current;
+  info->histo->current = NULL;
+  info->histo->len = idx;
 }
 
 int	load_history(t_info *info)
@@ -89,15 +96,13 @@ int	load_history(t_info *info)
   len = 0;
   line = NULL;
   i = 0;
-  while ((getline(&line, &len, stream)) != -1)
+  while ((getline(&line, &len, stream)) != -1 && ++i)
     {
       sscanf(line, "%ld#%ms", &time, &cmd);
       put_history(info, time, cmd, i);
       free(line);
-      i += 1;
     }
-  info->histo->end = info->histo->current;
-  info->histo->len = i;
+  end_loading(info, i);
   fclose(stream);
   return (0);
 }

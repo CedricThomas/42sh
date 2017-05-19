@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 21:06:35 2017 
-** Last update Thu May 18 13:29:40 2017 Thibaut Cornolti
+** Last update Thu May 18 19:43:59 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -17,10 +17,14 @@
 
 static int	select_wait(t_status *status, int pid)
 {
-  if (status->status & JOB)
-    my_put_list_job(status, pid, status->pgid, JOB_BACKGROUND);
-  else
-    my_put_list_exit(&(status->exit_list), pid, status->pgid, 0);
+  int		job_val;
+  t_job		*job;
+  t_exit	*exit;
+
+  job_val = (status->status & JOB) ? JOB_CREATPRINT : JOB_FOREGROUND;
+  job = my_create_job(status, pid, status->pgid, job_val);
+  exit = my_put_list_exit(&(status->exit_list), pid, status->pgid, 0);
+  exit->job = job;
   return (0);
 }
 

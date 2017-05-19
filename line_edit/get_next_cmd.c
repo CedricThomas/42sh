@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 22:22:55 2017 
-** Last update Thu May 18 15:38:03 2017 Cédric THOMAS
+** Last update Fri May 19 10:17:59 2017 Cédric THOMAS
 */
 #include <stdio.h>
 #include <sys/time.h>
@@ -22,12 +22,10 @@
 #include "my_printf.h"
 #include "get_next_line.h"
 
-static int	get_input(char *buff, t_keypad *keypad,
-			  fd_set *rfds, struct timeval *tv)
+static int	get_input(char *buff, t_keypad *keypad)
 {
   int		size;
 
-  select(1, rfds, NULL, NULL, tv);
   if ((size = read(0, buff, READ_SIZE)) >= 0)
     buff[size] = 0;
   else
@@ -59,24 +57,28 @@ static void	check_key(char *buff, t_keypad *keypad, int size_buff)
     default_append(buff, keypad, size_buff);
 }
 
+static void		wait_input()
+{
+  fd_set		rdfs;
+
+  FD_ZERO(&rdfs);
+  FD_SET(STDIN_FILENO, &rdfs);
+  select(1, &rdfs, NULL, NULL, NULL);
+}
+
 char			*get_next_cmd(t_keypad *keypad)
 {
   int			len;
   char			buff[READ_SIZE + 1];
-  fd_set		rfds;
-  struct timeval	tv;
 
   if (!isatty(0) || !keypad->valid)
     return (get_next_line(0));
-  FD_ZERO(&rfds);
-  FD_SET(0, &rfds);
-  tv.tv_sec = 5;
-  tv.tv_usec = 0;
   keypad->line = NULL;
   keypad->index = 0;
   while (keypad->end == 0)
     {
-      if ((len = get_input(buff, keypad, &rfds, &tv)) < 0)
+      wait_input();
+      if ((len = get_input(buff, keypad)) < 0)
 	return (NULL);
       if (len)
 	check_key(buff, keypad, my_strlen(buff));

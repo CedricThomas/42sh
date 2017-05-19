@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Thu May 18 12:58:11 2017 Cédric THOMAS
-** Last update Thu May 18 13:41:25 2017 Cédric THOMAS
+** Last update Fri May 19 10:39:28 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -51,7 +51,7 @@ int		one_find(t_keypad *key, char **files, int size)
   if (i != 0 || (i == 0 && key->line[i] == '/'))
     i += 1;
   i = key->index - i;
-  if ((key->line = insert_str(key->line, value + i, key->index)) == NULL)
+  if ((key->line = insert_str(key->line, value + i, key->index, 0)) == NULL)
     exit(84);
   key->index += my_strlen(value + i);
   if (key->line[key->index - 1] != '/' && size == 1)

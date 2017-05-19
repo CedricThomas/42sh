@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Thu May 18 13:32:59 2017 Thibaut Cornolti
+** Last update Thu May 18 18:43:27 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -18,22 +18,22 @@
 
 void		builtin_bg(t_command *cmd, t_status *status, t_info *info)
 {
-  t_job		*job;
+  t_exit	*exit;
 
   UNUSED(cmd);
   UNUSED(info);
-  job = status->job_list;
-  auto_wait_job(status);
-  while (!(job == NULL ||
-	   (job->status && job->status != JOB_BACKGROUND
-	    && waitpid(job->pid, NULL, WNOHANG | WUNTRACED) != -1)))
-    job = job->next;
-  if (!job)
+  exit = status->exit_list;
+  auto_wait(status, info);
+  while (!(exit == NULL ||
+	   exit->job->status & JOB_FOREGROUND ||
+	   exit->job->status & JOB_SUSPENDED))
+    exit = exit->next;
+  if (!exit)
     {
       my_puterror("bg: No current job.\n");
       return ;
     }
   tcsetpgrp(0, getpgrp());
-  kill(-job->pgid, SIGCONT);
-  job->status = JOB_BACKGROUND;
+  kill(-exit->job->pgid, SIGCONT);
+  exit->job->status = JOB_BACKGROUND;
 }

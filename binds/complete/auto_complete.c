@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Tue May 16 14:34:55 2017 Cédric THOMAS
-** Last update Thu May 18 15:08:37 2017 Cédric THOMAS
+** Last update Thu May 18 21:32:32 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <curses.h>
@@ -27,7 +27,7 @@ static void	exec_complete(char **tab, t_keypad *key)
   char		*cmd;
 
   i = -1;
-  if ((cmd = my_strdup("echo ")) == NULL)
+  if ((cmd = my_strdup("echo '")) == NULL)
     exit(84);
   while (tab && tab[++i])
     {
@@ -36,7 +36,7 @@ static void	exec_complete(char **tab, t_keypad *key)
       if ((cmd = my_strcatdup(cmd, "\n", 1)) == NULL)
 	exit(84);
     }
-  if ((cmd = my_strcatdup(cmd, " | column", 1)) == NULL)
+  if ((cmd = my_strcatdup(cmd, "' | sort | column", 1)) == NULL)
     exit(84);
   exit_val = key->sys->info->exit_value;
   my_system(cmd, key->sys);

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat Apr 22 11:50:50 2017 
-** Last update Wed May 17 14:20:05 2017 Cédric THOMAS
+** Last update Fri May 19 10:41:17 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <unistd.h>
@@ -40,7 +40,7 @@ char	*delete_a_char(char *str, int index)
   return (full);
 }
 
-char		*insert_str(char *s1, char *s2, int pos)
+char		*insert_str(char *s1, char *s2, int pos, int mod)
 {
   int	len2;
   char	*dest;
@@ -50,19 +50,56 @@ char		*insert_str(char *s1, char *s2, int pos)
   if (s1 != NULL)
     len = my_strlen(s1);
   len2 = my_strlen(s2);
+  if (mod)
+    len2 = 1;
   if ((dest = malloc(sizeof(char) * (len + len2 + 1))) == NULL)
     return (NULL);
   dest[0] = 0;
   if (s1)
-    {
-      my_strncpy(dest, s1, pos);
-      dest[pos] = 0;
-    }
-  dest = my_strcat(dest, s2);
+    my_strncpy(dest, s1, pos);
+  my_strncpy(dest + pos, s2, len2);
+  dest[pos + len2] = 0;
   if (s1)
     my_strcat(dest, s1 + pos);
   free(s1);
   return (dest);
+}
+
+void		del_raw_line(t_keypad *pad)
+{
+  int		len;
+  char		*seq;
+
+  if (pad->line)
+    {
+      if ((seq = tigetstr("cub1")) == (char *) -1)
+	return ;
+      len = -1;
+      while (++len < pad->index)
+    	my_printf(seq);
+      len = my_strlen(pad->line) + 1;
+      while (--len > 0)
+    	my_printf(" ");
+      len = my_strlen(pad->line) + 1;
+      while (--len > 0)
+    	my_printf(seq);
+    }
+}
+
+void		print_raw_line(t_keypad *pad)
+{
+  int		len;
+  char		*seq;
+
+  if (pad->line)
+    {
+      my_printf(pad->line);
+      if ((seq = tigetstr("cub1")) == (char *) -1)
+  	return ;
+      len = my_strlen(pad->line) + 1;
+      while (--len > pad->index)
+    	my_printf(seq);
+    }
 }
 
 void		print_line(t_keypad *pad)

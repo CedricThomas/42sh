@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Thu May 18 19:04:13 2017 Cédric THOMAS
+** Last update Fri May 19 12:52:02 2017 Cédric THOMAS
 */
 
 #ifndef EXEC_H_
@@ -18,12 +18,14 @@
 # define JOB		(1 << 4)
 # define JOBLINE	(1 << 5)
 
-# define JOB_SUSPENDED	(1 << 0)
-# define JOB_FOREGROUND	(1 << 1)
-# define JOB_BACKGROUND	(1 << 2)
-# define JOB_TERMINATED	(1 << 3)
+# define JOB_CREATPRINT	(1 << 0)
+# define JOB_SUSPENDED	(1 << 1)
+# define JOB_FOREGROUND	(1 << 2)
+# define JOB_BACKGROUND	(1 << 3)
+# define JOB_TERMPRINT	(1 << 4)
+# define JOB_TERMINATED	(1 << 5)
 
-# define BUILTINS_NB	11
+# define BUILTINS_NB	12
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -44,6 +46,7 @@ typedef struct		s_var
 
 typedef struct		s_history
 {
+  int			status;
   int			index;
   char			*cmd;
   long			time;
@@ -76,7 +79,9 @@ typedef struct          s_exit
   int                   exit;
   int                   pid;
   int			pgid;
+  struct s_job		*job;
   struct s_exit         *next;
+  struct s_exit         *prev;
 }                       t_exit;
 
 typedef struct		s_job
@@ -85,9 +90,6 @@ typedef struct		s_job
   int			pgid;
   int			status;
   int			number;
-  int			step;
-  struct s_job		*next;
-  struct s_job		*prev;
 }			t_job;
 
 typedef struct		s_status
@@ -96,7 +98,6 @@ typedef struct		s_status
   int			status;
   int			fd_to_close;
   struct s_exit		*exit_list;
-  struct s_job		*job_list;
   int			pgid;
   int			job_nbr;
 }			t_status;
@@ -193,14 +194,13 @@ void	simple_exec(t_command *cmd, t_status *status, t_info *info);
 */
 
 void	auto_wait(t_status *status, t_info *info);
-void	auto_wait_job(t_status *status);
 void	print_wait_job(t_status *status);
 int	my_fork(t_command *cmd, t_status *status, t_info *info,
 		void (*fct)(t_command *cmd, t_status *status, t_info *info));
 int	my_fork_job(void *root, t_status *status, t_info *info,
 		int (*fct)(t_node *root, t_status *status, t_info *info));
 
-int	my_put_list_exit(t_exit **ll, int pid, int gpid, int last);
+t_exit	*my_put_list_exit(t_exit **ll, int pid, int gpid, int last);
 void	set_exit_value(t_exit *ll, int pid, int exitval);
 void	show_exit_status(t_exit *ll);
 int	my_del_exit(t_exit **ll);
@@ -226,6 +226,8 @@ void	builtin_fg(t_command *cmd, t_status *status, t_info *info);
 void	builtin_bg(t_command *cmd, t_status *status, t_info *info);
 void	builtin_jobs(t_command *cmd, t_status *status, t_info *info);
 void	builtin_set(t_command *cmd, t_status *stauts, t_info *info);
+void	builtin_unset(t_command *cmd, t_status *status, t_info *info);
+void	sort_var(t_info *info);
 void	check_loop(t_info *info);
 int	my_strtablen(char **tab);
 int	my_aliastablen(t_alias *alias);
@@ -241,15 +243,9 @@ void	load_rc(t_status *status, t_info *info, t_syntax *syntax);
 **JOB
 */
 
-t_job	*my_put_list_job(t_status *status, int pid, int pgid, int stats);
-void	set_job_value(t_job *ll, int pid, int status);
-void	show_job_status(t_job *ll);
-int	my_del_job(t_job **ll);
-int	get_free_job(t_job *ll);
-t_job	*get_job(t_job *ll, int pid);
-void	signal_stp();
-void	signal_ttou();
-void	signal_ttin();
+t_job	*my_create_job(t_status *status, int pid, int pgid, int stats);
+void	show_job_status(t_exit *ll);
+int	get_free_job(t_exit *ll);
 
 int	fill_history(char *, t_info*);
 
@@ -263,5 +259,5 @@ int	my_put_list_history(t_history **ll, char *history,
 			    long time, int index);
 int	my_del_list_history(t_history **ll, t_history *elem);
 int	my_free_history(t_history **ll);
-
+void	my_show_hist(t_history *ll);
 #endif /* !EXEC_H_ */

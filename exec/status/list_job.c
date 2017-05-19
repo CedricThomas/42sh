@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 21:10:07 2017 Thibaut Cornolti
-** Last update Thu May 18 13:23:53 2017 Thibaut Cornolti
+** Last update Thu May 18 19:49:06 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -13,66 +13,45 @@
 #include "exec.h"
 #include "my_printf.h"
 
-t_job		*my_put_list_job(t_status *status, int pid,
-				 int pgid, int stats)
+t_job		*my_create_job(t_status *status, int pid,
+			       int pgid, int stats)
 {
-  t_job		*tmp;
   t_job		*elem;
 
-  tmp = status->job_list;
   if ((elem = malloc(sizeof(*elem))) == NULL)
     exit(84);
   elem->pid = pid;
   elem->pgid = pgid;
   elem->status = stats;
-  elem->number = status->job_nbr;
-  elem->step = 0;
-  elem->next = NULL;
-  if (tmp == NULL)
-    {
-      elem->prev = NULL;
-      status->job_list = elem;
-    }
-  else
-    {
-      while (tmp->next)
-	tmp = tmp->next;
-      elem->prev = tmp;
-      tmp->next = elem;
-    }
+  elem->number = (status->status & JOB) ? status->job_nbr : 0;
   return (elem);
 }
 
-int		my_del_job(t_job **ll)
+void		show_job_status(t_exit *ll)
 {
-  t_job		*tmp;
-
-  while (*ll)
-    {
-      tmp = *ll;
-      *ll = (*ll)->next;
-      free(tmp);
-    }
-  return (0);
-}
-
-void		show_job_status(t_job *ll)
-{
-  const char		*status[5] =
-    {"wtf", "suspended", "background", "nop", "current"};
+  static char   *status[6] = {"Running (waiting for print)", "Suspended",
+			      "Running (fg)", "Running (bg)",
+			      "Terminated (waiting for print)", "Terminated"};
+  static int    code[6] = {JOB_CREATPRINT, JOB_SUSPENDED,
+			   JOB_FOREGROUND, JOB_BACKGROUND,
+			   JOB_TERMPRINT, JOB_TERMINATED};
+  int           i;
 
   while (ll)
     {
-      my_printf("pid : %d (%s)\n", ll->pid, status[ll->status]);
+      i = -1;
+      while (++i < 6)
+	if (code[i] == ll->job->status)
+	  my_printf("[%d] pid : %d (%s)\n", ll->job->number, ll->job->pid, status[i]);
       ll = ll->next;
     }
 }
 
-int		get_free_job(t_job *ll)
+int		get_free_job(t_exit *ll)
 {
   int		number;
   int		is_free;
-  t_job		*tmp;
+  t_exit	*tmp;
 
   number = 0;
   while (++number)
@@ -81,7 +60,7 @@ int		get_free_job(t_job *ll)
       is_free = 1;
       while (tmp)
 	{
-	  if (tmp->number == number)
+	  if (tmp->job->number == number)
 	    is_free = 0;
 	  tmp = tmp->next;
 	}
@@ -89,14 +68,4 @@ int		get_free_job(t_job *ll)
 	return (number);
     }
   return (-1);
-}
-
-void		set_job_value(t_job *ll, int pid, int status)
-{
-  while (ll)
-    {
-      if (ll->pid == pid)
-	ll->status = status;
-      ll = ll->next;
-    }
 }
