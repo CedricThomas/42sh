@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 09:29:45 2017 Bastien
-** Last update Thu May 18 10:39:55 2017 Bastien
+** Last update Fri May 19 10:44:56 2017 Bastien
 */
 
 #include <stdlib.h>
@@ -37,6 +37,7 @@ void	builtin_unalias(t_command *cmd, t_status *status, t_info *info)
   int	j;
 
   (void)status;
+  info->exit_value = 0;
   i = 0;
   while (cmd->argv[++i])
     {
