@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 10:35:38 2017 Bastien
-** Last update Wed May 17 14:31:01 2017 Bastien
+** Last update Fri May 19 11:21:10 2017 Thibaut Cornolti
 */
 
 #include <glob.h>
@@ -47,7 +47,7 @@ static void	get_glob(glob_t *globbuf, t_token **save, t_token **token, t_syntax 
 	temp = my_strcatdup(temp, " ", 1);
       i++;
     }
-  new = get_token(temp, syntax);
+  new = get_token(temp, syntax, 0);
   globfree(globbuf);
   set_token(save, &new, token);
 }

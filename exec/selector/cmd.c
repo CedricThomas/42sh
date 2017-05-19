@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Fri May 19 09:34:04 2017 Thibaut Cornolti
+** Last update Fri May 19 11:01:25 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -93,5 +93,6 @@ int		exec_cmd(t_node *root, t_status *status, t_info *info)
   wait = auto_exec(cmd, status, info);
   if (wait)
     auto_wait(status, info);
+  
   return (0);
 }

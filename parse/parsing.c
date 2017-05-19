@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May 18 18:39:39 2017 Cédric THOMAS
+** Last update Fri May 19 11:18:24 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -70,13 +70,16 @@ t_node			*parse_cmd(t_syntax *my_syntax, char *str, t_info *info)
   void			*root;
 
   cut_comment(str);
-  if ((tokens = get_token(str, my_syntax)) == NULL)
+  if ((tokens = get_token(str, my_syntax, info)) == NULL)
     return (NULL);
   tokens = globbing(tokens, my_syntax);
   tokens = get_alias(tokens, info, my_syntax);
   inib_token(tokens);
   if ((root = auto_create_node(NULL, tokens, NULL)) == NULL)
-    my_free_tree(&root);
+    {
+      info->exit_value = 1;
+      my_free_tree(&root);
+    }
   my_free_token(&tokens);
   return (root);
 }
