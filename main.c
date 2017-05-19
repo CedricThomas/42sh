@@ -1,11 +1,11 @@
 /*
-** main.c for main.c in /home/cedric/delivery/ex
+1;2802;0c** main.c for main.c in /home/cedric/delivery/ex
 ** 
 ** Made by Cédric Thomas
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 19 22:06:57 2017 Thibaut Cornolti
+** Last update Sat May 20 00:20:29 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -18,11 +18,6 @@
 #include "exec.h"
 #include "my_printf.h"
 
-void		signal_chld(int pid)
-{
-  kill(pid, SIGHUP);
-}
-
 static int	setup_sh(t_system *sys, char **env)
 {
   if ((sys->syntax = get_syntax()) == NULL)
@@ -32,12 +27,11 @@ static int	setup_sh(t_system *sys, char **env)
   if ((sys->keypad = init_keypad(sys)) == NULL)
     return (1);
   my_memset(sys->status, 0, sizeof(t_status));
-  signal(SIGINT, SIG_IGN);
+  signal(SIGINT, &signal_sigint);
   signal(SIGQUIT, SIG_IGN);
   signal(SIGTSTP, SIG_IGN);
   signal(SIGTTIN, SIG_IGN);
   signal(SIGTTOU, SIG_IGN);
-  signal(SIGCHLD, &signal_chld);
   setpgid(getpid(), getpid());
   tcsetpgrp(0, getpgrp());
   getter_system(sys);

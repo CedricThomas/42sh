@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Fri May 19 20:29:23 2017 Thibaut Cornolti
+** Last update Sat May 20 00:20:16 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -272,5 +272,11 @@ void	my_show_hist(t_history *ll);
 */
 t_token	*get_system(char *cmd);
 int	do_backquote(t_token **token);
+
+
+/*
+**SIGNAL
+*/
+void	signal_sigint();
 
 #endif /* !EXEC_H_ */
