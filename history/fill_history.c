@@ -5,7 +5,7 @@
 ** Login   <marin.brunel@epitech.eu>
 ** 
 ** Started on  Thu May 18 09:56:38 2017 maje
-** Last update Thu May 18 21:12:11 2017 Cédric THOMAS
+** Last update Fri May 19 16:17:42 2017 Cédric THOMAS
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -44,7 +44,7 @@ int			write_history(t_info *info)
   tmp = info->histo->start;
   if ((path = get_path_history(info)) == NULL)
     return (1);
-  if ((fd = open(path, O_RDONLY)) == -1)
+  if ((fd = open(path, O_CREAT| O_CREAT | O_WRONLY, 0644)) == -1)
     return (1);
   free(path);
   while (tmp)
@@ -100,8 +100,8 @@ int	load_history(t_info *info)
     {
       sscanf(line, "%ld#%ms", &time, &cmd);
       put_history(info, time, cmd, i);
-      free(line);
     }
+  free(line);
   end_loading(info, i);
   fclose(stream);
   return (0);

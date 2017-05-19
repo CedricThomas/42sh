@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 18 23:57:02 2017 Thibaut Cornolti
-** Last update Fri May 19 11:09:26 2017 Thibaut Cornolti
+** Last update Fri May 19 16:21:56 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -21,7 +21,7 @@ void		builtin_builtins(t_command *cmd, t_status *status, t_info *info)
   UNUSED(cmd);
   UNUSED(status);
   i = -1;
-  if ((builtins = strdup("echo ")) == NULL)
+  if ((builtins = my_strdup("echo ")) == NULL)
     return ;
   while (++i < BUILTINS_NB)
     {
