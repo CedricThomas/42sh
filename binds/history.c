@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu May 18 19:13:06 2017 Cédric THOMAS
-** Last update Fri May 19 14:25:04 2017 Cédric THOMAS
+** Last update Fri May 19 15:28:21 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <termio.h>
@@ -33,22 +33,25 @@ static void	change_born(t_keypad *key, time_t my_time, t_info *info, int idx)
     }
 }
 
-void		new_line_history(t_keypad *key)
+void			new_line_history(t_keypad *key)
 {
-  time_t	my_time;
-  t_info	*info;
-  int		idx;
+  t_history_info	*hist;
+  time_t		my_time;
+  t_info		*info;
+  int			idx;
 
   if (!key->line || !key->line[0])
     return ;
   idx = 1;
   info = key->sys->info;
+  hist = info->histo;
   if ((time(&my_time)) < 0)
     my_time = 0;
-  if (info->histo->end && info->histo->end->status)
+  if (hist->end && hist->end->status
+      && hist->end->prev)
     {
-      info->histo->end = info->histo->end->prev;
-      my_del_list_history(&info->histo->start, info->histo->end->next);
+      hist->end = hist->end->prev;
+      my_del_list_history(&hist->end, hist->end->next);
     }
   change_born(key, my_time, info, idx);
 }
@@ -76,10 +79,10 @@ int		down_arrow(t_keypad *key)
 
   info = key->sys->info;
   hist = info->histo;
-  if (hist->current == NULL)
+  if (hist->current == NULL ||
+      (hist->current->status && hist->current == hist->end))
     return (0);
-  if (hist->current && !hist->current->status)
-    hist->current = hist->current->next;
+  hist->current = hist->current->next;
   switch_line(hist, key);
   return (0);
 }
@@ -95,8 +98,8 @@ int			up_arrow(t_keypad *key)
     {
       hist->current = hist->end;
       new_line_history(key);
-      if (info->histo->end)
-	info->histo->end->status += 1;
+      if (info->histo->end && key->line && key->line[0])
+	info->histo->end->status = 1;
     }
   else if (hist->current->prev)
     hist->current = hist->current->prev;
