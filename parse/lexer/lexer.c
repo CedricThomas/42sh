@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 22:10:45 2017
-** Last update Fri May 19 11:22:35 2017 Thibaut Cornolti
+** Last update Fri May 19 20:43:48 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -104,8 +104,10 @@ t_token		*get_token(char *str, t_syntax *my_syntax, t_info *info)
   if ((str = shape_str(str)) == NULL)
     return (NULL);
   while ((current = next_token(&type, str, my_syntax)))
-    if (my_put_list_token(&token, current, type))
-      return (NULL);
+    {
+      if (my_put_list_token(&token, current, type))
+	return (NULL);
+    }
   next_token(NULL, NULL, NULL);
   shape_token(token);
   free(str);

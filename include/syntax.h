@@ -5,15 +5,16 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Fri May 19 11:18:37 2017 Thibaut Cornolti
+** Last update Fri May 19 20:42:36 2017 Thibaut Cornolti
 */
 
 #ifndef SYNTAX_H_
 # define SYNTAX_H_
 
-# define SKIP	" \t"
-# define INIB_C	'\\'
-# define INIB	"\"'"
+# define SKIP		" \t"
+# define INIB_C		'\\'
+# define INIB		"\"'"
+# define BACKQUOTE	"`"
 
 # define ULIMT_MATCH	-1
 # define LIMT_MATCH	0
@@ -28,10 +29,11 @@
 # define T_LOGIC_AND		(1 << 7)
 # define T_LOGIC_OR		(1 << 8)
 # define T_SEPAR		(1 << 9)
+# define T_BACKQUOTE		(1 << 10)
 
 # define T_COMMON	(T_ARGS | T_COMMAND | T_FILE)
 
-# define FULL_MAX_TYPES	10
+# define FULL_MAX_TYPES	11
 # define MAX_TYPES	FULL_MAX_TYPES - 2
 # define TREE_TYPES	MAX_TYPES - 2
 

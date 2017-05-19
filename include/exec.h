@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Fri May 19 15:14:25 2017 Thibaut Cornolti
+** Last update Fri May 19 20:29:23 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -68,6 +68,7 @@ typedef struct		s_info
   char			**env;
   t_history_info	*histo;
   unsigned int		exit_value;
+  unsigned int		exit_value_backquote;
   char			*old_pwd;
   char			*pwd;
   t_alias		*alias;
@@ -265,5 +266,11 @@ int	my_put_list_history(t_history **ll, char *history,
 int	my_del_list_history(t_history **ll, t_history *elem);
 int	my_free_history(t_history **ll);
 void	my_show_hist(t_history *ll);
+
+/*
+**BACKQUOTE
+*/
+t_token	*get_system(char *cmd);
+int	do_backquote(t_token **token);
 
 #endif /* !EXEC_H_ */
