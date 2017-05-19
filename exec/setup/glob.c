@@ -5,12 +5,15 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 10:35:38 2017 Bastien
-** Last update Fri May 19 11:21:10 2017 Thibaut Cornolti
+** Last update Fri May 19 13:36:42 2017 Cédric THOMAS
 */
 
+#include <unistd.h>
+#include <stdlib.h>
 #include <glob.h>
 #include "my.h"
 #include "syntax.h"
+#include "exec.h"
 
 static void	set_token(t_token **save, t_token **new, t_token **token)
 {
@@ -31,7 +34,8 @@ static void	set_token(t_token **save, t_token **new, t_token **token)
   *token = *new;
 }
 
-static void	get_glob(glob_t *globbuf, t_token **save, t_token **token, t_syntax *syntax)
+static void	get_glob(glob_t *globbuf, t_token **save,
+			 t_token **token, t_syntax *syntax)
 {
   unsigned int	i;
   t_token	*new;
@@ -52,14 +56,22 @@ static void	get_glob(glob_t *globbuf, t_token **save, t_token **token, t_syntax 
   set_token(save, &new, token);
 }
 
-t_token		*globbing(t_token *token, t_syntax *syntax)
+t_token		*globbing(t_token *token, t_syntax *syntax, t_info *info)
 {
+  char		*home;
   t_token	*save;
   glob_t	globbuf;
 
   save = token;
+  home = getkey(info->env, "HOME", 0);
   while (token)
     {
+      if (home)
+	{
+	  token->token = replace_unquoted_str(token->token, "~", home, "'");
+	  if (!token->token)
+	    exit(84);
+	}
       if (!(GLOB_NOMATCH & glob(token->token, GLOB_MARK, 0, &globbuf))
 	  && token->type & T_COMMON)
 	get_glob(&globbuf, &save, &token, syntax);
