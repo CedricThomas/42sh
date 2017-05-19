@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Thu May 18 19:52:13 2017 Thibaut Cornolti
+** Last update Fri May 19 00:02:37 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -40,7 +40,7 @@ static int	setup_sh(t_system *sys, char **env)
   signal(SIGCHLD, &signal_chld);
   setpgid(getpid(), getpid());
   tcsetpgrp(0, getpgrp());
-  getter_status(sys->status);
+  getter_system(sys);
   return (0);
 }
 

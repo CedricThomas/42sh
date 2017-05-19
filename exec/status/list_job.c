@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 21:10:07 2017 Thibaut Cornolti
-** Last update Thu May 18 19:49:06 2017 Thibaut Cornolti
+** Last update Thu May 18 23:46:34 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -45,6 +45,19 @@ void		show_job_status(t_exit *ll)
 	  my_printf("[%d] pid : %d (%s)\n", ll->job->number, ll->job->pid, status[i]);
       ll = ll->next;
     }
+}
+
+t_job		*get_job_by_number(t_exit *ll, int number)
+{
+  if (number)
+    while (ll)
+      {
+	if (ll->job->number == number &&
+	    ll->job->status < JOB_TERMPRINT)
+	  return (ll->job);
+	ll = ll->next;
+      }
+  return (NULL);
 }
 
 int		get_free_job(t_exit *ll)

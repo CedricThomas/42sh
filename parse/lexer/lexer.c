@@ -5,11 +5,12 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 22:10:45 2017
-** Last update Tue May 16 10:57:45 2017 Bastien
+** Last update Fri May 19 11:22:35 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
 #include "syntax.h"
+#include "exec.h"
 #include "match.h"
 #include "my.h"
 
@@ -87,7 +88,7 @@ static char	*next_token(int *type, char *str, t_syntax *my_syntax)
   return (token);
 }
 
-t_token		*get_token(char *str, t_syntax *my_syntax)
+t_token		*get_token(char *str, t_syntax *my_syntax, t_info *info)
 {
   int		type;
   char		*current;
@@ -95,7 +96,11 @@ t_token		*get_token(char *str, t_syntax *my_syntax)
 
   token = NULL;
   if (check_input_lexer(str))
-    return (my_free_null(str));
+    {
+      if (info)
+	info->exit_value = 1;
+      return (my_free_null(str));
+    }
   if ((str = shape_str(str)) == NULL)
     return (NULL);
   while ((current = next_token(&type, str, my_syntax)))

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Fri May 19 12:50:56 2017 Cédric THOMAS
+** Last update Fri May 19 13:15:54 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -28,7 +28,8 @@ static void	get_builtins(t_info *my_info)
   my_info->builtins[9] = "jobs";
   my_info->builtins[10] = "set";
   my_info->builtins[11] = "unset";
-  my_info->builtins[12] = NULL;
+  my_info->builtins[12] = "builtins";
+  my_info->builtins[13] = NULL;
 }
 
 static int      setup_history(t_info *info)
@@ -75,7 +76,6 @@ void		*free_info(t_info *info)
   free(info->pwd);
   free(info->old_pwd);
   free_tab(info->env);
-  //free_tab(info->history);
   free(info);
   return (NULL);
 }

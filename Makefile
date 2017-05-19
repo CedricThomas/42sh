@@ -5,8 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Thu May 18 20:18:16 2017 Cédric THOMAS
-## Last update Thu May 18 19:53:19 2017 Thibaut Cornolti
+## Last update Fri May 19 13:15:02 2017 Cédric THOMAS
 ##
 
 EXEC		=	auto_selector.c			\
@@ -33,6 +32,7 @@ EXEC		=	auto_selector.c			\
 			builtin/set.c			\
 			builtin/set_tools.c		\
 			builtin/unset.c			\
+			builtin/builtins.c		\
 			status/list_status.c		\
 			status/list_job.c		\
 			status/wait.c			\

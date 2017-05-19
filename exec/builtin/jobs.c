@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Thu May 18 19:32:16 2017 Thibaut Cornolti
+** Last update Fri May 19 10:03:00 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -48,12 +48,11 @@ void		builtin_jobs(t_command *cmd, t_status *status, t_info *info)
   exit = status->exit_list;
   auto_wait(status, info);
   last_nbr = 0;
-  show_job_status(exit);
   while (exit)
     {
       job = exit->job;
       if (job->number != last_nbr &&
-	  job->status != 0 && job->status < JOB_TERMPRINT)
+      	  job->status != 0 && job->status < JOB_TERMPRINT)
 	print_jobs(job);
       last_nbr = job->number;
       exit = exit->next;

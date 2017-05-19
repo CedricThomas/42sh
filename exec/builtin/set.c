@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 16:07:30 2017 Bastien
-** Last update Thu May 18 20:03:23 2017 Bastien
+** Last update Fri May 19 10:49:33 2017 Bastien
 */
 
 #include <string.h>
@@ -69,7 +69,6 @@ static int	display_cmd(t_command *cmd, t_info *info)
   i = -1;
   if (cmd->argv[1])
     return (0);
-  printf("\tFaut la dernière commande ici, mais c'est le zoo\n_\n");
   while (info->var && info->var[++i].name)
     {
       printf("%s\t", info->var[i].name);
@@ -87,6 +86,7 @@ void		builtin_set(t_command *cmd, t_status *status, t_info *info)
   int		j;
 
   (void)status;
+  info->exit_value = 0;
   i = 0;
   if (!verify_set(cmd))
     return ;

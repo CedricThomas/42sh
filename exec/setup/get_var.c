@@ -5,9 +5,10 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Thu May 18 18:20:16 2017 Bastien
+** Last update Fri May 19 12:58:45 2017 Bastien
 */
 
+#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include "syntax.h"
@@ -17,39 +18,50 @@
 
 static int	error_var(char *str)
 {
-  int	len;
+  int	i;
 
-  len = my_cstrlen(str, '$');
-  printf("%s: Undefined variable.\n", str + len +1);
+  i = my_cstrlen(str, '$');
+  while (str && ((str[++i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')))
+    write(1, &str[i], 1);
+  printf(": Undefined variable.\n");
   return (1);
+}
+
+static int	swap_var(t_info *info, t_command *cmd, int pos, int i)
+{
+  char		*temp;
+  int		len;
+
+  len = my_cstrlen(cmd->argv[pos], '$');
+  if (!(temp = my_alloc(sizeof(char) *
+			(my_strlen(cmd->argv[pos]) -
+			 my_strlen(info->var[i].name) +
+			 my_strlen(info->var[i].value)))))
+    return (1);
+  my_tag_alloc(temp, "tree", 0);
+  temp = (len > 0) ? strncat(temp, cmd->argv[pos], len) : temp;
+  temp = strncat(temp, info->var[i].value, my_strlen(info->var[i].value));
+  temp = strncat(temp, cmd->argv[pos] + len + my_strlen(info->var[i].name) + 1,
+		 my_strlen(cmd->argv[pos]) - len -
+		 my_strlen(info->var[i].name));
+  my_vfree((void **)(&cmd->argv[pos]), NULL);
+  cmd->argv[pos] = temp;
+  return (0);
 }
 
 static int	verify_var(t_info *info, t_command *cmd, int pos)
 {
-  int	i;
-  int	len;
-  char	*temp;
+  int		i;
+  int		len;
 
-  len = my_cstrlen(cmd->argv[pos], '$');
-  i = my_vartablen(info->var);
-  while (--i >= 0)
-    if (!strncmp(cmd->argv[pos] + len + 1,
-		 info->var[i].name, strlen(info->var[i].name)))
-      {
-	if (!(temp = my_alloc(sizeof(char) *
-			      (strlen(cmd->argv[pos]) -
-			       strlen(info->var[i].name) +
-			       strlen(info->var[i].value) + 1))))
-	  return (1);
-	my_tag_alloc(temp, "tree", 0);
-	strncat(temp, cmd->argv[pos], len - 1);
-	strncat(temp, info->var[i].value, strlen(info->var[i].value));
-	strncat(temp, cmd->argv[pos] + len + strlen(info->var[i].value),
-		strlen(info->var[i].value) - len - strlen(info->var[i].name));
-	my_vfree((void **)(&cmd->argv[pos]), NULL);
-	cmd->argv[pos] = temp;
-	return (0);
-      }
+  if (info->var)
+    {
+      len = my_cstrlen(cmd->argv[pos], '$');
+      i = my_vartablen(info->var);
+      while (--i >= 0)
+	if (!strcmp(cmd->argv[pos] + len + 1, info->var[i].name))
+	  return (swap_var(info, cmd, pos, i));
+    }
   return (error_var(cmd->argv[pos]));
 }
 
@@ -59,7 +71,7 @@ static int	check_var(t_command *cmd, t_info *info)
 
   i = -1;
   while (cmd->argv[++i])
-    if (is_in('$', cmd->argv[i]))
+    if (is_in('$', cmd->argv[i]) && strlen(cmd->argv[i]) > 1)
       if (verify_var(info, cmd, i))
 	return (1);
   return (0);
@@ -67,8 +79,18 @@ static int	check_var(t_command *cmd, t_info *info)
 
 t_command	*get_var(t_command *cmd, t_info *info)
 {
-  if (!info->var)
-    return (cmd);
+  int	len;
+
+  if (is_in('$', cmd->path) && strlen(cmd->path) > 1)
+    {
+      len = my_strtablen(cmd->argv);
+      cmd->argv[len] = cmd->path;
+      if (verify_var(info, cmd, len))
+	return (NULL);
+      my_vfree((void **)(&cmd->path), NULL);
+      cmd->path = cmd->argv[len];
+      cmd->argv[len] = 0;
+    }
   if (check_var(cmd, info))
     return (NULL);
   return (cmd);

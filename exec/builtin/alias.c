@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Mon May 15 15:48:20 2017 Bastien
-** Last update Wed May 17 22:38:32 2017 Bastien
+** Last update Fri May 19 10:48:24 2017 Thibaut Cornolti
 */
 
 #include <stdio.h>
@@ -16,9 +16,9 @@
 #include "exec.h"
 #include "my.h"
 
-void		show_cmd(t_info *info, char *str, int size)
+static int	show_cmd(t_info *info, char *str, int size)
 {
-  int	i;
+  int		i;
 
   i = -1;
   while (size && info->alias[++i].link)
@@ -26,7 +26,7 @@ void		show_cmd(t_info *info, char *str, int size)
       if (str && !strcmp(info->alias[i].link, str))
 	{
 	  printf("%s\n", info->alias[i].value);
-	  return ;
+	  return (0);
 	}
       else if (!str)
 	{
@@ -36,11 +36,12 @@ void		show_cmd(t_info *info, char *str, int size)
 	    printf("%s\t%s\n", info->alias[i].link, info->alias[i].value);
 	}
     }
+  return (0);
 }
 
-int		verify_exist(t_info *info, char *str, char *value)
+static int	verify_exist(t_info *info, char *str, char *value)
 {
-  int	i;
+  int		i;
 
   i = -1;
   while (info->alias && info->alias[++i].link)
@@ -76,13 +77,11 @@ void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
   int		size;
 
   UNUSED(status);
+  info->exit_value = 0;
   size = my_aliastablen(info->alias);
   nb_arg = my_strtablen(cmd->argv);
-  if (nb_arg <= 2)
-    {
-      show_cmd(info, cmd->argv[1], size);
-      return ;
-    }
+  if (nb_arg <= 2 && !show_cmd(info, cmd->argv[1], size))
+    return ;
   temp = get_whole_alias(cmd);
   if (verify_exist(info, cmd->argv[1], temp))
     {

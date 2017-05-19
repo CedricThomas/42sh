@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 20:54:17 2017 Thibaut Cornolti
-** Last update Thu May 18 19:37:10 2017 Thibaut Cornolti
+** Last update Fri May 19 09:23:08 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -31,9 +31,9 @@ static void	show_process(t_status *status)
 	    {
 	      my_printf((last) ? "\n[%d]" : "[%d]", job->number);
 	      last = job->number;
-	      job->status = JOB_BACKGROUND;
 	    }
 	  my_printf(" %d", job->pid);
+	  job->status = JOB_BACKGROUND;
 	}
       exit = exit->next;
     }
@@ -45,12 +45,12 @@ int		exec_job(t_node *root, t_status *status, t_info *info)
   int		first;
 
   first = 0;
-  if ((status->status & JOBLINE) != JOBLINE)
-    {
-      first = 1;
-      status->status |= JOBLINE;
-      auto_wait(status, info);
-    }
+  /* if ((status->status & JOBLINE) != JOBLINE) */
+  /*   { */
+  /*     first = 1; */
+  /*     status->status |= JOBLINE; */
+  /*     auto_wait(status, info); */
+  /*   } */
   status->status |= JOB;
   status->job_nbr = get_free_job(status->exit_list);
   auto_select(root->left, status, info);

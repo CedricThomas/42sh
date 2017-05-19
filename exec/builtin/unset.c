@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 19:10:23 2017 Bastien
-** Last update Thu May 18 19:57:57 2017 Thibaut Cornolti
+** Last update Fri May 19 10:45:36 2017 Bastien
 */
 
 #include <string.h>
@@ -39,6 +39,7 @@ void	builtin_unset(t_command *cmd, t_status *status, t_info *info)
   int   j;
 
   UNUSED(status);
+  info->exit_value = 0;
   i = 0;
   if (!info->var)
     return ;
