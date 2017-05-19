@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Mon May 15 15:48:20 2017 Bastien
-** Last update Fri May 19 10:44:39 2017 Bastien
+** Last update Fri May 19 10:48:24 2017 Thibaut Cornolti
 */
 
 #include <stdio.h>
@@ -26,7 +26,7 @@ static int	show_cmd(t_info *info, char *str, int size)
       if (str && !strcmp(info->alias[i].link, str))
 	{
 	  printf("%s\n", info->alias[i].value);
-	  return ;
+	  return (0);
 	}
       else if (!str)
 	{
