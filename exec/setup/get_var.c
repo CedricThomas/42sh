@@ -5,9 +5,10 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Fri May 19 10:31:54 2017 Bastien
+** Last update Fri May 19 12:58:45 2017 Bastien
 */
 
+#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include "syntax.h"
@@ -17,10 +18,12 @@
 
 static int	error_var(char *str)
 {
-  int	len;
+  int	i;
 
-  len = my_cstrlen(str, '$');
-  printf("%s: Undefined variable.\n", str + len +1);
+  i = my_cstrlen(str, '$');
+  while (str && ((str[++i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')))
+    write(1, &str[i], 1);
+  printf(": Undefined variable.\n");
   return (1);
 }
 
@@ -68,7 +71,7 @@ static int	check_var(t_command *cmd, t_info *info)
 
   i = -1;
   while (cmd->argv[++i])
-    if (is_in('$', cmd->argv[i]))
+    if (is_in('$', cmd->argv[i]) && strlen(cmd->argv[i]) > 1)
       if (verify_var(info, cmd, i))
 	return (1);
   return (0);
@@ -78,7 +81,7 @@ t_command	*get_var(t_command *cmd, t_info *info)
 {
   int	len;
 
-  if (is_in('$', cmd->path))
+  if (is_in('$', cmd->path) && strlen(cmd->path) > 1)
     {
       len = my_strtablen(cmd->argv);
       cmd->argv[len] = cmd->path;
