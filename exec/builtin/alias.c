@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Mon May 15 15:48:20 2017 Bastien
-** Last update Fri May 19 10:48:24 2017 Thibaut Cornolti
+** Last update Fri May 19 18:31:19 2017 Bastien
 */
 
 #include <stdio.h>
@@ -70,6 +70,21 @@ char	*get_whole_alias(t_command *cmd)
   return (temp);
 }
 
+static int	secure_test(char *str, t_info *info)
+{
+  if (!strcmp("alias", str))
+    {
+      printf("alias: Too dangerous to alias that.\n");
+      info->exit_value = 1;
+    }
+  if (!strcmp("unalias", str))
+    {
+      printf("unalias: Too dangerous to alias that.\n");
+      info->exit_value = 1;
+    }
+  return (info->exit_value);
+}
+
 void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
 {
   int		nb_arg;
@@ -81,6 +96,8 @@ void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
   size = my_aliastablen(info->alias);
   nb_arg = my_strtablen(cmd->argv);
   if (nb_arg <= 2 && !show_cmd(info, cmd->argv[1], size))
+    return ;
+  if (secure_test(cmd->argv[1], info))
     return ;
   temp = get_whole_alias(cmd);
   if (verify_exist(info, cmd->argv[1], temp))
