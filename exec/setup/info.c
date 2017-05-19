@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Fri May 19 13:53:02 2017 Cédric THOMAS
+** Last update Fri May 19 15:15:58 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -29,7 +29,11 @@ static void	get_builtins(t_info *my_info)
   my_info->builtins[10] = "set";
   my_info->builtins[11] = "unset";
   my_info->builtins[12] = "builtins";
-  my_info->builtins[13] = NULL;
+  my_info->builtins[13] = "history";
+  my_info->builtins[14] = "repeat";
+  my_info->builtins[15] = "chdir";
+  my_info->builtins[16] = "where";
+  my_info->builtins[17] = NULL;
 }
 
 static int      setup_history(t_info *info)
