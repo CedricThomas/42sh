@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 **
 ** Started on  Fri May 19 16:52:18 2017 Thibaut Cornolti
-** Last update Fri May 19 20:47:19 2017 Thibaut Cornolti
+** Last update Fri May 19 21:51:16 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -69,7 +69,6 @@ static t_token	*exec_backquote(t_token *token)
       token = token->next;
     }
   my_free_token(&token);
-  printf("command : %s\n", command);
   ret = get_system(command);
   return (ret);
 }
@@ -84,7 +83,6 @@ int		do_backquote(t_token **token)
   tmp = *token;
   while (!find_born(&start, &end, &tmp))
     {
-      printf("Backquote found!\n");
       if (start && end && start->next != end &&
 	  start->next && end->prev)
 	{
@@ -93,6 +91,9 @@ int		do_backquote(t_token **token)
 	  if ((new = exec_backquote(start->next)) == NULL)
 	    return (1);
 	  insert_tokens(start, end, new);
+	  my_del_list_token(token, end);
+	  my_del_list_token(token, start);
+	  redef_token(*token);
 	}
     }
   return (0);

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:03:45 2017 Cédric THOMAS
-** Last update Fri May 19 10:51:41 2017 Cédric THOMAS
+** Last update Sat May 20 01:01:42 2017 Cédric THOMAS
 */
 #include <sys/ioctl.h>
 #include <ncurses.h>
@@ -19,10 +19,10 @@ void		default_append(char *buff, t_keypad *keypad, int size_buff)
 {
   int		idx;
   int		i;
-  char		*seq;
 
   i = -1;
   idx = 0;
+  del_raw_line(keypad);
   while (buff[++i])
     {
       if (buff[i] >= ' ' && buff[i] <= '~')
@@ -31,15 +31,8 @@ void		default_append(char *buff, t_keypad *keypad, int size_buff)
 	  idx += 1;
 	}
     }
-  if (keypad->line)
-    {
-      my_printf("%s", keypad->line + keypad->index);
-      keypad->index += idx;
-      i = my_strlen(keypad->line) - keypad->index;
-      if ((seq = tigetstr("cub1")) == (char *) -1)
-	return ;
-      while (--i >= 0)
-	my_printf(seq);
-    }
+  keypad->index += idx;
+  search_matched(keypad);
+  print_raw_line(keypad);
   UNUSED(size_buff);
 }

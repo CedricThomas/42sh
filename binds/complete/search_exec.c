@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 17 23:28:15 2017 Cédric THOMAS
-** Last update Fri May 19 13:48:29 2017 Cédric THOMAS
+** Last update Fri May 19 16:45:22 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -81,7 +81,7 @@ void		search_all(t_keypad *key, char ***files, int *size)
     get_folder_and_path("", &path, &file);
   else
     {
-      if (!is_in('/', temp->token))
+      if (!is_in('/', temp->token) && temp->type == T_COMMAND)
 	{
 	  search_cmd(key, files, size, temp->token);
 	  search_alias_builtins(key, files, size, temp->token);

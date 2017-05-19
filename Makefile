@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Fri May 19 20:20:07 2017 Thibaut Cornolti
+## Last update Sat May 20 00:15:26 2017 Cédric THOMAS
 ##
 
 EXEC		=	auto_selector.c			\
@@ -97,6 +97,7 @@ LINE		=	line_edit/get_next_cmd.c	\
 			binds/pos_binds.c		\
 			binds/del_binds.c		\
 			binds/complete/auto_complete.c	\
+			binds/complete/auto_history.c	\
 			binds/complete/search_exec.c	\
 			binds/complete/complete_line.c	\
 			binds/history.c			\

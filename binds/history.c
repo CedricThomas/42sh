@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu May 18 19:13:06 2017 Cédric THOMAS
-** Last update Fri May 19 15:28:21 2017 Cédric THOMAS
+** Last update Fri May 19 22:48:18 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <termio.h>
@@ -20,6 +20,12 @@
 
 static void	change_born(t_keypad *key, time_t my_time, t_info *info, int idx)
 {
+  while (info->histo->len > 200)
+    {
+      my_del_list_history(&info->histo->start, info->histo->start);
+      info->histo->len -= 1;
+    }
+  info->histo->len += 1;
   if (info->histo->start == NULL)
     {
       my_put_list_history(&info->histo->start, key->line, (long) my_time, idx);

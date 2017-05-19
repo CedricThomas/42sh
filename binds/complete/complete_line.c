@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Thu May 18 12:58:11 2017 Cédric THOMAS
-** Last update Fri May 19 10:39:28 2017 Cédric THOMAS
+** Last update Fri May 19 22:06:35 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -59,8 +59,6 @@ int		one_find(t_keypad *key, char **files, int size)
       key->line = my_strcatdup(key->line, " ", 1);
       key->index += 1;
     }
-  if (size == 1)
-    my_printf("\n");
   free(value);
   return (size - 1);
 }

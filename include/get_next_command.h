@@ -5,13 +5,13 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 17:37:03 2017
-** Last update Fri May 19 10:29:57 2017 Cédric THOMAS
+** Last update Sat May 20 01:03:08 2017 Cédric THOMAS
 */
 #ifndef GNC_H_
 # define GNC_H_
 
 # define READ_SIZE	20
-# define KEY_LINKED	12
+# define KEY_LINKED	13
 
 typedef struct s_keypad t_keypad;
 
@@ -23,6 +23,8 @@ typedef struct		s_keypad_fct
 
 typedef struct		s_keypad
 {
+  int			mod;
+  char			*matched;
   int			valid;
   int			end;
   int			index;
@@ -67,6 +69,10 @@ void		default_append(char *buff, t_keypad *keypad, int size_buff);
 
 int		down_arrow(t_keypad *keypad);
 int		up_arrow(t_keypad *keypad);
+
+int		switch_mod(t_keypad *keypad);
+int		complete_history(t_keypad *key);
+void		search_matched(t_keypad *key);
 
 void		new_line_history(t_keypad *key);
 
