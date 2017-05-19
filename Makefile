@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Fri May 19 20:20:07 2017 Thibaut Cornolti
+## Last update Fri May 19 22:33:01 2017 Thibaut Cornolti
 ##
 
 EXEC		=	auto_selector.c			\
@@ -100,7 +100,8 @@ LINE		=	line_edit/get_next_cmd.c	\
 			binds/complete/search_exec.c	\
 			binds/complete/complete_line.c	\
 			binds/history.c			\
-			binds/default_bind.c
+			binds/default_bind.c		\
+			binds/copy_paste.c
 
 MAIN		=	main.c				\
 			prompt.c			\

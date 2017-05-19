@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 19 16:02:00 2017 Cédric THOMAS
+** Last update Fri May 19 22:06:57 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -32,7 +32,7 @@ static int	setup_sh(t_system *sys, char **env)
   if ((sys->keypad = init_keypad(sys)) == NULL)
     return (1);
   my_memset(sys->status, 0, sizeof(t_status));
-  //signal(SIGINT, SIG_IGN);
+  signal(SIGINT, SIG_IGN);
   signal(SIGQUIT, SIG_IGN);
   signal(SIGTSTP, SIG_IGN);
   signal(SIGTTIN, SIG_IGN);

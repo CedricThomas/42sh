@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 22:15:37 2017
-** Last update Fri May 19 19:32:41 2017 maje
+** Last update Fri May 19 23:03:22 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -59,12 +59,12 @@ static void	fct_filler(t_keypad_fct *keys)
 {
   keys[0].sequence = "\n";
   keys[0].fct = &enter;
-  keys[3].sequence = "\004";
-  keys[3].fct = &end_of_file;
   keys[1].sequence = tigetstr("kcub1");
   keys[1].fct = &left_arrow;
   keys[2].sequence = tigetstr("kcuf1");
   keys[2].fct = &right_arrow;
+  keys[3].sequence = "\004";
+  keys[3].fct = &end_of_file;
   keys[4].sequence = tigetstr("kbs");
   keys[4].fct = &delete_char;
   keys[5].sequence = tigetstr("kdch1");
@@ -81,6 +81,10 @@ static void	fct_filler(t_keypad_fct *keys)
   keys[10].fct = &up_arrow;
   keys[11].sequence = tigetstr("kcud1");
   keys[11].fct = &down_arrow;
+  keys[12].sequence = "\v";
+  keys[12].fct = &bind_copy;
+  keys[13].sequence = "\031";
+  keys[13].fct = &bind_paste;
 }
 
 t_keypad	*init_keypad(struct s_system *sys)
