@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Fri May 19 12:58:45 2017 Bastien
+** Last update Fri May 19 23:47:41 2017 Bastien
 */
 
 #include <unistd.h>
@@ -57,6 +57,8 @@ static int	verify_var(t_info *info, t_command *cmd, int pos)
   if (info->var)
     {
       len = my_cstrlen(cmd->argv[pos], '$');
+      if (!cmd->argv[pos][len + 1])
+	return (0);
       i = my_vartablen(info->var);
       while (--i >= 0)
 	if (!strcmp(cmd->argv[pos] + len + 1, info->var[i].name))
