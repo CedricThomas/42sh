@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 10:35:38 2017 Bastien
-** Last update Fri May 19 11:21:10 2017 Thibaut Cornolti
+** Last update Fri May 19 14:20:29 2017 Bastien
 */
 
 #include <glob.h>
@@ -60,7 +60,7 @@ t_token		*globbing(t_token *token, t_syntax *syntax)
   save = token;
   while (token)
     {
-      if (!(GLOB_NOMATCH & glob(token->token, GLOB_MARK, 0, &globbuf))
+      if (!(GLOB_NOMATCH & glob(token->token, 0, 0, &globbuf))
 	  && token->type & T_COMMON)
 	get_glob(&globbuf, &save, &token, syntax);
       else if (token->type & T_COMMON)
