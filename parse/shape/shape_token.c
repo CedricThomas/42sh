@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  2 18:22:24 2017 
-** Last update Thu May 18 17:15:59 2017 Cédric THOMAS
+** Last update Fri May 19 09:31:23 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -18,7 +18,7 @@ static void	define_args(t_token *token)
   is_arg = 0;
   while (token)
     {
-      if (token->type >= T_FLUX)
+      if (token->type >= T_FLUX || token->type == T_JOB)
 	is_arg = 0;
       if (!is_arg && token->type == T_COMMON)
 	{
