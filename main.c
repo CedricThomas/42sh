@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Sat May 20 00:20:29 2017 Thibaut Cornolti
+** Last update Sat May 20 00:25:47 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -89,7 +89,7 @@ int		main(int ac, char **av, char **env)
     {
       my_reset_term(system.keypad);
       my_system(cmd, &system);
-      if (!system.status->exit && isatty(0))
+      if (!system.status->exit && isatty(0) && cmd)
 	print_prompt(system.info);
       my_set_term(system.keypad);
     }

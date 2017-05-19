@@ -5,13 +5,13 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 17:37:03 2017
-** Last update Sat May 20 00:05:45 2017 Thibaut Cornolti
+** Last update Sat May 20 00:30:36 2017 Thibaut Cornolti
 */
 #ifndef GNC_H_
 # define GNC_H_
 
 # define READ_SIZE	20
-# define KEY_LINKED	15
+# define KEY_LINKED	17
 
 typedef struct s_keypad t_keypad;
 
@@ -50,6 +50,8 @@ int		enter(t_keypad *keypad);
 int		end_of_file(t_keypad *keypad);
 int		left_arrow(t_keypad *keypad);
 int		right_arrow(t_keypad *keypad);
+int		ctrl_left_arrow(t_keypad *keypad);
+int		ctrl_right_arrow(t_keypad *keypad);
 int		delete_char(t_keypad *keypad);
 int		suppr_char(t_keypad *keypad);
 int		go_end(t_keypad *keypad);
