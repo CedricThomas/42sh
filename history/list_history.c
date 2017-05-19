@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 22 21:39:39 2017 
-** Last update Fri May 19 13:00:28 2017 Cédric THOMAS
+** Last update Fri May 19 16:21:51 2017 Cédric THOMAS
 */
 #include <string.h>
 #include <stdlib.h>
@@ -61,16 +61,6 @@ int		my_del_list_history(t_history **ll, t_history *elem)
   free(elem->cmd);
   free(elem);
   return (0);
-}
-
-void		my_show_hist(t_history *ll)
-{
-  my_printf("\n hist :\n");
-  while (ll)
-    {
-      my_printf("%d, %s, %ld\n", ll->index, ll->cmd, ll->time);
-      ll = ll->next;
-    }
 }
 
 int		my_free_history(t_history **ll)

@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 19 14:44:40 2017 Cédric THOMAS
+** Last update Fri May 19 16:02:00 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -50,6 +50,7 @@ static int	free_sh(t_system *sys)
 
   exit = sys->info->exit_value;
   free_syntax(&(sys->syntax));
+  write_history(sys->info);    
   free_info(sys->info);
   end_keypad(sys->keypad);
   return (exit);
