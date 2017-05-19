@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Fri May 19 22:19:27 2017 Thibaut Cornolti
-** Last update Fri May 19 23:07:55 2017 Thibaut Cornolti
+** Last update Sat May 20 00:08:00 2017 Thibaut Cornolti
 */
 
 #include <curses.h>
@@ -49,5 +49,18 @@ int	bind_copy(t_keypad *keypad)
   while (i--)
     my_printf(seq);
   keypad->line[keypad->index] = 0;
+  return (0);
+}
+
+int	bind_copy_all(t_keypad *keypad)
+{
+  if (keypad->line == NULL)
+    return (0);
+  free(keypad->copy);
+  keypad->copy = my_strdup(keypad->line);
+  del_raw_line(keypad);
+  free(keypad->line);
+  keypad->line = NULL;
+  keypad->index = 0;
   return (0);
 }

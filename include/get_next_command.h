@@ -5,13 +5,13 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 17:37:03 2017
-** Last update Fri May 19 23:00:34 2017 Thibaut Cornolti
+** Last update Sat May 20 00:05:45 2017 Thibaut Cornolti
 */
 #ifndef GNC_H_
 # define GNC_H_
 
 # define READ_SIZE	20
-# define KEY_LINKED	14
+# define KEY_LINKED	15
 
 typedef struct s_keypad t_keypad;
 
@@ -57,6 +57,7 @@ int		go_start(t_keypad *keypad);
 int		bind_clear(t_keypad *keypad);
 int		bind_copy(t_keypad *keypad);
 int		bind_paste(t_keypad *keypad);
+int		bind_copy_all(t_keypad *keypad);
 
 int		auto_complete(t_keypad *keypad);
 void		search_all(t_keypad *key, char ***files, int *size);

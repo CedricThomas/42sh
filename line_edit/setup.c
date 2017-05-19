@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 22:15:37 2017
-** Last update Fri May 19 23:03:22 2017 Thibaut Cornolti
+** Last update Sat May 20 00:07:51 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -85,6 +85,8 @@ static void	fct_filler(t_keypad_fct *keys)
   keys[12].fct = &bind_copy;
   keys[13].sequence = "\031";
   keys[13].fct = &bind_paste;
+  keys[14].sequence = "\025";
+  keys[14].fct = &bind_copy_all;
 }
 
 t_keypad	*init_keypad(struct s_system *sys)
