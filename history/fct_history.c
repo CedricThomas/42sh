@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Sat May 20 15:39:02 2017 Thibaut Cornolti
-** Last update Sat May 20 18:10:01 2017 Thibaut Cornolti
+** Last update Sat May 20 18:28:50 2017 Thibaut Cornolti
 */
 
 #include <termio.h>
@@ -31,7 +31,14 @@ char		*history_fct_exclam(char *src, int *idx, t_history_info *history)
 
 char		*history_fct_dollar(char *src, int *idx, t_history_info *history)
 {
-  
+  t_token	*token;
+  t_system	*sys;
+
+  if (history->end == NULL || history->end->cmd == NULL)
+    return (NULL);
+  sys = getter_system(NULL);
+  if ((token = get_token(history->end->cmd, sys->syntax, NULL)) == NULL)
+    return (NULL);
   if (delete_nbchar(src, 1, *idx) == NULL ||
       insert_str(src, history->end->cmd, *idx, 0) == NULL)
     exit(84);  
