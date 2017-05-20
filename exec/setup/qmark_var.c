@@ -5,10 +5,13 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Sat May 20 15:03:24 2017 Bastien
-** Last update Sat May 20 15:21:20 2017 Bastien
+** Last update Sat May 20 15:30:35 2017 Bastien
 */
 
+#define _GNU_SOURCE
+
 #include <stdio.h>
+#include <string.h>
 #include "syntax.h"
 #include "exec.h"
 #include "my_alloc.h"
