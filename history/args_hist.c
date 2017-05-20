@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 13:43:45 2017 Cédric THOMAS
-** Last update Sat May 20 17:40:03 2017 Thibaut Cornolti
+** Last update Sat May 20 18:19:30 2017 Cédric THOMAS
 */
 
 #include <termio.h>
@@ -19,7 +19,7 @@
 #include "get_next_command.h"
 #include "my.h"
 
-static char	*history_fct_def(char *src, int *idx, t_history_info *history)
+static char	*history_fct_def(char *src, int *idx, t_info *inf, t_history_info *history)
 {
   UNUSED(history);
   if ((src = insert_str(src, "\\", *idx, 0)) == NULL)
@@ -28,7 +28,7 @@ static char	*history_fct_def(char *src, int *idx, t_history_info *history)
 }
 
 static void	fill_fct(char *pattern[6],
-			 char *(*fct[6])(char *, int *, t_history_info *))
+			 char *(*fct[6])(char *, int *, t_info *, t_history_info *))
 {
   fct[0] = history_fct_exclam;
   fct[1] = history_fct_dollar;
@@ -68,7 +68,7 @@ char	*change_hist(char *cmd, t_info *info)
 {
   int	stop;
   char	*flag[6];
-  char	*(*fct[6])(char *, int *, t_history_info *);
+  char	*(*fct[6])(char *, int *, t_info *, t_history_info *);
   int	index;
   int	i;
 
