@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Sat May 20 15:39:02 2017 Thibaut Cornolti
-** Last update Sat May 20 19:07:52 2017 Thibaut Cornolti
+** Last update Sat May 20 19:37:20 2017 Thibaut Cornolti
 */
 
 #include <termio.h>
@@ -48,7 +48,7 @@ char		*history_fct_dollar(char *src, int *idx,
   if ((src = delete_nbchar(src, 2, *idx)) == NULL ||
       (src = insert_str(src, token->token, *idx, 0)) == NULL)
     exit(84);
-  *idx += my_strlen(token->token);
+  *idx += 1;
   my_free_token(&token);
   return (src);
 }
@@ -56,26 +56,27 @@ char		*history_fct_dollar(char *src, int *idx,
 char		*history_fct_colon(char *src, int *idx,
 				   t_history_info *history)
 {
-  if (delete_nbchar(src, 1, *idx) == NULL ||
-      insert_str(src, history->end->cmd, *idx, 0) == NULL)
-    exit(84);
-  return (src);
   char		*cmd;
   t_token	*token;
   t_system	*sys;
+  int		nbr;
+  int		size;
 
   if (history->end == NULL || history->end->cmd == NULL)
     return (NULL);
+  nbr = atoi(src + *idx + 2);
   sys = getter_system(NULL);
   cmd = my_strdup(history->end->cmd);
   if ((token = get_token(cmd, sys->syntax, NULL)) == NULL)
     return (NULL);
-  while (token->next)
+  while (token->next && nbr-- > 0)
     token = token->next;
-  if ((src = delete_nbchar(src, 2, *idx)) == NULL ||
+  size = -1;
+  while (is_in(src[*idx + 1 + ++size], ":0123456789"));
+  if ((src = delete_nbchar(src, size + 1, *idx)) == NULL ||
       (src = insert_str(src, token->token, *idx, 0)) == NULL)
     exit(84);
-  *idx += my_strlen(token->token);
+  *idx += size;
   my_free_token(&token);
   return (src);
 }
