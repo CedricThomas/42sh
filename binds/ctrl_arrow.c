@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Fri May 19 22:19:27 2017 Thibaut Cornolti
-** Last update Sat May 20 00:52:29 2017 Thibaut Cornolti
+** Last update Sat May 20 09:43:28 2017 Cédric THOMAS
 */
 
 #include <curses.h>
@@ -31,7 +31,7 @@ static int	get_shift(t_keypad *keypad, int sense)
     while (keypad->line[++i] && keypad->line[i] != ' ')
       shift += 1;
   else
-    while (--i && keypad->line[i] && keypad->line[i] != ' ')
+    while (i && --i && keypad->line[i] && keypad->line[i] != ' ')
       shift += 1;
   return (shift + 1);
 }

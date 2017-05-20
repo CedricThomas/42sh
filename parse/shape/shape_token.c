@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  2 18:22:24 2017 
-** Last update Fri May 19 20:38:19 2017 Thibaut Cornolti
+** Last update Sat May 20 09:46:34 2017 Cédric THOMAS
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -77,6 +77,7 @@ void		inib_token(t_token *token)
 	exit(84);
       free(token->token);
       token->token = dequotificator(tmp);
+      free(tmp);
       token = token->next;
     }
 }

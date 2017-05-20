@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 22:15:37 2017
-** Last update Sat May 20 01:49:45 2017 Cédric THOMAS
+** Last update Sat May 20 09:47:20 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -118,6 +118,7 @@ t_keypad	*init_keypad(struct s_system *sys)
 
 void		*end_keypad(t_keypad *keypad)
 {
+  free(keypad->matched);
   free(keypad->line);
   free(keypad);
   return (NULL);
