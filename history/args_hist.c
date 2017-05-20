@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 13:43:45 2017 Cédric THOMAS
-** Last update Sat May 20 17:15:28 2017 Cédric THOMAS
+** Last update Sat May 20 17:19:04 2017 Thibaut Cornolti
 */
 
 #include <stdio.h>
@@ -14,9 +14,11 @@
 #include "syntax.h"
 #include "exec.h"
 
-static char	*history_fct_exclam(char *src, int idx, t_history_info *history)
+static char	*history_fct_def(char *src, int idx, t_history_info *history)
 {
-  
+  if ((src = insert_str(src, "!", idx, 0)) == NULL)
+    exit(84);
+  return (src);
 }
 
 static void	fill_fct(char *pattern[6],
