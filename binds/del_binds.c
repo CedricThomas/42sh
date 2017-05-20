@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:18:05 2017 Cédric THOMAS
-** Last update Sat May 20 01:19:39 2017 Cédric THOMAS
+** Last update Sat May 20 15:41:18 2017 maje
 */
 #include <curses.h>
 #include <termio.h>
@@ -18,9 +18,9 @@ int	suppr_char(t_keypad *keypad)
 {
   if (keypad->line && keypad->line[keypad->index])
     {
-      del_raw_line(keypad);      
+      del_raw_line(keypad);
       keypad->line = delete_a_char(keypad->line, keypad->index);
-      print_raw_line(keypad);      
+      print_raw_line(keypad);
     }
   return (0);
 }

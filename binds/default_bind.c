@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:03:45 2017 Cédric THOMAS
-** Last update Sat May 20 01:01:42 2017 Cédric THOMAS
+** Last update Sat May 20 15:40:46 2017 maje
 */
 #include <sys/ioctl.h>
 #include <ncurses.h>
@@ -27,7 +27,8 @@ void		default_append(char *buff, t_keypad *keypad, int size_buff)
     {
       if (buff[i] >= ' ' && buff[i] <= '~')
 	{
-	  keypad->line = insert_str(keypad->line, buff + i, keypad->index + idx, 1);
+	  keypad->line = insert_str(keypad->line,
+				    buff + i, keypad->index + idx, 1);
 	  idx += 1;
 	}
     }

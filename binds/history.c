@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu May 18 19:13:06 2017 Cédric THOMAS
-** Last update Sat May 20 13:12:28 2017 Cédric THOMAS
+** Last update Sat May 20 15:42:09 2017 maje
 */
 #include <curses.h>
 #include <termio.h>
@@ -18,7 +18,8 @@
 #include "my.h"
 #include "my_printf.h"
 
-static void	change_born(t_keypad *key, time_t my_time, t_info *info, int idx)
+static void	change_born(t_keypad *key, time_t my_time,
+			    t_info *info, int idx)
 {
   while (info->histo->len > 200)
     {
@@ -28,13 +29,15 @@ static void	change_born(t_keypad *key, time_t my_time, t_info *info, int idx)
   info->histo->len += 1;
   if (info->histo->start == NULL)
     {
-      my_put_list_history(&info->histo->start, key->line, (long) my_time, idx);
+      my_put_list_history(&info->histo->start, key->line,
+			  (long) my_time, idx);
       info->histo->end = info->histo->start;
     }
   else
     {
       idx = info->histo->end->index + 1;
-      my_put_list_history(&info->histo->end, key->line, (long) my_time, idx);
+      my_put_list_history(&info->histo->end, key->line,
+			  (long) my_time, idx);
       info->histo->end = info->histo->end->next;
     }
 }
@@ -99,7 +102,7 @@ int			up_arrow(t_keypad *key)
   t_info		*info;
 
   info = key->sys->info;
-  hist = info->histo;  
+  hist = info->histo;
   if (hist->current == NULL)
     {
       hist->current = hist->end;

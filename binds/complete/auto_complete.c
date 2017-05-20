@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Tue May 16 14:34:55 2017 Cédric THOMAS
-** Last update Sat May 20 11:38:30 2017 Cédric THOMAS
+** Last update Sat May 20 15:42:50 2017 maje
 */
 #include <unistd.h>
 #include <curses.h>
@@ -76,7 +76,8 @@ int		add_matching_files(char *folder, char *pattern,
   while ((dirent = readdir(dir)) != NULL)
     if (add_matched(tab, dirent->d_name, pattern, size)
 	&& (dirent->d_type & DT_DIR))
-      if (((*tab)[*size - 1] = my_strcatdup((*tab)[*size - 1], "/", 1) ) == NULL)
+      if (((*tab)[*size - 1] = my_strcatdup((*tab)[*size - 1],
+					    "/", 1) ) == NULL)
 	exit(84);
   closedir(dir);
   free(pattern);
