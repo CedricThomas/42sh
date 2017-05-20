@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Sat May 20 15:24:05 2017 Bastien
+** Last update Sat May 20 15:58:12 2017 Bastien
 */
 
 #include <unistd.h>
@@ -83,7 +83,7 @@ static int	check_var(t_command *cmd, t_info *info)
     if (is_in('$', cmd->argv[i]) && strlen(cmd->argv[i]) > 1)
       if (verify_var(info, cmd, i))
 	{
-	  if (!strcmp(cmd->argv[i] + my_cstrlen(cmd->argv[i], '$') + 1, "?"))
+	  if (!strncmp(cmd->argv[i] + my_cstrlen(cmd->argv[i], '$') + 1, "?", 1))
 	    qmark_var(info, cmd, i);
 	  else
 	    return (error_var(&cmd->argv[i], info));

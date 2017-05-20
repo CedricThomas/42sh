@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Sat May 20 15:03:24 2017 Bastien
-** Last update Sat May 20 15:30:35 2017 Bastien
+** Last update Sat May 20 16:00:17 2017 Bastien
 */
 
 #define _GNU_SOURCE
@@ -25,15 +25,11 @@ int	qmark_var(t_info *info, t_command *cmd, int pos)
 
   asprintf(&nbr, "%d", info->exit_value);
   len = my_cstrlen(cmd->argv[pos], '$');
-  if (!(temp = my_alloc(sizeof(char) *
-			(my_strlen(cmd->argv[pos]) -
-			 1 + my_strlen(nbr)))))
+  if (!(temp = my_alloc(sizeof(char) * (len + my_strlen(nbr) + 1))))
     return (1);
   my_tag_alloc(temp, "tree", 0);
   temp = (len > 0) ? strncat(temp, cmd->argv[pos], len) : temp;
   temp = strncat(temp, nbr, my_strlen(nbr));
-  temp = strncat(temp, cmd->argv[pos] + len + 2,
-		 my_strlen(cmd->argv[pos]) - len - 1);
   my_vfree((void **)(&cmd->argv[pos]), NULL);
   cmd->argv[pos] = temp;
   return (0);
