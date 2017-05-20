@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Thu May 18 23:45:13 2017 Thibaut Cornolti
+** Last update Sat May 20 12:06:23 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -28,8 +28,7 @@ void		builtin_bg(t_command *cmd, t_status *status, t_info *info)
   while (cmd->argv[++argc]);
   exit = status->exit_list;
   auto_wait(status, info);
-  while (!(exit == NULL ||
-	   exit->job->status & JOB_FOREGROUND ||
+  while (!(exit == NULL || exit->job->status & JOB_FOREGROUND ||
 	   exit->job->status & JOB_SUSPENDED))
     exit = exit->next;
   found = exit ? exit->job : NULL;
@@ -40,10 +39,12 @@ void		builtin_bg(t_command *cmd, t_status *status, t_info *info)
       my_puterror((argc != 1 && cmd->argv[1][0] == '%') ?
 		  "bg: No such job.\n" :
 		  "bg: No current job.\n");
+      info->exit_value = 1;
       return ;
     }
   tcsetpgrp(0, getpgrp());
   kill(-found->pgid, SIGCONT);
   found->status = JOB_BACKGROUND;
-  my_printf("Backgrounded");
+  my_printf("Backgrounded\n");
+  info->exit_value = 0;
 }

@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Fri May 19 15:17:34 2017 Thibaut Cornolti
+## Last update Sat May 20 11:07:21 2017 Cédric THOMAS
 ##
 
 EXEC		=	auto_selector.c			\
@@ -68,6 +68,8 @@ PARSE		=	parsing.c			\
 			error/error_pipe_node.c		\
 			error/error_command_node.c	\
 			error/error_logic_node.c	\
+			backquote/backquote.c		\
+			backquote/backquote_fork.c	\
 
 MATCH		=	match.c				\
 			fct/amp.c			\
@@ -91,14 +93,19 @@ LOAD		=	rc.c				\
 LINE		=	line_edit/get_next_cmd.c	\
 			line_edit/str.c			\
 			line_edit/setup.c		\
+			line_edit/sequencer.c		\
 			binds/std_binds.c		\
 			binds/pos_binds.c		\
 			binds/del_binds.c		\
 			binds/complete/auto_complete.c	\
+			binds/complete/auto_history.c	\
 			binds/complete/search_exec.c	\
 			binds/complete/complete_line.c	\
 			binds/history.c			\
-			binds/default_bind.c
+			binds/default_bind.c		\
+			binds/copy_paste.c		\
+			binds/ctrl_arrow.c		\
+			binds/sig.c
 
 MAIN		=	main.c				\
 			prompt.c			\

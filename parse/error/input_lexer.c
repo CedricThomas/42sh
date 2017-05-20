@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sun Apr 30 20:11:56 2017 
-** Last update Fri May 12 16:59:13 2017 Thibaut Cornolti
+** Last update Fri May 19 16:59:34 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -20,7 +20,9 @@ static int	checkdouble(char *str)
   i = -1;
   quote = 0;
   while (str && str[++i])
-    if ((quote == 0 && is_in(str[i], INIB)) || str[i] == quote)
+    if ((quote == 0 &&
+	 (is_in(str[i], INIB) || is_in(str[i], BACKQUOTE))) ||
+	str[i] == quote)
       quote = (!quote ? str[i] : 0);
   if (quote)
     {

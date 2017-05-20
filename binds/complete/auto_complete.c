@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Tue May 16 14:34:55 2017 Cédric THOMAS
-** Last update Fri May 19 13:44:21 2017 Cédric THOMAS
+** Last update Sat May 20 11:38:30 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <curses.h>
@@ -109,17 +109,23 @@ int		auto_complete(t_keypad *key)
   char		**files;
 
   if (key->line == NULL)
-    key->line = my_strdup("");
+    if ((key->line = my_strdup("")) == NULL)
+      exit(84);
+  if (key->mod)
+    return (complete_history(key));
   size = 0;
   files = NULL;
   search_all(key, &files, &size);
-  if (one_find(key, files, size) && files)
+  if (size == 1)
+    del_raw_line(key);
+  if (one_find(key, files, size) > 0 && files)
     {
       my_printf("\n");
       exec_complete(files, key);
+      print_line(key);
     }
+  if (size == 1)
+    print_raw_line(key);
   free_tab(files);
-  if (files)
-    print_line(key);
   return (0);
 }

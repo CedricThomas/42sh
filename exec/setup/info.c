@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Fri May 19 15:15:58 2017 Thibaut Cornolti
+** Last update Sat May 20 09:51:20 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -42,6 +42,8 @@ static int      setup_history(t_info *info)
     exit(84);
   memset(info->histo, 0, sizeof(t_history_info));
   load_history(info);
+  info->alias = 0;
+  info->var = 0;
   return (0);
 }
 
@@ -70,13 +72,13 @@ t_info		*get_info(char **env)
   get_builtins(my_info);
   if (setup_history(my_info) == -1)
     return (NULL);
-  my_info->alias = 0;
-  my_info->var = 0;
   return (my_info);
 }
 
 void		*free_info(t_info *info)
 {
+  my_free_history(&info->histo->start);
+  free(info->histo);
   free(info->pwd);
   free(info->old_pwd);
   free_tab(info->env);

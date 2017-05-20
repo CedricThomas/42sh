@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 22:15:37 2017
-** Last update Fri May 19 19:33:59 2017 maje
+** Last update Sat May 20 12:12:36 2017 maje
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -55,34 +55,6 @@ int		my_reset_term(t_keypad *keypad)
   return (0);
 }
 
-static void	fct_filler(t_keypad_fct *keys)
-{
-  keys[0].sequence = "\n";
-  keys[0].fct = &enter;
-  keys[3].sequence = "\004";
-  keys[3].fct = &end_of_file;
-  keys[1].sequence = tigetstr("kcub1");
-  keys[1].fct = &left_arrow;
-  keys[2].sequence = tigetstr("kcuf1");
-  keys[2].fct = &right_arrow;
-  keys[4].sequence = tigetstr("kbs");
-  keys[4].fct = &delete_char;
-  keys[5].sequence = tigetstr("kdch1");
-  keys[5].fct = &suppr_char;
-  keys[6].sequence = tigetstr("khome");
-  keys[6].fct = &go_start;
-  keys[7].sequence = tigetstr("kend");
-  keys[7].fct = &go_end;
-  keys[8].sequence = "\f";
-  keys[8].fct = &bind_clear;
-  keys[9].sequence = "\t";
-  keys[9].fct = &auto_complete;
-  keys[10].sequence = tigetstr("kcuu1");
-  keys[10].fct = &up_arrow;
-  keys[11].sequence = tigetstr("kcud1");
-  keys[11].fct = &down_arrow;
-}
-
 t_keypad	*init_keypad(struct s_system *sys)
 {
   int		i;
@@ -95,7 +67,7 @@ t_keypad	*init_keypad(struct s_system *sys)
   if (!isatty(0) || !getkey(sys->info->env, "TERM", 0))
     return (keypad);
   setupterm(NULL, 0, NULL);
-  fct_filler(keypad->keys);
+  sequencer(keypad->keys);
   i = -1;
   while (++i < KEY_LINKED)
     if (keypad->keys[i].sequence == (char *) -1)
@@ -106,6 +78,7 @@ t_keypad	*init_keypad(struct s_system *sys)
 
 void		*end_keypad(t_keypad *keypad)
 {
+  free(keypad->matched);
   free(keypad->line);
   free(keypad);
   return (NULL);

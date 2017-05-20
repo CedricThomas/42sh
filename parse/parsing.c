@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 19 14:30:17 2017 Cédric THOMAS
+** Last update Sat May 20 11:15:43 2017 Cédric THOMAS
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -46,7 +46,8 @@ t_syntax		*get_syntax()
   my_syntax[6] = syntax_create(T_FLUX_REDIR_IN, 2, "\\<\\<", "\\<");
   my_syntax[7] = syntax_create(T_COMMON, 1, "#");
   my_syntax[7].already[0] = ULIMT_MATCH;
-  my_syntax[8].values = NULL;
+  my_syntax[8] = syntax_create(T_BACKQUOTE, 1, "`");
+  my_syntax[9].values = NULL;
   return (my_syntax);
 }
 
@@ -74,7 +75,9 @@ t_node			*parse_cmd(t_syntax *my_syntax, char *str, t_info *info)
     return (NULL);
   tokens = globbing(tokens, my_syntax);
   tokens = get_alias(tokens, info, my_syntax);
+  
   inib_token(tokens);
+  do_backquote(&tokens);
   if ((root = auto_create_node(NULL, tokens, NULL)) == NULL)
     {
       info->exit_value = 1;

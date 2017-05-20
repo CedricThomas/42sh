@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Fri May 19 12:58:45 2017 Bastien
+** Last update Sat May 20 11:34:52 2017 Bastien
 */
 
 #include <unistd.h>
@@ -16,15 +16,22 @@
 #include "my_alloc.h"
 #include "my.h"
 
-static int	error_var(char *str)
+static int	error_var(char **str, t_info *info)
 {
   int	i;
+  char	*temp;
 
-  i = my_cstrlen(str, '$');
-  while (str && ((str[++i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')))
-    write(1, &str[i], 1);
-  printf(": Undefined variable.\n");
-  return (1);
+  i = my_cstrlen(*str, '$');
+  if (!(temp = getkey(info->env, *str + i + 1, 1)))
+    {
+      while (*str && (((*str)[++i] >= 'A' && (*str)[i] <= 'Z') || ((*str)[i] >= 'a' && (*str)[i] <= 'z')))
+	write(1, (*str) + i, 1);
+      printf(": Undefined variable.\n");
+      return (1);
+    }
+  my_vfree((void **)(str), NULL);
+  *str = temp;
+  return (0);
 }
 
 static int	swap_var(t_info *info, t_command *cmd, int pos, int i)
@@ -57,12 +64,14 @@ static int	verify_var(t_info *info, t_command *cmd, int pos)
   if (info->var)
     {
       len = my_cstrlen(cmd->argv[pos], '$');
+      if (!cmd->argv[pos][len + 1])
+	return (0);
       i = my_vartablen(info->var);
       while (--i >= 0)
 	if (!strcmp(cmd->argv[pos] + len + 1, info->var[i].name))
 	  return (swap_var(info, cmd, pos, i));
     }
-  return (error_var(cmd->argv[pos]));
+  return (error_var(&cmd->argv[pos], info));
 }
 
 static int	check_var(t_command *cmd, t_info *info)

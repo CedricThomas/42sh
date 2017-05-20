@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May 16 12:51:32 2017 Cédric THOMAS
-** Last update Tue May 16 15:32:01 2017 Cédric THOMAS
+** Last update Sat May 20 00:48:44 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <termio.h>
@@ -45,5 +45,23 @@ int	go_end(t_keypad *keypad)
 	  keypad->index += 1;
 	}
     }
+  return (0);
+}
+
+int	switch_mod(t_keypad *key)
+{
+  del_raw_line(key);
+  if (key->mod)
+    {
+      free(key->matched);
+      key->matched = NULL;
+      key->mod = 0;
+    }
+  else
+    {
+      key->mod = 1;
+      search_matched(key);
+    }
+  print_raw_line(key);
   return (0);
 }

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat Apr 22 11:50:50 2017 
-** Last update Fri May 19 10:41:17 2017 Cédric THOMAS
+** Last update Sat May 20 01:29:08 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <unistd.h>
@@ -67,55 +67,61 @@ char		*insert_str(char *s1, char *s2, int pos, int mod)
 
 void		del_raw_line(t_keypad *pad)
 {
-  int		len;
+  int		i;  
+  int		len1;
+  int		len2;
   char		*seq;
 
+  len1 = 0;
+  len2 = 0;
   if (pad->line)
-    {
-      if ((seq = tigetstr("cub1")) == (char *) -1)
-	return ;
-      len = -1;
-      while (++len < pad->index)
-    	my_printf(seq);
-      len = my_strlen(pad->line) + 1;
-      while (--len > 0)
-    	my_printf(" ");
-      len = my_strlen(pad->line) + 1;
-      while (--len > 0)
-    	my_printf(seq);
-    }
+    len1 = my_strlen(pad->line);
+  if (pad->mod && pad->matched)
+    len2 = my_strlen(pad->matched);
+  if ((seq = tigetstr("cub1")) == (char *) -1)
+    return ;
+  i = -1;
+  while (++i < pad->index)
+    my_printf(seq);
+  i = -1;
+  while (++i < len1 + len2)
+    my_printf(" ");
+  i = -1;
+  while (++i < len1 + len2)
+    my_printf(seq);
 }
 
 void		print_raw_line(t_keypad *pad)
 {
-  int		len;
+  int		i;
+  int		len1;
+  int		len2;
   char		*seq;
 
+  len1 = 0;
+  len2 = 0;
+  if (pad->mod)
+    search_matched(pad);
   if (pad->line)
     {
-      my_printf(pad->line);
-      if ((seq = tigetstr("cub1")) == (char *) -1)
-  	return ;
-      len = my_strlen(pad->line) + 1;
-      while (--len > pad->index)
-    	my_printf(seq);
+      my_printf("%s", pad->line);
+      len1 = my_strlen(pad->line);
     }
+  if (pad->mod && pad->matched)
+    {
+      my_printf("\033[31;01m%s\033[00m", pad->matched);
+      len2 = my_strlen(pad->matched);
+    }
+  if ((seq = tigetstr("cub1")) == (char *) -1)
+    return ;
+  i = -1;
+  while (++i < (len1 + len2 - pad->index))
+    my_printf(seq);
 }
 
 void		print_line(t_keypad *pad)
 {
-  int		len;
-  char		*seq;
-
   if (isatty(0))
     print_prompt(pad->sys->info);
-  if (pad->line)
-    {
-      my_printf(pad->line);
-      if ((seq = tigetstr("cub1")) == (char *) -1)
-  	return ;
-      len = my_strlen(pad->line) + 1;
-      while (--len > pad->index)
-    	my_printf(seq);
-    }
+  print_raw_line(pad);
 }

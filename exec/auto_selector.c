@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Mar 28 22:36:31 2017 
-** Last update Fri May 19 09:33:55 2017 Thibaut Cornolti
+** Last update Sat May 20 12:08:51 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -25,6 +25,8 @@ static void	get_fct(t_exec_fct parse[TREE_TYPES])
   parse[4].fct = &exec_logic;
   parse[5].type = T_JOB;
   parse[5].fct = &exec_job;
+  parse[6].type = T_BACKQUOTE;
+  parse[6].fct = NULL;
 }
 
 int		auto_select(t_node *root, t_status *status, t_info *info)
