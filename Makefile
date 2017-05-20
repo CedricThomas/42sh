@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Sat May 20 15:06:33 2017 Cédric THOMAS
+## Last update Sat May 20 16:02:16 2017 Cédric THOMAS
 ##
 
 EXEC		=	auto_selector.c			\
@@ -43,6 +43,7 @@ EXEC		=	auto_selector.c			\
 			setup/info.c			\
 			setup/get_alias.c		\
 			setup/get_var.c			\
+			setup/qmark_var.c		\
 			setup/glob.c			\
 			env/env.c			\
 			env/key.c			\
