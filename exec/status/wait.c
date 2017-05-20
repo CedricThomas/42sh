@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Sat May 20 11:17:29 2017 Thibaut Cornolti
+** Last update Sat May 20 11:33:43 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -81,9 +81,9 @@ void		print_wait_job(t_status *status)
 	  if (last != job->number)
 	    {
 	      if (exit->exit)
-		my_printf("[%d]    Exit %d\n", job->number, exit->exit % 255);
+		printf("[%d]    Exit %d\n", job->number, exit->exit % 255);
 	      else
-		my_printf("[%d]    Done\n", job->number);
+		printf("[%d]    Done\n", job->number);
 	      last = job->number;
 	    }
 	  job->status = JOB_TERMINATED;
