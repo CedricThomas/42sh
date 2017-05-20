@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Sat May 20 20:05:28 2017 Thibaut Cornolti
+** Last update Sat May 20 21:06:02 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -65,27 +65,26 @@ static void		cut_comment(char *str)
 }
 
 t_node			*parse_cmd(t_syntax *my_syntax, char *str,
-				   t_info *info)
-
+				   t_system *sys)
 {
   t_token		*tokens;
   void			*root;
 
   cut_comment(str);
-  if ((tokens = get_token(str, my_syntax, info)) == NULL)
+  if ((tokens = get_token(str, my_syntax, sys->info, 1)) == NULL)
     return (NULL);
   tokens = globbing(tokens, my_syntax);
-  tokens = get_alias(tokens, info, my_syntax);
-  inib_token(tokens);
-  if ((do_backquote(&tokens)) == 1)
+  tokens = get_alias(tokens, sys->info, my_syntax);
+  if ((do_backquote(&tokens, sys)) == 1)
     {
-      my_puterror("Recursive backquote forbidden!\n");
-      info->exit_value = 1;
+      my_puterror("Backquote error!\n");
+      sys->info->exit_value = 1;
       return (NULL);
     }
+  inib_token(tokens);
   if ((root = auto_create_node(NULL, tokens, NULL)) == NULL)
     {
-      info->exit_value = 1;
+      sys->info->exit_value = 1;
       my_free_tree(&root);
     }
   my_free_token(&tokens);

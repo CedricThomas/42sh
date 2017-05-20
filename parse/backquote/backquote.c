@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 **
 ** Started on  Fri May 19 16:52:18 2017 Thibaut Cornolti
-** Last update Sat May 20 13:00:17 2017 Thibaut Cornolti
+** Last update Sat May 20 21:02:38 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -55,7 +55,7 @@ static void	insert_tokens(t_token *start, t_token *end, t_token *new)
     }
 }
 
-static t_token	*exec_backquote(t_token *token)
+static t_token	*exec_backquote(t_token *token, t_system *sys)
 {
   char		*command;
   t_token	*ret;
@@ -69,11 +69,11 @@ static t_token	*exec_backquote(t_token *token)
       token = token->next;
     }
   my_free_token(&token);
-  ret = get_system(command);
+  ret = get_system(command, sys);
   return (ret);
 }
 
-int		do_backquote(t_token **token)
+int		do_backquote(t_token **token, t_system *sys)
 {
   t_token	*new;
   t_token	*start;
@@ -88,12 +88,13 @@ int		do_backquote(t_token **token)
 	{
 	  start->next->prev = NULL;
 	  end->prev->next = NULL;
-	  if ((new = exec_backquote(start->next)) == NULL)
+	  if ((new = exec_backquote(start->next, sys)) == NULL)
 	    return (1);
+	  redef_token(new);
 	  insert_tokens(start, end, new);
 	  my_del_list_token(token, end);
 	  my_del_list_token(token, start);
-	  redef_token(*token);
+	  redef_all(*token);
 	}
     }
   return (0);

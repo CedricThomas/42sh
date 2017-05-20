@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Sat May 20 15:39:02 2017 Thibaut Cornolti
-** Last update Sat May 20 20:18:41 2017 Thibaut Cornolti
+** Last update Sat May 20 20:44:44 2017 Cédric THOMAS
 */
 #include <termio.h>
 #include <stdlib.h>
@@ -40,7 +40,7 @@ char		*history_fct_dollar(char *src, int *idx,
     return (NULL);
   sys = getter_system(NULL);
   cmd = my_strdup(history->end->cmd);
-  if ((token = get_token(cmd, sys->syntax, NULL)) == NULL)
+  if ((token = get_token(cmd, sys->syntax, NULL, 1)) == NULL)
     return (NULL);
   while (token->next)
     token = token->next;
@@ -66,7 +66,7 @@ char		*history_fct_colon(char *src, int *idx,
   nbr = atoi(src + *idx + 2);
   sys = getter_system(NULL);
   cmd = my_strdup(history->end->cmd);
-  if ((token = get_token(cmd, sys->syntax, NULL)) == NULL)
+  if ((token = get_token(cmd, sys->syntax, NULL, 1)) == NULL)
     return (NULL);
   while (token->next && nbr-- > 0)
     token = token->next;

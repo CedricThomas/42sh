@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu May 18 19:13:06 2017 Cédric THOMAS
-** Last update Sat May 20 18:26:59 2017 Cédric THOMAS
+** Last update Sat May 20 19:20:33 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <termio.h>
@@ -18,10 +18,10 @@
 #include "my.h"
 #include "my_printf.h"
 
-static void	change_born(t_keypad *key, time_t my_time,
+static void	change_born(char *line, time_t my_time,
 			    t_info *info, int idx)
 {
-  while (info->histo->len > 200)
+  while (info->histo->len > HIST_SIZE)
     {
       my_del_list_history(&info->histo->start, info->histo->start);
       info->histo->len -= 1;
@@ -29,30 +29,28 @@ static void	change_born(t_keypad *key, time_t my_time,
   info->histo->len += 1;
   if (info->histo->start == NULL)
     {
-      my_put_list_history(&info->histo->start, key->line,
+      my_put_list_history(&info->histo->start, line,
 			  (long) my_time, idx);
       info->histo->end = info->histo->start;
     }
   else
     {
       idx = info->histo->end->index + 1;
-      my_put_list_history(&info->histo->end, key->line,
+      my_put_list_history(&info->histo->end, line,
 			  (long) my_time, idx);
       info->histo->end = info->histo->end->next;
     }
 }
 
-void			new_line_history(t_keypad *key)
+void			new_line_history(char *line, t_info *info)
 {
   t_history_info	*hist;
   time_t		my_time;
-  t_info		*info;
   int			idx;
 
-  if (!key->line || !key->line[0])
+  if (!line || !line[0])
     return ;
   idx = 1;
-  info = key->sys->info;
   hist = info->histo;
   if ((time(&my_time)) < 0)
     my_time = 0;
@@ -62,7 +60,7 @@ void			new_line_history(t_keypad *key)
       hist->end = hist->end->prev;
       my_del_list_history(&hist->end, hist->end->next);
     }
-  change_born(key, my_time, info, idx);
+  change_born(line, my_time, info, idx);
 }
 
 static void	switch_line(t_history_info *hist, t_keypad *key)
@@ -106,7 +104,7 @@ int			up_arrow(t_keypad *key)
   if (hist->current == NULL)
     {
       hist->current = hist->end;
-      new_line_history(key);
+      new_line_history(key->line, info);
       if (info->histo->end && key->line && key->line[0])
 	info->histo->end->status = 1;
     }

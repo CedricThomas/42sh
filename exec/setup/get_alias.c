@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Fri May 12 15:28:34 2017 Bastien
-** Last update Sat May 20 20:21:01 2017 Thibaut Cornolti
+** Last update Sat May 20 21:07:22 2017 Thibaut Cornolti
 */
 
 #include <stdio.h>
@@ -41,8 +41,8 @@ static int	verify_cmd(t_token **save, t_token *token,
   while (info->alias[++i].link)
     if (!strcmp(info->alias[i].link, token->token)
 	&& !info->alias[i].loop && !token->used)
-      {
-	new = get_token(strdup(info->alias[i].value), syntax, NULL);
+      {	
+	new = get_token(strdup(info->alias[i].value), syntax, NULL, 1);
 	set_new_token(token, save, new);
 	if (!strcmp(info->alias[i].link, new->token))
 	  new->used = 1;

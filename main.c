@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Sat May 20 19:50:43 2017 Thibaut Cornolti
+** Last update Sat May 20 21:06:26 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -53,7 +53,7 @@ int		my_system(char *command, t_system *system)
 {
   void		*root;
 
-  if ((root = parse_cmd(system->syntax, command, system->info)))
+  if ((root = parse_cmd(system->syntax, command, system)))
     {
       auto_select(root, system->status, system->info);
       my_free_tree(&root);
@@ -69,6 +69,13 @@ int		my_system(char *command, t_system *system)
   return (system->info->exit_value);
 }
 
+int		my_histo_system(char *command, t_system *system)
+{
+  command = change_hist(command, system->info);
+  new_line_history(command, system->info);
+  return (my_system(command, system));
+}
+
 int		main(int ac, char **av, char **env)
 {
   t_system	system;
@@ -80,14 +87,14 @@ int		main(int ac, char **av, char **env)
   system.status = &status;
   if (setup_sh(&(system), env))
     return (84);
-  load_rc(system.status, system.info, system.syntax);
+  load_rc(system.status, &system, system.syntax);
   if (isatty(0))
     print_prompt(system.info);
   my_set_term(system.keypad);
   while (!system.status->exit && (cmd = get_next_cmd(system.keypad)))
     {
       my_reset_term(system.keypad);
-      my_system(cmd, &system);
+      my_histo_system(cmd, &system);
       if (!system.status->exit && isatty(0) && cmd)
 	print_prompt(system.info);
       my_set_term(system.keypad);

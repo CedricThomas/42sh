@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Sat May 20 14:11:15 2017 Thibaut Cornolti
+** Last update Sat May 20 20:26:23 2017 Cédric THOMAS
 */
 
 #ifndef SYNTAX_H_
@@ -42,7 +42,8 @@
 # define STDERROR	(1 << 2)
 # define STDIN		(1 << 3)
 
-typedef struct	s_info	t_info;
+typedef struct	s_info		t_info;
+typedef struct	s_system	t_system;
 
 typedef struct		s_redir
 {
@@ -108,7 +109,7 @@ typedef struct		s_field
 /*
 **MAIN
 */
-t_node		*parse_cmd(t_syntax *my_syntax, char *str, t_info *info);
+t_node		*parse_cmd(t_syntax *my_syntax, char *str, t_system *sys);
 void		free_syntax(t_syntax **my_syntax);
 t_syntax	*get_syntax();
 
@@ -159,7 +160,7 @@ char	*dequotificator(char *str);
 **LEXER
 */
 
-t_token		*get_token(char *str, t_syntax *my_syntax, t_info *info);
+t_token		*get_token(char *str, t_syntax *my_syntax, t_info *info, int shape);
 
 /*
 **list.c
