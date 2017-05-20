@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 21:06:35 2017 
-** Last update Thu May 18 19:43:59 2017 Thibaut Cornolti
+** Last update Sat May 20 12:45:39 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -28,7 +28,7 @@ static int	select_wait(t_status *status, int pid)
   return (0);
 }
 
-static void	reset_sig()
+void		reset_sig()
 {
   const int	sig[5] = {SIGINT, SIGQUIT, SIGTSTP, SIGTTIN, SIGTTOU};
   int		i;

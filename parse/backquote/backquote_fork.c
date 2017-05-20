@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Fri May 19 18:17:46 2017 Thibaut Cornolti
-** Last update Sat May 20 11:20:33 2017 Thibaut Cornolti
+** Last update Sat May 20 13:33:53 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -20,19 +20,22 @@
 static char	*read_son(int fd, int pid, t_system *system)
 {
   char		*res;
+  int		size;
   char		buf[PIPE_BUF + 1];
   int		readed;
   int		status;
 
   res = NULL;
+  size = 0;
   while (waitpid(pid, &status, WNOHANG) <= 0)
     {
       if ((readed = read(fd, buf, PIPE_BUF)) == -1)
 	return (NULL);
+      size += readed;
       buf[readed] = 0;
-      if ((res = my_strcatdup(res, buf, 1)) == NULL)
+      if ((res = realloc(res, size + 1)) == NULL)
 	exit(84);
-      usleep(100);
+      my_strcpy(res + size - readed, buf);
     }
   system->info->exit_value_backquote = status;
   if ((res = replace_unquoted_str(res, "\n", " ", "")) == NULL)
@@ -59,25 +62,26 @@ t_token		*get_system(char *cmd)
   char		*line;
   int		pipefd[2];
   int		pid;
-  t_system	*system;
+  t_system	*sys;
 
   if (pipe(pipefd) < 0)
     {
       my_puterror("Can't make pipe.");
       return (NULL);
     }
-  system = getter_system(NULL);
+  sys = getter_system(NULL);
   if ((pid = fork()) == -1)
     return (NULL);
   else if (pid)
     close(pipefd[1]);
   else
     {
+      signal(SIGINT, SIG_DFL);
       dup2(pipefd[1], 1);
       close(pipefd[0]);
-      my_system(cmd, system);
-      exit(system->info->exit_value);
+      my_system(cmd, sys);
+      exit(sys->info->exit_value);
     }
-  line = read_son(pipefd[0], pid, system);
-  return (get_token(line, system->syntax, NULL));
+  line = read_son(pipefd[0], pid, sys);
+  return (get_token(line, sys->syntax, NULL));
 }
