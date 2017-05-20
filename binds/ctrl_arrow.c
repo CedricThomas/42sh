@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Fri May 19 22:19:27 2017 Thibaut Cornolti
-** Last update Sat May 20 11:08:48 2017 Thibaut Cornolti
+** Last update Sat May 20 11:09:58 2017 Thibaut Cornolti
 */
 
 #include <curses.h>

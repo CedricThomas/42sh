@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Mon May 15 18:30:26 2017 Cédric THOMAS
-** Last update Fri May 19 22:54:51 2017 Cédric THOMAS
+** Last update Sat May 20 08:58:00 2017 Cédric THOMAS
 */
 
 #include <math.h>
@@ -93,8 +93,8 @@ void		*auto_create_node(void *root, t_token *start, t_token *end)
   void		*ret;
   t_field	field;
   t_token	*bigger;
-  void		*(*fct_create_node[FULL_MAX_TYPES])(t_field *field, t_token *mid);
-  int		(*fct_check_error[FULL_MAX_TYPES])(t_field *field, t_token *mid);
+  void		*(*fct_create_node[FULL_MAX_TYPES])(t_field *, t_token *);
+  int		(*fct_check_error[FULL_MAX_TYPES])(t_field *, t_token *);
 
   if (start == end)
     return (NULL);
