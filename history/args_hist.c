@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 13:43:45 2017 Cédric THOMAS
-** Last update Sat May 20 16:19:13 2017 Cédric THOMAS
+** Last update Sat May 20 16:43:33 2017 Cédric THOMAS
 */
 
 #include <stdio.h>
@@ -52,6 +52,7 @@ int	get_index(char *cmd)
 
 char	*change_hist(char *cmd, t_info *info)
 {
+  int	stop;
   char	*flag[6];
   char	*(*fct[6])(char *, int, t_history_info *);
   int	index;
@@ -60,12 +61,13 @@ char	*change_hist(char *cmd, t_info *info)
   fill_fct(flag, fct);
   while ((index = get_index(cmd)) > 0)
     {
+      stop = 0;
       i = -1;
-      while (flag[++i])
+      while (flag[++i] && !stop)
 	if (advanced_match(cmd + index, flag[i]))
 	  {
+	    stop = 1;
 	    cmd = fct[i](cmd, index, info->histo);
-	    //	    printf("%s\n", cmd);
 	  }
     }
   return (cmd);
