@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Fri May 19 18:17:46 2017 Thibaut Cornolti
-** Last update Sat May 20 13:53:26 2017 Thibaut Cornolti
+** Last update Sat May 20 20:40:45 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -43,6 +43,27 @@ static char	*read_son(int fd, int pid, t_system *system)
   return (res);
 }
 
+void		redef_all(t_token *token)
+{
+  int		is_arg;
+
+  is_arg = 0;
+  while (token)
+    {
+      if (token->type >= T_FLUX ||
+	  (token->type & (T_JOB | T_BACKQUOTE)))
+	is_arg = 0;
+      if (!is_arg && (token->type & T_COMMON))
+	{
+	  token->type = T_COMMAND;
+	  is_arg = 1;
+	}
+      else if (is_arg && (token->type & T_COMMON))
+	token->type = T_ARGS;
+      token = token->next;
+    }
+}
+
 void		redef_token(t_token *token)
 {
   t_token	*tmp;
@@ -50,26 +71,22 @@ void		redef_token(t_token *token)
   tmp = token;
   while (tmp)
     {
-      if (tmp->type & T_COMMON)
-	tmp->type = T_COMMON;
+      tmp->type = T_ARGS;
       tmp = tmp->next;
     }
-  shape_token(token);
 }
 
-t_token		*get_system(char *cmd)
+t_token		*get_system(char *cmd, t_system *sys)
 {
   char		*line;
   int		pipefd[2];
   int		pid;
-  t_system	*sys;
 
   if (pipe(pipefd) < 0)
     {
       my_puterror("Can't make pipe.");
       return (NULL);
     }
-  sys = getter_system(NULL);
   signal(SIGINT, SIG_IGN);
   if ((pid = fork()) == -1)
     return (NULL);
@@ -85,5 +102,5 @@ t_token		*get_system(char *cmd)
     }
   line = read_son(pipefd[0], pid, sys);
   signal(SIGINT, &signal_sigint);
-  return (get_token(line, sys->syntax, NULL));
+  return (get_token(line, sys->syntax, sys->info, 0));
 }

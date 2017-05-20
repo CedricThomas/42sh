@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 22:10:45 2017
-** Last update Fri May 19 20:43:48 2017 Thibaut Cornolti
+** Last update Sat May 20 20:25:54 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -88,7 +88,7 @@ static char	*next_token(int *type, char *str, t_syntax *my_syntax)
   return (token);
 }
 
-t_token		*get_token(char *str, t_syntax *my_syntax, t_info *info)
+t_token		*get_token(char *str, t_syntax *my_syntax, t_info *info, int shape)
 {
   int		type;
   char		*current;
@@ -109,7 +109,8 @@ t_token		*get_token(char *str, t_syntax *my_syntax, t_info *info)
 	return (NULL);
     }
   next_token(NULL, NULL, NULL);
-  shape_token(token);
+  if (shape)
+    shape_token(token);
   free(str);
   return (token);
 }
