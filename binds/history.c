@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu May 18 19:13:06 2017 Cédric THOMAS
-** Last update Fri May 19 22:48:18 2017 Cédric THOMAS
+** Last update Sat May 20 13:12:28 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <termio.h>
