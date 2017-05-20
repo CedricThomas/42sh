@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 13:43:45 2017 Cédric THOMAS
-** Last update Sat May 20 16:07:17 2017 Cédric THOMAS
+** Last update Sat May 20 16:19:13 2017 Cédric THOMAS
 */
 
 #include <stdio.h>
@@ -18,7 +18,7 @@ static void	fill_fct(char *pattern[6],
 			 char *(*fct[6])(char *, int, t_history_info *))
 {
   fct[0] = history_fct_exclam;
-  fct[1] = history_fct_doller;
+  fct[1] = history_fct_dollar;
   fct[2] = history_fct_colon;
   fct[3] = history_fct_dash;
   fct[4] = history_fct_number;
@@ -58,12 +58,15 @@ char	*change_hist(char *cmd, t_info *info)
   int	i;
 
   fill_fct(flag, fct);
-  while ((index = get_index(cmd)) < 0)
+  while ((index = get_index(cmd)) > 0)
     {
       i = -1;
       while (flag[++i])
-	if (advanced_match(flag[i] + index, cmd))
-	  cmd = fct[i](cmd, index, info->histo);
+	if (advanced_match(cmd + index, flag[i]))
+	  {
+	    cmd = fct[i](cmd, index, info->histo);
+	    //	    printf("%s\n", cmd);
+	  }
     }
   return (cmd);
 }
