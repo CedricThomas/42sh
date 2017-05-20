@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Sat May 20 15:39:02 2017 Thibaut Cornolti
-** Last update Sat May 20 18:10:01 2017 Thibaut Cornolti
+** Last update Sat May 20 18:23:28 2017 Thibaut Cornolti
 */
 
 #include <termio.h>
@@ -17,7 +17,8 @@
 #include "my.h"
 #include "get_next_command.h"
 
-char		*history_fct_exclam(char *src, int *idx, t_history_info *history)
+char		*history_fct_exclam(char *src, int *idx,
+				    t_info *info, t_history_info *history)
 {
   if (history->end == NULL || history->end->cmd == NULL)
     return (NULL);
@@ -29,16 +30,23 @@ char		*history_fct_exclam(char *src, int *idx, t_history_info *history)
   return (src);
 }
 
-char		*history_fct_dollar(char *src, int *idx, t_history_info *history)
+char		*history_fct_dollar(char *src, int *idx,
+				    t_info *info, t_history_info *history)
 {
-  
+  t_token	*token;
+
+  if (history->end == NULL || history->end->cmd == NULL)
+    return (NULL);
+  /* if ((token = get_token(history)) == NULL) */
+  /*   return (NULL); */
   if (delete_nbchar(src, 1, *idx) == NULL ||
       insert_str(src, history->end->cmd, *idx, 0) == NULL)
     exit(84);  
   return (src);
 }
 
-char		*history_fct_colon(char *src, int *idx, t_history_info *history)
+char		*history_fct_colon(char *src, int *idx,
+				   t_info *info, t_history_info *history)
 {
   if (delete_nbchar(src, 1, *idx) == NULL ||
       insert_str(src, history->end->cmd, *idx, 0) == NULL)
@@ -46,7 +54,8 @@ char		*history_fct_colon(char *src, int *idx, t_history_info *history)
   return (src);
 }
 
-char		*history_fct_dash(char *src, int *idx, t_history_info *history)
+char		*history_fct_dash(char *src, int *idx,
+				  t_info *info, t_history_info *history)
 {
   t_history	*hist;
   int		nbr;
@@ -75,7 +84,8 @@ char		*history_fct_dash(char *src, int *idx, t_history_info *history)
   return (src);
 }
 
-char		*history_fct_number(char *src, int *idx, t_history_info *history)
+char		*history_fct_number(char *src, int *idx,
+				    t_info *info, t_history_info *history)
 {
   t_history	*hist;
   int		nbr;

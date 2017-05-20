@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 13:43:45 2017 Cédric THOMAS
-** Last update Sat May 20 18:19:30 2017 Cédric THOMAS
+** Last update Sat May 20 18:22:33 2017 Thibaut Cornolti
 */
 
 #include <termio.h>
@@ -82,7 +82,7 @@ char	*change_hist(char *cmd, t_info *info)
 	if (advanced_match(cmd + index + 1, flag[i]))
 	  {
 	    stop = 1;
-	    if ((cmd = fct[i](cmd, &index, info->histo)) == NULL)
+	    if ((cmd = fct[i](cmd, &index, info, info->histo)) == NULL)
 	      return (NULL);
 	  }
     }
