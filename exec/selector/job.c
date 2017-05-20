@@ -5,10 +5,11 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 20:54:17 2017 Thibaut Cornolti
-** Last update Fri May 19 09:23:08 2017 Thibaut Cornolti
+** Last update Sat May 20 12:02:52 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
+#include <stdio.h>
 #include <signal.h>
 #include "syntax.h"
 #include "exec.h"
@@ -29,35 +30,24 @@ static void	show_process(t_status *status)
 	{
 	  if (last != job->number)
 	    {
-	      my_printf((last) ? "\n[%d]" : "[%d]", job->number);
+	      printf((last) ? "\n[%d]" : "[%d]", job->number);
 	      last = job->number;
 	    }
-	  my_printf(" %d", job->pid);
+	  printf(" %d", job->pid);
 	  job->status = JOB_BACKGROUND;
 	}
       exit = exit->next;
     }
-  my_printf("\n");
+  printf("\n");
 }
 
 int		exec_job(t_node *root, t_status *status, t_info *info)
 {
-  int		first;
-
-  first = 0;
-  /* if ((status->status & JOBLINE) != JOBLINE) */
-  /*   { */
-  /*     first = 1; */
-  /*     status->status |= JOBLINE; */
-  /*     auto_wait(status, info); */
-  /*   } */
   status->status |= JOB;
   status->job_nbr = get_free_job(status->exit_list);
   auto_select(root->left, status, info);
   show_process(status);
   status->status -= JOB;
   auto_select(root->right, status, info);
-  if (first)
-    status->status -= JOBLINE;
   return (0);
 }

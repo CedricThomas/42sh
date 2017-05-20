@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Fri May 19 10:03:00 2017 Thibaut Cornolti
+** Last update Sat May 20 12:05:03 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -40,11 +40,13 @@ void		builtin_jobs(t_command *cmd, t_status *status, t_info *info)
   int		last_nbr;
   int		argc;
 
-  UNUSED(info);
   argc = -1;
   while (cmd->argv[++argc]);
   if (argc != 1 && !(argc == 2 && !strcmp(cmd->argv[1], "-l")))
-    my_puterror("Usage: jobs [ -l ].\n");
+    {
+      my_puterror("Usage: jobs [ -l ].\n");
+      info->exit_value = 1;
+    }
   exit = status->exit_list;
   auto_wait(status, info);
   last_nbr = 0;
@@ -57,4 +59,5 @@ void		builtin_jobs(t_command *cmd, t_status *status, t_info *info)
       last_nbr = job->number;
       exit = exit->next;
     }
+  info->exit_value = 0;
 }
