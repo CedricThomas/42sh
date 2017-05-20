@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Fri May 19 22:19:27 2017 Thibaut Cornolti
-** Last update Sat May 20 00:52:29 2017 Thibaut Cornolti
+** Last update Sat May 20 11:08:48 2017 Thibaut Cornolti
 */
 
 #include <curses.h>
@@ -18,22 +18,56 @@
 #include "my.h"
 #include "my_printf.h"
 
-static int	get_shift(t_keypad *keypad, int sense)
+static int	get_shift_left(t_keypad *keypad)
 {
   int		i;
   int		shift;
+  int		state;
 
   i = keypad->index;
   shift = 0;
-  if (!keypad->line || (!keypad->line[i] && sense))
+  if (!keypad->line || i == 0)
     return (0);
-  if (sense)
-    while (keypad->line[++i] && keypad->line[i] != ' ')
-      shift += 1;
-  else
-    while (--i && keypad->line[i] && keypad->line[i] != ' ')
-      shift += 1;
-  return (shift + 1);
+  state = 0;
+  while (state != 2 && i > 0)
+    {
+      if (keypad->line[i] == ' ' && state == 0 && shift)
+	state = 1;
+      else if (keypad->line[i] != ' ' && state == 1)
+	state = 2;
+      else
+	{
+	  i -= 1;
+	  shift += 1;
+	}
+    }
+  return (shift - (i != 0));
+}
+
+static int	get_shift_right(t_keypad *keypad)
+{
+  int		i;
+  int		shift;
+  int		state;
+
+  i = keypad->index;
+  shift = 0;
+  if (!keypad->line || !keypad->line[i])
+    return (0);
+  state = 0;
+  while (state != 2 && keypad->line[i])
+    {
+      if (keypad->line[i] == ' ' && state == 0 && shift)
+	state = 1;
+      else if (keypad->line[i] != ' ' && state == 1)
+	state = 2;
+      else
+	{
+	  i += 1;
+	  shift += 1;
+	}
+    }
+  return (shift);
 }
 
 int		ctrl_left_arrow(t_keypad *keypad)
@@ -41,11 +75,11 @@ int		ctrl_left_arrow(t_keypad *keypad)
   char		*seq;
   int		shift;
 
-  if ((seq = tigetstr("cub1")) == (char *)-1)
-    return (0);
-  shift = get_shift(keypad, 0);
-  if (keypad->index > 0)
+  if (keypad->line && keypad->index > 0)
     {
+      shift = get_shift_left(keypad);
+      if ((seq = tigetstr("cub1")) == (char *)-1)
+	return (0);
       keypad->index -= shift;
       while (shift-- > 0)
 	my_printf(seq);
@@ -58,11 +92,11 @@ int		ctrl_right_arrow(t_keypad *keypad)
   char		*seq;
   int		shift;
 
-  if ((seq = tigetstr("cuf1")) == (char *)-1)
-    return (0);
-  shift = get_shift(keypad, 1);
-  if (keypad->index < my_strlen(keypad->line))
+  if (keypad->line && keypad->index < my_strlen(keypad->line))
     {
+      shift = get_shift_right(keypad);
+      if ((seq = tigetstr("cuf1")) == (char *)-1)
+	return (0);
       keypad->index += shift;
       while (shift-- > 0)
 	my_printf(seq);
