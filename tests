@@ -32,7 +32,7 @@ TESTS=
 [904-END]
 
 [905]
-NAME="run commands"
+NAME="Run commands"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -40,11 +40,11 @@ TESTS=
   sleep 0.5
   echo 'ls -l /bin'
   sleep 0.5
-1;2802;0c  echo 'pwd'
+  echo 'pwd'
 [905-END]
 
 [906]
-NAME="setenv and unsetenv"
+NAME="Builtin setenv and unsetenv"
 SETUP="/usr/bin/env > .lstenv ; while read varenv ; do unset $varenv ; done < <(/bin/cat .lstenv | /usr/bin/cut -f1 -d=) ; export PATH=/bin:/usr/bin ; export _=ls ; export LS_COLORS=RID ; export MYBG=4 ; export LVL=4 ; export NOTE=2"
 CLEAN="while read varenv ; do export "$varenv" 2>/dev/null ; done  < <(/bin/cat .lstenv) ; /bin/rm -f .lstenv"
 TESTS=
@@ -71,7 +71,7 @@ TESTS=
 [906-END]
 
 [907]
-NAME="builtin cd"
+NAME="Builtin cd"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -121,53 +121,247 @@ TESTS=
   echo 'setenv | /bin/grep VAR1'
   echo '/bin/ls | cd /usr'
   echo 'ls -l'
-  echo 'exit 45|cat /etc/resolv.conf'
+  echo 'exit 45 | cat /etc/resolv.conf'
 [912-END]
 
 [913]
-NAME="Test pipe close"
+NAME="Exiting too soon ?"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-  echo "man pipe | cat -e | grep oui ; echo yo"
+  echo 'exit 45 ; ls'
 [913-END]
 
 [914]
-NAME="Test pipe and redirection hard"
+NAME="Catching mid-pipeline segmentation fault"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-  echo "cat < /etc/network/interfaces | cat -e > yo ; cat yo ; rm yo"
+  echo 'ls'
 [914-END]
 
 [915]
-NAME="Test pipe and redirection simple"
+NAME="Simple right redirection"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-  echo "cat < /etc/network/interfaces | cat -e"
+  echo 'ls > list1.txt'
 [915-END]
 
 [916]
-NAME="Test multiple redirection"
+NAME="Simple left redirection"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
-CLEAN=""
+CLEAN="/bin/rm -f list1.txt"
 TESTS=
-  echo "cat < /etc/network/interfaces > oui ; cat oui ; rm oui"
+  echo 'cat < list1.txt'
 [916-END]
 
 [917]
-NAME="Easy shit pipe"
+NAME="Double right redirection"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
-CLEAN=""
+CLEAN="/bin/rm -f list2.txt"
 TESTS=
-  echo "cat /etc/network/interfaces | cat | cat -e"
+  echo 'ls >> list2.txt'
 [917-END]
 
 [918]
-NAME="File not found"
+NAME="Open file with cat left redirection"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-  echo "cat < lolzmdr | cat -e > AH ; cat AH ; rm AH"
+  echo 'cat < Makefile'
 [918-END]
+
+[919]
+NAME="Two output redirection"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN="/bin/rm -f list5.txt"
+TESTS=
+  echo 'ls -lR /root &> list5.txt'
+[919-END]
+
+[920]
+NAME="Unknown command"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'yolo'
+[920-END]
+
+[921]
+NAME="Unknown args in command"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls --yolo'
+[921-END]
+
+[922]
+NAME="Unknown command with path"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '/bin/yolo'
+[922-END]
+
+[923]
+NAME="Three unknown command"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'yolo ; /bin/testing ; mdreu'
+[923-END]
+
+[924]
+NAME="Two unknown command with pipe"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'yolo | /bin/testing'
+[924-END]
+
+[925]
+NAME="Two command with pipe (ls and unknown command)"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls | /bin/testing'
+[925-END]
+
+[926]
+NAME="Two command with pipe (ls and unknown command) reverse"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo '/bin/testing | ls'
+[926-END]
+
+[927]
+NAME="Two command with AND"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls && pwd'
+[927-END]
+
+[928]
+NAME="Two command with OR"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls || pwd'
+[928-END]
+
+[929]
+NAME="Two command with AND (ls and unknown command)"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls && yolo'
+[929-END]
+
+[930]
+NAME="Two command with OR (ls and unknown command)"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'ls || yolo'
+[930-END]
+
+[931]
+NAME="Two command with AND (ls and unknown command) reverse"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'yolo && ls'
+[931-END]
+
+[932]
+NAME="Two command with OR (ls and unknown command) reverse"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'yolo || ls'
+[932-END]
+
+[933]
+NAME="Exec three command"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'cat /etc/resolv.conf'
+  echo 'ls /bin'
+  echo 'cat /etc/hosts.conf'
+[933-END]
+
+[934]
+NAME="Builtin echo - simple echo"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "test"'
+[934-END]
+
+[935]
+NAME="Builtin echo - with \n"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "test\n"'
+[935-END]
+
+[936]
+NAME="Builtin echo - with \n and -e"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo -e "test\n"'
+[936-END]
+
+[937]
+NAME="Builtin echo - with \t and -e"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo -e "test\tyolo"'
+[937-END]
+
+[938]
+NAME="Builtin echo - with \n and -n"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo -n "test\n"'
+[938-END]
+
+[939]
+NAME="Builtin echo - with \t and -n"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo -n "test\tyolo"'
+[939-END]
+
+[940]
+NAME="Builtin echo - with many tab and space"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo "\tBonjour    je  \t  \t suis le  42sh, projet   de fin \t\tdannée  \t  epitech \t\t\t! "'
+[940-END]
+
+[941]
+NAME="Builtin echo - with many tab and space and -e"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo -e "\tBonjour    je  \t  \t suis le  42sh, projet   de fin \t\tdannée  \t  epitech \t\t\t! "'
+[941-END]
+
+[942]
+NAME="Builtin echo - with many tab and space and -n"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  echo 'echo -n "\tBonjour    je  \t  \t suis le  42sh, projet   de fin \t\tdannée  \t  epitech \t\t\t! "'
+[942-END]
