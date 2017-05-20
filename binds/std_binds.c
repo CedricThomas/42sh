@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 22:13:11 2017 
-** Last update Sat May 20 17:13:18 2017 Cédric THOMAS
+** Last update Sat May 20 17:38:31 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <termio.h>
@@ -27,6 +27,9 @@ int		enter(t_keypad *key)
   info = key->sys->info;
   my_printf("\n");
   key->line = change_hist(key->line, info);
+  if (key->line == NULL)
+    if ((key->line = my_strdup("")) == NULL)
+      exit(84);
   new_line_history(key);
   info->histo->current = NULL;
   key->end = 1;

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 13:43:45 2017 Cédric THOMAS
-** Last update Sat May 20 17:27:43 2017 Thibaut Cornolti
+** Last update Sat May 20 17:40:03 2017 Thibaut Cornolti
 */
 
 #include <termio.h>
@@ -19,16 +19,16 @@
 #include "get_next_command.h"
 #include "my.h"
 
-static char	*history_fct_def(char *src, int idx, t_history_info *history)
+static char	*history_fct_def(char *src, int *idx, t_history_info *history)
 {
   UNUSED(history);
-  if ((src = insert_str(src, "\\", idx, 0)) == NULL)
+  if ((src = insert_str(src, "\\", *idx, 0)) == NULL)
     exit(84);
   return (src);
 }
 
 static void	fill_fct(char *pattern[6],
-			 char *(*fct[6])(char *, int, t_history_info *))
+			 char *(*fct[6])(char *, int *, t_history_info *))
 {
   fct[0] = history_fct_exclam;
   fct[1] = history_fct_dollar;
@@ -44,37 +44,37 @@ static void	fill_fct(char *pattern[6],
   pattern[5] = "*";
 }
 
-int	get_index(char *cmd)
+int	get_index(char *cmd, int *i)
 {
-  int	i;
   int	backslash;
 
-  i = -1;
+  *i -= 1;
   backslash = 0;
-  while (cmd[++i] && !(cmd[i] == '!' && !backslash))
+  while (cmd[++(*i)] && !(cmd[*i] == '!' && !backslash))
     {
-      if (cmd[i] != '!' && backslash)
+      if (cmd[*i] != '!' && backslash)
 	backslash = 0;
-      if (cmd[i] == '\\')
+      if (cmd[*i] == '\\')
 	backslash = 1;
     }
-  while (i > 0 && cmd[i - 1] == '!')
-    i -= 1;
-  if (!cmd[i])
+  while (*i > 0 && cmd[*i - 1] == '!')
+    *i -= 1;
+  if (!cmd[*i])
     return (-1);
-  return (i);
+  return (*i);
 }
 
 char	*change_hist(char *cmd, t_info *info)
 {
   int	stop;
   char	*flag[6];
-  char	*(*fct[6])(char *, int, t_history_info *);
+  char	*(*fct[6])(char *, int *, t_history_info *);
   int	index;
   int	i;
 
   fill_fct(flag, fct);
-  while ((index = get_index(cmd)) >= 0)
+  index = 0;
+  while ((get_index(cmd, &index)) >= 0)
     {
       stop = 0;
       i = -1;
@@ -82,7 +82,8 @@ char	*change_hist(char *cmd, t_info *info)
 	if (advanced_match(cmd + index + 1, flag[i]))
 	  {
 	    stop = 1;
-	    cmd = fct[i](cmd, index, info->histo);
+	    if ((cmd = fct[i](cmd, &index, info->histo)) == NULL)
+	      return (NULL);
 	  }
     }
   return (cmd);

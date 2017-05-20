@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  2 18:22:24 2017 
-** Last update Sat May 20 09:46:34 2017 Cédric THOMAS
+** Last update Sat May 20 17:25:37 2017 Cédric THOMAS
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -46,25 +46,6 @@ static void	define_file(t_token *token)
     }
 }
 
-static char	*change_token(char *str)
-{
-  char		inib[3];
-  char		skip[2];
-  int		i;
-
-  i = -1;
-  inib[0] = INIB_C;
-  inib[2] = 0;
-  skip[1] = 0;
-  while (SKIP[++i])
-    {
-      inib[1] = SKIP[i];
-      skip[0] = SKIP[i];
-      str = replace_unquoted_str(str, inib, skip, INIB);
-    }
-  return (str);
-}
-
 void		inib_token(t_token *token)
 {
   char		*tmp;
@@ -73,7 +54,7 @@ void		inib_token(t_token *token)
     {
       if ((tmp = my_strdup(token->token)) == NULL)
 	exit(84);
-      if ((tmp = change_token(tmp)) == NULL)
+      if ((tmp = replace_unquoted_str(tmp, "\\", "", "\"'")) == NULL)
 	exit(84);
       free(token->token);
       token->token = dequotificator(tmp);
