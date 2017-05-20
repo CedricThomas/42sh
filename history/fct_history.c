@@ -5,9 +5,8 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Sat May 20 15:39:02 2017 Thibaut Cornolti
-** Last update Sat May 20 19:37:20 2017 Thibaut Cornolti
+** Last update Sat May 20 20:18:41 2017 Thibaut Cornolti
 */
-
 #include <termio.h>
 #include <stdlib.h>
 #include <stdio.h>

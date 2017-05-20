@@ -5,9 +5,8 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 13:43:45 2017 Cédric THOMAS
-** Last update Sat May 20 18:31:55 2017 Cédric THOMAS
+** Last update Sat May 20 20:18:27 2017 Thibaut Cornolti
 */
-
 #include <termio.h>
 #include <stdio.h>
 #include <string.h>
