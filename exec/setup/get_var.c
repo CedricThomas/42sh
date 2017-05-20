@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Sat May 20 10:22:14 2017 Bastien
+** Last update Sat May 20 11:34:52 2017 Bastien
 */
 
 #include <unistd.h>
@@ -24,8 +24,8 @@ static int	error_var(char **str, t_info *info)
   i = my_cstrlen(*str, '$');
   if (!(temp = getkey(info->env, *str + i + 1, 1)))
     {
-      while (*str && ((*str[++i] >= 'A' && *str[i] <= 'Z') || (*str[i] >= 'a' && *str[i] <= 'z')))
-	write(1, &*str[i], 1);
+      while (*str && (((*str)[++i] >= 'A' && (*str)[i] <= 'Z') || ((*str)[i] >= 'a' && (*str)[i] <= 'z')))
+	write(1, (*str) + i, 1);
       printf(": Undefined variable.\n");
       return (1);
     }
