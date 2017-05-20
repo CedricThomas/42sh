@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Sat May 20 14:11:40 2017 Thibaut Cornolti
+## Last update Sat May 20 15:38:49 2017 Thibaut Cornolti
 ##
 
 EXEC		=	auto_selector.c			\
@@ -43,6 +43,7 @@ EXEC		=	auto_selector.c			\
 			setup/info.c			\
 			setup/get_alias.c		\
 			setup/get_var.c			\
+			setup/qmark_var.c		\
 			setup/glob.c			\
 			env/env.c			\
 			env/key.c			\
@@ -86,8 +87,9 @@ NODE		=	command_node.c			\
 			standard_node.c			\
 			pipe_node.c			\
 
-HISTORY		=	fill_history.c		\
-			list_history.c
+HISTORY		=	fill_history.c			\
+			list_history.c			\
+			fct_history.c			\
 
 LOAD		=	rc.c				\
 
