@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Sat May 20 15:39:02 2017 Thibaut Cornolti
-** Last update Sat May 20 16:26:32 2017 Thibaut Cornolti
+** Last update Sat May 20 16:43:29 2017 Cédric THOMAS
 */
 
 #include <termio.h>
@@ -17,13 +17,12 @@
 
 char	*history_fct_exclam(char *src, int idx, t_history_info *history)
 {
-  printf("%s\n", src);
+  if (history->end == NULL || history->end->cmd == NULL)
+    return (src);
   if ((src = delete_nbchar(src, 2, idx)) == NULL)
     exit(84);
-  printf("%s\n", src);
   if ((src = insert_str(src, history->end->cmd, idx, 0)) == NULL)
     exit(84);
-  printf("%s\n", src);
   return (src);
 }
 
