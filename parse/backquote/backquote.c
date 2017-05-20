@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 **
 ** Started on  Fri May 19 16:52:18 2017 Thibaut Cornolti
-** Last update Sat May 20 21:02:38 2017 Cédric THOMAS
+** Last update Sat May 20 21:14:50 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -88,8 +88,7 @@ int		do_backquote(t_token **token, t_system *sys)
 	{
 	  start->next->prev = NULL;
 	  end->prev->next = NULL;
-	  if ((new = exec_backquote(start->next, sys)) == NULL)
-	    return (1);
+	  new = exec_backquote(start->next, sys);
 	  redef_token(new);
 	  insert_tokens(start, end, new);
 	  my_del_list_token(token, end);

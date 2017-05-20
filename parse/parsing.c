@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Sat May 20 20:59:27 2017 Cédric THOMAS
+** Last update Sat May 20 21:06:02 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -64,8 +64,8 @@ static void		cut_comment(char *str)
   str[i] = 0;
 }
 
-t_node			*parse_cmd(t_syntax *my_syntax, char *str, t_system *sys)
-
+t_node			*parse_cmd(t_syntax *my_syntax, char *str,
+				   t_system *sys)
 {
   t_token		*tokens;
   void			*root;
