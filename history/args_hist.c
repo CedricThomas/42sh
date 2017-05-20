@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 13:43:45 2017 Cédric THOMAS
-** Last update Sat May 20 16:43:33 2017 Cédric THOMAS
+** Last update Sat May 20 17:15:28 2017 Cédric THOMAS
 */
 
 #include <stdio.h>
@@ -13,6 +13,11 @@
 #include "match.h"
 #include "syntax.h"
 #include "exec.h"
+
+static char	*history_fct_exclam(char *src, int idx, t_history_info *history)
+{
+  
+}
 
 static void	fill_fct(char *pattern[6],
 			 char *(*fct[6])(char *, int, t_history_info *))
@@ -22,13 +27,13 @@ static void	fill_fct(char *pattern[6],
   fct[2] = history_fct_colon;
   fct[3] = history_fct_dash;
   fct[4] = history_fct_number;
-  fct[5] = NULL;
+  fct[5] = history_fct_def;
   pattern[0] = "!*";
   pattern[1] = "$*";
   pattern[2] = ":*";
   pattern[3] = "-*";
-  pattern[4] = "*";
-  pattern[5] = NULL;
+  pattern[4] = "[0-9]*";
+  pattern[5] = "*";
 }
 
 int	get_index(char *cmd)
@@ -45,6 +50,8 @@ int	get_index(char *cmd)
       if (cmd[i] == '\\')
 	backslash = 1;
     }
+  while (i > 0 && cmd[i - 1] == '!')
+    i -= 1;
   if (!cmd[i])
     return (-1);
   return (i);
@@ -59,12 +66,13 @@ char	*change_hist(char *cmd, t_info *info)
   int	i;
 
   fill_fct(flag, fct);
-  while ((index = get_index(cmd)) > 0)
+  while ((index = get_index(cmd)) >= 0)
     {
+      printf("%s\n", cmd + index);
       stop = 0;
       i = -1;
       while (flag[++i] && !stop)
-	if (advanced_match(cmd + index, flag[i]))
+	if (advanced_match(cmd + index + 1, flag[i]))
 	  {
 	    stop = 1;
 	    cmd = fct[i](cmd, index, info->histo);
