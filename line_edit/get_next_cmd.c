@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Fri Apr 21 22:22:55 2017 
-** Last update Fri May 19 10:17:59 2017 Cédric THOMAS
+** Last update Sat May 20 12:03:57 2017 Cédric THOMAS
 */
 #include <stdio.h>
 #include <sys/time.h>
@@ -68,6 +68,7 @@ static void		wait_input()
 
 char			*get_next_cmd(t_keypad *keypad)
 {
+  char			*save;
   int			len;
   char			buff[READ_SIZE + 1];
 
@@ -85,5 +86,7 @@ char			*get_next_cmd(t_keypad *keypad)
     }
   if (keypad->end > 0)
     keypad->end = 0;
-  return (keypad->line);
+  save = keypad->line;
+  keypad->line = NULL;
+  return (save);
 }

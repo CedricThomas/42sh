@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Tue May 16 14:34:55 2017 Cédric THOMAS
-** Last update Sat May 20 00:26:42 2017 Cédric THOMAS
+** Last update Sat May 20 11:38:30 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <curses.h>
@@ -118,7 +118,7 @@ int		auto_complete(t_keypad *key)
   search_all(key, &files, &size);
   if (size == 1)
     del_raw_line(key);
-  if (one_find(key, files, size) && files)
+  if (one_find(key, files, size) > 0 && files)
     {
       my_printf("\n");
       exec_complete(files, key);

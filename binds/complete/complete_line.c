@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Thu May 18 12:58:11 2017 Cédric THOMAS
-** Last update Fri May 19 22:06:35 2017 Cédric THOMAS
+** Last update Sat May 20 11:44:12 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -37,11 +37,26 @@ static char	*get_value_com(char **files)
   return (my_strndup(files[0], len));
 }
 
+static int	detect_glob(t_keypad *key)
+{
+  int		i;
+
+  i = -1;
+  while (key->line[++i])
+    {
+      if (is_in(key->line[i], "#*[]-{}\\\"'`"))
+	return (1);
+    }
+  return (0);
+}
+
 int		one_find(t_keypad *key, char **files, int size)
 {
   char		*value;
   int		i;
 
+  if (detect_glob(key))
+    return (-1);
   if (!files || (value = get_value_com(files)) == NULL)
     return (1);
   i = key->index;
