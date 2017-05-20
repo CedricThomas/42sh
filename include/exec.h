@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Sat May 20 12:46:12 2017 Thibaut Cornolti
+** Last update Sat May 20 15:10:49 2017 Cédric THOMAS
 */
 
 #ifndef EXEC_H_
@@ -266,6 +266,7 @@ int	my_put_list_history(t_history **ll, char *history,
 int	my_del_list_history(t_history **ll, t_history *elem);
 int	my_free_history(t_history **ll);
 void	my_show_hist(t_history *ll);
+char	*change_hist(char *cmd, t_info *info);
 
 /*
 **BACKQUOTE
