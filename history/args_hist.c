@@ -5,18 +5,24 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 13:43:45 2017 Cédric THOMAS
-** Last update Sat May 20 17:19:04 2017 Thibaut Cornolti
+** Last update Sat May 20 17:27:43 2017 Thibaut Cornolti
 */
 
+#include <termio.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include "match.h"
 #include "syntax.h"
 #include "exec.h"
+#include "get_next_command.h"
+#include "my.h"
 
 static char	*history_fct_def(char *src, int idx, t_history_info *history)
 {
-  if ((src = insert_str(src, "!", idx, 0)) == NULL)
+  UNUSED(history);
+  if ((src = insert_str(src, "\\", idx, 0)) == NULL)
     exit(84);
   return (src);
 }
@@ -70,7 +76,6 @@ char	*change_hist(char *cmd, t_info *info)
   fill_fct(flag, fct);
   while ((index = get_index(cmd)) >= 0)
     {
-      printf("%s\n", cmd + index);
       stop = 0;
       i = -1;
       while (flag[++i] && !stop)

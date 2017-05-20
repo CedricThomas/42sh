@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Sat May 20 16:09:11 2017 Cédric THOMAS
+** Last update Sat May 20 17:36:38 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -269,11 +269,11 @@ int	my_free_history(t_history **ll);
 void	my_show_hist(t_history *ll);
 char	*change_hist(char *cmd, t_info *info);
 
-char	*history_fct_exclam(char *src, int idx, t_history_info *history);
-char	*history_fct_dollar(char *src, int idx, t_history_info *history);
-char	*history_fct_colon(char *src, int idx, t_history_info *history);
-char	*history_fct_dash(char *src, int idx, t_history_info *history);
-char	*history_fct_number(char *src, int idx, t_history_info *history);
+char	*history_fct_exclam(char *src, int *idx, t_history_info *history);
+char	*history_fct_dollar(char *src, int *idx, t_history_info *history);
+char	*history_fct_colon(char *src, int *idx, t_history_info *history);
+char	*history_fct_dash(char *src, int *idx, t_history_info *history);
+char	*history_fct_number(char *src, int *idx, t_history_info *history);
 
 /*
 **BACKQUOTE
