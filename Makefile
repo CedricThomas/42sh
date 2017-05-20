@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Sat May 20 11:07:21 2017 Cédric THOMAS
+## Last update Sat May 20 14:11:40 2017 Thibaut Cornolti
 ##
 
 EXEC		=	auto_selector.c			\
@@ -67,6 +67,7 @@ PARSE		=	parsing.c			\
 			error/input_lexer.c		\
 			error/error_pipe_node.c		\
 			error/error_command_node.c	\
+			error/error_redir_node.c	\
 			error/error_logic_node.c	\
 			backquote/backquote.c		\
 			backquote/backquote_fork.c	\

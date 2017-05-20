@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Sat May 20 11:33:43 2017 Thibaut Cornolti
+** Last update Sat May 20 14:02:25 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -76,7 +76,7 @@ void		print_wait_job(t_status *status)
   while (exit)
     {
       job = exit->job;
-      if (job->status & JOB_TERMPRINT && job->number)
+      if (job && job->status & JOB_TERMPRINT && job->number)
 	{
 	  if (last != job->number)
 	    {

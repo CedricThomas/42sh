@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Fri May 19 18:17:46 2017 Thibaut Cornolti
-** Last update Sat May 20 13:33:53 2017 Thibaut Cornolti
+** Last update Sat May 20 13:53:26 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -70,6 +70,7 @@ t_token		*get_system(char *cmd)
       return (NULL);
     }
   sys = getter_system(NULL);
+  signal(SIGINT, SIG_IGN);
   if ((pid = fork()) == -1)
     return (NULL);
   else if (pid)
@@ -83,5 +84,6 @@ t_token		*get_system(char *cmd)
       exit(sys->info->exit_value);
     }
   line = read_son(pipefd[0], pid, sys);
+  signal(SIGINT, &signal_sigint);
   return (get_token(line, sys->syntax, NULL));
 }
