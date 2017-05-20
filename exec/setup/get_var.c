@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Sat May 20 11:34:52 2017 Bastien
+** Last update Sat May 20 15:24:05 2017 Bastien
 */
 
 #include <unistd.h>
@@ -71,7 +71,7 @@ static int	verify_var(t_info *info, t_command *cmd, int pos)
 	if (!strcmp(cmd->argv[pos] + len + 1, info->var[i].name))
 	  return (swap_var(info, cmd, pos, i));
     }
-  return (error_var(&cmd->argv[pos], info));
+  return (1);
 }
 
 static int	check_var(t_command *cmd, t_info *info)
@@ -82,7 +82,12 @@ static int	check_var(t_command *cmd, t_info *info)
   while (cmd->argv[++i])
     if (is_in('$', cmd->argv[i]) && strlen(cmd->argv[i]) > 1)
       if (verify_var(info, cmd, i))
-	return (1);
+	{
+	  if (!strcmp(cmd->argv[i] + my_cstrlen(cmd->argv[i], '$') + 1, "?"))
+	    qmark_var(info, cmd, i);
+	  else
+	    return (error_var(&cmd->argv[i], info));
+	}
   return (0);
 }
 
