@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 18 23:57:02 2017 Thibaut Cornolti
-** Last update Fri May 19 15:20:25 2017 Thibaut Cornolti
+** Last update Sat May 20 13:39:07 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -17,5 +17,5 @@ void		builtin_where(t_command *cmd, t_status *status, t_info *info)
 {
   UNUSED(cmd);
   UNUSED(status);
-  UNUSED(info);
+  info->exit_value = 1;
 }

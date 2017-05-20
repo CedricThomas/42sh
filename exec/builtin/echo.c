@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 11 13:22:48 2017 Thibaut Cornolti
-** Last update Wed May 17 10:41:10 2017 Thibaut Cornolti
+** Last update Sat May 20 13:37:24 2017 Thibaut Cornolti
 */
 
 #include <stdio.h>
@@ -37,4 +37,5 @@ void		builtin_echo(t_command *cmd, t_status *status, t_info *info)
     }
   if (new_line)
     my_printf("%s", "\n");
+  info->exit_value = 0;
 }
