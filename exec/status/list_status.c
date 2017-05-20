@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 15:59:59 2017 Cédric Thomas
-** Last update Fri May 19 20:32:18 2017 Thibaut Cornolti
+** Last update Sat May 20 14:04:02 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -24,6 +24,7 @@ t_exit		*my_put_list_exit(t_exit **ll, int pid, int pgid, int last)
   elem->pgid = pgid;
   elem->exit = last;
   elem->next = NULL;
+  elem->job = NULL;
   elem->prev = *ll;
   if (tmp == NULL)
     {
