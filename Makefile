@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Sat May 20 01:32:56 2017 Cédric THOMAS
+## Last update Sat May 20 11:07:21 2017 Cédric THOMAS
 ##
 
 EXEC		=	auto_selector.c			\
@@ -93,6 +93,7 @@ LOAD		=	rc.c				\
 LINE		=	line_edit/get_next_cmd.c	\
 			line_edit/str.c			\
 			line_edit/setup.c		\
+			line_edit/sequencer.c		\
 			binds/std_binds.c		\
 			binds/pos_binds.c		\
 			binds/del_binds.c		\

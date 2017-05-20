@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 22:15:37 2017
-** Last update Sat May 20 09:47:20 2017 Cédric THOMAS
+** Last update Sat May 20 11:07:33 2017 Cédric THOMAS
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -55,46 +55,6 @@ int		my_reset_term(t_keypad *keypad)
   return (0);
 }
 
-static void	fct_filler(t_keypad_fct *keys)
-{
-  keys[0].sequence = "\n";
-  keys[0].fct = &enter;
-  keys[1].sequence = tigetstr("kcub1");
-  keys[1].fct = &left_arrow;
-  keys[2].sequence = tigetstr("kcuf1");
-  keys[2].fct = &right_arrow;
-  keys[3].sequence = "\004";
-  keys[3].fct = &end_of_file;
-  keys[4].sequence = tigetstr("kbs");
-  keys[4].fct = &delete_char;
-  keys[5].sequence = tigetstr("kdch1");
-  keys[5].fct = &suppr_char;
-  keys[6].sequence = tigetstr("khome");
-  keys[6].fct = &go_start;
-  keys[7].sequence = tigetstr("kend");
-  keys[7].fct = &go_end;
-  keys[8].sequence = "\f";
-  keys[8].fct = &bind_clear;
-  keys[9].sequence = "\t";
-  keys[9].fct = &auto_complete;
-  keys[10].sequence = tigetstr("kcuu1");
-  keys[10].fct = &up_arrow;
-  keys[11].sequence = tigetstr("kcud1");
-  keys[11].fct = &down_arrow;
-  keys[12].sequence = "\v";
-  keys[12].fct = &bind_copy;
-  keys[13].sequence = "\031";
-  keys[13].fct = &bind_paste;
-  keys[14].sequence = "\025";
-  keys[14].fct = &bind_copy_all;
-  keys[15].sequence = "A";
-  keys[15].fct = &ctrl_left_arrow;
-  keys[16].sequence = "Z";
-  keys[16].fct = &ctrl_right_arrow;
-  keys[17].sequence = "R";
-  keys[17].fct = &switch_mod;
-}
-
 t_keypad	*init_keypad(struct s_system *sys)
 {
   int		i;
@@ -107,7 +67,7 @@ t_keypad	*init_keypad(struct s_system *sys)
   if (!isatty(0) || !getkey(sys->info->env, "TERM", 0))
     return (keypad);
   setupterm(NULL, 0, NULL);
-  fct_filler(keypad->keys);
+  sequencer(keypad->keys);
   i = -1;
   while (++i < KEY_LINKED)
     if (keypad->keys[i].sequence == (char *) -1)

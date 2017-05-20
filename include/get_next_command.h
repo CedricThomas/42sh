@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 17:37:03 2017
-** Last update Sat May 20 01:32:14 2017 Cédric THOMAS
+** Last update Sat May 20 11:08:16 2017 Cédric THOMAS
 */
 #ifndef GNC_H_
 # define GNC_H_
@@ -86,6 +86,7 @@ void		new_line_history(t_keypad *key);
 **setup.c
 */
 t_keypad	*init_keypad();
+void		sequencer(t_keypad_fct *keys);
 void		*end_keypad(t_keypad *keypad);
 
 /*
