@@ -5,16 +5,16 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 18:22:40 2017 Bastien
-** Last update Thu May 18 19:55:55 2017 Thibaut Cornolti
+** Last update Sat May 20 19:56:57 2017 Thibaut Cornolti
 */
 
 #include <string.h>
 #include "syntax.h"
 #include "exec.h"
 
-int      my_vartablen(t_var *var)
+int	my_vartablen(t_var *var)
 {
-  int           i;
+  int		i;
 
   i = -1;
   while (var && var[++i].name);

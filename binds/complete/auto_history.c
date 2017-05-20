@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 00:07:17 2017 Cédric THOMAS
-** Last update Sat May 20 01:16:41 2017 Cédric THOMAS
+** Last update Sat May 20 20:23:12 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <curses.h>
@@ -49,7 +49,7 @@ int		complete_history(t_keypad *key)
   if ((key->line = my_strcatdup(key->line, key->matched, 3)) == NULL)
     exit(84);
   key->matched = NULL;
-  key->index = my_strlen(key->line);;
+  key->index = my_strlen(key->line);
   print_raw_line(key);
   return (0);
 }

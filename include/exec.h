@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Sat May 20 17:36:38 2017 Thibaut Cornolti
+** Last update Sat May 20 20:27:08 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -276,17 +276,20 @@ char	*history_fct_dash(char *src, int *idx, t_history_info *history);
 char	*history_fct_number(char *src, int *idx, t_history_info *history);
 
 /*
+**OTHER
+*/
+int	asprintf(char **strp, const char *fmt, ...);
+
+/*
 **BACKQUOTE
 */
 t_token	*get_system(char *cmd);
 int	do_backquote(t_token **token);
 void	redef_token(t_token *token);
 
-
 /*
 **SIGNAL
 */
 void		signal_sigint();
-void		reset_sig();
 
 #endif /* !EXEC_H_ */

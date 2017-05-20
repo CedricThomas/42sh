@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 18 23:57:02 2017 Thibaut Cornolti
-** Last update Sat May 20 13:38:22 2017 Thibaut Cornolti
+** Last update Sat May 20 20:05:04 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -13,7 +13,8 @@
 #include "exec.h"
 #include "my.h"
 
-void		builtin_builtins(t_command *cmd, t_status *status, t_info *info)
+void		builtin_builtins(t_command *cmd, t_status *status,
+				 t_info *info)
 {
   char		*builtins;
   int		i;

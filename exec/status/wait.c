@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Sat May 20 14:02:25 2017 Thibaut Cornolti
+** Last update Sat May 20 21:01:17 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -60,37 +60,6 @@ static void	get_exit_value(t_status *status, t_info *info)
 	}
       tmp->exit = (tmp->job->status & JOB_TERMPRINT) ? tmp->exit : 0;
       tmp = tmp->next;
-    }
-}
-
-void		print_wait_job(t_status *status)
-{
-  t_exit	*exit;
-  t_job		*job;
-  int		last;
-
-  exit = status->exit_list;
-  while (exit && exit->next)
-    exit = exit->next;
-  last = 0;
-  while (exit)
-    {
-      job = exit->job;
-      if (job && job->status & JOB_TERMPRINT && job->number)
-	{
-	  if (last != job->number)
-	    {
-	      if (exit->exit)
-		printf("[%d]    Exit %d\n", job->number, exit->exit % 255);
-	      else
-		printf("[%d]    Done\n", job->number);
-	      last = job->number;
-	    }
-	  job->status = JOB_TERMINATED;
-	  job->number = 0;
-	  exit->exit = 0;
-	}
-      exit = exit->prev;
     }
 }
 

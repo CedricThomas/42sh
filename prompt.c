@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 **
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Fri May 19 17:41:16 2017 Cédric THOMAS
+** Last update Sat May 20 19:45:07 2017 Thibaut Cornolti
 */
 
 #include <stdio.h>
@@ -17,7 +17,7 @@
 #include "exec.h"
 #include "my_printf.h"
 
-static char     *get_real_path(char *path)
+static char	*get_real_path(char *path)
 {
   char          buf[PATH_MAX + 1];
   char          *realdist;

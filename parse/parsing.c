@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Sat May 20 12:48:47 2017 Thibaut Cornolti
+** Last update Sat May 20 20:05:28 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -64,7 +64,8 @@ static void		cut_comment(char *str)
   str[i] = 0;
 }
 
-t_node			*parse_cmd(t_syntax *my_syntax, char *str, t_info *info)
+t_node			*parse_cmd(t_syntax *my_syntax, char *str,
+				   t_info *info)
 
 {
   t_token		*tokens;
@@ -75,7 +76,6 @@ t_node			*parse_cmd(t_syntax *my_syntax, char *str, t_info *info)
     return (NULL);
   tokens = globbing(tokens, my_syntax);
   tokens = get_alias(tokens, info, my_syntax);
-  
   inib_token(tokens);
   if ((do_backquote(&tokens)) == 1)
     {

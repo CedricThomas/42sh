@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 16:07:30 2017 Bastien
-** Last update Fri May 19 10:49:33 2017 Bastien
+** Last update Sat May 20 19:56:35 2017 Thibaut Cornolti
 */
 
 #include <string.h>
@@ -59,7 +59,7 @@ static void	add_var(char *str, t_info *info)
   str[len] = 0;
   info->var[size].name = strdup(str);
   str[len] = '=';
-  info->var[size].value = strdup(str + len + 1);  
+  info->var[size].value = strdup(str + len + 1);
 }
 
 static int	display_cmd(t_command *cmd, t_info *info)

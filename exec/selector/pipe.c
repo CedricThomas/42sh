@@ -5,8 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 29 21:29:03 2017
-** Last update Wed May 17 10:11:30 2017 Cédric THOMAS
-** Last update Mon May 15 16:09:44 2017 Thibaut Cornolti
+** Last update Sat May 20 19:58:04 2017 Thibaut Cornolti
 */
 
 #include <sys/types.h>

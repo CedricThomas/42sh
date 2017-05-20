@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Sat May 20 12:05:33 2017 Thibaut Cornolti
+** Last update Sat May 20 19:55:39 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -16,6 +16,16 @@
 #include "exec.h"
 #include "my.h"
 #include "my_printf.h"
+
+static void	do_fg(t_job *found, t_status *status, t_info *info)
+{
+  tcsetpgrp(0, found->pgid);
+  kill(-found->pgid, SIGCONT);
+  found->status = JOB_FOREGROUND;
+  my_printf("Continued\n");
+  info->exit_value = 0;
+  auto_wait(status, info);
+}
 
 void		builtin_fg(t_command *cmd, t_status *status, t_info *info)
 {
@@ -43,10 +53,5 @@ void		builtin_fg(t_command *cmd, t_status *status, t_info *info)
       info->exit_value = 1;
       return ;
     }
-  tcsetpgrp(0, found->pgid);
-  kill(-found->pgid, SIGCONT);
-  found->status = JOB_FOREGROUND;
-  my_printf("Continued\n");
-  info->exit_value = 0;
-  auto_wait(status, info);
+  do_fg(found, status, info);
 }

@@ -5,10 +5,8 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Sat May 20 15:03:24 2017 Bastien
-** Last update Sat May 20 16:53:16 2017 Bastien
+** Last update Sat May 20 20:00:41 2017 Thibaut Cornolti
 */
-
-#define _GNU_SOURCE
 
 #include <stdio.h>
 #include <string.h>

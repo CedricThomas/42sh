@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Sat May 20 18:29:28 2017 Cédric THOMAS
+** Last update Sat May 20 19:50:43 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -27,7 +27,6 @@ static int	setup_sh(t_system *sys, char **env)
   if ((sys->keypad = init_keypad(sys)) == NULL)
     return (1);
   my_memset(sys->status, 0, sizeof(t_status));
-  //  signal(SIGINT, &signal_sigint);
   signal(SIGQUIT, SIG_IGN);
   signal(SIGTSTP, SIG_IGN);
   signal(SIGTTIN, SIG_IGN);
@@ -44,7 +43,7 @@ static int	free_sh(t_system *sys)
 
   exit = sys->info->exit_value;
   free_syntax(&(sys->syntax));
-  write_history(sys->info);    
+  write_history(sys->info);
   free_info(sys->info);
   end_keypad(sys->keypad);
   return (exit);

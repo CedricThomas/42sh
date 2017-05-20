@@ -5,15 +5,15 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 22:33:50 2017 Bastien
-** Last update Thu May 18 10:24:56 2017 Bastien
+** Last update Sat May 20 19:51:14 2017 Thibaut Cornolti
 */
 
 #include "syntax.h"
 #include "exec.h"
 
-int      my_strtablen(char **tab)
+int	my_strtablen(char **tab)
 {
-  int   i;
+  int	i;
 
   i = -1;
   while (tab && tab[++i]);
