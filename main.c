@@ -1,11 +1,11 @@
 /*
-1;2802;0c** main.c for main.c in /home/cedric/delivery/ex
+** main.c for main.c in /home/cedric/delivery/ex
 ** 
 ** Made by Cédric Thomas
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Sat May 20 00:25:47 2017 Thibaut Cornolti
+** Last update Sat May 20 11:20:00 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>

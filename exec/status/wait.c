@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Thu May 18 23:49:51 2017 Thibaut Cornolti
+** Last update Sat May 20 11:17:29 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -111,7 +111,8 @@ void		auto_wait(t_status *status, t_info *info)
       else if (tmp->pid > 0 && tmp->job->status & JOB_FOREGROUND)
 	{
 	  tcsetpgrp(0, tmp->pgid);
-	  while (waitpid(tmp->pid, &last, WNOHANG | WUNTRACED) <= 0);
+	  while (waitpid(tmp->pid, &last, WNOHANG | WUNTRACED) <= 0)
+	    usleep(100);
 	  if (WIFSTOPPED(last))
 	    {
 	      tmp->job->status = JOB_SUSPENDED;
