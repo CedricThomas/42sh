@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Sat May 20 15:58:12 2017 Bastien
+** Last update Sat May 20 17:01:27 2017 Bastien
 */
 
 #include <unistd.h>
@@ -100,7 +100,15 @@ t_command	*get_var(t_command *cmd, t_info *info)
       len = my_strtablen(cmd->argv);
       cmd->argv[len] = cmd->path;
       if (verify_var(info, cmd, len))
-	return (NULL);
+	{
+	  if (!strncmp(cmd->path + my_cstrlen(cmd->path, '$') + 1, "?", 1))
+	    qmark_var(info, cmd, len);
+	  else
+	    {
+	      error_var(&cmd->argv[len], info);
+	      return (NULL);
+	    }
+	}
       my_vfree((void **)(&cmd->path), NULL);
       cmd->path = cmd->argv[len];
       cmd->argv[len] = 0;
