@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Sun May 21 16:31:05 2017 Thibaut Cornolti
+** Last update Sun May 21 18:35:40 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -18,8 +18,8 @@
 
 static int	error_var(char **str, t_info *info)
 {
-  int	i;
-  char	*temp;
+  int		i;
+  char		*temp;
 
   i = my_cstrlen(*str, '$');
   if (!(temp = getkey(info->env, *str + i + 1, 1)))
@@ -98,7 +98,7 @@ static int	check_var(t_command *cmd, t_info *info)
 
 t_command	*get_var(t_command *cmd, t_info *info)
 {
-  int	len;
+  int		len;
 
   if (is_in('$', cmd->path) && strlen(cmd->path) > 1)
     {

@@ -5,14 +5,14 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 18:22:40 2017 Bastien
-** Last update Sat May 20 19:56:57 2017 Thibaut Cornolti
+** Last update Sun May 21 18:33:44 2017 Thibaut Cornolti
 */
 
 #include <string.h>
 #include "syntax.h"
 #include "exec.h"
 
-int	my_vartablen(t_var *var)
+int		my_vartablen(t_var *var)
 {
   int		i;
 
@@ -21,10 +21,10 @@ int	my_vartablen(t_var *var)
   return (i < 0 ? 0 : i);
 }
 
-void	sort_var(t_info *info)
+void		sort_var(t_info *info)
 {
-  int	i;
-  t_var	temp;
+  int		i;
+  t_var		temp;
 
   i = 0;
   while (info->var && info->var[++i].name)

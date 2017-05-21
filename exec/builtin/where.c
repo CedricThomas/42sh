@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 18 23:57:02 2017 Thibaut Cornolti
-** Last update Sun May 21 17:36:23 2017 Thibaut Cornolti
+** Last update Sun May 21 18:33:22 2017 Thibaut Cornolti
 */
 
 #include <string.h>
@@ -18,7 +18,7 @@
 
 static int	verify_alias(t_info *info, char *str)
 {
-  int	i;
+  int		i;
 
   i = -1;
   while (info->alias && info->alias[++i].link)
@@ -32,7 +32,7 @@ static int	verify_alias(t_info *info, char *str)
 
 static int	verify_builtin(t_info *info, char *str)
 {
-  int	i;
+  int		i;
 
   i = -1;
   while (++i < BUILTINS_NB)

@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Mon Nov 21 12:15:25 2016 Cédric Thomas
-** Last update Fri May  5 14:05:59 2017 
+** Last update Sun May 21 18:36:00 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "my_alloc.h"
@@ -58,7 +58,7 @@ int		my_del_alloc(t_alloc *elem)
   return (0);
 }
 
-int	my_tag_alloc(void *addr, char *tag, char type)
+int		my_tag_alloc(void *addr, char *tag, char type)
 {
   int           i;
   t_alloc       *temp;

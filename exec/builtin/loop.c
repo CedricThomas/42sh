@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Tue May 16 19:00:41 2017 Bastien
-** Last update Sat May 20 19:56:22 2017 Thibaut Cornolti
+** Last update Sun May 21 18:34:52 2017 Thibaut Cornolti
 */
 
 #include <string.h>
@@ -14,7 +14,7 @@
 
 static void	set_loop(t_info *info, int value, int j)
 {
-  int	i;
+  int		i;
 
   i = -1;
   if (value)

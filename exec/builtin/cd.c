@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sun Jan  8 18:51:02 2017 
-** Last update Sun May 21 15:57:46 2017 Thibaut Cornolti
+** Last update Sun May 21 18:34:40 2017 Thibaut Cornolti
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -32,7 +32,7 @@ static void	print_cderror(char *path)
 
 static void	changepwd(t_info *info)
 {
-  char	*pwd;
+  char		*pwd;
 
   free(info->old_pwd);
   info->old_pwd = info->pwd;

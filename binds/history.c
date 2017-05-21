@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Thu May 18 19:13:06 2017 Cédric THOMAS
-** Last update Sat May 20 19:20:33 2017 Cédric THOMAS
+** Last update Sun May 21 18:28:54 2017 Thibaut Cornolti
 */
 #include <curses.h>
 #include <termio.h>
@@ -79,7 +79,7 @@ static void	switch_line(t_history_info *hist, t_keypad *key)
     }
 }
 
-int		down_arrow(t_keypad *key)
+int			down_arrow(t_keypad *key)
 {
   t_history_info	*hist;
   t_info		*info;

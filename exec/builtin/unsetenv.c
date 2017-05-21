@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 11 13:22:48 2017 Thibaut Cornolti
-** Last update Sat May 20 20:04:47 2017 Thibaut Cornolti
+** Last update Sun May 21 18:35:06 2017 Thibaut Cornolti
 */
 
 #include "syntax.h"
@@ -15,8 +15,8 @@
 void		builtin_unsetenv(t_command *cmd, t_status *status,
 				 t_info *info)
 {
-  int	argc;
-  int	i;
+  int		argc;
+  int		i;
 
   argc = 0;
   while (cmd->argv[argc])

@@ -5,7 +5,7 @@
 ** Login   <marin.brunel@epitech.eu>
 ** 
 ** Started on  Thu May 18 09:56:38 2017 maje
-** Last update Sun May 21 10:41:55 2017 Cédric THOMAS
+** Last update Sun May 21 18:28:14 2017 Thibaut Cornolti
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -19,9 +19,9 @@
 
 static char		*get_path_history(t_info *info)
 {
-  int		len;
-  char		*home;
-  char		*path;
+  int			len;
+  char			*home;
+  char			*path;
 
   if ((home = getkey(info->env, "HOME", 0)) == NULL)
     return (NULL);
@@ -37,9 +37,9 @@ static char		*get_path_history(t_info *info)
 
 int			write_history(t_info *info)
 {
-  char		*path;
-  int		fd;
-  t_history	*tmp;
+  char			*path;
+  int			fd;
+  t_history		*tmp;
 
   tmp = info->histo->start;
   if ((path = get_path_history(info)) == NULL)
@@ -79,7 +79,7 @@ static void	end_loading(t_info *info, int idx)
   info->histo->len = idx;
 }
 
-int	load_history(t_info *info)
+int		load_history(t_info *info)
 {
   int		i;
   char		*path;

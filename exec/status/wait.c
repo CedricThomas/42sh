@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Sun May 21 17:28:56 2017 Thibaut Cornolti
+** Last update Sun May 21 18:32:27 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -21,7 +21,7 @@
 
 static void	check_sig(int status)
 {
-  int   dump;
+  int		dump;
 
   dump = 0;
   if (WTERMSIG(status) == SIGSEGV && (dump = 1))
