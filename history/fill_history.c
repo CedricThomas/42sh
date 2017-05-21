@@ -5,7 +5,7 @@
 ** Login   <marin.brunel@epitech.eu>
 **
 ** Started on  Thu May 18 09:56:38 2017 maje
-** Last update Sun May 21 18:16:47 2017 Cédric THOMAS
+** Last update Sun May 21 18:47:54 2017 Cédric THOMAS
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -37,9 +37,9 @@ static char		*get_path_history(t_info *info)
 
 int		write_history(t_info *info)
 {
-  char		*path;
-  int		fd;
-  t_history	*tmp;
+  char			*path;
+  int			fd;
+  t_history		*tmp;
 
   tmp = info->histo->start;
   if ((path = get_path_history(info)) == NULL)

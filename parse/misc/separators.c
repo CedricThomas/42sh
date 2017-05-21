@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar  1 15:08:23 2017 
-** Last update Sat May 13 13:10:12 2017 
+** Last update Sun May 21 18:37:06 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -27,10 +27,10 @@ int	is_in_tab(char *str, char **tab, int *index)
 
 static int	my_epur_size(char *str, char **sep_list)
 {
-  int	tab_size;
-  int	size;
-  int	i;
-  char	quote;
+  int		tab_size;
+  int		size;
+  int		i;
+  char		quote;
 
   i = -1;
   size = 0;

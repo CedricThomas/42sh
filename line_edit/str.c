@@ -3,9 +3,9 @@
 **
 ** Made by
 ** Login   <cedric.thomas@epitech.eu>
-**
-** Started on  Sat Apr 22 11:50:50 2017
-** Last update Sun May 21 18:23:16 2017 Cédric THOMAS
+** 
+** Started on  Sat Apr 22 11:50:50 2017 
+** Last update Sun May 21 18:47:34 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <unistd.h>
@@ -42,9 +42,9 @@ char	*delete_a_char(char *str, int index)
 
 char	*insert_str(char *s1, char *s2, int pos, int mod)
 {
-  int	len2;
-  char	*dest;
-  int	len;
+  int		len2;
+  char		*dest;
+  int		len;
 
   len = 0;
   if (s1 != NULL)

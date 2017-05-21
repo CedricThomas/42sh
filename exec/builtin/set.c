@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 16:07:30 2017 Bastien
-** Last update Sun May 21 17:39:34 2017 Thibaut Cornolti
+** Last update Sun May 21 18:33:53 2017 Thibaut Cornolti
 */
 
 #include <string.h>
@@ -66,7 +66,7 @@ static void	add_var(char *str, t_info *info)
 
 static int	display_cmd(t_command *cmd, t_info *info)
 {
-  int	i;
+  int		i;
 
   i = -1;
   if (cmd->argv[1])

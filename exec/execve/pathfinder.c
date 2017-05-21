@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 16:30:38 2017 
-** Last update Thu May 18 19:53:06 2017 Thibaut Cornolti
+** Last update Sun May 21 18:35:20 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -67,9 +67,9 @@ static char	**get_full_path(t_info *info, char *exec_name)
 
 static char	*identify_path(char *exec_name, t_info *info)
 {
-  int   i;
-  char  *my_path;
-  char  **paths;
+  int		i;
+  char		*my_path;
+  char		**paths;
 
   i = -1;
   my_path = NULL;
