@@ -5,7 +5,7 @@
 ** Login   <marin.brunel@epitech.eu>
 ** 
 ** Started on  Thu May 18 09:56:38 2017 maje
-** Last update Sat May 20 13:07:56 2017 Cédric THOMAS
+** Last update Sun May 21 10:41:55 2017 Cédric THOMAS
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -69,6 +69,7 @@ void	put_history(t_info *info, long time,
       my_put_list_history(&info->histo->current, cmd, time, idx);
       info->histo->current = info->histo->current->next;
     }
+  free(cmd);
 }
 
 static void	end_loading(t_info *info, int idx)

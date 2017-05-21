@@ -5,14 +5,28 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Fri May 12 15:28:34 2017 Bastien
-** Last update Sat May 20 21:07:22 2017 Thibaut Cornolti
+** Last update Sun May 21 10:55:15 2017 Cédric THOMAS
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <fnmatch.h>
 #include "syntax.h"
 #include "exec.h"
+
+void		free_alias(t_alias *alias)
+{
+  int		i;
+
+  i = -1;
+  while (alias && alias[++i].link)
+    {
+      free(alias[i].link);
+      free(alias[i].value);
+    }
+  free(alias);
+}
 
 static	void	set_new_token(t_token *token, t_token **save, t_token *new)
 {
