@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 **
 ** Started on  Fri May 12 15:28:34 2017 Bastien
-** Last update Sun May 21 17:23:57 2017 Thibaut Cornolti
+** Last update Sun May 21 23:09:39 2017 Bastien
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,7 +27,7 @@ void		free_alias(t_alias *alias)
   free(alias);
 }
 
-static	void	set_new_token(t_token *token, t_token **save, t_token *new)
+static void	set_new_token(t_token *token, t_token **save, t_token *new)
 {
   if (!token->prev)
     *save = new;
@@ -55,7 +55,8 @@ static int	verify_cmd(t_token **save, t_token *token,
     if (!strcmp(info->alias[i].link, token->token)
 	&& !info->alias[i].loop && !token->used)
       {
-	new = get_token(strdup(info->alias[i].value), syntax, NULL, 1);
+	if (!(new = get_token(strdup(info->alias[i].value), syntax, NULL, 1)))
+	  return (null_alias(token));
 	set_new_token(token, save, new);
 	if (!strcmp(info->alias[i].link, new->token))
 	  new->used = 1;
