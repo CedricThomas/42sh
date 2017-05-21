@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 16:07:30 2017 Bastien
-** Last update Sat May 20 19:56:35 2017 Thibaut Cornolti
+** Last update Sun May 21 14:25:53 2017 Bastien
 */
 
 #include <string.h>
@@ -35,7 +35,9 @@ static void	replace_var(char *str, t_var *var)
   unsigned int	len;
 
   len = my_cstrlen(str, '=') + 1;
+  len = !str[len - 1] ? len - 1 : len;
   free(var->value);
+  var->value = NULL;
   if (len == strlen(str))
     return ;
   var->value = strdup(str + len);

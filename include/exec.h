@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Sun May 21 10:58:14 2017 Cédric THOMAS
+** Last update Sun May 21 15:03:07 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -210,14 +210,7 @@ int	my_fork_job(void *root, t_status *status, t_info *info,
 t_exit	*my_put_list_exit(t_exit **ll, int pid, int gpid, int last);
 void	set_exit_value(t_exit *ll, int pid, int exitval);
 void	show_exit_status(t_exit *ll);
-int	my_del_exit(t_exit **ll);
-
-/*
-**list
-*/
-void	set_exit_value(t_exit *ll, int pid, int exitval);
-void	show_exit_status(t_exit *ll);
-int	my_del_exit(t_exit **ll);
+int	my_del_exit(t_exit **ll, int mode);
 
 /*
 **BUILTINS

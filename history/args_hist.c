@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 13:43:45 2017 Cédric THOMAS
-** Last update Sat May 20 20:18:27 2017 Thibaut Cornolti
+** Last update Sun May 21 14:01:36 2017 Cédric THOMAS
 */
 #include <termio.h>
 #include <stdio.h>
@@ -21,9 +21,9 @@
 static char	*history_fct_def(char *src, int *idx, t_history_info *history)
 {
   UNUSED(history);
-  if ((src = insert_str(src, "\\", *idx, 0)) == NULL)
-    exit(84);
-  return (src);
+  UNUSED(idx);
+  free(src);
+  return (NULL);
 }
 
 static void	fill_fct(char *pattern[6],
