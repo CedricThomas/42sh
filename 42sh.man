@@ -5,14 +5,30 @@
 42sh \- a shell made in C
 .SH DESCRIPTION
 42sh is bash-like shell made in C. This project was made for a school project.
-It reproduces the behaviour of TCSH.
+It reproduces the behaviour of TCSH. The prompt indicate the return value of the previous command, and indicate if you are in a
+.I Git
+repostory. It indicate the branch that you are working on.
 .SH OPTIONS
 This shell has several built-in in it.
 
 .PP
-lol
+.I history
+with the option
+.B !
+is working.
+.PP
+.I alias 
+Use the command alias [NEW ALIAS] [COMAND TO EXECUTE].
+Use the command unalias [ALIAS TO DELETE].
+There is no infinite loop.
+.PP
+.I jobs control
+The option & is working. Jobs, fg and bg too.
+.PP
+.I auto-complete
+is working.
 .SH RETURNS VALUE
-42sh return 0 if sucess, and 1 if normal error. If there is a specific error, his error is returned.
+In our shell it return 0 if sucess, and 1 if there is a normal error. If there is a specific error, his error is returned.
 .SH SEE ALSO
 tcsh
 .SH BUGS
