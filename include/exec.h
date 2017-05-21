@@ -1,11 +1,11 @@
 /*
 ** exec.h for 42sh in /home/cedric/Desktop/parseur 42
-** 
+**
 ** Made by Cédric THOMAS
 ** Login   <cedric.thomas@epitech.eu>
-** 
-** Started on  Tue May  9 09:25:48 2017 
-** Last update Sun May 21 17:13:45 2017 Thibaut Cornolti
+**
+** Started on  Tue May  9 09:25:48 2017
+** Last update Sun May 21 17:48:34 2017 Cédric THOMAS
 */
 
 #ifndef EXEC_H_
@@ -32,7 +32,7 @@
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
-# define FILE_HISTORY   ".42sh_history"
+# define FILE_HISTORY	".42sh_history"
 
 typedef struct		s_alias
 {
@@ -78,14 +78,14 @@ typedef struct		s_info
   t_var			*var;
 }			t_info;
 
-typedef struct          s_exit
+typedef struct		s_exit
 {
-  int                   exit;
-  int                   pid;
+  int			exit;
+  int			pid;
   int			pgid;
   struct s_job		*job;
-  struct s_exit         *next;
-  struct s_exit         *prev;
+  struct s_exit		*next;
+  struct s_exit		*prev;
 }                       t_exit;
 
 typedef struct		s_job
@@ -108,8 +108,8 @@ typedef struct		s_status
 
 typedef struct		s_exec_fct
 {
-  int                   type;
-  int                  (*fct)(t_node *root, t_status *status, t_info *info);
+  int			type;
+  int			(*fct)(t_node *root, t_status *status, t_info *info);
 }			t_exec_fct;
 
 typedef struct		s_system
@@ -126,7 +126,7 @@ t_system	*getter_system(t_system *setter);
 /*
 **PROMPT
 */
-void    print_prompt(t_info *info);
+void	print_prompt(t_info *info);
 
 /*
 **MISC
