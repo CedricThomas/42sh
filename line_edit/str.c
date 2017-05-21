@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat Apr 22 11:50:50 2017 
-** Last update Sun May 21 18:47:34 2017 Cédric THOMAS
+** Last update Sun May 21 23:02:18 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <unistd.h>
@@ -49,6 +49,8 @@ char	*insert_str(char *s1, char *s2, int pos, int mod)
   len = 0;
   if (s1 != NULL)
     len = my_strlen(s1);
+  if (s2 == NULL)
+    return (my_strdup(s1));
   len2 = my_strlen(s2);
   if (mod)
     len2 = 1;
