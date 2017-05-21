@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 **
 ** Started on  Fri May 12 15:28:34 2017 Bastien
-** Last update Sun May 21 23:03:10 2017 Bastien
+** Last update Sun May 21 23:09:39 2017 Bastien
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,7 +27,7 @@ void		free_alias(t_alias *alias)
   free(alias);
 }
 
-static	void	set_new_token(t_token *token, t_token **save, t_token *new)
+static void	set_new_token(t_token *token, t_token **save, t_token *new)
 {
   if (!token->prev)
     *save = new;
