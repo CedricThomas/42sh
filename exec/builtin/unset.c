@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 19:10:23 2017 Bastien
-** Last update Sat May 20 19:57:30 2017 Thibaut Cornolti
+** Last update Sun May 21 17:36:31 2017 Thibaut Cornolti
 */
 
 #include <string.h>
@@ -51,7 +51,8 @@ void	builtin_unset(t_command *cmd, t_status *status, t_info *info)
   while (cmd->argv[++i])
     {
       j = -1;
-      while (info->var[++j].name && strcmp(info->var[j].name, cmd->argv[i]));
+      while (info->var[++j].name &&
+	     strcmp(info->var[j].name, cmd->argv[i]));
       if (info->var[j].name)
 	remove_var(info, j - 1);
     }

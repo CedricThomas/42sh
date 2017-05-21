@@ -5,12 +5,13 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sun Nov 13 17:21:27 2016 Cédric Thomas
-** Last update Tue Nov 15 16:40:02 2016 Cédric Thomas
+** Last update Sun May 21 17:41:05 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "my.h"
 
-static char	*convert_core(long long nb, char *base, int index, char *str)
+static char	*convert_core(long long nb, char *base,
+			      int index, char *str)
 {
   int	modulo;
 

@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 18 23:57:02 2017 Thibaut Cornolti
-** Last update Sat May 20 14:32:47 2017 Bastien
+** Last update Sun May 21 17:36:23 2017 Thibaut Cornolti
 */
 
 #include <string.h>
@@ -103,6 +103,7 @@ void		builtin_where(t_command *cmd, t_status *status, t_info *info)
       finded += verify_alias(info, cmd->argv[i]);
       finded += verify_builtin(info, cmd->argv[i]);
       finded += verify_path(info, cmd->argv[i]);
-      info->exit_value = (!info->exit_value && !finded) ? 1 : info->exit_value;
+      info->exit_value = (!info->exit_value && !finded) ? 1 :
+	info->exit_value;
     }
 }
