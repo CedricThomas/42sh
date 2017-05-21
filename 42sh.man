@@ -1,0 +1,25 @@
+.\" Manpage for nuseradd.
+.\" Contact vivek@nixcraft.net.in to correct errors or typos.
+.TH man 8 "06 May 2010" "1.0" "nuseradd man page"
+.SH NAME
+42sh \- a shell made in C
+.SH DESCRIPTION
+42sh is bash-like shell made in C. This project was made for a school project.
+It reproduces the behaviour of TCSH.
+.SH OPTIONS
+This shell has several built-in in it.
+
+.PP
+lol
+.SH RETURNS VALUE
+42sh return 0 if sucess, and 1 if normal error. If there is a specific error, his error is returned.
+.SH SEE ALSO
+tcsh
+.SH BUGS
+There is no known bugs. But if there is any, please contact thibaut.cornolti@epitech.eu.
+.SH AUTHOR
+thibaut.cornolti@epitech.eu \-
+cedric.thomas@epitech.eu
+
+bastien.rinck@epitech.eu \-   
+marin.brunel@epitech.eu
