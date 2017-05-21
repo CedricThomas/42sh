@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 22:40:26 2017 Thibaut Cornolti
-** Last update Sat May 20 12:05:03 2017 Thibaut Cornolti
+** Last update Sun May 21 16:03:25 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -16,7 +16,7 @@
 #include "my.h"
 #include "my_printf.h"
 
-static void	print_jobs(t_job *job)
+static void	print_jobs(t_job *job, int print_pid)
 {
   static char	*status[6] = {"Running", "Suspended",
 			      "Running", "Running",
@@ -29,7 +29,9 @@ static void	print_jobs(t_job *job)
   i = -1;
   my_printf("[%d]    ", job->number);
   while (++i < 6)
-    if (code[i] == job->status)
+    if (code[i] == job->status && print_pid)
+      my_printf("%d %s\n", job->pid, status[i]);
+    else if (code[i] == job->status)
       my_printf("%s\n", status[i]);
 }
 
@@ -55,7 +57,7 @@ void		builtin_jobs(t_command *cmd, t_status *status, t_info *info)
       job = exit->job;
       if (job->number != last_nbr &&
       	  job->status != 0 && job->status < JOB_TERMPRINT)
-	print_jobs(job);
+	print_jobs(job, argc == 2);
       last_nbr = job->number;
       exit = exit->next;
     }
