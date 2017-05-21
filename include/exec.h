@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Tue May  9 09:25:48 2017
-** Last update Sun May 21 18:00:54 2017 Thibaut Cornolti
+** Last update Sun May 21 18:08:31 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -28,7 +28,7 @@
 # define JOB_TERMINATED	(1 << 5)
 # define INIB_BACK	(1 << 6)
 
-# define BUILTINS_NB	17
+# define BUILTINS_NB	16
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -215,7 +215,6 @@ void	builtin_set(t_command *cmd, t_status *stauts, t_info *info);
 void	builtin_unset(t_command *cmd, t_status *status, t_info *info);
 void	builtin_builtins(t_command *cmd, t_status *status, t_info *info);
 void	builtin_history(t_command *cmd, t_status *status, t_info *info);
-void	builtin_repeat(t_command *cmd, t_status *status, t_info *info);
 void	builtin_where(t_command *cmd, t_status *status, t_info *info);
 void	sort_var(t_info *info);
 void	check_loop(t_info *info);
