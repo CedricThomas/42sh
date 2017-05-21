@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Sun May 21 15:03:40 2017 Thibaut Cornolti
+** Last update Sun May 21 15:31:10 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -67,6 +67,7 @@ int		my_system(char *command, t_system *system)
     }
   print_wait_job(system->status);
   system->status->pgid = 0;
+  my_del_exit(&(system->status->exit_list), 0);
   return (system->info->exit_value);
 }
 

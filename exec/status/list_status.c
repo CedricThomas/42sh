@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 15:59:59 2017 Cédric Thomas
-** Last update Sun May 21 15:18:36 2017 Thibaut Cornolti
+** Last update Sun May 21 15:32:01 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include <signal.h>
@@ -70,9 +70,11 @@ int		my_del_exit(t_exit **ll, int mode)
   while (tmp)
     {
       save = tmp->next;
-      kill(tmp->pid, SIGSTOP);
       if (mode || tmp->job->status == JOB_TERMINATED)
-	my_del_list_exit(ll, tmp);
+	{
+	  kill(tmp->pid, SIGSTOP);
+	  my_del_list_exit(ll, tmp);
+	}
       tmp = save;
     }
   return (0);

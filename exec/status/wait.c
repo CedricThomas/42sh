@@ -1,11 +1,11 @@
 /*
-** fork.c for fork in /home/cedric/delivery/PSU/PSU_2016_42sh/parseur 42/exec
+1;2802;0c** fork.c for fork in /home/cedric/delivery/PSU/PSU_2016_42sh/parseur 42/exec
 ** 
 ** Made by Cédric THOMAS
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Sat May 20 21:01:17 2017 Thibaut Cornolti
+** Last update Sun May 21 15:27:51 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -71,7 +71,8 @@ void		auto_wait(t_status *status, t_info *info)
   tmp = status->exit_list;
   while (tmp)
     {
-      if (tmp->pid > 0 && tmp->job->status & JOB_BACKGROUND &&
+      if (tmp->pid > 0 &&
+	  tmp->job->status & (JOB_BACKGROUND | JOB_SUSPENDED) &&
 	  waitpid(tmp->pid, &last, WNOHANG) > 0)
 	{
 	  tmp->job->status = JOB_TERMPRINT;
