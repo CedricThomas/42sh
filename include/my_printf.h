@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Wed Nov  9 10:12:10 2016 Cédric Thomas
-** Last update Thu Mar 16 12:09:12 2017 Cédric Thomas
+** Last update Sun May 21 18:05:01 2017 Thibaut Cornolti
 */
 #ifndef MY_PRINTF_H_
 # define MY_PRINTF_H_
@@ -93,10 +93,10 @@ int	print_len(int *, const char *, t_flag *);
 /*
 **stru_fct.c
 */
-int			paddchar(char, t_flag *, int);
-int			getlenprecision(t_flag *, char *, int, long long int *);
-int			paddit(t_flag *, int, char, char *);
-int			precision(t_flag *, char *, int, long long int *);
-long long int		cast(t_flag *, va_list *, char);
+int		paddchar(char, t_flag *, int);
+int		getlenprecision(t_flag *, char *, int, long long int *);
+int		paddit(t_flag *, int, char, char *);
+int		precision(t_flag *, char *, int, long long int *);
+long long int	cast(t_flag *, va_list *, char);
 
 #endif /* !MY_PRINTF_H_ */
