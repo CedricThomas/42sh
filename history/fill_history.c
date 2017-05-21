@@ -5,7 +5,7 @@
 ** Login   <marin.brunel@epitech.eu>
 **
 ** Started on  Thu May 18 09:56:38 2017 maje
-** Last update Sun May 21 23:24:27 2017 Thibaut Cornolti
+** Last update Sun May 21 23:37:24 2017 Thibaut Cornolti
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -90,9 +90,8 @@ int		load_history(t_info *info)
   char		*line;
   size_t	len;
 
-  if ((path = get_path_history(info)) == NULL)
-    return (1);
-  if ((stream = fopen(path, "r")) == NULL)
+  if ((path = get_path_history(info)) == NULL ||
+      (stream = fopen(path, "r")) == NULL)
     return (1);
   free(path);
   len = 0;
