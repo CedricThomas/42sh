@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Jan 10 16:30:38 2017 
-** Last update Sun May 21 18:35:20 2017 Thibaut Cornolti
+** Last update Sun May 21 22:30:35 2017 Cédric THOMAS
 */
 
 #include <signal.h>
@@ -26,8 +26,6 @@ static int	check_error(char *path, char *exec_name, t_info *info)
   struct stat	mstat;
 
   isadir = 0;
-  if (exec_name[strlen(exec_name) - 1] == '/')
-    exec_name[strlen(exec_name) - 1] = 0;
   if (path && !stat(path, &mstat))
     isadir = S_ISDIR(mstat.st_mode);
   if (!path || (access(path, F_OK) || !is_in('/', path)))

@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Sun May 21 22:16:05 2017 Cédric THOMAS
+** Last update Sun May 21 22:28:47 2017 Cédric THOMAS
 */
 
 #include <unistd.h>
@@ -44,8 +44,9 @@ static int	swap_var(t_info *info, t_command *cmd, int pos, int i)
   char		*temp;
   int		len;
 
-  if ((info->var[i].value = my_strdup("")) == NULL)
-    exit(84);
+  if (!info->var[i].value)
+    if ((info->var[i].value = my_strdup("")) == NULL)
+      exit(84);
   len = my_cstrlen(cmd->argv[pos], '$');
   if (!(temp = my_alloc(sizeof(char) *
 			(my_strlen(cmd->argv[pos])
