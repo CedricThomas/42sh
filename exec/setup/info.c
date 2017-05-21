@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Sun May 21 21:28:48 2017 Thibaut Cornolti
+** Last update Sun May 21 23:44:38 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -40,7 +40,6 @@ static int	setup_history(t_info *info)
   if ((info->histo = malloc(sizeof(t_history_info))) == NULL)
     exit(84);
   memset(info->histo, 0, sizeof(t_history_info));
-  load_history(info);
   info->alias = 0;
   info->var = 0;
   info->exit_arg = 0;

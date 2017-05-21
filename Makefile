@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Sun May 21 23:39:12 2017 Thibaut Cornolti
+## Last update Sun May 21 23:45:01 2017 Thibaut Cornolti
 ##
 
 EXEC		=	auto_selector.c			\
