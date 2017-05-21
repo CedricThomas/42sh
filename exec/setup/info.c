@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Sun May 21 18:08:44 2017 Thibaut Cornolti
+** Last update Sun May 21 18:57:27 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -43,6 +43,7 @@ static int	setup_history(t_info *info)
   load_history(info);
   info->alias = 0;
   info->var = 0;
+  info->exit_arg = 0;
   return (0);
 }
 
