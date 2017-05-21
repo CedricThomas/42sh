@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sun Jan  8 18:51:02 2017 
-** Last update Fri May 19 13:51:50 2017 Cédric THOMAS
+** Last update Sun May 21 15:57:46 2017 Thibaut Cornolti
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -23,11 +23,11 @@ static void	print_cderror(char *path)
 
   my_puterror(path);
   if (stat(path, &my_stat) < 0)
-    return (my_puterror(": No such file or directory.\n"));
-  if (!S_ISDIR(my_stat.st_mode))
-    return (my_puterror(": Not a directory.\n"));
-  if (access(path, R_OK))
-    return (my_puterror(": Permission denied.\n"));
+    my_puterror(": No such file or directory.\n");
+  else if (!S_ISDIR(my_stat.st_mode))
+    my_puterror(": Not a directory.\n");
+  else if (access(path, R_OK))
+    my_puterror(": Permission denied.\n");
 }
 
 static void	changepwd(t_info *info)
@@ -73,7 +73,8 @@ static void	oneparams(t_info *info, t_command *cmd)
   if (chdir(path) < 0)
     {
       print_cderror(path);
-      return (free(path));
+      free(path);
+      return ;
     }
   free(path);
   changepwd(info);

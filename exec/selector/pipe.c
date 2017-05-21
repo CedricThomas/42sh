@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 29 21:29:03 2017
-** Last update Sun May 21 11:33:22 2017 Cédric THOMAS
+** Last update Sun May 21 15:57:28 2017 Thibaut Cornolti
 */
 
 #include <sys/types.h>
@@ -29,7 +29,10 @@ static void	pipe_and_send(t_pipe *root, t_status *status, t_info *info)
   int		fd[2];
 
   if (pipe(fd) < 0)
-    return (pipe_error(root));
+    {
+      pipe_error(root);
+      return ;
+    }
   status->status += LEFT_PIPE;
   ((t_pipe *) root->left)->fd[1] = fd[1];
   ((t_pipe *) root->left)->fd[0] = root->fd[0];

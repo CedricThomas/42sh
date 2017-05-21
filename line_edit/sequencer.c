@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat May 20 11:04:00 2017 Cédric THOMAS
-** Last update Sat May 20 11:07:01 2017 Cédric THOMAS
+** Last update Sun May 21 15:55:43 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -55,9 +55,9 @@ static void	advanced_key(t_keypad_fct *keys)
   keys[13].fct = &bind_paste;
   keys[14].sequence = "\025";
   keys[14].fct = &bind_copy_all;
-  keys[15].sequence = "\e[1;5D";
+  keys[15].sequence = "\033[1;5D";
   keys[15].fct = &ctrl_left_arrow;
-  keys[16].sequence = "\e[1;5C";
+  keys[16].sequence = "\033[1;5C";
   keys[16].fct = &ctrl_right_arrow;
   keys[17].sequence = "\006";
   keys[17].fct = &switch_mod;
