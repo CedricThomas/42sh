@@ -1,11 +1,11 @@
 /*
 ** match.h for match in /home/cedric/delivery/extract_match
-** 
-** Made by 
+**
+** Made by
 ** Login   <cedric.thomas@epitech.eu>
-** 
-** Started on  Mon Apr 24 09:28:55 2017 
-** Last update Fri May 12 16:32:43 2017 Thibaut Cornolti
+**
+** Started on  Mon Apr 24 09:28:55 2017
+** Last update Sun May 21 17:39:36 2017 Cédric THOMAS
 */
 #ifndef MATCH_H_
 # define MATCH_H_

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Sun May 21 17:18:30 2017 Thibaut Cornolti
+** Last update Sun May 21 17:38:21 2017 Cédric THOMAS
 */
 
 #ifndef SYNTAX_H_
@@ -185,7 +185,7 @@ void		my_free_tree(void **root);
 /*
 **redir_list.c
 */
-int             add_redir_list(t_redir **my_redir, char *file, char *type);
+int		add_redir_list(t_redir **my_redir, char *file, char *type);
 void		show_redir(t_redir *redir);
 
 /*
@@ -221,7 +221,7 @@ int		error_redir_node(t_field *field, t_token *mid);
 **input_lexer.c
 */
 
-int             check_input_lexer(char *str);
+int		check_input_lexer(char *str);
 
 /*
 **syntax_lexem.c
