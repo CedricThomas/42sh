@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Sun May 21 15:54:50 2017 Thibaut Cornolti
+## Last update Sun May 21 16:32:51 2017 Thibaut Cornolti
 ##
 
 EXEC		=	auto_selector.c			\
@@ -133,7 +133,7 @@ LIB		=	-lmy -lmyprintf -lgnl -lalloc -lncurses
 
 INCLUDE		=	-I./include/
 
-CFLAGS		+=	 $(INCLUDE) -W -Wall -Wextra -g -pedantic
+CFLAGS		+=	 $(INCLUDE) -W -Wall -Wextra -g
 
 REDDARK         =       \033[31;2m
 
