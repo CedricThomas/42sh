@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Fri May 19 18:17:46 2017 Thibaut Cornolti
-** Last update Sun May 21 13:10:19 2017 Cédric THOMAS
+** Last update Sun May 21 16:27:39 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -37,7 +37,7 @@ static char	*read_son(int fd, int pid, t_system *system)
 	exit(84);
       my_strcpy(res + size - readed, buf);
     }
-  system->info->exit_value_backquote = status;
+  system->info->exit_value = WEXITSTATUS(status);
   if ((res = replace_unquoted_str(res, "\n", " ", "")) == NULL)
     exit(84);
   return (res);

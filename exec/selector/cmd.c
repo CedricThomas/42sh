@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Sun May 21 15:30:32 2017 Thibaut Cornolti
+** Last update Sun May 21 16:26:52 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -90,10 +90,7 @@ int		exec_cmd(t_node *root, t_status *status, t_info *info)
 
   cmd = (t_command *)root;
   if (!get_var(cmd, info))
-    {
-      info->exit_value = 1;
-      return (1);
-    }
+    return (1);
   wait = auto_exec(cmd, status, info);
   if (wait)
     auto_wait(status, info);

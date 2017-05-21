@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Sun May 21 14:36:32 2017 Bastien
+** Last update Sun May 21 16:31:05 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -29,6 +29,8 @@ static int	error_var(char **str, t_info *info)
 		      ((*str)[i] >= 'a' && (*str)[i] <= 'z')))
 	write(1, (*str) + i, 1);
       printf(": Undefined variable.\n");
+      info->exit_value = 1;
+      info->exit_arg = 1;
       return (1);
     }
   my_vfree((void **)(str), NULL);
