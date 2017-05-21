@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 22:32:29 2017 
-** Last update Sun May 21 21:58:04 2017 Thibaut Cornolti
+** Last update Sun May 21 22:12:16 2017 Thibaut Cornolti
 */
 #include <errno.h>
 #include <stdlib.h>
@@ -72,8 +72,9 @@ void	simple_exec(t_command *cmd, t_status *status, t_info *info)
 
   UNUSED(status);
   path = my_pathfinder(cmd, info);
-  env = my_tabdup(info->env);
-  argv = my_tabdup(cmd->argv);
+  if ((env = my_tabdup(info->env)) == NULL ||
+      (argv = my_tabdup(cmd->argv)) == NULL)
+    exit(84);
   path_cmd = my_strdup(cmd->path);
   free_son(info);
   if (path && execve(path, argv, env))
