@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Tue May  9 09:25:48 2017
-** Last update Sun May 21 17:48:34 2017 Cédric THOMAS
+** Last update Sun May 21 18:08:31 2017 Thibaut Cornolti
 */
 
 #ifndef EXEC_H_
@@ -28,7 +28,7 @@
 # define JOB_TERMINATED	(1 << 5)
 # define INIB_BACK	(1 << 6)
 
-# define BUILTINS_NB	17
+# define BUILTINS_NB	16
 # define REDIR_NB	4
 
 # define FILE_RC	".42shrc"
@@ -126,14 +126,14 @@ t_system	*getter_system(t_system *setter);
 /*
 **PROMPT
 */
-void	print_prompt(t_info *info);
+void		print_prompt(t_info *info);
 
 /*
 **MISC
 */
-int	exist_in_tab(char *str, char **);
-char	**tab_dup(char **);
-int	my_perror(char *cmd, char *error);
+int		exist_in_tab(char *str, char **);
+char		**tab_dup(char **);
+int		my_perror(char *cmd, char *error);
 
 /*
 **SETUP
@@ -150,27 +150,17 @@ void		free_var(t_var *var);
 /*
 **ENV
 */
-
-/*
-**keys
-*/
 char		*getkey_hostname();
 char		*getkey_pwd();
-
-/*
-**env
-*/
-int	changekey(char **ae, char *key, char *value, int freeit);
-char	**addkey(char **ae, char *key, char *value, int freeit);
-char	**deletekey(char **ae, char *key, int freeit);
-char	*getkey(char **ae, char *key, int dup);
+int		changekey(char **ae, char *key, char *value, int freeit);
+char		**addkey(char **ae, char *key, char *value, int freeit);
+char		**deletekey(char **ae, char *key, int freeit);
+char		*getkey(char **ae, char *key, int dup);
 
 /*
 **SELECTOR
 */
-
 int	auto_select(t_node *root, t_status *status, t_info *info);
-
 int	exec_cmd(t_node *root, t_status *status, t_info *info);
 int	exec_separ(t_node *root, t_status *status, t_info *info);
 int	exec_logic(t_node *root, t_status *status, t_info *info);
@@ -181,12 +171,10 @@ int	exec_job(t_node *root, t_status *status, t_info *info);
 **SELECTOR/CMD
 */
 int	load_redir(t_command *cmd, t_status *status);
-
 int	redir_output(char *file);
 int	double_redir_output(char *file);
 int	redir_input(char *file);
 int	double_redir_input(char *file);
-
 void	my_undup(t_command *cmd, int save[3]);
 void	my_dup(t_command *cmd, int *save);
 
@@ -199,14 +187,12 @@ void	simple_exec(t_command *cmd, t_status *status, t_info *info);
 /*
 **STATUS
 */
-
 void	auto_wait(t_status *status, t_info *info);
 void	print_wait_job(t_status *status);
 int	my_fork(t_command *cmd, t_status *status, t_info *info,
 		void (*fct)(t_command *cmd, t_status *status, t_info *info));
 int	my_fork_job(void *root, t_status *status, t_info *info,
 		int (*fct)(t_node *root, t_status *status, t_info *info));
-
 t_exit	*my_put_list_exit(t_exit **ll, int pid, int gpid, int last);
 void	set_exit_value(t_exit *ll, int pid, int exitval);
 void	show_exit_status(t_exit *ll);
@@ -229,7 +215,6 @@ void	builtin_set(t_command *cmd, t_status *stauts, t_info *info);
 void	builtin_unset(t_command *cmd, t_status *status, t_info *info);
 void	builtin_builtins(t_command *cmd, t_status *status, t_info *info);
 void	builtin_history(t_command *cmd, t_status *status, t_info *info);
-void	builtin_repeat(t_command *cmd, t_status *status, t_info *info);
 void	builtin_where(t_command *cmd, t_status *status, t_info *info);
 void	sort_var(t_info *info);
 void	check_loop(t_info *info);
@@ -240,18 +225,15 @@ int	my_vartablen(t_var *var);
 /*
 **LOAD
 */
-
 void	load_rc(t_status *status, t_system *sys, t_syntax *syntax);
 
 /*
 **JOB
 */
-
 t_job	*my_create_job(t_status *status, int pid, int pgid, int stats);
 void	show_job_status(t_exit *ll);
 int	get_free_job(t_exit *ll);
 t_job	*get_job_by_number(t_exit *ll, int number);
-
 int	fill_history(char *, t_info*);
 
 /*
@@ -259,14 +241,12 @@ int	fill_history(char *, t_info*);
 */
 int	write_history(struct s_info *info);
 int	load_history(struct s_info *info);
-
 int	my_put_list_history(t_history **ll, char *history,
 			    long time, int index);
 int	my_del_list_history(t_history **ll, t_history *elem);
 int	my_free_history(t_history **ll);
 void	my_show_hist(t_history *ll);
 char	*change_hist(char *cmd, t_info *info);
-
 char	*history_fct_exclam(char *src, int *idx, t_history_info *history);
 char	*history_fct_dollar(char *src, int *idx, t_history_info *history);
 char	*history_fct_colon(char *src, int *idx, t_history_info *history);
@@ -290,6 +270,6 @@ void	redef_all(t_token *token);
 /*
 **SIGNAL
 */
-void		signal_sigint();
+void	signal_sigint();
 
 #endif /* !EXEC_H_ */

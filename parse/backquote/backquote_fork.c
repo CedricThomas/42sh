@@ -1,11 +1,11 @@
 /*
 ** backquote_fork.c for 42sh in /home/thibrex/Dropbox/delivery/PSU/PSU_2016_42sh/parse/backquote
-** 
+**
 ** Made by Thibaut Cornolti
 ** Login   <thibaut.cornolti@epitech.eu>
-** 
+**
 ** Started on  Fri May 19 18:17:46 2017 Thibaut Cornolti
-** Last update Sun May 21 17:16:32 2017 Thibaut Cornolti
+** Last update Sun May 21 18:38:37 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -104,3 +104,4 @@ t_token		*get_system(char *cmd, t_system *sys)
   signal(SIGINT, &signal_sigint);
   return (get_token(line, sys->syntax, sys->info, 0));
 }
+x

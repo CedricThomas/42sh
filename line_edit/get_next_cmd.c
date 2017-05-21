@@ -1,11 +1,11 @@
 /*
 ** get_next_cmd.c for get_next_cmd.c in /home/cedric/Desktop/get_next_cmd
-** 
-** Made by 
+**
+** Made by
 ** Login   <cedric.thomas@epitech.eu>
-** 
-** Started on  Fri Apr 21 22:22:55 2017 
-** Last update Sat May 20 12:03:57 2017 Cédric THOMAS
+**
+** Started on  Fri Apr 21 22:22:55 2017
+** Last update Sun May 21 18:40:34 2017 Cédric THOMAS
 */
 #include <stdio.h>
 #include <sys/time.h>

@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 **
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Sat May 20 19:45:07 2017 Thibaut Cornolti
+** Last update Sun May 21 18:33:20 2017 Cédric THOMAS
 */
 
 #include <stdio.h>
@@ -19,8 +19,8 @@
 
 static char	*get_real_path(char *path)
 {
-  char          buf[PATH_MAX + 1];
-  char          *realdist;
+  char		buf[PATH_MAX + 1];
+  char		*realdist;
 
   if ((realdist = realpath(path, buf)) == NULL)
     return (NULL);

@@ -1,11 +1,11 @@
 /*
 ** list_lexer.c for lexer in /home/cedric/delivery/parseur_ll
-** 
-** Made by 
+**
+** Made by
 ** Login   <cedric.thomas@epitech.eu>
-** 
-** Started on  Wed Mar 22 21:39:39 2017 
-** Last update Fri May 19 16:21:51 2017 Cédric THOMAS
+**
+** Started on  Wed Mar 22 21:39:39 2017
+** Last update Sun May 21 18:12:17 2017 Cédric THOMAS
 */
 #include <string.h>
 #include <stdlib.h>

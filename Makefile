@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Sun May 21 16:32:51 2017 Thibaut Cornolti
+## Last update Sun May 21 18:11:12 2017 Thibaut Cornolti
 ##
 
 EXEC		=	auto_selector.c			\
@@ -34,7 +34,6 @@ EXEC		=	auto_selector.c			\
 			builtin/unset.c			\
 			builtin/builtins.c		\
 			builtin/history.c		\
-			builtin/repeat.c		\
 			builtin/where.c			\
 			status/list_status.c		\
 			status/list_job.c		\
@@ -133,7 +132,7 @@ LIB		=	-lmy -lmyprintf -lgnl -lalloc -lncurses
 
 INCLUDE		=	-I./include/
 
-CFLAGS		+=	 $(INCLUDE) -W -Wall -Wextra -g
+CFLAGS		+=	 $(INCLUDE) -W -Wall -Wextra
 
 REDDARK         =       \033[31;2m
 

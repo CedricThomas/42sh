@@ -1,11 +1,11 @@
 /*
 ** bind.c for get_next_cmd in /home/cedric/Desktop/get_next_cmd
-** 
-** Made by 
+**
+** Made by
 ** Login   <cedric.thomas@epitech.eu>
-** 
-** Started on  Fri Apr 21 22:13:11 2017 
-** Last update Sat May 20 18:43:46 2017 Cédric THOMAS
+**
+** Started on  Fri Apr 21 22:13:11 2017
+** Last update Sun May 21 17:52:16 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <termio.h>

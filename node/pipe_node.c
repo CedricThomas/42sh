@@ -1,11 +1,11 @@
 /*
 ** standard_node.c for parseur in /home/thibrex/Dropbox/delivery/PSU/PSU_2016_42sh/parseur 42/node
-** 
+**
 ** Made by Thibaut Cornolti
 ** Login   <thibaut.cornolti@epitech.eu>
-** 
+**
 ** Started on  Thu May  4 18:11:31 2017 Thibaut Cornolti
-** Last update Sun May  7 16:11:03 2017 
+** Last update Sun May 21 18:32:24 2017 Cédric THOMAS
 */
 
 #include <sys/types.h>

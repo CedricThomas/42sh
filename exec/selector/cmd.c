@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Sun May 21 16:26:52 2017 Thibaut Cornolti
+** Last update Sun May 21 18:08:24 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -31,9 +31,8 @@ static void	fill_builtins(void (*fct[BUILTINS_NB])(t_command *cmd,
   fct[11] = &builtin_unset;
   fct[12] = &builtin_builtins;
   fct[13] = &builtin_history;
-  fct[14] = &builtin_repeat;
-  fct[15] = &builtin_cd;
-  fct[16] = &builtin_where;
+  fct[14] = &builtin_cd;
+  fct[15] = &builtin_where;
 }
 
 static int	exec_builtins(t_command *cmd, t_status *status,

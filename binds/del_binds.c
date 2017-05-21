@@ -1,11 +1,11 @@
 /*
 ** del_binds.c for del_binds in /home/cedric/Desktop/get_next_cmd
-** 
+**
 ** Made by Cédric THOMAS
 ** Login   <cedric.thomas@epitech.eu>
-** 
+**
 ** Started on  Mon May 15 22:18:05 2017 Cédric THOMAS
-** Last update Sat May 20 15:41:18 2017 maje
+** Last update Sun May 21 18:42:31 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <termio.h>

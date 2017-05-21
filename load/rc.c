@@ -1,11 +1,11 @@
 /*
 ** rc.c for rc in /home/thibrex/Dropbox/delivery/PSU/PSU_2016_42sh/parseur42
-** 
+**
 ** Made by Thibaut Cornolti
 ** Login   <thibaut.cornolti@epitech.eu>
-** 
+**
 ** Started on  Mon May 15 13:59:16 2017 Thibaut Cornolti
-** Last update Sat May 20 20:27:34 2017 Cédric THOMAS
+** Last update Sun May 21 18:29:45 2017 Cédric THOMAS
 */
 
 #include <fcntl.h>

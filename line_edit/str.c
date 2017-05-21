@@ -1,11 +1,11 @@
 /*
 ** misc.c for gnc in /home/cedric/Desktop/get_next_cmd
-** 
-** Made by 
+**
+** Made by
 ** Login   <cedric.thomas@epitech.eu>
-** 
-** Started on  Sat Apr 22 11:50:50 2017 
-** Last update Sat May 20 19:47:49 2017 Thibaut Cornolti
+**
+** Started on  Sat Apr 22 11:50:50 2017
+** Last update Sun May 21 18:23:16 2017 Cédric THOMAS
 */
 #include <curses.h>
 #include <unistd.h>
@@ -40,7 +40,7 @@ char	*delete_a_char(char *str, int index)
   return (full);
 }
 
-char		*insert_str(char *s1, char *s2, int pos, int mod)
+char	*insert_str(char *s1, char *s2, int pos, int mod)
 {
   int	len2;
   char	*dest;

@@ -1,11 +1,11 @@
 /*
 ** tree_list.c for parseur in /home/cedric/delivery/parseur_ll/tree
-** 
-** Made by 
+**
+** Made by
 ** Login   <cedric.thomas@epitech.eu>
-** 
-** Started on  Fri Mar 24 15:04:43 2017 
-** Last update Fri May  5 11:39:32 2017 
+**
+** Started on  Fri Mar 24 15:04:43 2017
+** Last update Sun May 21 18:36:40 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -55,7 +55,7 @@ void	show_nodes(t_node *root, int depth, int side)
     show_nodes((t_node *)root->left, depth + 1, 1);
 }
 
-void		my_free_tree(void **root)
+void	my_free_tree(void **root)
 {
   my_free_tag("tree", 0);
   *root = NULL;

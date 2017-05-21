@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 18:26:36 2017
-** Last update Sun May 21 17:38:21 2017 Cédric THOMAS
+** Last update Sun May 21 17:56:37 2017 Thibaut Cornolti
 */
 
 #ifndef SYNTAX_H_
@@ -116,56 +116,26 @@ t_syntax	*get_syntax();
 /*
 **MISC
 */
-
-/*
-**tab.c
-*/
-
 char		**tab_create(int size, ...);
 t_syntax	syntax_create(int weight, int size, ...);
-
-/*
-**misc.c
-*/
-
 void		*my_free_null(void *ptr);
 int		my_putfd(int fd, char *str);
 int		my_log2(int log);
-
-/*
-**alloc.c
-*/
-
 char		*alloc_strdup(char *);
-
-/*
-**separators.c
-*/
-
-char	*shape_separator(char *str, char **sep_list);
-
-/*
-**quote.c
-*/
-
-char	*delete_nbchar(char *str, int nb, int index);
-char	*add_substr(char *str, char *substr, int index);
-char	*replace_unquoted_str(char *str, char *find,
+char		*shape_separator(char *str, char **sep_list);
+char		*delete_nbchar(char *str, int nb, int index);
+char		*add_substr(char *str, char *substr, int index);
+char		*replace_unquoted_str(char *str, char *find,
+				      char *replace, char *quote_list);
+char		*replace_quoted_str(char *str, char *find,
 			      char *replace, char *quote_list);
-char	*replace_quoted_str(char *str, char *find,
-			      char *replace, char *quote_list);
-char	*dequotificator(char *str);
+char		*dequotificator(char *str);
 
 /*
 **LEXER
 */
-
 t_token		*get_token(char *str, t_syntax *my_syntax,
 			   t_info *info, int shape);
-
-/*
-**list.c
-*/
 int		my_put_list_token(t_token **ll, char *token, int type);
 int		my_del_list_token(t_token **ll, t_token *elem);
 void		swap_token(t_token *one, t_token *two);
@@ -175,30 +145,16 @@ int		my_show_token(t_token *ll);
 /*
 **TREE
 */
-
-/*
-**tree_list.c
-*/
 void		show_nodes(t_node *root, int depth, int side);
 void		my_free_tree(void **root);
-
-/*
-**redir_list.c
-*/
 int		add_redir_list(t_redir **my_redir, char *file, char *type);
 void		show_redir(t_redir *redir);
-
-/*
-**tree.c
-*/
-
 void		*create_tree(void *root,
 			     t_token *start, t_token *end);
 
 /*
-**node
+**NODE
 */
-
 void		*auto_create_node(void *root, t_token *start, t_token *end);
 void		*create_standard_node(t_field *field, t_token *mid);
 void		*create_command_node(t_field *field, t_token *mid);
@@ -207,48 +163,25 @@ void		*create_pipe_node(t_field *field, t_token *mid);
 /*
 **ERROR
 */
-
-/*
-**error_node
-*/
-
 int		error_pipe_node(t_field *field, t_token *mid);
 int		error_command_node(t_field *field, t_token *mid);
 int		error_logic_node(t_field *field, t_token *mid);
 int		error_redir_node(t_field *field, t_token *mid);
-
-/*
-**input_lexer.c
-*/
-
 int		check_input_lexer(char *str);
-
-/*
-**syntax_lexem.c
-*/
-
 int		check_tokens(t_token *token);
 
 /*
 **SHAPE
 */
-
-/*
-**shape_str.c
-*/
-char	*shape_str(char *str);
-
-/*
-**shape_token.c
-*/
-void	shape_token(t_token *token);
-void	inib_token(t_token *token);
+char		*shape_str(char *str);
+void		shape_token(t_token *token);
+void		inib_token(t_token *token);
 
 /*
 **SYNTAX_CHECKER
 */
-int	match_all(t_token *token, int type, int reset, int find);
-int	match_prev(t_token *token, int type, int reset, int find);
-int	match_next(t_token *token, int type, int reset, int find);
+int		match_all(t_token *token, int type, int reset, int find);
+int		match_prev(t_token *token, int type, int reset, int find);
+int		match_next(t_token *token, int type, int reset, int find);
 
 #endif /* !SYNTAX_H_ */

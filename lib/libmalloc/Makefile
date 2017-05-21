@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Fri Oct 14 09:33:10 2016 Cédric Thomas
-## Last update Thu Mar 16 19:15:52 2017 
+## Last update Sun May 21 18:12:16 2017 Thibaut Cornolti
 ##
 
 SRC	=	my_alloc.c	\
@@ -17,8 +17,6 @@ SRC	=	my_alloc.c	\
 OBJ	=	$(SRC:.c=.o)
 
 INCLUDE =	my_alloc.h
-
-CFLAGS	+=	-g
 
 NAME	=	liballoc.a
 

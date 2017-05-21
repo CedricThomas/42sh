@@ -1,11 +1,11 @@
 /*
 ** fill_history.c for 42sh in /home/maje/Dropbox/delivery/B2/PSU/PSU_2016_42sh
-** 
+**
 ** Made by maje
 ** Login   <marin.brunel@epitech.eu>
-** 
+**
 ** Started on  Thu May 18 09:56:38 2017 maje
-** Last update Sun May 21 10:41:55 2017 Cédric THOMAS
+** Last update Sun May 21 18:16:47 2017 Cédric THOMAS
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -19,9 +19,9 @@
 
 static char		*get_path_history(t_info *info)
 {
-  int		len;
-  char		*home;
-  char		*path;
+  int			len;
+  char			*home;
+  char			*path;
 
   if ((home = getkey(info->env, "HOME", 0)) == NULL)
     return (NULL);
@@ -35,7 +35,7 @@ static char		*get_path_history(t_info *info)
   return (path);
 }
 
-int			write_history(t_info *info)
+int		write_history(t_info *info)
 {
   char		*path;
   int		fd;
@@ -79,7 +79,7 @@ static void	end_loading(t_info *info, int idx)
   info->histo->len = idx;
 }
 
-int	load_history(t_info *info)
+int		load_history(t_info *info)
 {
   int		i;
   char		*path;

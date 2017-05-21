@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Mon May 15 15:48:20 2017 Bastien
-** Last update Sun May 21 13:36:57 2017 Cédric THOMAS
+** Last update Sun May 21 17:40:31 2017 Thibaut Cornolti
 */
 
 #include <stdio.h>
@@ -85,7 +85,8 @@ static int	secure_test(char *str, t_info *info)
   return (info->exit_value);
 }
 
-void		builtin_alias(t_command *cmd, t_status *status, t_info *info)
+void		builtin_alias(t_command *cmd, t_status *status,
+			      t_info *info)
 {
   int		nb_arg;
   char		*temp;

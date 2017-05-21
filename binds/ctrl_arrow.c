@@ -1,11 +1,11 @@
 /*
 ** copy_paste.c for 42sh in /home/thibrex/Dropbox/delivery/PSU/PSU_2016_42sh
-** 
+**
 ** Made by Thibaut Cornolti
 ** Login   <thibaut.cornolti@epitech.eu>
-** 
+**
 ** Started on  Fri May 19 22:19:27 2017 Thibaut Cornolti
-** Last update Sat May 20 11:09:58 2017 Thibaut Cornolti
+** Last update Sun May 21 18:42:39 2017 Cédric THOMAS
 */
 
 #include <curses.h>

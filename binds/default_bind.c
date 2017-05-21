@@ -1,11 +1,11 @@
 /*
 ** default_bind.c for gnc in /home/cedric/Desktop/get_next_cmd
-** 
+**
 ** Made by Cédric THOMAS
 ** Login   <cedric.thomas@epitech.eu>
-** 
+**
 ** Started on  Mon May 15 22:03:45 2017 Cédric THOMAS
-** Last update Sat May 20 15:40:46 2017 maje
+** Last update Sun May 21 18:43:53 2017 Cédric THOMAS
 */
 #include <sys/ioctl.h>
 #include <ncurses.h>
@@ -15,7 +15,8 @@
 #include "my_printf.h"
 #include "my.h"
 
-void		default_append(char *buff, t_keypad *keypad, int size_buff)
+void		default_append(char *buff, t_keypad *keypad,
+			       int size_buff)
 {
   int		idx;
   int		i;

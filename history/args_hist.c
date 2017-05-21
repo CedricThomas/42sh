@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Sat May 20 13:43:45 2017 Cédric THOMAS
-** Last update Sun May 21 18:16:21 2017 Cédric THOMAS
+** Last update Sun May 21 18:25:23 2017 Cédric THOMAS
 */
 #include <termio.h>
 #include <stdio.h>
@@ -18,7 +18,8 @@
 #include "get_next_command.h"
 #include "my.h"
 
-static char	*history_fct_def(char *src, int *idx, t_history_info *history)
+static char	*history_fct_def(char *src, int *idx,
+				 t_history_info *history)
 {
   UNUSED(history);
   UNUSED(idx);

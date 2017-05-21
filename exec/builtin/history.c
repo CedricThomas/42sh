@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Thu May 18 23:57:02 2017 Thibaut Cornolti
-** Last update Sat May 20 13:11:24 2017 Cédric THOMAS
+** Last update Sun May 21 17:40:17 2017 Thibaut Cornolti
 */
 
 #include <time.h>
@@ -27,7 +27,8 @@ static t_history	*goin_index(int size, t_info *info)
   return (!temp ? info->histo->start : temp);
 }
 
-void		builtin_history(t_command *cmd, t_status *status, t_info *info)
+void		builtin_history(t_command *cmd, t_status *status,
+				t_info *info)
 {
   t_history	*temp;
   struct tm	*tm;
