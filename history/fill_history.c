@@ -5,13 +5,14 @@
 ** Login   <marin.brunel@epitech.eu>
 **
 ** Started on  Thu May 18 09:56:38 2017 maje
-** Last update Sun May 21 18:47:54 2017 Cédric THOMAS
+** Last update Sun May 21 23:24:27 2017 Thibaut Cornolti
 */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <unistd.h>
 #include "syntax.h"
 #include "exec.h"
@@ -97,9 +98,12 @@ int		load_history(t_info *info)
   len = 0;
   line = NULL;
   i = 0;
+  errno = 0;
   while ((getline(&line, &len, stream)) != -1 && ++i)
     {
       sscanf(line, "%ld#%m[^\n]s", &time, &cmd);
+      if (errno != 0)
+	exit(84);
       put_history(info, time, cmd, i);
     }
   free(line);
