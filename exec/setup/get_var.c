@@ -5,10 +5,11 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Sun May 21 18:35:40 2017 Thibaut Cornolti
+** Last update Sun May 21 22:16:05 2017 Cédric THOMAS
 */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "syntax.h"
@@ -43,12 +44,14 @@ static int	swap_var(t_info *info, t_command *cmd, int pos, int i)
   char		*temp;
   int		len;
 
+  if ((info->var[i].value = my_strdup("")) == NULL)
+    exit(84);
   len = my_cstrlen(cmd->argv[pos], '$');
   if (!(temp = my_alloc(sizeof(char) *
 			(my_strlen(cmd->argv[pos])
 			 - my_strlen(info->var[i].name)
 			 + my_strlen(info->var[i].value)))))
-    return (1);
+    exit(84);
   my_tag_alloc(temp, "tree", 0);
   temp = (len > 0) ? strncat(temp, cmd->argv[pos], len) : temp;
   temp = strncat(temp, info->var[i].value, my_strlen(info->var[i].value));

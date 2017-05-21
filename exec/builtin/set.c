@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Wed May 17 16:07:30 2017 Bastien
-** Last update Sun May 21 18:33:53 2017 Thibaut Cornolti
+** Last update Sun May 21 22:17:02 2017 Cédric THOMAS
 */
 
 #include <string.h>
@@ -40,7 +40,8 @@ static void	replace_var(char *str, t_var *var)
   var->value = NULL;
   if (len == strlen(str))
     return ;
-  var->value = strdup(str + len);
+  if ((var->value = strdup(str + len)) == NULL)
+    exit(84);
 }
 
 static void	add_var(char *str, t_info *info)
@@ -50,11 +51,12 @@ static void	add_var(char *str, t_info *info)
 
   size = my_vartablen(info->var);
   if (!(info->var = realloc(info->var, sizeof(t_var) * (size + 2))))
-    return ;
+    exit(84);
   memset(&info->var[size], 0, sizeof(t_var) * 2);
   if ((len = my_cstrlen(str, '=')) == strlen(str))
     {
-      info->var[size].name = strdup(str);
+      if ((info->var[size].name = strdup(str)) == NULL)
+	exit(84);
       return ;
     }
   len = my_cstrlen(str, '=');

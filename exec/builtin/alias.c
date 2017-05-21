@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Mon May 15 15:48:20 2017 Bastien
-** Last update Sun May 21 17:40:31 2017 Thibaut Cornolti
+** Last update Sun May 21 22:18:42 2017 Cédric THOMAS
 */
 
 #include <stdio.h>
@@ -63,9 +63,11 @@ char	*get_whole_alias(t_command *cmd)
   temp = NULL;
   while (cmd->argv[++i])
     {
-      temp = my_strcatdup(temp, cmd->argv[i], 1);
+      if ((temp = my_strcatdup(temp, cmd->argv[i], 1)) == NULL)
+	exit(84);
       if (cmd->argv[i + 1])
-	temp = my_strcatdup(temp, " ", 1);
+	if ((temp = my_strcatdup(temp, " ", 1)) == NULL)
+	  exit(84);
     }
   return (temp);
 }
@@ -104,7 +106,7 @@ void		builtin_alias(t_command *cmd, t_status *status,
   if (verify_exist(info, cmd->argv[1], temp))
     {
       if (!(info->alias = realloc(info->alias, sizeof(t_alias) * (size + 2))))
-	return ;
+	exit(84);
       memset(&info->alias[size], 0, sizeof(t_alias) * 2);
       info->alias[size].link = strdup(cmd->argv[1]);
       info->alias[size].value = temp;

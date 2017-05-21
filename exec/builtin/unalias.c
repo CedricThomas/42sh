@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 09:29:45 2017 Bastien
-** Last update Fri May 19 10:44:56 2017 Bastien
+** Last update Sun May 21 22:19:34 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -28,7 +28,8 @@ void		remove_alias(t_info *info, int j)
       info->alias[j + 1].link = temp.link;
       info->alias[j + 1].value = temp.value;
     }
-  info->alias = realloc(info->alias, sizeof(t_alias) * size);
+  if ((info->alias = realloc(info->alias, sizeof(t_alias) * size)) == NULL)
+    exit(84);
 }
 
 void	builtin_unalias(t_command *cmd, t_status *status, t_info *info)
