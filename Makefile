@@ -5,7 +5,7 @@
 ## Login   <cedric@epitech.net>
 ## 
 ## Started on  Sat Oct 22 10:37:32 2016 Cédric Thomas
-## Last update Sun May 21 21:31:38 2017 Thibaut Cornolti
+## Last update Sun May 21 23:04:24 2017 Bastien
 ##
 
 EXEC		=	auto_selector.c			\
@@ -42,6 +42,7 @@ EXEC		=	auto_selector.c			\
 			status/fork.c			\
 			setup/info.c			\
 			setup/get_alias.c		\
+			setup/null_alias.c		\
 			setup/get_var.c			\
 			setup/qmark_var.c		\
 			setup/glob.c			\

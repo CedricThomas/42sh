@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Tue May  9 09:25:48 2017
-** Last update Sun May 21 21:27:46 2017 Thibaut Cornolti
+** Last update Sun May 21 23:05:05 2017 Bastien
 */
 
 #ifndef EXEC_H_
@@ -144,6 +144,7 @@ t_token		*get_alias(t_token *, t_info *info, t_syntax *syntax);
 void		free_alias(t_alias *alias);
 t_token		*globbing(t_token *token, t_syntax *syntax);
 t_command	*get_var(t_command *cmd, t_info *info);
+int		null_alias(t_token *token);
 int		qmark_var(t_info *info, t_command *cmd, int pos);
 void		free_var(t_var *var);
 
