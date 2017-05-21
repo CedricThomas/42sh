@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue Mar 28 22:36:31 2017 
-** Last update Sun May 21 16:56:29 2017 Thibaut Cornolti
+** Last update Sun May 21 21:53:45 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
 #include "syntax.h"
@@ -40,6 +40,7 @@ int		auto_select(t_node *root, t_status *status, t_info *info)
   get_fct(fct_parse);
   if (root->type & T_SEPAR)
     status->pgid = 0;
+  status->job_nbr = get_free_job(status->exit_list);
   while (++i < TREE_TYPES)
     {
       if (root->type == fct_parse[i].type)

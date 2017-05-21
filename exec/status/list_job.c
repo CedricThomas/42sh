@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 21:10:07 2017 Thibaut Cornolti
-** Last update Sat May 20 20:24:30 2017 Thibaut Cornolti
+** Last update Sun May 21 21:53:44 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -23,7 +23,7 @@ t_job		*my_create_job(t_status *status, int pid,
   elem->pid = pid;
   elem->pgid = pgid;
   elem->status = stats;
-  elem->number = (status->status & JOB) ? status->job_nbr : 0;
+  elem->number = status->job_nbr;
   return (elem);
 }
 

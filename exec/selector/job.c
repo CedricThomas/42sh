@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 20:54:17 2017 Thibaut Cornolti
-** Last update Sat May 20 12:02:52 2017 Thibaut Cornolti
+** Last update Sun May 21 21:51:51 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -44,7 +44,6 @@ static void	show_process(t_status *status)
 int		exec_job(t_node *root, t_status *status, t_info *info)
 {
   status->status |= JOB;
-  status->job_nbr = get_free_job(status->exit_list);
   auto_select(root->left, status, info);
   show_process(status);
   status->status -= JOB;

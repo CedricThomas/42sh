@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Sun May 21 18:57:27 2017 Cédric THOMAS
+** Last update Sun May 21 21:28:48 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -75,15 +75,16 @@ t_info		*get_info(char **env)
   return (my_info);
 }
 
-void		*free_info(t_info *info)
+void		*free_info(t_info **info)
 {
-  my_free_history(&info->histo->start);
-  free(info->histo);
-  free(info->pwd);
-  free(info->old_pwd);
-  free_tab(info->env);
-  free_alias(info->alias);
-  free_var(info->var);
-  free(info);
+  my_free_history(&((*info)->histo->start));
+  free((*info)->histo);
+  free((*info)->pwd);
+  free((*info)->old_pwd);
+  free_tab((*info)->env);
+  free_alias((*info)->alias);
+  free_var((*info)->var);
+  free(*info);
+  *info = NULL;
   return (NULL);
 }
