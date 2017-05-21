@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 21:06:35 2017 
-** Last update Sat May 20 12:45:39 2017 Thibaut Cornolti
+** Last update Sat May 20 20:29:52 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -28,7 +28,7 @@ static int	select_wait(t_status *status, int pid)
   return (0);
 }
 
-void		reset_sig()
+static void	reset_sig()
 {
   const int	sig[5] = {SIGINT, SIGQUIT, SIGTSTP, SIGTTIN, SIGTTOU};
   int		i;
@@ -38,36 +38,47 @@ void		reset_sig()
     signal(sig[i], SIG_DFL);
 }
 
+static void	my_fork_son(t_command *cmd, t_status *status,
+			    t_info *info,
+			    void (*fct)(t_command *cmd,
+					t_status *status, t_info *info))
+  
+{
+  setpgid(getpid(), (status->pgid) ? status->pgid : getpid());
+  reset_sig();
+  if (!(status->status & JOB))
+    tcsetpgrp(0, getpgrp());
+  status->status |= FORK;
+  my_dup(cmd, NULL);
+  if (status->fd_to_close)
+    close(status->fd_to_close);
+  if (load_redir(cmd, status))
+    exit(1);
+  fct(cmd, status, info);
+  exit(info->exit_value);
+}
+
+static void	my_fork_father(t_status *status, pid_t pid)
+{
+  if (status->pgid == 0)
+    status->pgid = pid;
+  setpgid(pid, status->pgid);
+  if (!(status->status & JOB))
+    tcsetpgrp(0, status->pgid);
+  select_wait(status, pid);
+}
+
 int		my_fork(t_command *cmd, t_status *status, t_info *info,
-			void (*fct)(t_command *cmd, t_status *status, t_info *info))
+			void (*fct)(t_command *cmd,
+				    t_status *status, t_info *info))
 {
   pid_t		pid;
 
   pid = fork();
   if (pid == 0)
-    {
-      setpgid(getpid(), (status->pgid) ? status->pgid : getpid());
-      reset_sig();
-      if (!(status->status & JOB))
-	tcsetpgrp(0, getpgrp());
-      status->status |= FORK;
-      my_dup(cmd, NULL);
-      if (status->fd_to_close)
-	close(status->fd_to_close);
-      if (load_redir(cmd, status))
-	exit(1);
-      fct(cmd, status, info);
-      exit(info->exit_value);
-    }
+    my_fork_son(cmd, status, info, fct);
   else if (pid > 0)
-    {
-      if (status->pgid == 0)
-	status->pgid = pid;
-      setpgid(pid, status->pgid);
-      if (!(status->status & JOB))
-	tcsetpgrp(0, status->pgid);
-      select_wait(status, pid);
-    }
+    my_fork_father(status, pid);
   else
     return (-1);
   return (0);

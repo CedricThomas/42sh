@@ -5,8 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 29 21:29:03 2017
-** Last update Wed May 17 10:11:30 2017 Cédric THOMAS
-** Last update Mon May 15 16:09:44 2017 Thibaut Cornolti
+** Last update Sun May 21 11:33:22 2017 Cédric THOMAS
 */
 
 #include <sys/types.h>
@@ -20,8 +19,8 @@
 
 static void	pipe_error(t_pipe *root)
 {
-  if ( ((t_pipe *) root)->fd[0] != 0)
-    close( ((t_pipe *) root)->fd[0]);
+  if (((t_pipe *) root)->fd[0] != 0)
+    close(((t_pipe *) root)->fd[0]);
   my_puterror("Cant't make pipe.\n");
 }
 

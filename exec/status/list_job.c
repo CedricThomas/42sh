@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 21:10:07 2017 Thibaut Cornolti
-** Last update Thu May 18 23:46:34 2017 Thibaut Cornolti
+** Last update Sat May 20 20:24:30 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -42,7 +42,8 @@ void		show_job_status(t_exit *ll)
       i = -1;
       while (++i < 6)
 	if (code[i] == ll->job->status)
-	  my_printf("[%d] pid : %d (%s)\n", ll->job->number, ll->job->pid, status[i]);
+	  my_printf("[%d] pid : %d (%s)\n", ll->job->number,
+		    ll->job->pid, status[i]);
       ll = ll->next;
     }
 }

@@ -5,7 +5,7 @@
 ** Login   <thibaut.cornolti@epitech.eu>
 ** 
 ** Started on  Mon May 15 13:59:16 2017 Thibaut Cornolti
-** Last update Tue May 16 10:18:03 2017 Bastien
+** Last update Sat May 20 20:27:34 2017 Cédric THOMAS
 */
 
 #include <fcntl.h>
@@ -32,14 +32,14 @@ static char	*get_filename(t_info *info)
   return (path);
 }
 
-void		load_rc(t_status *status, t_info *info, t_syntax *syntax)
+void		load_rc(t_status *status, t_system *sys, t_syntax *syntax)
 {
   int		fd;
   char		*filename;
   void		*root;
   char		*cmd;
 
-  if ((filename = get_filename(info)) == NULL)
+  if ((filename = get_filename(sys->info)) == NULL)
     return ;
   if ((fd = open(filename, O_RDONLY)) < 0)
     {
@@ -49,9 +49,9 @@ void		load_rc(t_status *status, t_info *info, t_syntax *syntax)
   free(filename);
   while (!status->exit && (cmd = get_next_line(fd)))
     {
-      if ((root = parse_cmd(syntax, cmd, info)))
+      if ((root = parse_cmd(syntax, cmd, sys)))
 	{
-	  auto_select(root, status, info);
+	  auto_select(root, status, sys->info);
 	  my_free_tree(&root);
 	}
     }

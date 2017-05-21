@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:30:17 2017 
-** Last update Sat May 20 09:51:20 2017 Cédric THOMAS
+** Last update Sun May 21 10:57:17 2017 Cédric THOMAS
 */
 
 #include <stdlib.h>
@@ -36,7 +36,7 @@ static void	get_builtins(t_info *my_info)
   my_info->builtins[17] = NULL;
 }
 
-static int      setup_history(t_info *info)
+static int	setup_history(t_info *info)
 {
   if ((info->histo = malloc(sizeof(t_history_info))) == NULL)
     exit(84);
@@ -82,6 +82,8 @@ void		*free_info(t_info *info)
   free(info->pwd);
   free(info->old_pwd);
   free_tab(info->env);
+  free_alias(info->alias);
+  free_var(info->var);
   free(info);
   return (NULL);
 }

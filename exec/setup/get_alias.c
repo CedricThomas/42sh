@@ -5,14 +5,28 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Fri May 12 15:28:34 2017 Bastien
-** Last update Fri May 19 11:20:43 2017 Thibaut Cornolti
+** Last update Sun May 21 10:55:15 2017 Cédric THOMAS
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <fnmatch.h>
 #include "syntax.h"
 #include "exec.h"
+
+void		free_alias(t_alias *alias)
+{
+  int		i;
+
+  i = -1;
+  while (alias && alias[++i].link)
+    {
+      free(alias[i].link);
+      free(alias[i].value);
+    }
+  free(alias);
+}
 
 static	void	set_new_token(t_token *token, t_token **save, t_token *new)
 {
@@ -31,7 +45,8 @@ static	void	set_new_token(t_token *token, t_token **save, t_token *new)
   my_del_list_token(&token, token);
 }
 
-static int	verify_cmd(t_token **save, t_token *token, t_info *info, t_syntax *syntax)
+static int	verify_cmd(t_token **save, t_token *token,
+			   t_info *info, t_syntax *syntax)
 {
   int		i;
   t_token	*new;
@@ -41,7 +56,7 @@ static int	verify_cmd(t_token **save, t_token *token, t_info *info, t_syntax *sy
     if (!strcmp(info->alias[i].link, token->token)
 	&& !info->alias[i].loop && !token->used)
       {	
-	new = get_token(strdup(info->alias[i].value), syntax, NULL);
+	new = get_token(strdup(info->alias[i].value), syntax, NULL, 1);
 	set_new_token(token, save, new);
 	if (!strcmp(info->alias[i].link, new->token))
 	  new->used = 1;

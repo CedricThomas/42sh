@@ -5,18 +5,29 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Sat May 20 15:03:24 2017 Bastien
-** Last update Sat May 20 16:53:16 2017 Bastien
+** Last update Sun May 21 10:57:56 2017 Cédric THOMAS
 */
 
-#define _GNU_SOURCE
-
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "syntax.h"
 #include "exec.h"
 #include "my_alloc.h"
 #include "my.h"
 
+void		free_var(t_var *var)
+{
+  int		i;
+
+  i = -1;
+  while (var && var[++i].name)
+    {
+      free(var[i].name);
+      free(var[i].value);
+    }
+  free(var);
+}            
 int	qmark_var(t_info *info, t_command *cmd, int pos)
 {
   char	*temp;

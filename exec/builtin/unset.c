@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 19:10:23 2017 Bastien
-** Last update Fri May 19 10:45:36 2017 Bastien
+** Last update Sat May 20 19:57:30 2017 Thibaut Cornolti
 */
 
 #include <string.h>
@@ -30,7 +30,7 @@ static void	remove_var(t_info *info, int j)
       info->var[j + 1].name = temp.name;
       info->var[j + 1].value = temp.value;
     }
-  info->var = realloc(info->var, sizeof(t_var) * size);    
+  info->var = realloc(info->var, sizeof(t_var) * size);
 }
 
 void	builtin_unset(t_command *cmd, t_status *status, t_info *info)

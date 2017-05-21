@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Thu May 18 14:27:54 2017 Bastien
-** Last update Sat May 20 17:01:27 2017 Bastien
+** Last update Sat May 20 20:23:36 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -24,7 +24,9 @@ static int	error_var(char **str, t_info *info)
   i = my_cstrlen(*str, '$');
   if (!(temp = getkey(info->env, *str + i + 1, 1)))
     {
-      while (*str && (((*str)[++i] >= 'A' && (*str)[i] <= 'Z') || ((*str)[i] >= 'a' && (*str)[i] <= 'z')))
+      while (*str && (((*str)[++i] >= 'A' &&
+		       (*str)[i] <= 'Z') ||
+		      ((*str)[i] >= 'a' && (*str)[i] <= 'z')))
 	write(1, (*str) + i, 1);
       printf(": Undefined variable.\n");
       return (1);
@@ -41,9 +43,9 @@ static int	swap_var(t_info *info, t_command *cmd, int pos, int i)
 
   len = my_cstrlen(cmd->argv[pos], '$');
   if (!(temp = my_alloc(sizeof(char) *
-			(my_strlen(cmd->argv[pos]) -
-			 my_strlen(info->var[i].name) +
-			 my_strlen(info->var[i].value)))))
+			(my_strlen(cmd->argv[pos])
+			 - my_strlen(info->var[i].name)
+			 + my_strlen(info->var[i].value)))))
     return (1);
   my_tag_alloc(temp, "tree", 0);
   temp = (len > 0) ? strncat(temp, cmd->argv[pos], len) : temp;
@@ -83,7 +85,8 @@ static int	check_var(t_command *cmd, t_info *info)
     if (is_in('$', cmd->argv[i]) && strlen(cmd->argv[i]) > 1)
       if (verify_var(info, cmd, i))
 	{
-	  if (!strncmp(cmd->argv[i] + my_cstrlen(cmd->argv[i], '$') + 1, "?", 1))
+	  if (!strncmp(cmd->argv[i]
+		       + my_cstrlen(cmd->argv[i], '$') + 1, "?", 1))
 	    qmark_var(info, cmd, i);
 	  else
 	    return (error_var(&cmd->argv[i], info));

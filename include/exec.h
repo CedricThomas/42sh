@@ -5,11 +5,13 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 09:25:48 2017 
-** Last update Sat May 20 17:36:38 2017 Thibaut Cornolti
+** Last update Sun May 21 10:58:14 2017 Cédric THOMAS
 */
 
 #ifndef EXEC_H_
 # define EXEC_H_
+
+# define HIST_SIZE	100
 
 # define PIPELINE	(1 << 0)
 # define LEFT_PIPE	(1 << 1)
@@ -24,6 +26,7 @@
 # define JOB_BACKGROUND	(1 << 3)
 # define JOB_TERMPRINT	(1 << 4)
 # define JOB_TERMINATED	(1 << 5)
+# define INIB_BACK	(1 << 6)
 
 # define BUILTINS_NB	17
 # define REDIR_NB	4
@@ -138,9 +141,11 @@ int	my_perror(char *cmd, char *error);
 t_info		*get_info(char **env);
 void		*free_info(t_info *info);
 t_token		*get_alias(t_token *, t_info *info, t_syntax *syntax);
+void		free_alias(t_alias *alias);
 t_token		*globbing(t_token *token, t_syntax *syntax);
 t_command	*get_var(t_command *cmd, t_info *info);
 int		qmark_var(t_info *info, t_command *cmd, int pos);
+void		free_var(t_var *var);
 
 /*
 **ENV
@@ -243,7 +248,7 @@ int	my_vartablen(t_var *var);
 **LOAD
 */
 
-void	load_rc(t_status *status, t_info *info, t_syntax *syntax);
+void	load_rc(t_status *status, t_system *sys, t_syntax *syntax);
 
 /*
 **JOB
@@ -274,19 +279,24 @@ char	*history_fct_dollar(char *src, int *idx, t_history_info *history);
 char	*history_fct_colon(char *src, int *idx, t_history_info *history);
 char	*history_fct_dash(char *src, int *idx, t_history_info *history);
 char	*history_fct_number(char *src, int *idx, t_history_info *history);
+void	new_line_history(char *line, t_info *info);
+
+/*
+**OTHER
+*/
+int	asprintf(char **strp, const char *fmt, ...);
 
 /*
 **BACKQUOTE
 */
-t_token	*get_system(char *cmd);
-int	do_backquote(t_token **token);
+t_token	*get_system(char *cmd, t_system *sys);
+int	do_backquote(t_token **token, t_system *sys);
 void	redef_token(t_token *token);
-
+void	redef_all(t_token *token);
 
 /*
 **SIGNAL
 */
 void		signal_sigint();
-void		reset_sig();
 
 #endif /* !EXEC_H_ */

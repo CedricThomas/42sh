@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Sat Apr 22 11:50:50 2017 
-** Last update Sat May 20 01:29:08 2017 Cédric THOMAS
+** Last update Sat May 20 19:47:49 2017 Thibaut Cornolti
 */
 #include <curses.h>
 #include <unistd.h>
@@ -67,7 +67,7 @@ char		*insert_str(char *s1, char *s2, int pos, int mod)
 
 void		del_raw_line(t_keypad *pad)
 {
-  int		i;  
+  int		i;
   int		len1;
   int		len2;
   char		*seq;

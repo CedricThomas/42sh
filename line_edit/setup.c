@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Fri Apr 21 22:15:37 2017
-** Last update Sat May 20 12:12:36 2017 maje
+** Last update Sat May 20 19:47:39 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -61,7 +61,7 @@ t_keypad	*init_keypad(struct s_system *sys)
   t_keypad	*keypad;
 
   if ((keypad = malloc(sizeof(t_keypad))) == NULL)
-    return (NULL);  
+    return (NULL);
   my_memset(keypad, 0, sizeof(t_keypad));
   keypad->sys = sys;
   if (!isatty(0) || !getkey(sys->info->env, "TERM", 0))
