@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 10 21:06:35 2017 
-** Last update Sat May 20 20:29:52 2017 Thibaut Cornolti
+** Last update Sun May 21 17:23:31 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -42,7 +42,6 @@ static void	my_fork_son(t_command *cmd, t_status *status,
 			    t_info *info,
 			    void (*fct)(t_command *cmd,
 					t_status *status, t_info *info))
-  
 {
   setpgid(getpid(), (status->pgid) ? status->pgid : getpid());
   reset_sig();

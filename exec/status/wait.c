@@ -1,11 +1,11 @@
 /*
-1;2802;0c** fork.c for fork in /home/cedric/delivery/PSU/PSU_2016_42sh/parseur 42/exec
+** fork.c for fork in /home/cedric/delivery/PSU/PSU_2016_42sh/parseur 42/exec
 ** 
 ** Made by Cédric THOMAS
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Tue May  9 20:20:52 2017 
-** Last update Sun May 21 16:24:22 2017 Thibaut Cornolti
+** Last update Sun May 21 17:28:56 2017 Thibaut Cornolti
 */
 
 #include <signal.h>
@@ -63,6 +63,26 @@ static void	get_exit_value(t_status *status, t_info *info)
     }
 }
 
+static void	auto_wait_foreground(t_exit *tmp, int *last,
+				     t_info *info, t_status *status)
+{
+  tcsetpgrp(0, tmp->pgid);
+  while (waitpid(tmp->pid, last, WNOHANG | WUNTRACED) <= 0)
+    usleep(100);
+  if (WIFSTOPPED(*last))
+    {
+      tmp->job->status = JOB_SUSPENDED;
+      my_printf("Suspended\n");
+    }
+  else
+    {
+      tmp->job->status = JOB_TERMINATED;
+      tmp->job->number = 0;
+      set_exit_value(status->exit_list, tmp->pid, *last);
+      info->exit_value = 0;
+    }
+}
+
 void		auto_wait(t_status *status, t_info *info)
 {
   t_exit	*tmp;
@@ -79,23 +99,7 @@ void		auto_wait(t_status *status, t_info *info)
 	  set_exit_value(status->exit_list, tmp->pid, last);
 	}
       else if (tmp->pid > 0 && tmp->job->status & JOB_FOREGROUND)
-	{
-	  tcsetpgrp(0, tmp->pgid);
-	  while (waitpid(tmp->pid, &last, WNOHANG | WUNTRACED) <= 0)
-	    usleep(100);
-	  if (WIFSTOPPED(last))
-	    {
-	      tmp->job->status = JOB_SUSPENDED;
-	      my_printf("Suspended\n");
-	    }
-	  else
-	    {
-	      tmp->job->status = JOB_TERMINATED;
-	      tmp->job->number = 0;
-	      set_exit_value(status->exit_list, tmp->pid, last);
-	      info->exit_value = 0;
-	    }
-	}
+        auto_wait_foreground(tmp, &last, info, status);
       tmp = tmp->next;
     }
   get_exit_value(status, info);

@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed May 17 23:28:15 2017 Cédric THOMAS
-** Last update Sat May 20 21:07:54 2017 Thibaut Cornolti
+** Last update Sun May 21 17:23:00 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -65,6 +65,13 @@ static void	search_cmd(t_keypad *key, char ***files,
     }
 }
 
+static void	free_searcher(t_token *token, char *file, char *path)
+{
+  free(file);
+  free(path);
+  my_free_token(&token);
+}
+
 void		search_all(t_keypad *key, char ***files, int *size)
 {
   t_token	*temp;
@@ -90,7 +97,5 @@ void		search_all(t_keypad *key, char ***files, int *size)
       get_folder_and_path(temp->token, &path, &file);
     }
   add_matching_files(path, file, size, files);
-  free(file);
-  free(path);
-  my_free_token(&token);
+  free_searcher(token, file, path);
 }

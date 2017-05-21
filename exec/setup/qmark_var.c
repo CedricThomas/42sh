@@ -5,9 +5,8 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Sat May 20 15:03:24 2017 Bastien
-** Last update Sun May 21 10:57:56 2017 Cédric THOMAS
+** Last update Sun May 21 17:25:11 2017 Thibaut Cornolti
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,7 +15,7 @@
 #include "my_alloc.h"
 #include "my.h"
 
-void		free_var(t_var *var)
+void	   	free_var(t_var *var)
 {
   int		i;
 
@@ -27,12 +26,13 @@ void		free_var(t_var *var)
       free(var[i].value);
     }
   free(var);
-}            
-int	qmark_var(t_info *info, t_command *cmd, int pos)
+}
+
+int		qmark_var(t_info *info, t_command *cmd, int pos)
 {
-  char	*temp;
-  int	len;
-  char	*nbr;
+  char		*temp;
+  int		len;
+  char		*nbr;
 
   asprintf(&nbr, "%d", info->exit_value);
   len = my_cstrlen(cmd->argv[pos], '$');

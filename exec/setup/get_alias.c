@@ -1,13 +1,12 @@
 /*
 ** alias.c for 42sh in /home/rectoria/delivery/Projets/PSU_2016_42sh/parseur 42/exec/setup
-** 
+**
 ** Made by Bastien
 ** Login   <rectoria@epitech.net>
-** 
+**
 ** Started on  Fri May 12 15:28:34 2017 Bastien
-** Last update Sun May 21 10:55:15 2017 Cédric THOMAS
+** Last update Sun May 21 17:23:57 2017 Thibaut Cornolti
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -55,7 +54,7 @@ static int	verify_cmd(t_token **save, t_token *token,
   while (info->alias[++i].link)
     if (!strcmp(info->alias[i].link, token->token)
 	&& !info->alias[i].loop && !token->used)
-      {	
+      {
 	new = get_token(strdup(info->alias[i].value), syntax, NULL, 1);
 	set_new_token(token, save, new);
 	if (!strcmp(info->alias[i].link, new->token))

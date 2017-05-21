@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 **
 ** Started on  Wed Mar 22 22:10:45 2017
-** Last update Sat May 20 21:06:17 2017 Thibaut Cornolti
+** Last update Sun May 21 17:18:13 2017 Thibaut Cornolti
 */
 #include <unistd.h>
 #include <stdlib.h>
@@ -89,7 +89,8 @@ static char	*next_token(int *type, char *str, t_syntax *my_syntax)
   return (token);
 }
 
-t_token		*get_token(char *str, t_syntax *my_syntax, t_info *info, int shape)
+t_token		*get_token(char *str, t_syntax *my_syntax,
+			   t_info *info, int shape)
 {
   int		type;
   char		*current;
