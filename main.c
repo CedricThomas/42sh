@@ -5,7 +5,7 @@
 ** Login   <cedric@epitech.net>
 ** 
 ** Started on  Sat Oct 22 10:31:05 2016 Cédric Thomas
-** Last update Sun May 21 10:36:07 2017 Cédric THOMAS
+** Last update Sun May 21 15:03:40 2017 Thibaut Cornolti
 */
 
 #include <stdlib.h>
@@ -42,6 +42,7 @@ static int	free_sh(t_system *sys)
   int		exit;
 
   exit = sys->info->exit_value;
+  my_del_exit(&(sys->status->exit_list), 1);
   free_syntax(&(sys->syntax));
   write_history(sys->info);
   free_info(sys->info);

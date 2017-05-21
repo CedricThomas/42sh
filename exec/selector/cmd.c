@@ -5,7 +5,7 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Mar 29 13:26:21 2017 
-** Last update Sat May 20 19:57:43 2017 Thibaut Cornolti
+** Last update Sun May 21 15:03:49 2017 Thibaut Cornolti
 */
 
 #include <unistd.h>
@@ -97,5 +97,6 @@ int		exec_cmd(t_node *root, t_status *status, t_info *info)
   wait = auto_exec(cmd, status, info);
   if (wait)
     auto_wait(status, info);
+  my_del_exit(&(status->exit_list), 0);
   return (0);
 }

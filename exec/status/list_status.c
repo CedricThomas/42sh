@@ -5,9 +5,10 @@
 ** Login   <cedric.thomas@epitech.eu>
 ** 
 ** Started on  Wed Apr  5 15:59:59 2017 Cédric Thomas
-** Last update Sat May 20 14:04:02 2017 Thibaut Cornolti
+** Last update Sun May 21 15:18:36 2017 Thibaut Cornolti
 */
 #include <stdlib.h>
+#include <signal.h>
 #include "syntax.h"
 #include "exec.h"
 #include "my_printf.h"
@@ -41,16 +42,38 @@ t_exit		*my_put_list_exit(t_exit **ll, int pid, int pgid, int last)
   return (elem);
 }
 
-int		my_del_exit(t_exit **ll)
+static void	my_del_list_exit(t_exit **ll, t_exit *elem)
+{
+  if (*ll == elem)
+    {
+      if ((*ll)->next != NULL)
+	*ll = (*ll)->next;
+      else if ((*ll)->prev != NULL)
+	*ll = (*ll)->prev;
+      else
+	*ll = NULL;
+    }
+  if (elem->next != NULL)
+    elem->next->prev = elem->prev;
+  if (elem->prev != NULL)
+    elem->prev->next = elem->next;
+  free(elem->job);
+  free(elem);
+}
+
+int		my_del_exit(t_exit **ll, int mode)
 {
   t_exit	*tmp;
+  t_exit	*save;
 
-  while (*ll)
+  tmp = *ll;
+  while (tmp)
     {
-      tmp = *ll;
-      *ll = (*ll)->next;
-      free(tmp->job);
-      free(tmp);
+      save = tmp->next;
+      kill(tmp->pid, SIGSTOP);
+      if (mode || tmp->job->status == JOB_TERMINATED)
+	my_del_list_exit(ll, tmp);
+      tmp = save;
     }
   return (0);
 }
