@@ -5,7 +5,7 @@
 ** Login   <rectoria@epitech.net>
 ** 
 ** Started on  Mon May 15 15:48:20 2017 Bastien
-** Last update Fri May 19 18:31:19 2017 Bastien
+** Last update Sun May 21 13:36:57 2017 Cédric THOMAS
 */
 
 #include <stdio.h>
@@ -47,6 +47,7 @@ static int	verify_exist(t_info *info, char *str, char *value)
   while (info->alias && info->alias[++i].link)
     if (!my_strcmp(info->alias[i].link, str))
       {
+	free(info->alias[i].value);
 	info->alias[i].value = value;
 	return (0);
       }
@@ -60,8 +61,7 @@ char	*get_whole_alias(t_command *cmd)
 
   i = 1;
   temp = NULL;
-
- while (cmd->argv[++i])
+  while (cmd->argv[++i])
     {
       temp = my_strcatdup(temp, cmd->argv[i], 1);
       if (cmd->argv[i + 1])
